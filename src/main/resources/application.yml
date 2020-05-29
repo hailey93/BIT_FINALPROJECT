@@ -1,0 +1,26 @@
+spring:
+  #mybatis
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/thehouse?autoReconnect=true&amp;serverTimezone=UTC
+    username: root
+    password: 1234
+  #jsp
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  #thymeleaf
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+    view-names: th/*
+
+# server port
+server:
+  port: 8080
+
+# mybatis 설정.
+mybatis:
+  mapper-locations: classpath:/mybatis/mapper/*.xml
