@@ -17,7 +17,7 @@ public class ProductVO {
     private int customerPrice;
     private int sellPrice;
     private int purchasePrice;
-    private String categotyType;
+    private String categoryType;
     private Date productCreatDate;
     private Date productUpdateDate;
     private String productMainImg;

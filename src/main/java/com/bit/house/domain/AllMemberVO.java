@@ -12,10 +12,5 @@ public class AllMemberVO {
     private String pw;
     private String roleType;
     private String socialType;
-    private boolean isAccountNonExpired;
-    private boolean isAccountNonLocked;
-    private boolean isCredentialNonExpired;
-    private boolean isEnable;
-    private Set<GranetedAuthority> authorities;
 
 }

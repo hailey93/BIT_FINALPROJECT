@@ -9,7 +9,7 @@ import java.sql.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class SearchWordCountVo {
+public class SearchWordCountVO {
     private int searchNo;
     private String memberId;
     private String searchWord;

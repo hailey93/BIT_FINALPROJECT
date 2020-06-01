@@ -9,5 +9,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FollowVO {
     private String memberId;
-    private String folowId;
+    private String followId;
 }
