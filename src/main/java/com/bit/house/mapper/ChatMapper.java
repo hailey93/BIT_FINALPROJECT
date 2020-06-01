@@ -1,4 +1,4 @@
 package com.bit.house.mapper;
 
-public class ChatMapper {
+public interface ChatMapper {
 }
