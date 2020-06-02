@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -12,6 +12,7 @@
     <link rel="stylesheet" media="screen"
           href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-7a3e77c9.chunk.css">
 </head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
 <body>
 
 <div data-react-class="App" data-hydrate="t" class="page">
@@ -124,8 +125,8 @@
             </div>
             <div class="toast-message-root"></div>
         </header>
-        <div class="commerce-cart-wrap">
-            <div class="container">
+        <div class="commerce-cart-wrap" >
+            <div class="container" id="SExist" style="display: block">
                 <div class="commerce-cart row">
                     <div class="commerce-cart__content-wrap col-12 col-md-7 col-lg-8">
                         <div class="commerce-cart__content">
@@ -295,7 +296,13 @@
                     </div>
                 </div>
             </div>
-
+            <div class="commerce-cart-empty" id="SNExist" style="display: block">
+                <div class="commerce-cart-empty__content"><img class="commerce-cart-empty__content__image"
+                                                               src="D:\injImportFolder\thehouse\src\main\resources\templates\th\member\basket\images\cart-empty-placeholder.png"
+                                                               alt="장바구니가 비었습니다."><a
+                        class="button button--color-blue button--size-50 button--shape-4 commerce-cart-empty__content__button"
+                        href="/store">상품 담으러 가기</a></div>
+            </div>
         </div>
         <footer class="layout-footer">
             <div class="layout-footer__content">
@@ -340,13 +347,7 @@
     </div>
 </div>
 
-<div class="commerce-cart-empty">
-    <div class="commerce-cart-empty__content"><img class="commerce-cart-empty__content__image"
-                        src="D:\injImportFolder\thehouse\src\main\resources\templates\th\member\basket\images\cart-empty-placeholder.png"
-                                                   alt="장바구니가 비었습니다."><a
-            class="button button--color-blue button--size-50 button--shape-4 commerce-cart-empty__content__button"
-            href="/store">상품 담으러 가기</a></div>
-</div>
+
 <a href="/goPayment">payment래</a>
 상품 페이지에서 장바구니 클릭 -> script ~ userId ? null : @
 (userId==null) {
@@ -377,34 +378,79 @@ getAllProduct(name)
 }
 
 장바구니 페이지
-<script type="text/javascript">
 
+<div id="output">
+    <!-- 저장된 내용을 출력할 DIV 엘리먼트 -->
+</div>
+<script th:inline="javascript">
+    console.log("처음으로 실행시켜");
+    var test2=window.sessionStorage;
+    console.log(sessionStorage.getItem(test2));
+    var len = sessionStorage.length;
+    var arrKey = new Array();
     //세션
+    console.log("session 갯수 : " + len);
     document.addEventListener("DOMContentLoaded", function () {
+        console.log("DOMContentLoaded func 호출 --")
         if (window.sessionStorage) {
 
             // 해당 예제를 실행하기전 이전 세션의 데이터를 clear( ) 메서드를 사용해 전부 삭제한다.
             console.log("sessionStorage가 있음");
             console.log("session : " + window.sessionStorage);
-            //console.log("object : " + printSessionStorage());
-            sessionStorage.clear();
+            console.log("object : " + printSessionStorage());
+            //sessionStorage.clear();
+
+            //var sessionKey = window.sessionStorage;
+            //console.log(sessionStorage.getItem(key));
         } else {
             alert("세션을 사용할 수 없는 브라우저입니다.");
         }
     });
-/*
+
     function printSessionStorage() {
+        console.log("PrintSessionStorage func 호출 --")
+        var key2;
         var output = "";
+        var i = 0;
+        var arrValue = new Array();
         for (var key in window.sessionStorage) {
+            arrKey[i] = sessionStorage.getItem(key)
+            console.log("어레이키 출력");
+            console.log("arr0 : " + arrKey[i]);
+
+            console.log("키값은 : " + sessionStorage.getItem(key));
             output += "<p>";
             // getItem( ) 메서드를 이용하여 key 값의 value 값을 찾는다.
             output += key + " : " + sessionStorage.getItem(key);
             output += "<br>";
             output += "</p>";
+            i++;
+            console.log(i);
+            //console.log("key : " + key + "value = " + sessionStorage.getItem(key));
+        }
+        for(var i =0; i<sessionStorage.length ; i++){
+            arrValue[i] = sessionStorage.getItem(key);
+            var keyTest = window.sessionStorage;
+            console.log(keyTest);
+            key2 = sessionStorage.getItem(keyTest);
+            console.log(key2);
+            console.log(arrValue);
         }
         document.getElementById("output").innerHTML = output;
     }
-*/
+
+    $(document).ready(
+        function () {
+            console.log("세션 유무 검사 func 호출")
+            if(len != 0){
+                document.getElementById("SExist").style.display ='block';
+                document.getElementById("SNExist").style.display ='none';
+            }else{
+                document.getElementById("SNExist").style.display ='block';
+                document.getElementById("SExist").style.display ='none';
+            }
+        }
+    );
 </script>
 </body>
 </html>
@@ -429,7 +475,14 @@ getAllProduct(name)
     function saveSessionStorage() {
 
         // 변수를 선언한다.
-        var key = document.getElementById("key").value;
+        var key = document.getElementById("productName").value;    || ex)<h1 class = ""  id="productName" value="productNo"/>
+        var arrValue = new Array();
+        var i=0;
+        for(var key in window.sessionStorage){
+            arrValue[i] = sessionStorage.getItem(key);
+            i++;
+            }
+
         var value = document.getElementById("value").value;
         var key1 = document.getElementById("option2").value;
         var value1 = document.getElementById("option1").value;
