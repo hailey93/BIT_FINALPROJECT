@@ -1,12 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>메인</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/mainContent.css}" >
+    </th:block>
 </head>
 <body>
-<h1>메인</h1>
+<div layout:fragment="content">
+    <div id="store-index">
+    <section class="container store-index-section store-index-product-list"><h1>인기 상품</h1>
+        <div class="virtualized-list row" style="padding-top: 0px; padding-bottom: 3888px; transform: translateY(0px);">
+            <div class="col-6 col-md-3 product-item-wrap">
+                <article class="production-item"><a class="production-item__overlay" href=""></a>
+                    <div class="production-item-image production-item__image">
+                        <img class="image" alt=""src=""srcset="">
+                    </div>
+                    <div class="production-item__content">
+                        <h1 class="production-item__header">
+                            <span class="production-item__header__brand">먼데이하우스 </span>
+                            <span class="production-item__header__name">[선착순쿠폰]순수원목 F 중형/대형행거 3colors</span></h1>
+                        <span class="production-item-price">
+                            <span class="production-item-price__price">26,900</span>
+                        </span>
+                    </div>
+                </article>
+            </div>
+        </div>
 
-
+    </section>
+    </div>
+</div>
 </body>
 </html>

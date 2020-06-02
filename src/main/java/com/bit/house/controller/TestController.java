@@ -17,8 +17,4 @@ public class TestController {
         return "th/thTest";
     }
 
-
-
-
-
 }
