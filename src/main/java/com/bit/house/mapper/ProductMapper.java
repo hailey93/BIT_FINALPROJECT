@@ -10,10 +10,10 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
 
-    @Select("Select * from productvo")
+    @Select("Select * from product")
     List<ProductVO> selectAllProduct();
 
-    @Select("SELECT * FROM product WHERE productname LIKE CONCAT('%',#{productname},'%')")
-    List<ProductVO> selectProduct(@Param("productName") String productName);
+    @Select("SELECT * FROM product WHERE productname LIKE CONCAT('%',#{searchProduct},'%') OR modelName LIKE CONCAT('%',#{searchProduct},'%') OR categoryType LIKE CONCAT('%',#{searchProduct},'%')")
+    List<ProductVO> selectProduct(@Param("searchProduct") String searchProduct);
 
 }

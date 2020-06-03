@@ -17,7 +17,7 @@ public class ProductController {
     private ProductMapper productMapper;
 
     @GetMapping("/main")
-    public String findProduct(@RequestParam(required = false, defaultValue = "") String index, String productName, Model model){
+    public String findProduct(@RequestParam(required = false, defaultValue = "") String index, String searchProducts, Model model){
         List<ProductVO> products = productMapper.selectAllProduct();
 
         if(index != null && !index.isEmpty()){
