@@ -497,4 +497,30 @@
 .production-item--placeholder .production-item-stats {
     width: 100px
 }
+.production-item-image {
+    position: relative;
+    background-color: #f5f5f5;
+    padding-bottom: 100%;
+    border-radius: 4px;
+    overflow: hidden
+}
+
+.production-item-image > .image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    transition: transform .2s
+}
+
+.production-item-image:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .02)
+}
 

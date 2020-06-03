@@ -64,7 +64,12 @@
     border-bottom: 1px solid #ededed;
     z-index: 502
 }
-
+.fixed-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    padding:20px 0;
+}
 .layout-navigation-primary__content {
     display: -webkit-box;
     display: -webkit-flex;
