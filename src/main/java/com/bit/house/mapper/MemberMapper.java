@@ -1,4 +1,4 @@
 package com.bit.house.mapper;
 
-public class MemberMapper {
+public interface MemberMapper {
 }
