@@ -17,23 +17,23 @@ public class OAuth2Controller {
     @GetMapping("/customLogin")
     public String customLogin() {
 
-        return "customLogin";
+        return "th/customLogin";
     }
 
     @GetMapping("/customLogout")
     public String customLogout() {
-        return "customLogout";
+        return "th/customLogout";
     }
 
     @GetMapping("/loginSuccess")
     public String loginSuccess(Authentication auth) {
 
         log.info(String.valueOf(auth));
-        return "loginSuccess";
+        return "th/loginSuccess";
     }
 
     @GetMapping("/loginFailure")
     public String loginFailure() {
-        return "loginFailure";
+        return "th/loginFailure";
     }
 }

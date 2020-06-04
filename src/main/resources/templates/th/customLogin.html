@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{/css/base.css}" />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+    <title>로그인</title>
+    <link rel="icon" href="../../static/icon/house.png">
+    <title>니가사는그집</title>
+</head>
+
+<body>
+<div class="container" style="text-align: center;">
+
+
+    <div>
+
+        <h2>소셜로그인</h2><br/><br/>
+
+    <a href="javascript:;" class="btn_social" data-social="google"><img th:src="@{/img/google.png}" width="40px" height="40px"/></a>
+    <a href="javascript:;" class="btn_social" data-social="kakao"><img th:src="@{/img/kakao.png/}" width="40px" height="40px"/></a>
+    <a href="javascript:;" class="btn_social" data-social="naver"><img th:src="@{/img/naver.png/}" width="40px" height="40px"/></a>
+    </div>
+</div>
+<script th:src="@{/js/jquery.min.js/}"></script>
+<script>
+    $('.btn_social').click(function () {
+        var socialType = $(this).data('social');
+        location.href="/oauth2/authorization/"+socialType;
+    });
+</script>
+
+
+<!--<script>-->
+<!--    let socials = document.getElementsByClassName("btn_social");-->
+<!--    for (let social of socials) {-->
+<!--        social.addEventListener('click', function () {-->
+<!--            let socialType = this.getAttribute('data-social');-->
+<!--            location.href = "/oauth2/authorization/" + socialType;-->
+<!--        })-->
+<!--    }-->
+<!--</script>-->
+
+</body>
+</html>
+

@@ -3,12 +3,14 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import org.apache.ibatis.type.Alias;
 import java.sql.Date;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Alias("productVO")
+
 public class ProductVO {
     private String productNo;
     private String sellerName;
@@ -24,8 +26,9 @@ public class ProductVO {
     private String productSubImg1;
     private String productSubImg2;
     private String productSubImg3;
-    private String productSubImg4;
-    private int clickTotalCount;
 
+    private String productSubImg4;
+    private String productExpImg;
+    private int clickTotalCount;
 
 }

@@ -17,4 +17,3 @@ public class AllMemberVO {
     private Date updateDate;
     private List<AuthVO> authList;
 }
-

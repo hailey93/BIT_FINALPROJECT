@@ -5,11 +5,20 @@ spring:
     url: jdbc:log4jdbc:mysql://localhost:3306/thehouse?serverTimezone=UTC&&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
     username: root
     password: 1234
+
   #thymeleaf
   thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
     cache: false
+    view-names: th/*
 
   #devtools
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/thehouse?autoReconnect=true&serverTimezone=UTC
+    username: root
+    password: 1234
+
   devtools:
     livereload:
       enabled: true
@@ -33,6 +42,7 @@ custom:
       client-id: bEUVMecxliZdQ5VS6QxI
       client-secret: ar1yy6uKAb
 
+
 # server port
 server:
   port: 8080
@@ -40,6 +50,7 @@ server:
 # mybatis 설정.
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
+  type-aliases-package: com.bit.house.domain
 
 # SQL Log
 logging:

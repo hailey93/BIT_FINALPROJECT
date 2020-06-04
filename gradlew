@@ -129,7 +129,10 @@ fi
 if [ "$cygwin" = "true" -o "$msys" = "true" ]; then
   APP_HOME=$(cygpath --path --mixed "$APP_HOME")
   CLASSPATH=$(cygpath --path --mixed "$CLASSPATH")
+<<<<<<< HEAD
 
+=======
+>>>>>>> 24f7f6eaa3af89d5cf5d5138657dc6a6440c4c2a
   JAVACMD=$(cygpath --unix "$JAVACMD")
 
   # We build the pattern for arguments to be converted via cygpath
