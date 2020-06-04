@@ -2,7 +2,7 @@ spring:
   #mybatis
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/thehouse?autoReconnect=true&amp;serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/thehouse?autoReconnect=true&serverTimezone=UTC
     username: root
     password: 1234
   #jsp
@@ -17,6 +17,9 @@ spring:
     suffix: .html
     cache: false
     view-names: th/*
+  devtools:
+    livereload:
+      enabled: true
 
 # server port
 server:
@@ -25,3 +28,4 @@ server:
 # mybatis 설정.
 mybatis:
   mapper-locations: classpath:/mybatis/mapper/*.xml
+  type-aliases-package: com.bit.house.domain
