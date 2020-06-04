@@ -49,10 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
                     .antMatchers("/", "/oauth2/**", "/login/**", "/css/**",
-                            "/images/**", "/js/**", "/console/**", "/favicon.ico/**", "/test")
+                            "/images/**", "js/**", "/console/**", "/test")
                     .permitAll()
-                    .antMatchers("/sample/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
-                    .antMatchers("/sample/member").hasAnyRole("MEMBER","USER")
+                    .antMatchers("/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
+                    .antMatchers("/member").hasAnyRole("MEMBER","USER")
                     .antMatchers("/google").hasAuthority(SocialType.GOOGLE.getRoleType())
                     .antMatchers("/kakao").hasAuthority(SocialType.KAKAO.getRoleType())
                     .antMatchers("/naver").hasAuthority(SocialType.NAVER.getRoleType())
