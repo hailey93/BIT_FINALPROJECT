@@ -4,6 +4,7 @@ plugins {
     id 'java'
 }
 
+
 group = 'com.bit'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -38,12 +39,17 @@ dependencies {
 
     //thymeleaf-layout
     implementation('nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect')
+
+
+    // Json
+    compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-}
 
-test {
-    useJUnitPlatform()
+    test {
+        useJUnitPlatform()
+    }
 }

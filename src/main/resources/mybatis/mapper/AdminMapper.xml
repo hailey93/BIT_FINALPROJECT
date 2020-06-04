@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.house.mapper.AdminMapper">
+
+    <select id="getMember" resultType="allMemberVO">
+		select * from allmember
+	</select>
+    <select id="getProduct" resultType="productVO">
+		select * from product
+	</select>
+	<select id="getProductOption" resultType="productOptionVO">
+		select * from productoption
+	</select>
+
+	<select id = "getYear" resultType="String">
+            SELECT EXTRACT(YEAR FROM productCreateDate) as year from product ;
+        </select>
+	<select id="getHouseUser" resultType="memberVO">
+		select * from user where userId=#{memberId} and userPassword=#{memberpw}
+	</select>
+	<!--
+        <select id="getMember" resultType="MemberVO">
+            select * from user where Id=#{Id} and pw=#{pw}
+        </select>
+        &lt;!&ndash; 연도 추출? &ndash;&gt;
+
+
+        <insert id="insertAddr" >
+            INSERT INTO user(userAddr)
+            VALUES ( #{userAddr} )
+        </insert>-->
+
+</mapper>
