@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = "com.bit.house")
 public class WebConfig implements WebMvcConfigurer {
 
     @Override

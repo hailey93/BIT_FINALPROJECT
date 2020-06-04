@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.sql.Date;
 
 @Setter

@@ -28,7 +28,7 @@ public class KakaoPayController {
 	@Autowired(required = false)
     KakaoPayApprovalVO kakaoInfo;
 	
-	@Autowired
+	@Autowired (required = false)
     MemberVO houseUser;
 
 	@Autowired
