@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -14,9 +15,9 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private ProductMapper productMapper;
+    ProductMapper productMapper;
 
-    @GetMapping("/main")
+    @GetMapping("/productions/search")
     public String findProduct(@RequestParam(required = false, defaultValue = "") String index, String searchProducts, Model model){
         List<ProductVO> products = productMapper.selectAllProduct();
 
@@ -27,9 +28,9 @@ public class ProductController {
         }
 
         model.addAttribute("index", index);
-        model.addAttribute("products", products);
+        model.addAttribute("mainList", products);
 
-        return "/main";
+        return "th/main/storeMain";
     }
 
 }
