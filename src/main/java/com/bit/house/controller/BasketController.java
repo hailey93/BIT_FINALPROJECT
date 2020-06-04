@@ -1,11 +1,16 @@
 package com.bit.house.controller;
 
+import com.bit.house.domain.AllMemberVO;
+import com.bit.house.domain.BasketVO;
 import com.bit.house.domain.ProductVO;
+import com.bit.house.mapper.AdminMapper;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.JsonSerializer;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONValue;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
@@ -21,37 +26,54 @@ import java.util.Objects;
 public class BasketController {
     private HttpServletRequest request;
 
+
+    @Autowired
+    AdminMapper adminMapper;
+
     @GetMapping("/basket")
-    public String cart() {
+    public String cart(String MemberId, Model model,AllMemberVO allMemberVO, BasketVO basketVO) {
+        System.out.println("goBasket!");
+        //UserId 있으면 (html에서 세션 검증)
+        // basketVO = MemberService.getMemberBasket(MemberId);
+        List<AllMemberVO> allMemberVOList = adminMapper.getMember();
+        System.out.println(allMemberVOList.get(0));
+        model.addAttribute("allMemberVOList", allMemberVOList);
         return "th/member/basket/basket";
     }
 
     //productDetail
     @GetMapping("/productDetails")
     public String product() {
-        return "th/main/productDetails";
+        return "th/main/productDetailsLJH";
     }
+
+    @GetMapping("/basketPop")
+    public String basketPop(HttpServletRequest request) {
+        /*String sessionId = (String) request.getSession().getAttribute("memberId");
+        if(sessionId != null){
+            adminMapper.getBasket();
+            model~
+
+            }
+            값이 없으면 그냥 보낸 후 페이지에서 ajax처리
+
+
+        */
+
+        return "th/member/basket/basketPop";
+    }
+
 
     @RequestMapping(value = "/basketSession")
     @ResponseBody
-    public void basket(HttpServletRequest request, String value, String[] hoho) {
+    public void basket(HttpServletRequest request, String value, String[] hoho) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
         System.out.println("ajax!");
         //String[] ajax = request.getParameterValues("hoho");
         System.out.println(hoho);
         System.out.println(value);
         for(int i=0; i<hoho.length; i++) System.out.println("addFind:::"+hoho[i]);
-/*
-        String[] ajaxMsg = request.getParameterValues("arrValue");
-        int size = ajaxMsg.length;
-        for(int i=0; i<size; i++) {
-            System.out.println("받은 MSG : "+ajaxMsg[i]);
-        }*/
+        System.out.println("빌드테스트1234567890");
 
-        /*for(String data : list){
-
-            System.out.println("data = " + data);
-
-        }*/
         System.out.println("왱ㅁ나옴ㅁㄴㅇㅁㄴ니ㅏ운미ㅏㅇ미ㅏㄴ아ㅣㄴㅁ웁주이ㅏㅂㅈㅇ");
         //System.out.println(list);
         //List<ProductVO> analist = new ArrayList<ProductVO>();
