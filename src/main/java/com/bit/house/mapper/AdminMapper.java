@@ -16,4 +16,5 @@ public interface AdminMapper {
     public List<AllMemberVO> getMember();
     public MemberVO getHouseUser(MemberVO houseUser);
     public List<ProductOptionVO> getProductOption();
+    public MemberVO getUser();
 }
