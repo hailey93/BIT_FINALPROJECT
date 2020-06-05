@@ -13,7 +13,7 @@
 
 	<resultMap type="com.bit.house.domain.AuthVO" id="authMap">
 		<result property="authCode" column="authCode"/>
-		<result property="auth" column="auth"/>
+		<result property="roleType" column="roleType"/>
 	</resultMap>
 
 	<select id="read" resultMap="memberMap">
