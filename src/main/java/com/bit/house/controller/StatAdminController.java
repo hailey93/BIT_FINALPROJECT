@@ -57,7 +57,7 @@ public class StatAdminController {
         return "th/admin/statAdmin/productSalesVolume";
     }
 
-    @GetMapping("/mem")
+        @GetMapping("/mem")
     public String memManageMent(){
         return "th/admin/statAdmin/memberManagement";
     }

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
+
     <meta charset="UTF-8">
     <title>상품상세 LJH</title>
 </head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 <body>
 <h1>상품상세 LJH</h1>
-<input type="hidden" id="productName" value="김치맨두사장님21">나무나무상자</input>
-<input type="hidden" id="productNo" value="productNoPoks">
+<input type="hidden" id="productName" value="productNmae">나무나무상자</input>
+<input type="hidden" id="productNo" value="2">
 <form action="/basket" method="get">
     <input type="button" value="저장" onClick="saveSessionStorage();"/>
     <input type="submit" value="장바구니모양" id="basketBtn" onClick="saveSessionStorage();">
@@ -23,8 +26,32 @@
 <script type="text/javascript">
     var i = 0;
     var arrValue = new Array();
+    var alterKey = "대체키";
+    var sessionCheck = sessionStorage.getItem(alterKey);
+    var a;
+    var k=0;
+
+    //
+    while("대체키" == sessionStorage.key(k)){
+        console.log("맞음");
+        k++
+        console.log(k);
+        break;
+    }
+
+    console.log("키 확인 : "+sessionStorage.key(k));
+    if(sessionCheck == null){
+    var valList = new Array();
+    a=0;
+    }else{
+        console.log("valLIst 세션 길이 확인" + sessionCheck.length);
+        valList = sessionCheck;
+        a=sessionCheck.length;
+    }
+    console.log("sessionCheck : "+sessionCheck);
     //var arrReal = new Array();
     var len = sessionStorage.length;
+    var sessionCheckLen = sessionCheck.length;
     var key;
     document.addEventListener("DOMContentLoaded", function() {
         if(window.sessionStorage) {
@@ -48,11 +75,13 @@
         console.log("len : " + len);
         // div 태그에 로컬 저장소의 내용을 출력한다.
         for (key in window.sessionStorage) {
-            output += "<p>";
+            /*output += "<p>";
             // getItem( ) 메서드를 이용하여 key 값의 value 값을 찾는다.
             output += key + " : " + sessionStorage.getItem(key);
             output += "<br>";
-            output += "</p>";
+
+            output += "<br>";
+            output += "</p>";*/
             if(i<len){
                 arrValue[i] = sessionStorage.getItem(key);
                 //arrValue[i] = JSON.stringify(sessionStorage.getItem(key));
@@ -61,8 +90,8 @@
             }
 
         }
-        console.log(arrValue);
-        console.log(arrValue[0]);
+        //console.log(arrValue);
+       // console.log(arrValue[0]);
         /*for (var i = 0; i < sessionStorage.length; i++) {
             var keyTest = window.sessionStorage;
             arrValue[i] = JSON.stringify(sessionStorage.getItem(keyTest));
@@ -83,7 +112,7 @@
 
         $.ajax({
             //console.log("hi");
-            url:"basketSession",
+            url: "basketSession",
             type : "POST",
             traditional:true,
             data : {'hoho' : arrValue}
@@ -102,12 +131,30 @@
         // 변수를 선언한다.
         var key = document.getElementById("productName").value;
         var value = document.getElementById("productNo").value;
+
+        while(true){
+            console.log(a+"번째");
+        if(valList[a]==null){
+            valList[a] = JSON.stringify(value);
+            console.log("varList" + a + "번째 : " +valList[a] );
+            sessionStorage.setItem(alterKey, valList);
+            break;
+        }
+            a++;
+        }
+
         //var key1 = document.getElementById("option2").value;
         //var value1 = document.getElementById("option1").value;
         //그 li 안에
 
+        //setItem(key ,value) 값에 list로 저장
+        var ketList = key;
+
         // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
         sessionStorage.setItem(key, JSON.stringify(value));
+        //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
+
+
         //console.log("세션가자");
         // console.log(sessionStorage.getItem(key));
         // console.log(JSON.stringify(value));
