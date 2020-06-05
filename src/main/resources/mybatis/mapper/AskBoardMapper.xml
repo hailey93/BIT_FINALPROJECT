@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.house.mapper.AskBoardMapper">
+
+    <select id="boardList" resultType="AskBoardVO">
+		SELECT askBoardNo, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate, askGroupNo, askIndent, askStep
+		FROM askBoard
+		order by askGroupNo desc,  askStep asc, askIndent asc;
+
+	</select>
+
+    <select id="boardDetail" parameterType="int" resultType="AskBoardVO">
+		SELECT * FROM askBoard WHERE askBoardNo=#{askBoardNo}
+	</select>
+
+    <insert id="boardInsert" parameterType="AskBoardVO">
+		INSERT INTO
+		askBoard (askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
+		values(#{askTitle}, #{askContent}, #{memberId}, now(), (select ifnull (max(askBoardNo)+1, 1) from askBoard b), 0, 0)
+	</insert>
+
+    <update id="boardUpdate" parameterType="AskBoardVO">
+        UPDATE askBoard SET
+        <if test="askTitle != null">
+            askTitle = #{askTitle}
+        </if>
+        <if test="askTitle != null and askContent != null"> , </if>
+        <if test="askContent != null">
+            askContent = #{askContent}
+        </if>
+        WHERE askBoardNo = #{askBoardNo}
+    </update>
+
+    <insert id="replyInsert" parameterType="AskBoardVO">
+		INSERT INTO
+		askBoard(askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
+		values(#{askTitle}, #{askContent}, #{memberId}, curdate(), #{askGroupNo},
+				#{askIndent}+1, (select ifnull(max(askStep)+1, 1) from askBoard b where askGroupNo = #{askGroupNo} AND askIndent=#{askIndent}+1))
+	</insert>
+
+    <delete id="boardDelete" parameterType="int">
+		DELETE FROM askBoard WHERE askBoardNo = #{askBoardNo}
+	</delete>
+
+
+</mapper>

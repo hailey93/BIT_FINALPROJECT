@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>글 수정</title>
+
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="/resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+</head>
+<script type="text/javascript">
+    $(function(){
+        var obj = [];
+
+        nhn.husky.EZCreator.createInIFrame({
+            oAppRef: obj,
+            elPlaceHolder: "editor",
+            sSkinURI: "/resources/editor/SmartEditor2Skin.html",
+            htParams : {
+                bUseToolbar : true,
+                bUseVerticalResizer : true,
+                bUseModeChanger : true,
+            }
+        });
+
+        $("#updateBoard").click(function(){
+            obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+            $("#updateBoardFrm").submit();
+        });
+    });
+</script>
+<body>
+<h2>글 수정</h2>
+
+<div class="container">
+    <form action="/updateProc" method="post" id="updateBoardFrm" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="askTitle">제목</label>
+            <input type="text" th:value="${detail.askTitle}" id="askTitle" name="askTitle"/>
+        </div>
+        <div class="form-group">
+            <label for="editor">내용</label>
+            <textarea name="editor" id="editor" style="width: 700px; height: 400px; ">
+                <th:block th:value="${detail.askContent}"/>
+            </textarea>
+        </div>
+        <input type="hidden" name="askBoardNo" th:value="${detail.askBoardNo}"/>
+        <input type="button" id="updateBoard" value="등록"/>
+    </form>
+</div>
+
+</body>
+</html>
