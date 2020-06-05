@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>질문 게시판</title>
+</head>
+<script type="text/javascript">
+    function reply(idx){
+        var askBoardNo = idx;
+        location.href="/reply/"+askBoardNo;
+    }
+
+    function del(idx){
+        var askBoardNo = idx;
+
+        var result = confirm("정말 삭제하시겠습니까?");
+
+        if(result) {
+            location.href = "/delete/" + askBoardNo;
+            alert('삭제되었습니다'); //테스트용. 마지막에 꼭 삭제
+        }
+    }
+
+    function update(idx){
+        var askBoardNo = idx;
+        location.href="/update/"+askBoardNo;
+    }
+</script>
+<body>
+
+<h2>게시글 상세</h2>
+<button class="btn btn-primary" th:onclick="'javascript:update('+${detail.askBoardNo}+');'">수정</button>
+<button class="btn btn-danger" th:onclick="'javascript:del('+${detail.askBoardNo}+');'">삭제</button>
+<button class="btn btn-primary" th:onclick="'javascript:reply('+${detail.askBoardNo}+');'">답변하기</button>
+
+<div class="container">
+    <form action="/insertProc" method="POST">
+        <div clas="form-group">
+            <label>제목</label>
+            <th:block th:text="${detail.askTitle}"/>
+        </div>
+        <div clas="form-group">
+            <label>작성자</label>
+            <th:block th:text="${detail.memberId}"/>
+        </div>
+        <div clas="form-group">
+            <label>작성날짜</label>
+            <th:block th:text="${detail.askDate}"/>
+        </div>
+        <div clas="form-group">
+            <label>내용</label>
+            <th:block th:text="${detail.askContent}"/>
+        </div>
+        <button type="submit" class="btn btn-primary">작성</button>
+    </form>
+</div>
+</body>
+</html>
