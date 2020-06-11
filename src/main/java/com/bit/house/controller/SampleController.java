@@ -14,7 +14,7 @@ public class SampleController {
   public String doAll() {
 
     log.info("do all can access everybody");
-    return "th/all";
+    return "th/login/all";
   }
 
   @GetMapping("/member")
@@ -22,7 +22,7 @@ public class SampleController {
     log.info(String.valueOf(auth));
     log.info("logined member");
 
-    return "th/member";
+    return "th/login/member";
   }
 
   @GetMapping("/admin")
@@ -30,6 +30,6 @@ public class SampleController {
     log.info(String.valueOf(auth));
     log.info("admin only");
 
-    return "th/admin";
+    return "th/login/admin";
   }
 }

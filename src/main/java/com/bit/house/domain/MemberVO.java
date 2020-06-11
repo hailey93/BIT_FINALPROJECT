@@ -1,15 +1,12 @@
 package com.bit.house.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.sql.Date;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 public class MemberVO {
+
     private String memberId;
     private String memberName;
     private String memberTel;
@@ -21,4 +18,10 @@ public class MemberVO {
     private Date memberSignUpDate;
     private Date memberUpdateDate;
     private int point;
+
+    private String userid;
+    private String userName;
+    private String userTel;
+
+
 }
