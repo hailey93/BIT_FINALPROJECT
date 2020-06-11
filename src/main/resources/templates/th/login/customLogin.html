@@ -15,7 +15,7 @@
     <div class="login_wrapper">
         <div class="text-center">
             <div class="col-md-12 md-auto mt-4 mb-3">
-                <img th:src="@{/static/icon/thehouse.jpg}" class="rounded-circle" width="70px" height="70px">
+                <img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width="70px" height="70px">
             </div>
 
 
@@ -28,13 +28,13 @@
                 <form method='post' th:action="@{/login}">
                     <hr>
                     <div class="mt-4 mb-3">
-                        <label for="userid">이메일<span class="text-muted"></span></label> <input
+                        <label for="username">아이디<span class="text-muted"></span></label> <input
                             type="text" class="form-control" id="username" name="username" placeholder="User email">
                         <div class="invalid-feedback">아이디를 입력하세요.</div>
                     </div>
                     <div class="mb-4">
-                        <label for="password">패스워드<span class="text-muted"></span></label> <input
-                            type="password" class="form-control" name="password"
+                        <label for="userpw">패스워드<span class="text-muted"></span></label> <input
+                            type="password" class="form-control" id="userpw" name="userpw"
                             placeholder="User password">
                         <div class="invalid-feedback">아이디를 입력하세요.</div>
                     </div>
@@ -54,14 +54,14 @@
                     <div class="row justify-content-center mt-3 mb-3">
 
                             <a href="javascript:;" class="btn_social" data-social="google">
-                               <img th:src="@{/static/img/google.png}" width="60px" height="60px" class="rounded-circle float-left"/>
+                               <img th:src="@{/img/google.png}" width="60px" height="60px" class="rounded-circle float-left"/>
                             </a>
 
                         <a href="javascript:;" class="btn_social ml-5" data-social="kakao">
-                            <img th:src="@{/static/img/kakao.png}" width="60px" height="60px" class="rounded-circle float-center"/>
+                            <img th:src="@{/img/kakao.png}" width="60px" height="60px" class="rounded-circle float-center"/>
                         </a>
                         <a href="javascript:;" class="btn_social ml-5" data-social="naver">
-                            <img th:src="@{/static/img/naver.png}" width="60px" height="60px" class="rounded-circle float-right"/>
+                            <img th:src="@{/img/naver.png}" width="60px" height="60px" class="rounded-circle float-right"/>
                         </a>
 
                     </div>
