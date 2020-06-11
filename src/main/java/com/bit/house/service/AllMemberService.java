@@ -1,16 +1,13 @@
-package com.bit.house.mapper;
+package com.bit.house.service;
 
 import com.bit.house.domain.AllMemberVO;
-import org.apache.ibatis.annotations.Mapper;
 
-@Mapper
-public interface AllMemberMapper {
+public interface AllMemberService {
 
     AllMemberVO read(String userid);
 
     public void insertUser(AllMemberVO allMemberVO);
     public void insertSocialToUser(AllMemberVO allMemberVO);
 
-    public String searchSocial(String id);
-
+    String searchSocial(String id);
 }

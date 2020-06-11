@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bit.house.mapper.AskBoardMapper">
+
+	<select id="boardList" resultType="com.bit.house.domain.AskBoardVO">
+      SELECT askBoardno, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate, askGroupNo, askIndent, askStep
+      FROM askboard
+      order by askGroupNo desc,  askStep asc, askIndent asc;
+
+   </select>
+
+<!--	<select id="boardDetail" parameterType="int" resultType="com.bit.house.domain.AskBoardVO">-->
+<!--      SELECT * FROM askboard WHERE askBoardno=#{askBoardno}-->
+<!--   </select>-->
+
+<!--	<insert id="boardInsert" parameterType="AskBoardVO">-->
+<!--      INSERT INTO-->
+<!--      askboard (askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)-->
+<!--      values(#{askTitle}, #{askContent}, #{memberId}, now(), (select ifnull (max(askBoardno)+1, 1) from askboard b), 0, 0)-->
+<!--   </insert>-->
+
+<!--	<update id="boardUpdate" parameterType="AskBoardVO">-->
+<!--		UPDATE askboard SET-->
+<!--		<if test="askTitle != null">-->
+<!--			askTitle = #{askTitle}-->
+<!--		</if>-->
+<!--		<if test="askTitle != null and askContent != null"> , </if>-->
+<!--		<if test="askContent != null">-->
+<!--			askContent = #{askContent}-->
+<!--		</if>-->
+<!--		WHERE askBoardno = #{askBoardno}-->
+<!--	</update>-->
+
+<!--	<insert id="replyInsert" parameterType="AskBoardVO">-->
+<!--      INSERT INTO-->
+<!--      askboard(askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)-->
+<!--      values(#{askTitle}, #{askContent}, #{memberId}, curdate(), #{askGroupNo},-->
+<!--            #{askIndent}+1, (select ifnull(max(askStep)+1, 1) from askboard b where askGroupNo = #{askGroupNo} AND askIndent=#{askIndent}+1))-->
+<!--   </insert>-->
+
+<!--	<delete id="boardDelete" parameterType="int">-->
+<!--      DELETE FROM askboard WHERE askBoardno = #{askBoardno}-->
+<!--   </delete>-->
+
+
+</mapper>

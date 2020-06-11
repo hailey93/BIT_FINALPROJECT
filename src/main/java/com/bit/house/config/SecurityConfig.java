@@ -1,12 +1,16 @@
 package com.bit.house.config;
 
-import com.bit.house.security.*;
+import com.bit.house.security.CustomLoginSuccessHandler;
+import com.bit.house.security.CustomOAuth2Provider;
+import com.bit.house.security.CustomOAuth2UserService;
+import com.bit.house.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.oauth2.client.CommonOAuth2Provider;
@@ -18,6 +22,8 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,24 +51,33 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new CustomLoginSuccessHandler();
     }
 
+
+    @Override
+    public void configure(WebSecurity webSecurity) throws Exception {
+        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/img/**", "/js/**", "/images/**");
+    }
+
     @Override
     public void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeRequests()
-                    .antMatchers("/", "/oauth2/**", "/login/**", "/css/**",
-                            "/images/**", "js/**", "/console/**", "/test")
+        CharacterEncodingFilter filter = new CharacterEncodingFilter();
+        httpSecurity
+                    .authorizeRequests()
+                    .antMatchers("/", "/oauth2/**",
+                            "/images/**", "/js/**")
                     .permitAll()
                     .antMatchers("/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
-                    .antMatchers("/member").hasAnyRole("MEMBER","USER")
-                    .antMatchers("/google").hasAuthority(SocialType.GOOGLE.getRoleType())
-                    .antMatchers("/kakao").hasAuthority(SocialType.KAKAO.getRoleType())
-                    .antMatchers("/naver").hasAuthority(SocialType.NAVER.getRoleType())
+                    .antMatchers("/member").hasAnyRole("MEMBER")
                     //.anyRequest().authenticated()
                 .and()
                     .oauth2Login()
-                    .userInfoEndpoint().userService(new CustomOAuth2UserService())  // 네이버 USER INFO의 응답을 처리하기 위한 설정
+                    .userInfoEndpoint().userService(new CustomOAuth2UserService()) // 네이버 USER INFO의 응답을 처리하기 위한 설정
                 .and()
                     .defaultSuccessUrl("/loginSuccess")
                     .failureUrl("/loginFailure")
+                .and()
+                    .headers()
+                    .frameOptions()
+                    .disable()
                 .and()
                     .formLogin()
                     .loginPage("/customLogin")
@@ -77,7 +92,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .clearAuthentication(true) // 권한정보제거
                 .and()
                     .exceptionHandling()
-                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/customLogin"));
+                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/customLogin"))
+                .and()
+                    .addFilterBefore(filter, CsrfFilter.class)
+                    .csrf().disable();
     }
 
     @Bean
@@ -117,15 +135,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .build();
         }
 
-        if("facebook".equals(client)) {
-            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("facebook");
-            return CommonOAuth2Provider.FACEBOOK.getBuilder(client)
-                    .clientId(registration.getClientId())
-                    .clientSecret(registration.getClientSecret())
-                    .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
-                    .scope("email")
-                    .build();
-        }
+//        if("facebook".equals(client)) {
+//            OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("facebook");
+//            return CommonOAuth2Provider.FACEBOOK.getBuilder(client)
+//                    .clientId(registration.getClientId())
+//                    .clientSecret(registration.getClientSecret())
+//                    .userInfoUri("https://graph.facebook.com/me?fields=id,name,email,link")
+//                    .scope("email")
+//                    .build();
+//        }
 
         return null;
     }

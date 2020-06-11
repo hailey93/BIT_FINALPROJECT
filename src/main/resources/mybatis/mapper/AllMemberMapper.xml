@@ -23,4 +23,24 @@
   		allmember mem LEFT OUTER JOIN auth auth on mem.authCode = auth.authCode
 	WHERE mem.userid = #{userid}
   	</select>
+
+	<select id="searchSocial" resultType="String">
+	SELECT
+ 	 	*
+	FROM
+  		allmember
+	WHERE userid = #{userid}
+  	</select>
+
+	<insert id="insertUser" parameterType="com.bit.house.domain.AllMemberVO">
+	INSERT INTO allmember (userid, userpw, authCode)
+	VALUES (#{userid}, #{userpw}, '1')
+
+	</insert>
+
+	<insert id="insertSocialToUser" parameterType="com.bit.house.domain.AllMemberVO">
+		INSERT INTO allmember (userid, authCode, socialType)
+		VALUES (#{userid}, '1', #{socialType})
+
+	</insert>
 </mapper>

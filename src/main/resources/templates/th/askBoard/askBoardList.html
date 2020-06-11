@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>질문게시판</title>
+</head>
+<body>
+<h2>게시글 목록</h2>
+
+<button class="btn btn-primary" onclick="location.href='/insert'">글쓰기</button>
+
+<div class="container">
+    <table class="table table-hover">
+        <tr>
+            <th>글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+        </tr>
+
+        <th:block th:each="board : ${list}">
+            <tr th:onclick="'location.href=\''+@{/detail/{askBoardNo}(askBoardNo=${board.askBoardNo})}+'\''">
+                <td th:text="${board.askBoardNo}"/>
+                <td>
+                    <th:block th:text="${board.askTitle}"/>
+                </td>
+                <td th:text="${board.memberId}"/>
+                <td th:text="${board.askDate}"/>
+            </tr>
+        </th:block>
+    </table>
+</div>
+</body>
+</html>

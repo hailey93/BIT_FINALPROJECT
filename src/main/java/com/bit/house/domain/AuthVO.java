@@ -8,5 +8,5 @@ public class AuthVO {
 
   private int authCode;
   private String roleType;
-  
+
 }

@@ -2,6 +2,7 @@ package com.bit.house.domain;
 
 public enum SocialType {
     //FACEBOOK("facebook"),
+
     GOOGLE("google"),
     KAKAO("kakao"),
     NAVER("naver");
@@ -18,6 +19,7 @@ public enum SocialType {
     public String getValue() { return name; }
 
     public boolean isEquals(String authority) {
+
         return this.name.equals(authority);
     }
 
