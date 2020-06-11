@@ -1,11 +1,11 @@
 package com.bit.house.mapper;
 
 import com.bit.house.domain.AskBoardVO;
-import org.springframework.stereotype.Repository;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-@Repository("com.bit.house.mapper.AskBoardMapper")
+@Mapper
 public interface AskBoardMapper {
     //게시글 목록
     public List<AskBoardVO> askBoardList() throws Exception;
