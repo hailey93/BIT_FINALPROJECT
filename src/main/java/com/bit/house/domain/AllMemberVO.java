@@ -11,5 +11,6 @@ public class AllMemberVO {
     private String userpw;
     private int authCode;
     private boolean enabled;
+    private SocialType socialType;
     private List<AuthVO> authList;
 }

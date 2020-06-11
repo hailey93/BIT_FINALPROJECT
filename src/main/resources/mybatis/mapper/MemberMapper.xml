@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.bit.security.mapper.MemberMapper">
+<mapper namespace="com.bit.house.mapper.MemberMapper">
 
+    <insert id="insertMember" parameterType="com.bit.house.domain.MemberVO">
+	INSERT INTO member (memberId, memberName, memberTel)
+	VALUES (#{userid}, #{userName}, #{userTel})
 
+	</insert>
+
+	<insert id="insertSocialToMember" parameterType="com.bit.house.domain.MemberVO">
+	INSERT INTO member (memberId, memberName)
+	VALUES (#{userid}, #{userName})
+
+	</insert>
 </mapper>

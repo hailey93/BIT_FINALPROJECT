@@ -12,7 +12,6 @@ spring:
     cache: false
     view-names: th/*
 
-
   #devtools
   devtools:
     livereload:
@@ -26,8 +25,6 @@ spring:
           google:
             client-id: 932323453386-c35qir2hsql97gji2b80b34btdja99jl.apps.googleusercontent.com
             client-secret: _GSWMfIo02A1e-tSkgVidzoW
-
-
 
 
 custom:
@@ -53,3 +50,4 @@ mybatis:
 logging:
   file:
     path: logback-spring.xml
+
