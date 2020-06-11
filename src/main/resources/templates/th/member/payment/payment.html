@@ -30,7 +30,7 @@
 
     <div id="chai_event" data-id="1075" data-has_products="false"></div>
     <div id="pre_order" class=" bucket" data-id="23159872" data-is-overseas-purchase="false">
-        <form id="edit_order" class="edit_order" action="/orders/23159872" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="whYTwpYx4D2DYXiokA9ne2pTcTHQ0+U32o4uDOAIdvD4vH6Y/LKc1YUoJ+zRWHOTPwubpSHJ6wvX/Fing/9Kzg==">
+        <form id="edit_order" class="edit_order" action="" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="whYTwpYx4D2DYXiokA9ne2pTcTHQ0+U32o4uDOAIdvD4vH6Y/LKc1YUoJ+zRWHOTPwubpSHJ6wvX/Fing/9Kzg==">
             <div id="title">
                 주문/결제
             </div>
@@ -229,8 +229,8 @@
                 <div class="pay_method">
                     <div class="payment_panel">
                         <input type="radio" value="kcp_credit_card" name="order[payment_method]" id="order_payment_method_kcp_credit_card">
-                        <label class="first  top" for="order_payment_method_kcp_credit_card">
-                            <img class="img" width="64" src="https://bucketplace-v2-development.s3.amazonaws.com/pg/card.png" alt="Card">
+                        <label class="first  top" for="order_payment_method_kcp_credit_card"> <!-- 카드 label -->
+                            <img class="img" width="64" src="@{'/uploadImg/'+'kakaopay.png'}" alt="Card">
                             <div class="title">카드</div>
                             <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다" data-detail2="">
 
