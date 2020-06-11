@@ -21,13 +21,7 @@
 
     <update id="askUpdate" parameterType="AskBoardVO">
         UPDATE askboard SET
-        <if test="askTitle != null">
-            askTitle = #{askTitle}
-        </if>
-        <if test="askTitle != null and askContent != null"> , </if>
-        <if test="askContent != null">
-            askContent = #{askContent}
-        </if>
+        askTitle = #{askTitle}, askContent=#{askContent}
         WHERE askBoardno = #{askBoardno}
     </update>
 

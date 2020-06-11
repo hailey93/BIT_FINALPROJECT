@@ -27,10 +27,10 @@ public class AskBoardController {
         return "th/askBoard/askBoardList";
     }
 
-    @RequestMapping("detail/{askBoardNo}") //글 상세페이지
-    private String askDetail(@PathVariable int askBoardNo, Model model) throws Exception{
+    @RequestMapping("detail/{askBoardno}") //글 상세페이지
+    private String askDetail(@PathVariable int askBoardno, Model model) throws Exception{
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
 
         return "th/askBoard/askBoardDetail";
     }
@@ -52,10 +52,10 @@ public class AskBoardController {
         return "redirect:/list";
     }
 
-    @GetMapping("/reply/{askBoardNo}")//답글 작성 폼
-    private String askReply(@PathVariable int askBoardNo, Model model) throws Exception{
+    @GetMapping("/reply/{askBoardno}")//답글 작성 폼
+    private String askReply(@PathVariable int askBoardno, Model model) throws Exception{
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
 
         return "th/askBoard/askBoardReplyInsert";
     }
@@ -67,17 +67,19 @@ public class AskBoardController {
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(request.getParameter("memberId"));
-        //content들어갈 자리
+        askBoardVO.setAskContent(request.getParameter("askContent"));
+        askBoardVO.setAskGroupNo(Integer.parseInt(request.getParameter("askGroupNo")));
+        askBoardVO.setAskIndent(Integer.parseInt(request.getParameter("askIndent")));
 
         askBoardMapper.askReply(askBoardVO);
 
         return "redirect:/list";
     }
 
-    @RequestMapping("/update/{askBoardNo}")//게시글 수정 폼
-    private String askUpdate(@PathVariable int askBoardNo, Model model) throws Exception{
+    @RequestMapping("/update/{askBoardno}")//게시글 수정 폼
+    private String askUpdate(@PathVariable int askBoardno, Model model) throws Exception{
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
 
         return "th/askBoard/askBoardUpdate";
     }
@@ -88,18 +90,18 @@ public class AskBoardController {
         AskBoardVO askBoardVO = new AskBoardVO();
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
-        askBoardVO.setMemberId(request.getParameter("memberId"));
-        //content들어갈 자리
+        askBoardVO.setAskContent(request.getParameter("askContent"));
+        askBoardVO.setAskBoardno(Integer.parseInt(request.getParameter("askBoardno")));
 
         askBoardMapper.askUpdate(askBoardVO);
 
-        return "redirect:/detail/" + request.getParameter("askBoardNo");
+        return "redirect:/detail/" + request.getParameter("askBoardno");
     }
 
-    @RequestMapping("/delete/{askBoardNo}")
-    private String askDelete(@PathVariable int askBoardNo) throws Exception{
+    @RequestMapping("/delete/{askBoardno}")
+    private String askDelete(@PathVariable int askBoardno) throws Exception{
 
-        askBoardMapper.askDelete(askBoardNo);
+        askBoardMapper.askDelete(askBoardno);
 
         return "redirect:/list";
     }
