@@ -3,10 +3,12 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Alias("productOptionVO")
 public class ProductOptionVO {
     private String productOptionNo;
     private String productNo;

@@ -59,7 +59,8 @@
                                     <th:block th:each="list : ${basketList}">
                                         <li th:text="${list}"></li>
                                         셀러네임
-                                        <h1 th:text="${list.productVO.sellerName}"></h1>
+                                        <h1 th:text="${list.getProductVO()}"></h1>
+                                        <h2 th:text="${list.getProductVO().getSellerName()}"></h2>
                                     </th:block>
                                 </ul>
                             </div>
@@ -71,8 +72,7 @@
 
                                 <li class="commerce-cart__content__group-item" th:each="list, listStat : ${basketList}">
 
-                                    <article class="commerce-cart__group"><h1 class="commerce-cart__group__header" >핀란디아<!--th:text="${list.productVO.getSellerName()}" -->
-                                        <!-- --> 배송</h1>
+                                    <article class="commerce-cart__group"><h1 class="commerce-cart__group__header" th:text="${list.productVO.getSellerName()}">                                        <!-- --> 배송</h1>
                                         <ul class="commerce-cart__group__item-list">
                                             <li class="commerce-cart__group__item">
                                                 <article class="commerce-cart__delivery-group">
@@ -123,7 +123,7 @@
                                                                 <ul class="carted-product__option-list">
                                                                     <li class="carted-product__option-list__item">
                                                                         <article class="selling-option-item"><h2
-                                                                                class="selling-option-item__name">컬러 :
+                                                                                class="selling-option-item__name" th:text="${list.getProductOptionVO().getColorCode()}">컬러 :
                                                                             그린</h2>
 
                                                                             <div class="selling-option-item__controls">
