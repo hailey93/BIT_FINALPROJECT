@@ -8,13 +8,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
@@ -25,9 +22,8 @@ public class AskBoardController {
 
     @RequestMapping("/list")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
-        System.out.println("컨트롤러");
+
         model.addAttribute("list", askBoardMapper.askBoardList());
-        System.out.println("매퍼통과");
         return "th/askBoard/askBoardList";
     }
 
@@ -43,17 +39,15 @@ public class AskBoardController {
     private String insertAsk(){ return "th/askBoard/askBoardInsert"; }
 
     @RequestMapping("/insertProc")//게시글 작성
-    private String insertAskProc(HttpServletRequest request, String editor) throws Exception{
+    private String insertAskProc(HttpServletRequest request) throws Exception{
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(request.getParameter("memberId"));
-        askBoardVO.setAskContent(request.getParameter("content"));
+        askBoardVO.setAskContent(request.getParameter("askContent"));
 
-        System.err.println("저장할 내용: " + editor);
-
-        askBoardMapper.insertAsk(askBoardVO, editor);
+        askBoardMapper.insertAsk(askBoardVO);
 
         return "redirect:/list";
     }
@@ -67,7 +61,7 @@ public class AskBoardController {
     }
 
     @RequestMapping("/replyProc")
-    private String askReplyProc(HttpServletRequest request, String editor) throws Exception{
+    private String askReplyProc(HttpServletRequest request) throws Exception{
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
@@ -75,7 +69,7 @@ public class AskBoardController {
         askBoardVO.setMemberId(request.getParameter("memberId"));
         //content들어갈 자리
 
-        askBoardMapper.askReply(askBoardVO, editor);
+        askBoardMapper.askReply(askBoardVO);
 
         return "redirect:/list";
     }
@@ -89,7 +83,7 @@ public class AskBoardController {
     }
 
     @RequestMapping("/updateProc")
-    private String askUpdateProc(HttpServletRequest request, String editor) throws Exception{
+    private String askUpdateProc(HttpServletRequest request) throws Exception{
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
@@ -97,7 +91,7 @@ public class AskBoardController {
         askBoardVO.setMemberId(request.getParameter("memberId"));
         //content들어갈 자리
 
-        askBoardMapper.askUpdate(askBoardVO, editor);
+        askBoardMapper.askUpdate(askBoardVO);
 
         return "redirect:/detail/" + request.getParameter("askBoardNo");
     }

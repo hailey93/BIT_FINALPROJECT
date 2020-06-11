@@ -13,7 +13,7 @@
 
         nhn.husky.EZCreator.createInIFrame({
             oAppRef: obj,
-            elPlaceHolder: "editor",
+            elPlaceHolder: "askContent",
             sSkinURI : "/editor/SmartEditor2Skin.html",
             htParams:{
                 bUseToolbar : true,
@@ -23,7 +23,7 @@
         });
 
         $("#insertBoard").click(function(){
-            obj.getById["editor"].exec("UPDATE_CONTENTS_FIELD", []);
+            obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
             $("#insertBoardFrm").submit();
         });
     });
@@ -32,7 +32,6 @@
 <h2>글 쓰기</h2>
 
 <div class="container">
-    <img src="http://localhost:8080/editor/sample/photo_uploader/img/bg_drag_image.png" title="myPage.png">
     <form action="/insertProc" method="post" id="insertBoardFrm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="askTitle">제목</label>
@@ -43,8 +42,8 @@
             <input type="text" id="memberId" name="memberId" placeholder="아이디는 자동으로 받을것">
         </div>
         <div class="form-group">
-            <label for="editor">내용</label>
-            <textarea id="editor" name="editor" style="width: 700px; height: 400px;"></textarea>
+            <label for="askContent">내용</label>
+            <textarea id="askContent" name="askContent" style="width: 700px; height: 400px;"></textarea>
         </div>
         <input type="button" id="insertBoard" value="등록"/>
     </form>

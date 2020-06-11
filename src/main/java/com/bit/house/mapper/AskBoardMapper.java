@@ -14,16 +14,16 @@ public interface AskBoardMapper {
     public AskBoardVO askDetail(int askBoardNo) throws Exception;
 
     //게시글 작성
-    public int insertAsk(AskBoardVO askBoardVO, String editor) throws Exception;
+    public int insertAsk(AskBoardVO askBoardVO) throws Exception;
 
     //게시글 수정
-    public int askUpdate(AskBoardVO askBoardVO, String editor) throws Exception;
+    public int askUpdate(AskBoardVO askBoardVO) throws Exception;
 
     //게시글 삭제
     public int askDelete(int askBoardNo) throws Exception;
 
     //답글 작성
-    public int askReply(AskBoardVO askBoardVO, String editor) throws Exception;
+    public int askReply(AskBoardVO askBoardVO) throws Exception;
 
     //검색
 
