@@ -3,14 +3,15 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 import java.sql.Date;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 @Alias("productVO")
-
 public class ProductVO {
     private String productNo;
     private String sellerName;
@@ -19,7 +20,7 @@ public class ProductVO {
     private int customerPrice;
     private int sellPrice;
     private int purchasePrice;
-    private String categoryType;
+    private String categoryCode;
     private Date productCreatDate;
     private Date productUpdateDate;
     private String productMainImg;

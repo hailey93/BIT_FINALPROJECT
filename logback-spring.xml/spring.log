@@ -1,0 +1,373 @@
+2020-06-10 16:48:44.175  INFO 6968 --- [restartedMain] com.bit.house.HouseApplication           : Starting HouseApplication on DESKTOP-FNC03QL with PID 6968 (D:\injImportFolder\thehouse\build\classes\java\main started by bitcamp in D:\injImportFolder\thehouse)
+2020-06-10 16:48:44.179  INFO 6968 --- [restartedMain] com.bit.house.HouseApplication           : No active profile set, falling back to default profiles: default
+2020-06-10 16:48:44.567  INFO 6968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-10 16:48:44.568  INFO 6968 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-10 16:48:44.568  INFO 6968 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-10 16:48:44.583  INFO 6968 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-10 16:48:44.583  INFO 6968 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 402 ms
+2020-06-10 16:48:44.691  INFO 6968 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7f4462e1, org.springframework.security.web.context.SecurityContextPersistenceFilter@4a39e356, org.springframework.security.web.header.HeaderWriterFilter@50d8c363, org.springframework.security.web.authentication.logout.LogoutFilter@71687377, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@26afd2cf, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@e5ea324, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2ecad8f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3b701108, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2da51ede, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2725fe6c, org.springframework.security.web.session.SessionManagementFilter@61570ca5, org.springframework.security.web.access.ExceptionTranslationFilter@6522935a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f445229]
+2020-06-10 16:48:44.776  INFO 6968 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-10 16:48:44.790  INFO 6968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-06-10 16:48:44.794  INFO 6968 --- [restartedMain] com.bit.house.HouseApplication           : Started HouseApplication in 0.673 seconds (JVM running for 16514.538)
+2020-06-10 16:48:44.796  INFO 6968 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-06-10 16:48:45.115  INFO 6968 --- [http-nio-8080-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-06-10 16:48:45.117  INFO 6968 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-06-10 16:48:45.119  INFO 6968 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2020-06-10 16:48:45.121  INFO 6968 --- [http-nio-8080-exec-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2020-06-10 16:48:45.128  INFO 6968 --- [http-nio-8080-exec-10] jdbc.connection                          : 91. Connection opened
+2020-06-10 16:48:45.128  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.new Connection returned 
+2020-06-10 16:48:45.128  INFO 6968 --- [http-nio-8080-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-2 - Driver does not support get/set network timeout for connections. (net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy.getNetworkTimeout()I)
+2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.isValid(1) returned true
+2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getTransactionIsolation() returned 4
+2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.new PreparedStatement returned 
+2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.prepareStatement(select * from allmember) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@6bb6dc71
+2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqlonly                             : select * from allmember
+
+2020-06-10 16:48:45.133  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqltiming                           : select * from allmember
+ {executed in 3 msec}
+2020-06-10 16:48:45.133  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.execute() returned true
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.new ResultSet returned 
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@1fda1f2a
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@3974438f - Field level information: 
+	com.mysql.cj.result.Field@7dd932f8[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=userid,originalColumnName=userid,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@20513c66[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=userpw,originalColumnName=userpw,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@6f3d4409[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=authCode,originalColumnName=authCode,mysqlType=3(FIELD_TYPE_INT),sqlType=4,flags= MULTI_KEY, charsetIndex=63, charsetName=ISO-8859-1]
+	com.mysql.cj.result.Field@74ce0a5a[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=socialType,originalColumnName=socialType,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getType() returned 1003
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned alives
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned assibang
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned bonoHouse
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned hitmans
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned irisKorea
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned iwb01
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned mfmagic
+2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned polimoly01
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned qwe123
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned qwe123
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned shabas
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned snailLiving
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned sr100
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultsettable                      : 
+|------------|-------|---------|-----------|
+|userid      |userpw |authcode |socialtype |
+|------------|-------|---------|-----------|
+|alives      |1234   |[unread] |[unread]   |
+|assibang    |1234   |[unread] |[unread]   |
+|bonoHouse   |1234   |[unread] |[unread]   |
+|hitmans     |1234   |[unread] |[unread]   |
+|irisKorea   |1234   |[unread] |[unread]   |
+|iwb01       |1234   |[unread] |[unread]   |
+|mfmagic     |1234   |[unread] |[unread]   |
+|polimoly01  |1234   |[unread] |[unread]   |
+|qwe123      |qwe123 |[unread] |[unread]   |
+|shabas      |1234   |[unread] |[unread]   |
+|snailLiving |1234   |[unread] |[unread]   |
+|sr100       |1234   |[unread] |[unread]   |
+|------------|-------|---------|-----------|
+
+2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned false
+2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.close() returned void
+2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@69af1ea5
+2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getMoreResults() returned false
+2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getUpdateCount() returned -1
+2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.close() returned 
+2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.clearWarnings() returned 
+2020-06-10 16:48:45.232  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 92. Connection opened
+2020-06-10 16:48:45.233  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 92. Connection.new Connection returned 
+2020-06-10 16:48:45.233  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 92. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.233  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 92. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 93. Connection opened
+2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 93. Connection.new Connection returned 
+2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 93. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 93. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.239  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 94. Connection opened
+2020-06-10 16:48:45.239  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 94. Connection.new Connection returned 
+2020-06-10 16:48:45.240  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 94. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.240  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 94. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 95. Connection opened
+2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 95. Connection.new Connection returned 
+2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 95. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 95. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.246  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 96. Connection opened
+2020-06-10 16:48:45.246  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 96. Connection.new Connection returned 
+2020-06-10 16:48:45.246  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 96. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.247  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 96. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 97. Connection opened
+2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 97. Connection.new Connection returned 
+2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 97. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 97. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.252  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 98. Connection opened
+2020-06-10 16:48:45.252  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 98. Connection.new Connection returned 
+2020-06-10 16:48:45.252  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 98. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.253  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 98. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 99. Connection opened
+2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 99. Connection.new Connection returned 
+2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 99. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 99. Connection.getAutoCommit() returned true
+2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 100. Connection opened
+2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 100. Connection.new Connection returned 
+2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 100. Connection.isReadOnly() returned false
+2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 100. Connection.getAutoCommit() returned true
+2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.isValid(5) returned true
+2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
+2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.new PreparedStatement returned 
+2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.prepareStatement(select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
+        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
+        productoption o where p.productNo = o.productNo) as a
+        WHERE productOptionNo IN
+         (  
+            ?
+         , 
+            ?
+         , 
+            ?
+         , 
+            ?
+         )) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@6240c22a
+2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(1, "IWBTONYSOFA-100100001-663300") returned 
+2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(2, "PMBBGRANDSOFA-100100001-0000FF") returned 
+2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(3, "PMBBGRANDSOFA-100100001-0000FF") returned 
+2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(4, "PMBBGRANDSOFA-100100001-0000FF") returned 
+2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.sqlonly                             : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
+        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
+        productoption o where p.productNo = o.productNo) as a
+        WHERE productOptionNo IN
+         (  
+            'IWBTONYSOFA-100100001-663300'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         )
+
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.sqltiming                           : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
+        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
+        productoption o where p.productNo = o.productNo) as a
+        WHERE productOptionNo IN
+         (  
+            'IWBTONYSOFA-100100001-663300'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         )
+ {executed in 4 msec}
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.execute() returned true
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.new ResultSet returned 
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@79339b44
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@8f690ef - Field level information: 
+	com.mysql.cj.result.Field@1678a406[dbName=thehouse,tableName=a,originalTableName=p,columnName=productNo,originalColumnName=productNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@72cd7571[dbName=thehouse,tableName=a,originalTableName=p,columnName=productName,originalColumnName=productName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@174129d7[dbName=thehouse,tableName=a,originalTableName=p,columnName=sellerName,originalColumnName=sellerName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@2b8cb238[dbName=thehouse,tableName=a,originalTableName=p,columnName=modelName,originalColumnName=modelName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= UNIQUE_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@78876bdb[dbName=thehouse,tableName=a,originalTableName=p,columnName=productCreateDate,originalColumnName=productCreateDate,mysqlType=10(FIELD_TYPE_DATE),sqlType=91,flags= BINARY, charsetIndex=8, charsetName=WINDOWS-1252]
+	com.mysql.cj.result.Field@61f8ef47[dbName=thehouse,tableName=a,originalTableName=p,columnName=productMainImg,originalColumnName=productMainImg,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@7fe96d3e[dbName=thehouse,tableName=a,originalTableName=p,columnName=purchasePrice,originalColumnName=purchasePrice,mysqlType=3(FIELD_TYPE_INT),sqlType=4,flags=, charsetIndex=63, charsetName=ISO-8859-1]
+	com.mysql.cj.result.Field@313a1d89[dbName=thehouse,tableName=a,originalTableName=o,columnName=colorCode,originalColumnName=colorCode,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@722071c6[dbName=thehouse,tableName=a,originalTableName=o,columnName=productOptionNo,originalColumnName=productOptionNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getType() returned 1003
+2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned IWBTONYSOFA-100100001
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 토니 2인소파 3colors
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned IWBTONYSOFA
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/tonysofa.jpg
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned PMBBGRANDSOFA-100100001
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 빈백 607C 그랜드 소파 12colors
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned PMBBGRANDSOFA
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/pmgs.jpg
+2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultsettable                      : 
+|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+|productno               |productname             |sellername |modelname     |productcreatedate |productmainimg       |purchaseprice |colorcode |productoptionno |
+|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+|IWBTONYSOFA-100100001   |토니 2인소파 3colors         |[unread]   |IWBTONYSOFA   |[unread]          |product/tonysofa.jpg |[unread]      |[unread]  |[unread]        |
+|PMBBGRANDSOFA-100100001 |빈백 607C 그랜드 소파 12colors |[unread]   |PMBBGRANDSOFA |[unread]          |product/pmgs.jpg     |[unread]      |[unread]  |[unread]        |
+|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.next() returned false
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.close() returned void
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@60b03d21
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.getMoreResults() returned false
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.getUpdateCount() returned -1
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.close() returned 
+2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.clearWarnings() returned 
+2020-06-10 16:49:02.745  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.isValid(5) returned true
+2020-06-10 16:49:02.745  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.new PreparedStatement returned 
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.prepareStatement(select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
+        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
+        productoption o where p.productNo = o.productNo) as a
+        WHERE productOptionNo IN
+         (  
+            ?
+         , 
+            ?
+         , 
+            ?
+         , 
+            ?
+         )) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@282bb2b
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(1, "IWBTONYSOFA-100100001-663300") returned 
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(2, "PMBBGRANDSOFA-100100001-0000FF") returned 
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(3, "PMBBGRANDSOFA-100100001-0000FF") returned 
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(4, "PMBBGRANDSOFA-100100001-0000FF") returned 
+2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqlonly                             : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
+        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
+        productoption o where p.productNo = o.productNo) as a
+        WHERE productOptionNo IN
+         (  
+            'IWBTONYSOFA-100100001-663300'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         )
+
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqltiming                           : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
+        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
+        productoption o where p.productNo = o.productNo) as a
+        WHERE productOptionNo IN
+         (  
+            'IWBTONYSOFA-100100001-663300'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         , 
+            'PMBBGRANDSOFA-100100001-0000FF'
+         )
+ {executed in 1 msec}
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.execute() returned true
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.new ResultSet returned 
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@47991f6f
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@3b36e96e - Field level information: 
+	com.mysql.cj.result.Field@3da6b1d[dbName=thehouse,tableName=a,originalTableName=p,columnName=productNo,originalColumnName=productNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@1496c3ae[dbName=thehouse,tableName=a,originalTableName=p,columnName=productName,originalColumnName=productName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@1bfbd434[dbName=thehouse,tableName=a,originalTableName=p,columnName=sellerName,originalColumnName=sellerName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@170a23bc[dbName=thehouse,tableName=a,originalTableName=p,columnName=modelName,originalColumnName=modelName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= UNIQUE_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@47d820c3[dbName=thehouse,tableName=a,originalTableName=p,columnName=productCreateDate,originalColumnName=productCreateDate,mysqlType=10(FIELD_TYPE_DATE),sqlType=91,flags= BINARY, charsetIndex=8, charsetName=WINDOWS-1252]
+	com.mysql.cj.result.Field@65711025[dbName=thehouse,tableName=a,originalTableName=p,columnName=productMainImg,originalColumnName=productMainImg,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@206e32cb[dbName=thehouse,tableName=a,originalTableName=p,columnName=purchasePrice,originalColumnName=purchasePrice,mysqlType=3(FIELD_TYPE_INT),sqlType=4,flags=, charsetIndex=63, charsetName=ISO-8859-1]
+	com.mysql.cj.result.Field@663fe2b9[dbName=thehouse,tableName=a,originalTableName=o,columnName=colorCode,originalColumnName=colorCode,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
+	com.mysql.cj.result.Field@60670885[dbName=thehouse,tableName=a,originalTableName=o,columnName=productOptionNo,originalColumnName=productOptionNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getType() returned 1003
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned IWBTONYSOFA-100100001
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 토니 2인소파 3colors
+2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned IWBTONYSOFA
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/tonysofa.jpg
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned PMBBGRANDSOFA-100100001
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 빈백 607C 그랜드 소파 12colors
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned PMBBGRANDSOFA
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/pmgs.jpg
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
+2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultsettable                      : 
+|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+|productno               |productname             |sellername |modelname     |productcreatedate |productmainimg       |purchaseprice |colorcode |productoptionno |
+|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+|IWBTONYSOFA-100100001   |토니 2인소파 3colors         |[unread]   |IWBTONYSOFA   |[unread]          |product/tonysofa.jpg |[unread]      |[unread]  |[unread]        |
+|PMBBGRANDSOFA-100100001 |빈백 607C 그랜드 소파 12colors |[unread]   |PMBBGRANDSOFA |[unread]          |product/pmgs.jpg     |[unread]      |[unread]  |[unread]        |
+|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned false
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.close() returned void
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@5cd34f9a
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getMoreResults() returned false
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getUpdateCount() returned -1
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.close() returned 
+2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.clearWarnings() returned 
+2020-06-10 16:50:08.627  INFO 6968 --- [Thread-3585] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2020-06-10 16:50:08.638  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 91. Connection closed
+2020-06-10 16:50:08.640  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 91. Connection.close() returned 
+2020-06-10 16:50:08.641  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 92. Connection closed
+2020-06-10 16:50:08.641  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 92. Connection.close() returned 
+2020-06-10 16:50:08.643  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 93. Connection closed
+2020-06-10 16:50:08.644  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 93. Connection.close() returned 
+2020-06-10 16:50:08.644  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 94. Connection closed
+2020-06-10 16:50:08.644  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 94. Connection.close() returned 
+2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 95. Connection closed
+2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 95. Connection.close() returned 
+2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 96. Connection closed
+2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 96. Connection.close() returned 
+2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 97. Connection closed
+2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 97. Connection.close() returned 
+2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 98. Connection closed
+2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 98. Connection.close() returned 
+2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 99. Connection closed
+2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 99. Connection.close() returned 
+2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 100. Connection closed
+2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 100. Connection.close() returned 
+2020-06-10 16:50:08.648  INFO 6968 --- [Thread-3585] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.

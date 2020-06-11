@@ -18,6 +18,9 @@
 	<select id="getHouseUser" resultType="memberVO">
 		select * from user where userId=#{memberId} and userPassword=#{memberpw}
 	</select>
+	<select id="getUser" resultType="MemberVO">
+		select * from member
+	</select>
 	<!--
         <select id="getMember" resultType="MemberVO">
             select * from user where Id=#{Id} and pw=#{pw}
