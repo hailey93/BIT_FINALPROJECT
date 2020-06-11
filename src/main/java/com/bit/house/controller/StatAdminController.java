@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -62,4 +64,25 @@ public class StatAdminController {
         return "th/admin/statAdmin/memberManagement";
     }
 
+/*
+    @PostMapping("/yearGraphAjax")
+    public Object yearAjaxGraph(String quantity, String year) {
+        //List<통계domain> house통계 = userDAO.get통계();
+        //ObjectMapper mapper = new ObjectMapper();
+        //String jsonText;
+        //jsonText = mapper.writeValueAsString(house통계 );
+        // return jsonText  Map으로 보낼지 어떻게 보낼지
+        ArrayList<String> graph2ArrList = new ArrayList<String>();
+        System.out.println("ajax ===> Quantity : "+ quantity + " year ====> " + year);
+        //Service.getSelectedYear(quantity);
+        return graph2ArrList;
+    }
+
+    @PostMapping("/monthGraphAjax")
+    public Object monthAjaxGraph(String quantity, String year) {
+        ArrayList<String> graph2ArrList = new ArrayList<String>();
+        System.out.println("ajax ===> Quantity : "+ quantity + " year ====> " + year);
+        //Service.getSelectedYear(quantity);
+        return graph2ArrList;
+    }*/
 }

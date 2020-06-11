@@ -15,7 +15,7 @@
           href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-7a3e77c9.chunk.css">
     <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/19-dfb1ddc9.chunk.css">
 </head>
-<script type="text/javascript" src="http://code.jquery.com/jquery-2.0.2.js"></script>
+<script src="http://code.jquery.com/jquery-2.0.2.js"></script>
 <body>
 
 <div layout:fragment="content" data-react-class="App" data-hydrate="t" class="page">
@@ -29,10 +29,10 @@
                             <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top"
                                  data-offset="0" class="sticky-container commerce-cart__header-wrap">
                                 <div class="sticky-child commerce-cart__header" style="position:relative">
-                                    <span class="commerce-cart__header__left" onclick="ShipToBill(this.form);">
+                                    <span class="commerce-cart__header__left" onclick="checkAll(this.form);">
                                        <div class="round-checkbox-input round-checkbox-input--blue">
                                             <label class="round-checkbox-input__label">
-                             <!--모두선택체크박스--><input type="checkbox" id="outerCheckbox" class="round-checkbox-input__input" autocomplete="off" checked="" onclick="hey()">
+                             <!--모두선택체크박스--><input type="checkbox" id="th_checkAll"name="outerCheckbox" class="round-checkbox-input__input" autocomplete="off" checked="">
                                                 <span class="round-checkbox-input__icon">
                                                     <svg class="check" width="24" height="24" viewBox="0 0 24 24"
                                                          preserveAspectRatio="xMidYMid meet">
@@ -53,11 +53,25 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <div>
+                                <ul>
+                                    <th:block th:each="list : ${basketList}">
+                                        <li th:text="${list}"></li>
+                                        셀러네임
+                                        <h1 th:text="${list.productVO.sellerName}"></h1>
+                                    </th:block>
+                                </ul>
+                            </div>
+                            <!-- 셀러네임안듬 -->
                             <!-- 상품 전체 -->
+
                             <ul class="commerce-cart__content__group-list">
                                 <!-- 상품 한개당 li 한개-->
-                                <li class="commerce-cart__content__group-item">
-                                    <article class="commerce-cart__group"><h1 class="commerce-cart__group__header">핀란디아
+
+                                <li class="commerce-cart__content__group-item" th:each="list, listStat : ${basketList}">
+
+                                    <article class="commerce-cart__group"><h1 class="commerce-cart__group__header" >핀란디아<!--th:text="${list.productVO.getSellerName()}" -->
                                         <!-- --> 배송</h1>
                                         <ul class="commerce-cart__group__item-list">
                                             <li class="commerce-cart__group__item">
@@ -92,7 +106,7 @@
                                                                         src=""
                                                                         alt=""></div>
                                                                 <div class="product-small-item__content"><h1
-                                                                        class="product-small-item__title">[핀란디아]
+                                                                        class="product-small-item__title" th:text="${list.productName}">[핀란디아]
                                                                     <!-- -->데이브 화이트/블랙 메쉬 책상의자 </h1>
                                                                     <p class="product-small-item__caption">무료배송 |
                                                                         일반택배</p></div>
@@ -239,11 +253,11 @@
 
                     장바구니 페이지
                     실험용 -- db
-                    <tr th:each="val, valStat : ${allMemberVOList} ">
+                    <!--<tr th:each="val, valStat : ${allMemberVOList} ">
                         <td th:text="${valStat.count}">1</td>
                         <td th:text="${val.userid}"></td>
                         <td th:text="${val.userpw}"></td>
-                    </tr>
+                    </tr>-->
                 </div>
 
             </div>
@@ -256,16 +270,16 @@
 <div id="output">
     <!-- 저장된 내용을 출력할 DIV 엘리먼트 -->
 </div>
-<script th:inline="javascript">
+<script type="text/javascript">
 
     console.log("처음으로 실행시켜");
     var test2 = window.sessionStorage;
     console.log(sessionStorage.getItem(test2));
-    var len = sessionStorage.length;
+    var len = (sessionStorage.getItem("ProductNameSession")).length;
     var arrKey = new Array();
     //세션
     console.log("session 갯수 : " + len);
-    document.addEventListener("DOMContentLoaded", function () {
+    /*document.addEventListener("DOMContentLoaded", function () {
         console.log("DOMContentLoaded func 호출 --")
         if (window.sessionStorage) {
 
@@ -312,11 +326,11 @@
             console.log(arrValue);
         }
         document.getElementById("output").innerHTML = output;
-    }
+    }*/
 
-    $(document).ready(
+   $(document).ready(
         function () {
-            console.log("세션 유무 검사 func 호출")
+            console.log("len : " + len);
             if (len != 0) {
                 document.getElementById("SExist").style.display = 'block';
                 document.getElementById("SNExist").style.display = 'none';
@@ -327,64 +341,15 @@
         }
     );
 
-    //모두 체크하기
-    function hey() {
-        $(".commerce-cart__header__left").click(function () {
-            console.log("클릭했넹");
-            if ($("#outerCheckbox").prop("checked")) {
-                $("input[type=checkbox]").prop("checked", true);
-            } else {
-                $("input[type=checkbox]").prop("checked", false);
-            }
-        })
-    }
 
+    function checkAll(){
+        if( $("#th_checkAll").is(':checked') ){
+            $("input[name=innerCheckbox]").prop("checked", true);
+        }else{
+            $("input[name=innerCheckbox]").prop("checked", false);
+        }
+    }
 
 </script>
 </body>
 </html>
-<!-- productDetail
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-상품입니다
-<div class="production-selling-option-form__footer">
-    <form action="/cartProcess" id="goCart" method="get">
-        <input class="cartClass" type="button" value="장바구니"></input>
-    </form>
-    <form action = "/paymentProcess" id="goPayment" method="get">
-        <input class="paymentClass" type="button" value="바로구매"></input>
-    </form>
-</div>
-<script type="text/javascript">
-    function saveSessionStorage() {
-
-        // 변수를 선언한다.
-        var key = document.getElementById("productName").value;    || ex)<h1 class = ""  id="productName" value="productNo"/>
-        var arrValue = new Array();
-        var i=0;
-        for(var key in window.sessionStorage){
-            arrValue[i] = sessionStorage.getItem(key);
-            i++;
-            }
-
-        var value = document.getElementById("value").value;
-        var key1 = document.getElementById("option2").value;
-        var value1 = document.getElementById("option1").value;
-        //그 li 안에
-
-        // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
-        // key 값을 어떻게 받을지, value 값을 무엇으로 받을지
-        sessionStorage.setItem(key, value);
-        //key : productCode value : productName
-        // 데이터를 출력한다.
-        //printSessionStorage();
-    }
-</script>
-</body>
-</html>
--->
