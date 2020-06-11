@@ -2,26 +2,32 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.AskBoardVO;
 import com.bit.house.mapper.AskBoardMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.UUID;
 
 @Controller
 public class AskBoardController {
 
-    @Resource(name = "com.bit.house.mapper.AskBoardMapper")
+    @Autowired(required=false)
     AskBoardMapper askBoardMapper;
 
     @RequestMapping("/list")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
-
+        System.out.println("컨트롤러");
         model.addAttribute("list", askBoardMapper.askBoardList());
-
+        System.out.println("매퍼통과");
         return "th/askBoard/askBoardList";
     }
 
@@ -43,7 +49,7 @@ public class AskBoardController {
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(request.getParameter("memberId"));
-        //에디터 content 들어갈 자리
+        askBoardVO.setAskContent(request.getParameter("content"));
 
         System.err.println("저장할 내용: " + editor);
 
@@ -102,6 +108,45 @@ public class AskBoardController {
         askBoardMapper.askDelete(askBoardNo);
 
         return "redirect:/list";
+    }
+
+
+    // 다중파일업로드
+    @RequestMapping(value = "/file_uploader_html5.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String multiplePhotoUpload(HttpServletRequest request) {
+        // 파일정보
+        StringBuffer sb = new StringBuffer();
+        try {
+            // 파일명을 받는다 - 일반 원본파일명
+            String oldName = request.getHeader("file-name");
+            // 파일 기본경로 _ 상세경로
+            String filePath = request.getSession().getServletContext().getRealPath("image/board/");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
+            System.err.println(filePath);
+            String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
+                    .append(UUID.randomUUID().toString())
+                    .append(oldName.substring(oldName.lastIndexOf("."))).toString();
+            System.err.println(filePath + saveName);
+            InputStream is = request.getInputStream();
+
+            OutputStream os = new FileOutputStream(filePath + saveName);
+            int numRead;
+            byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
+            while ((numRead = is.read(b, 0, b.length)) != -1) {
+                os.write(b, 0, numRead);
+            }
+            os.flush();
+            os.close();
+            // 정보 출력
+            sb = new StringBuffer();
+            sb.append("&bNewLine=true")
+                    .append("&sFileName=").append(oldName)
+                    .append("&sFileURL=").append("/image/board/").append(saveName);
+            System.out.println(sb);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
     }
 
 }

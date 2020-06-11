@@ -5,7 +5,7 @@
     <title>글쓰기</title>
 
     <script src="https://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" src="./editor/js/HuskyEZCreator.js" charset="utf-8"></script>
+    <script type="text/javascript" th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
 </head>
 <script type="text/javascript">
     $(function(){
@@ -14,7 +14,7 @@
         nhn.husky.EZCreator.createInIFrame({
             oAppRef: obj,
             elPlaceHolder: "editor",
-            sSkinURI : "./editor/SmartEditor2Skin.html",
+            sSkinURI : "/editor/SmartEditor2Skin.html",
             htParams:{
                 bUseToolbar : true,
                 bUseVerticalResizer: true,
@@ -32,6 +32,7 @@
 <h2>글 쓰기</h2>
 
 <div class="container">
+    <img src="http://localhost:8080/editor/sample/photo_uploader/img/bg_drag_image.png" title="myPage.png">
     <form action="/insertProc" method="post" id="insertBoardFrm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="askTitle">제목</label>
@@ -45,7 +46,7 @@
             <label for="editor">내용</label>
             <textarea id="editor" name="editor" style="width: 700px; height: 400px;"></textarea>
         </div>
-        <input type="button" id="insertBoard" vlaue="등록"/>
+        <input type="button" id="insertBoard" value="등록"/>
     </form>
 </div>
 

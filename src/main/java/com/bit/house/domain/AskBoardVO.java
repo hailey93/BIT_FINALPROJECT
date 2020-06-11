@@ -10,7 +10,7 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor
 public class AskBoardVO {
-    private int askBoardNo;
+    private int askBoardno;
     private String memberId;
     private String askTitle;
     private String askContent;
@@ -18,7 +18,7 @@ public class AskBoardVO {
     private int askGroupNo;
     private int askIndent;
     private int askStep;
-    private String askThumbnail;
+
     private String askImg1;
     private String askImg2;
     private String askImg3;
