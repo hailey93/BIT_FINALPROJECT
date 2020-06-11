@@ -2,5 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.house.mapper.RecommenderMapper">
 
+    <resultMap id="clickProductList" type="recommenderVO">
+        <result property="memberId" column="memberId"/>
+        <collection property="productVO" ofType="productVO" column="memberId" javaType="java.util.ArrayList" select="selectClickProduct"/>
+    </resultMap>
+
+
+    <select id="selectClickProductById" resultMap="clickProductList">
+		select memberId from thehouse.member
+	</select>
+
+    <select id="selectClickProduct" resultType="productVO">
+		select productNo FROM thehouse.clickproduct where memberId=#{memberId} order by clickDate desc
+	</select>
 
 </mapper>

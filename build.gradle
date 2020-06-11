@@ -72,6 +72,13 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.5'
 
+    //dl4j set up
+    // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-core', version: '1.0.0-beta6'
+    // https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-nlp
+    compile group: 'org.deeplearning4j', name: 'deeplearning4j-nlp', version: '1.0.0-beta6'
+    // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
+    compile group: 'org.nd4j', name: 'nd4j-native-platform', version: '1.0.0-beta6'
 
     test {
         useJUnitPlatform()
