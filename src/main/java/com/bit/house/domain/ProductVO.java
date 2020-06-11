@@ -10,7 +10,6 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor
 @Alias("productVO")
-
 public class ProductVO {
     private String productNo;
     private String sellerName;
@@ -19,7 +18,7 @@ public class ProductVO {
     private int customerPrice;
     private int sellPrice;
     private int purchasePrice;
-    private String categoryType;
+    private String categoryCode;
     private Date productCreatDate;
     private Date productUpdateDate;
     private String productMainImg;
