@@ -8,7 +8,7 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../static/css/login.css">
+
     <title>니가사는그집</title>
   </head>
   <body>
@@ -17,7 +17,7 @@
 		<div class="login_wrapper">
 		<div class="text-center">
 			<div class="col-md-12 md-auto mt-4 mb-3">
-				<img th:src="@{/static/icon/house.png}" class="rounded-circle" width="70px" height="70px">
+				<img th:src="@{/icon/house.png}" class="rounded-circle" width="70px" height="70px">
 			</div>
 			
 
@@ -29,7 +29,7 @@
 
 		<div class="row justify-content-center">
 			<div class="col-md-5 col-xs-10 md-auto">
-				<form class="needs-validation" th:action="@{/login/signupMember}" method="post"
+				<form class="needs-validation" th:action="@{/signupMember}" method="post"
 					novalidate>
 					<hr>
 					<div class="mt-4 mb-3">

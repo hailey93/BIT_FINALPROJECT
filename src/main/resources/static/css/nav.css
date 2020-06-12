@@ -1,62 +1,70 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import "https://use.fontawesome.com/releases/v5.5.0/css/all.css";
+
+
+html,
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: 100%;
     margin: 0;
 }
 
-.navbar {
-    overflow: hidden;
-    background-color: white;
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+    width: 400px;
+}
+
+.dropdown-item{
+    width: 100px;
 }
 
 .navbar a {
-    float: left;
-    font-size: 16px;
-    color: blue;
-    text-align: center;
-    padding: 14px 16px;
+    display:inline-block;
+    text-align: left;
+    font-size: 15px;
+    color: black;
+    text-align: left;
+    padding: 10px 10px;
     text-decoration: none;
 }
 
-.subnav {
-    float: left;
-    overflow: hidden;
+@media(max-width:767px) {
+    .navbar .navbar-form {
+        width: 185px;
+        padding-left:0;
+        padding-right:0;
+    }
 }
 
-.subnav .subnavbtn {
-    font-size: 16px;
-    border: none;
-    outline: none;
-    color: black;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
+@media(min-width:768px) {
+    .navbar .navbar-form {
+        width: 250px;
+    }
 }
 
-.navbar a:hover, .subnav:hover .subnavbtn {
-    background-color: rgb(0, 199, 123);
+.navbar .navbar-form {
+
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-right: 0;
+    margin-left: 0;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 
-.subnav-content {
-    display: none;
-    position: absolute;
-    left: 0;
-    background-color: rgb(0, 199, 123);
-    width: 100%;
-    z-index: 1;
+.navbar a:hover {
+    background-color: white;
+    color:rgb(92, 195, 255);
 }
 
-.subnav-content a {
-    float: left;
-    color: black;
-    text-decoration: none;
+.fas:hover{
+    background-color: white;
+    color:rgb(92, 195, 255);
 }
 
-.subnav-content a:hover {
-    background-color: #eee;
-    color: black;
-}
 
-.subnav:hover .subnav-content {
-    display: block;
-}
+
