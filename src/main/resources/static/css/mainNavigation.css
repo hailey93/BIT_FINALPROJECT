@@ -297,7 +297,7 @@
     width: 100%;
     box-sizing: border-box;
     padding: 8px 9px 10px 39px;
-    font-family: inherit;
+    /*font-family: inherit;*/
     font-size: 15px;
     line-height: 20px;
     background-color: #fff;
@@ -689,7 +689,7 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    font-family: inherit;
+    /*font-family: inherit;*/
     transition: background .1s;
     border-radius: 100%
 }
@@ -976,7 +976,7 @@
     display: inline-block;
     font-size: 13px;
     line-height: 1;
-    font-family: inherit;
+    /*font-family: inherit;*/
     font-weight: 700;
     margin: 6px 4px;
     padding: 8px 4px 7px;

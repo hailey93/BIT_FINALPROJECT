@@ -52,6 +52,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         if (allMemberVO == null) {
             try {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
                 Map<String, Object> map = authentication.getPrincipal().getAttributes();
                 AllMemberVO convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
                 MemberVO convertMember = convertMember(authentication.getAuthorizedClientRegistrationId(), map);
@@ -123,6 +124,7 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         MemberVO memberVO = new MemberVO();
         memberVO.setUserid(String.valueOf(map.get("email")));
         memberVO.setUserName(String.valueOf(map.get("name")));
+
 
         return memberVO;
     }

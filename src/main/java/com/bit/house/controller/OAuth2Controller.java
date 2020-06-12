@@ -43,7 +43,7 @@ public class OAuth2Controller {
     @GetMapping("/loginSuccess")
     public String loginSuccess(@SocialUser AllMemberVO allMemberVO) {
 
-        return "th/login/customLogin";
+        return "th/login/loginSuccess";
 
     }
 
