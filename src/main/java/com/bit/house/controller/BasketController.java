@@ -131,7 +131,7 @@ public class BasketController {
         System.out.println("Mapper 실행 ");
 
         List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // 아무튼 상품정보 가져옴
-        System.out.println(basketVOList.get(0));
+        //System.out.println(basketVOList.get(0));
 
         // 여기까지 비회원 장바구니
 
@@ -184,16 +184,17 @@ public class BasketController {
 
     @GetMapping("/goBasket")
     public String gobasket(HttpSession session,ProductVO productVO,BasketVO basketVO,Model model){
+
         List<String> hohoSession2 = new ArrayList<>();
         System.out.println("getAttribute");
         hohoSession2 = (List<String>) session.getAttribute("hoho3");
         System.out.println("호호세션 : "+hohoSession2);
         //List로 쓰자
+
         System.out.println("Mapper 실행 ");
 
-        List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
-        System.out.println("리스트 : "+ basketVOList.get(0).getProductNo());
-        model.addAttribute("basketList", basketVOList);
+        //System.out.println("리스트 : "+ basketVOList.get(0).getProductNo());
+
         // 여기까지 비회원 장바구니 
 
         // 회원 장바구니 시작  Mapper 만들고 실행해야 오류 안남
@@ -201,8 +202,19 @@ public class BasketController {
         //List<BasketVO> basketVOListMember = (List<BasketVO>) basketMapper.getBasket(userId);
 
         //model.addAttribute("memberBasket", basketVOListMember);
+        if(hohoSession2 == null){
+            System.out.println("값이 없다");
 
-        return "th/member/basket/basket";
+            return "th/member/basket/basketNull";
+        }else {
+             //if(userId == null){
+            System.out.println("값이 있다");
+            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
+            model.addAttribute("basketList", basketVOList);
+            return "th/member/basket/basket";
+             //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}
+        }
+
     }
 
     @GetMapping("/btest")

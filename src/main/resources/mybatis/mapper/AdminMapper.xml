@@ -15,6 +15,13 @@
 	<select id = "getYear" resultType="String">
             SELECT EXTRACT(YEAR FROM productCreateDate) as year from product ;
         </select>
+	<!-- 년도별로 품목당 판매량 정렬
+        select sum(sellPrice), productCreateDate, productName,
+        EXTRACT(YEAR FROM productCreateDate ) as year from product
+         group by productCreateDate;
+        -->
+
+
 	<select id="getHouseUser" resultType="memberVO">
 		select * from user where userId=#{memberId} and userPassword=#{memberpw}
 	</select>
@@ -32,5 +39,17 @@
             INSERT INTO user(userAddr)
             VALUES ( #{userAddr} )
         </insert>-->
+
+
+	<!-- 주소를 등록
+	첫 시도 (Update 해야되는데 insert 하려 해서 에러남)
+	<select id="insertAddr" r>
+select *,if(memberAddr is null,'하리보',if(deliveryAddr1 is null,'하리보둘',
+if(deliveryAddr2 is null,'하리보셋',deliveryAddr2))) as news from member1;
+	멤버 주소 업데이트
+update member1 set memberAddr=if(memberAddr is null,'asd',memberAddr), deliveryAddr1 = if(memberAddr is not null, null, 'Addr1에들어감'),
+ deliveryAddr2 = if(memberAddr is not null, null, if(deliveryAddr1 is not null,null,'Addr2에 들어감' ))
+ where memberId='test';
+	-->
 
 </mapper>

@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import com.bit.house.domain.MemberVO;
-import com.bit.house.domain.ProductVO;
 import com.bit.house.domain.kakao.KakaoPayApprovalVO;
 import com.bit.house.domain.kakao.KakaoPayReadyVO;
 import org.springframework.http.HttpEntity;
@@ -31,13 +29,13 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-	public String kakaoPayReady(MemberVO houseUser/*, HousePayment housePayment*/, ProductVO houseProduct) {
+	public String kakaoPayReady( /*HouseUser houseUser, HousePayment housePayment, HouseProduct houseProduct*/) {
 		log.info("KakaoPayReady 호출............................................");
         RestTemplate restTemplate = new RestTemplate();
         
-        log.info("userId :: " + houseUser.getMemberId());
-        //log.info("payment : 흐" + housePayment);
-        log.info("houseProduct : 흐" + houseProduct);;
+        /*log.info("userId :: " + houseUser.getUserId());
+        log.info("payment : 흐" + housePayment);
+        log.info("houseProduct : 흐" + houseProduct);*/
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
        // HouseUser houseUser = (HouseUser) session.getAttribute("houseUser");
@@ -91,7 +89,7 @@ public class KakaoPay {
         log.info("userId : : " + userId);
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "KakaoAK " + "06ed53af97ab0fb649be890ab5cc6c5d");
+        headers.add("Authorization", "KakaoAK " + "cc5382cc45ef5108db524d112de5167c");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
  
