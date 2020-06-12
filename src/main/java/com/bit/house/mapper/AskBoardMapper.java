@@ -28,6 +28,4 @@ public interface AskBoardMapper {
     //검색
 
 
-
-
 }

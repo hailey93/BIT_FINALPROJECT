@@ -61,41 +61,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         httpSecurity
-                    .authorizeRequests()
-                    .antMatchers("/", "/oauth2/**",
-                            "/images/**", "/js/**")
-                    .permitAll()
-                    .antMatchers("/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
-                    .antMatchers("/member").hasAnyRole("MEMBER")
-                    //.anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/", "/oauth2/**",
+                        "/images/**", "/js/**")
+                .permitAll()
+                .antMatchers("/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
+                .antMatchers("/member").hasAnyRole("MEMBER")
+                //.anyRequest().authenticated()
                 .and()
-                    .oauth2Login()
-                    .userInfoEndpoint().userService(new CustomOAuth2UserService()) // 네이버 USER INFO의 응답을 처리하기 위한 설정
+                .oauth2Login()
+                .userInfoEndpoint().userService(new CustomOAuth2UserService()) // 네이버 USER INFO의 응답을 처리하기 위한 설정
                 .and()
-                    .defaultSuccessUrl("/loginSuccess")
-                    .failureUrl("/loginFailure")
+                .defaultSuccessUrl("/loginSuccess")
+                .failureUrl("/loginFailure")
                 .and()
-                    .headers()
-                    .frameOptions()
-                    .disable()
+                .headers()
+                .frameOptions()
+                .disable()
                 .and()
-                    .formLogin()
-                    .loginPage("/customLogin")
-                    .loginProcessingUrl("/login")
-                    .successHandler(loginSuccessHandler())
+                .formLogin()
+                .loginPage("/customLogin")
+                .loginProcessingUrl("/login")
+                .successHandler(loginSuccessHandler())
                 .and()
-                    .logout()
-                    .permitAll()
-                    .logoutUrl("/customLogout") // 로그아웃 url
-                    .invalidateHttpSession(true) // 로그아웃시 세션제거
-                    .deleteCookies("JSESSION_ID") // 쿠키제거
-                    .clearAuthentication(true) // 권한정보제거
+                .logout()
+                .permitAll()
+                .logoutUrl("/customLogout") // 로그아웃 url
+                .invalidateHttpSession(true) // 로그아웃시 세션제거
+                .deleteCookies("JSESSION_ID") // 쿠키제거
+                .clearAuthentication(true) // 권한정보제거
                 .and()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/customLogin"))
+                .exceptionHandling()
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/customLogin"))
                 .and()
-                    .addFilterBefore(filter, CsrfFilter.class)
-                    .csrf().disable();
+                .addFilterBefore(filter, CsrfFilter.class)
+                .csrf().disable();
     }
 
     @Bean
@@ -112,10 +112,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .collect(Collectors.toList());
 
         registrations.add(CustomOAuth2Provider.KAKAO.getBuilder("kakao")
-                    .clientId(kakaoClientId)
-                    .clientSecret(kakaoClientSecret)
-                    .jwkSetUri("temp")
-                    .build());
+                .clientId(kakaoClientId)
+                .clientSecret(kakaoClientSecret)
+                .jwkSetUri("temp")
+                .build());
 
         registrations.add(CustomOAuth2Provider.NAVER.getBuilder("naver")
                 .clientId(naverClientId)
@@ -126,7 +126,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private ClientRegistration getRegistration(OAuth2ClientProperties clientProperties, String client) {
-        if("google".equals(client)) {
+        if ("google".equals(client)) {
             OAuth2ClientProperties.Registration registration = clientProperties.getRegistration().get("google");
             return CommonOAuth2Provider.GOOGLE.getBuilder(client)
                     .clientId(registration.getClientId())

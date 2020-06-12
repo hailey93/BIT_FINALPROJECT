@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class AuthVO {
 
-  private int authCode;
-  private String roleType;
+    private int authCode;
+    private String roleType;
 
 }

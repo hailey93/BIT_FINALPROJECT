@@ -8,12 +8,12 @@ public class PaymentController {
 
 
     @GetMapping("/goPayment")
-    public String gopayment(){
+    public String gopayment() {
         return "th/member/payment/payment";
     }
 
     @GetMapping("/paymentSuccess")
-    public String paymentSuccess(){
+    public String paymentSuccess() {
         return "th/member/payment/paymentSuccess";
     }
 }

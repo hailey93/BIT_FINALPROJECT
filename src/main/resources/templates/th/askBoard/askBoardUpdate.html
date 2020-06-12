@@ -8,21 +8,21 @@
     <script type="text/javascript" th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
 </head>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         var obj = [];
 
         nhn.husky.EZCreator.createInIFrame({
             oAppRef: obj,
             elPlaceHolder: "askContent",
             sSkinURI: "/editor/SmartEditor2Skin.html",
-            htParams : {
-                bUseToolbar : true,
-                bUseVerticalResizer : true,
-                bUseModeChanger : true,
+            htParams: {
+                bUseToolbar: true,
+                bUseVerticalResizer: true,
+                bUseModeChanger: true,
             }
         });
 
-        $("#updateBoard").click(function(){
+        $("#updateBoard").click(function () {
             obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
             $("#updateBoardFrm").submit();
         });
@@ -39,7 +39,8 @@
         </div>
         <div class="form-group">
             <label for="askContent">내용</label>
-            <textarea name="askContent" id="askContent"  style="width: 700px; height: 400px; " ><th:block th:utext="${detail.askContent}"/></textarea>
+            <textarea name="askContent" id="askContent" style="width: 700px; height: 400px; "><th:block
+                    th:utext="${detail.askContent}"/></textarea>
         </div>
         <input type="hidden" name="askBoardno" th:value="${detail.askBoardno}"/>
         <input type="button" id="updateBoard" value="등록"/>

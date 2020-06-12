@@ -10,26 +10,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class SampleController {
 
 
-  @GetMapping("/all")
-  public String doAll() {
+    @GetMapping("/all")
+    public String doAll() {
 
-    log.info("do all can access everybody");
-    return "th/login/all";
-  }
+        log.info("do all can access everybody");
+        return "th/login/all";
+    }
 
-  @GetMapping("/member")
-  public String doMember(Authentication auth) {
-    log.info(String.valueOf(auth));
-    log.info("logined member");
+    @GetMapping("/member")
+    public String doMember(Authentication auth) {
+        log.info(String.valueOf(auth));
+        log.info("logined member");
 
-    return "th/login/member";
-  }
+        return "th/login/member";
+    }
 
-  @GetMapping("/admin")
-  public String doAdmin(Authentication auth) {
-    log.info(String.valueOf(auth));
-    log.info("admin only");
+    @GetMapping("/admin")
+    public String doAdmin(Authentication auth) {
+        log.info(String.valueOf(auth));
+        log.info("admin only");
 
-    return "th/login/admin";
-  }
+        return "th/login/admin";
+    }
 }

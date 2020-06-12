@@ -8,20 +8,20 @@
     <script type="text/javascript" th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
 </head>
 <script type="text/javascript">
-    $(function(){
+    $(function () {
         var obj = [];
 
         nhn.husky.EZCreator.createInIFrame({
             oAppRef: obj,
             elPlaceHolder: "askContent",
             sSkinURI: "/editor/SmartEditor2Skin.html",
-            htParams : {
+            htParams: {
                 bUseToolbar: true,
                 bUseVerticalResizer: true,
                 bUseModeChanger: true,
             }
         });
-        $("#replyInsertBoard").click(function(){
+        $("#replyInsertBoard").click(function () {
             obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
             $("#replyInsertBoardFrm").submit();
         });
@@ -38,7 +38,7 @@
         </div>
         <div class="form-group">
             <label for="memberId">작성자</label>
-            <input type="text"  id="memberId" name="memberId" placeholder="아이디는 자동으로 받을것"/><!-- value값은 세션-->
+            <input type="text" id="memberId" name="memberId" placeholder="아이디는 자동으로 받을것"/><!-- value값은 세션-->
         </div>
         <div class="form-group">
             <label for="askContent">내용</label>

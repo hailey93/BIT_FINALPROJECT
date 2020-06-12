@@ -22,26 +22,26 @@ import java.util.stream.Collectors;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-	@Setter(onMethod_ = { @Autowired })
-	private AllMemberMapper allMemberMapper;
+    @Setter(onMethod_ = {@Autowired})
+    private AllMemberMapper allMemberMapper;
 
 
-	@Override
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+    @Override
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
-		log.warn("Load User By UserName : " + userName);
+        log.warn("Load User By UserName : " + userName);
 
-		// userName means userid
-		AllMemberVO allMemberVO = allMemberMapper.read(userName);
+        // userName means userid
+        AllMemberVO allMemberVO = allMemberMapper.read(userName);
 
-		log.warn("queried by member mapper: " + allMemberVO);
+        log.warn("queried by member mapper: " + allMemberVO);
 
-		List<GrantedAuthority> authorities = new ArrayList<>();
+        List<GrantedAuthority> authorities = new ArrayList<>();
 
 
-		return new User(allMemberVO.getUserid(), allMemberVO.getUserpw(), allMemberVO.getAuthList().stream().map(authVO -> new SimpleGrantedAuthority(authVO.getRoleType())).collect(Collectors.toList()));
+        return new User(allMemberVO.getUserid(), allMemberVO.getUserpw(), allMemberVO.getAuthList().stream().map(authVO -> new SimpleGrantedAuthority(authVO.getRoleType())).collect(Collectors.toList()));
 
-	}
+    }
 
 }
 

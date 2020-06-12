@@ -8,21 +8,21 @@
     <script type="text/javascript" th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
 </head>
 <script type="text/javascript">
-    $(function(){
-        var obj=[];
+    $(function () {
+        var obj = [];
 
         nhn.husky.EZCreator.createInIFrame({
             oAppRef: obj,
             elPlaceHolder: "askContent",
-            sSkinURI : "/editor/SmartEditor2Skin.html",
-            htParams:{
-                bUseToolbar : true,
+            sSkinURI: "/editor/SmartEditor2Skin.html",
+            htParams: {
+                bUseToolbar: true,
                 bUseVerticalResizer: true,
-                bUseModeChanger : true,
+                bUseModeChanger: true,
             }
         });
 
-        $("#insertBoard").click(function(){
+        $("#insertBoard").click(function () {
             obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
             $("#insertBoardFrm").submit();
         });

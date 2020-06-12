@@ -38,8 +38,6 @@ public class OAuth2Controller {
     }
 
 
-
-
     @GetMapping("/loginSuccess")
     public String loginSuccess(@SocialUser AllMemberVO allMemberVO) {
 
@@ -53,12 +51,12 @@ public class OAuth2Controller {
     }
 
     @GetMapping("/signup")
-    public String signup(){
+    public String signup() {
         return "th/login/signup";
     }
 
     @PostMapping("/signupMember")
-    public String signupMember(AllMemberVO allMemberVO, MemberVO memberVO){
+    public String signupMember(AllMemberVO allMemberVO, MemberVO memberVO) {
 
         allMemberService.insertUser(allMemberVO);
         memberService.insertMember(memberVO);

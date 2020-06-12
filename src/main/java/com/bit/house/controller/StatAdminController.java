@@ -27,7 +27,7 @@ public class StatAdminController {
     AdminMapper adminMapper;
 
     @GetMapping("/statAdmin")
-    public String statAdmin(){
+    public String statAdmin() {
         return "th/admin/statAdmin/statAdmin";
     }
 
@@ -44,7 +44,7 @@ public class StatAdminController {
 
         try {
             jsonText = mapper.writeValueAsString(productOptionVOList);
-            model.addAttribute("jsonText", jsonText );
+            model.addAttribute("jsonText", jsonText);
             model.addAttribute("yearList", yearList);
             log.info(jsonText);
             System.out.println("jsonText는 : ? : " + jsonText);
@@ -59,8 +59,8 @@ public class StatAdminController {
         return "th/admin/statAdmin/productSalesVolume";
     }
 
-        @GetMapping("/mem")
-    public String memManageMent(){
+    @GetMapping("/mem")
+    public String memManageMent() {
         return "th/admin/statAdmin/memberManagement";
     }
 

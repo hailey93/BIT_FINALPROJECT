@@ -7,6 +7,7 @@ public interface AllMemberService {
     AllMemberVO read(String userid);
 
     public void insertUser(AllMemberVO allMemberVO);
+
     public void insertSocialToUser(AllMemberVO allMemberVO);
 
     String searchSocial(String id);

@@ -7,7 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AllMemberServiceImpl implements AllMemberService{
+public class AllMemberServiceImpl implements AllMemberService {
 
     @Autowired
     private AllMemberMapper allMemberMapper;
@@ -23,8 +23,8 @@ public class AllMemberServiceImpl implements AllMemberService{
     @Override
     public void insertUser(AllMemberVO allMemberVO) {
 
-      allMemberVO.setUserpw(passwordEncoder.encode(allMemberVO.getUserpw()));
-      allMemberMapper.insertUser(allMemberVO);
+        allMemberVO.setUserpw(passwordEncoder.encode(allMemberVO.getUserpw()));
+        allMemberMapper.insertUser(allMemberVO);
     }
 
     @Override

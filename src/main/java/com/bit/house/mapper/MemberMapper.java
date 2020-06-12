@@ -7,5 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MemberMapper {
 
     public void insertMember(MemberVO memberVO);
+
     public void insertSocialToMember(MemberVO memberVO);
 }

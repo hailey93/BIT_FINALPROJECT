@@ -3,7 +3,7 @@
 <mapper namespace="com.bit.house.mapper.MainMapper">
 
     <select id="selectMainList" resultType="productVO">
-		select sellerName, productName, customerPrice, productMainImg FROM thehouse.product
-	</select>
+        select sellerName, productName, customerPrice, productMainImg FROM thehouse.product
+    </select>
 
 </mapper>

@@ -11,10 +11,16 @@ import java.util.List;
 @Mapper
 public interface AdminMapper {
     public List<ProductVO> getProduct();
+
     public List<String> getYear();
+
     public void insertAddr(String userAddr);
+
     public List<AllMemberVO> getMember();
+
     public MemberVO getHouseUser(MemberVO houseUser);
+
     public List<ProductOptionVO> getProductOption();
+
     public MemberVO getUser();
 }

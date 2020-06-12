@@ -14,34 +14,34 @@ import java.util.List;
 @Slf4j
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
-	@Override
-	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
-			throws IOException, ServletException {
+    @Override
+    public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
+            throws IOException, ServletException {
 
-		log.warn("Login Success");
+        log.warn("Login Success");
 
-		List<String> roleNames = new ArrayList<>();
+        List<String> roleNames = new ArrayList<>();
 
-		auth.getAuthorities().forEach(authority -> {
+        auth.getAuthorities().forEach(authority -> {
 
-			roleNames.add(authority.getAuthority());
+            roleNames.add(authority.getAuthority());
 
-		});
+        });
 
-		log.warn("ROLE NAMES: " + roleNames);
+        log.warn("ROLE NAMES: " + roleNames);
 
-		if (roleNames.contains("ROLE_ADMIN")) {
+        if (roleNames.contains("ROLE_ADMIN")) {
 
-			response.sendRedirect("/admin");
-			return;
-		}
+            response.sendRedirect("/admin");
+            return;
+        }
 
-		if (roleNames.contains("ROLE_MEMBER")) {
+        if (roleNames.contains("ROLE_MEMBER")) {
 
-			response.sendRedirect("/member");
-			return;
-		}
+            response.sendRedirect("/member");
+            return;
+        }
 
-		response.sendRedirect("/");
-	}
+        response.sendRedirect("/");
+    }
 }
