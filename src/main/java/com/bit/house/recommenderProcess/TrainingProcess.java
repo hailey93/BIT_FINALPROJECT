@@ -100,6 +100,11 @@ public class TrainingProcess {
         Collection<String> uptrainWords = word2Vec.wordsNearestSum("SOFAS-100100001", 5);
         log.info("Closest words : " + uptrainWords);
 
+        for(String word:uptrainWords){
+            System.out.println(word);
+        }
+
+
         /*
             Model can be saved for future use now
          */
