@@ -3,44 +3,41 @@
 <mapper namespace="com.bit.house.mapper.AskBoardMapper">
 
     <select id="askBoardList" resultType="com.bit.house.domain.AskBoardVO">
-		SELECT askBoardno, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate, askGroupNo, askIndent, askStep
-		FROM askboard
-		order by askGroupNo desc,  askStep asc, askIndent asc;
+        SELECT askBoardno, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate,
+        askGroupNo, askIndent, askStep
+        FROM askboard
+        order by askGroupNo desc, askStep asc, askIndent asc;
 
-	</select>
+    </select>
 
     <select id="askDetail" parameterType="int" resultType="AskBoardVO">
-		SELECT * FROM askboard WHERE askBoardno=#{askBoardno}
-	</select>
+        SELECT * FROM askboard WHERE askBoardno=#{askBoardno}
+    </select>
 
     <insert id="insertAsk" parameterType="com.bit.house.domain.AskBoardVO">
-		INSERT INTO
-		askboard (askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
-		values(#{askTitle}, #{askContent}, #{memberId}, now(), (select ifnull (max(askBoardno)+1, 1) from askboard b), 0, 0)
-	</insert>
+        INSERT INTO
+        askboard (askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
+        values(#{askTitle}, #{askContent}, #{memberId}, now(), (select ifnull (max(askBoardno)+1, 1) from askboard b),
+        0, 0)
+    </insert>
 
     <update id="askUpdate" parameterType="AskBoardVO">
         UPDATE askboard SET
-        <if test="askTitle != null">
-            askTitle = #{askTitle}
-        </if>
-        <if test="askTitle != null and askContent != null"> , </if>
-        <if test="askContent != null">
-            askContent = #{askContent}
-        </if>
+        askTitle = #{askTitle}, askContent=#{askContent}
         WHERE askBoardno = #{askBoardno}
     </update>
 
     <insert id="askReply" parameterType="AskBoardVO">
-		INSERT INTO
-		askboard(askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
-		values(#{askTitle}, #{askContent}, #{memberId}, curdate(), #{askGroupNo},
-				#{askIndent}+1, (select ifnull(max(askStep)+1, 1) from askboard b where askGroupNo = #{askGroupNo} AND askIndent=#{askIndent}+1))
-	</insert>
+        INSERT INTO
+        askboard(askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
+        values(#{askTitle}, #{askContent}, #{memberId}, curdate(), #{askGroupNo},
+        #{askIndent}+1, (select ifnull(max(askStep)+1, 1) from askboard b where askGroupNo = #{askGroupNo} AND
+        askIndent=#{askIndent}+1))
+    </insert>
 
     <delete id="askDelete" parameterType="int">
-		DELETE FROM askboard WHERE askBoardno = #{askBoardno}
-	</delete>
+        DELETE FROM askboard WHERE askBoardno = #{askBoardno}
+    </delete>
 
 
 </mapper>

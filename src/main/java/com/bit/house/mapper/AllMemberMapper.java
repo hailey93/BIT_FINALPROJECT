@@ -9,6 +9,7 @@ public interface AllMemberMapper {
     AllMemberVO read(String userid);
 
     public void insertUser(AllMemberVO allMemberVO);
+
     public void insertSocialToUser(AllMemberVO allMemberVO);
 
     public String searchSocial(String id);

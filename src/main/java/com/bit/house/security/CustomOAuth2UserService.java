@@ -36,7 +36,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     private static final String INVALID_USER_INFO_RESPONSE_ERROR_CODE = "invalid_user_info_response";
 
     private static final ParameterizedTypeReference<Map<String, Object>> PARAMETERIZED_RESPONSE_TYPE =
-            new ParameterizedTypeReference<Map<String, Object>>() {};
+            new ParameterizedTypeReference<Map<String, Object>>() {
+            };
 
     private Converter<OAuth2UserRequest, RequestEntity<?>> requestEntityConverter = new OAuth2UserRequestEntityConverter();
 
@@ -112,8 +113,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     // 네이버는 HTTP response body에 response 안에 id 값을 포함한 유저정보를 넣어주므로 유저정보를 빼내기 위한 작업을 함
     private Map<String, Object> getUserAttributes(ResponseEntity<Map<String, Object>> response) {
         Map<String, Object> userAttributes = response.getBody();
-        if(userAttributes.containsKey("response")) {
-            LinkedHashMap responseData = (LinkedHashMap)userAttributes.get("response");
+        if (userAttributes.containsKey("response")) {
+            LinkedHashMap responseData = (LinkedHashMap) userAttributes.get("response");
             userAttributes.putAll(responseData);
             userAttributes.remove("response");
         }

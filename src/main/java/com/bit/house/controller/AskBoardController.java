@@ -8,104 +8,102 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
-import java.util.Set;
 import java.util.UUID;
 
 @Controller
 public class AskBoardController {
 
-    @Autowired(required=false)
+    @Autowired(required = false)
     AskBoardMapper askBoardMapper;
 
     @RequestMapping("/list")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
-        System.out.println("컨트롤러");
+
         model.addAttribute("list", askBoardMapper.askBoardList());
-        System.out.println("매퍼통과");
         return "th/askBoard/askBoardList";
     }
 
-    @RequestMapping("detail/{askBoardNo}") //글 상세페이지
-    private String askDetail(@PathVariable int askBoardNo, Model model) throws Exception{
+    @RequestMapping("detail/{askBoardno}") //글 상세페이지
+    private String askDetail(@PathVariable int askBoardno, Model model) throws Exception {
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
 
         return "th/askBoard/askBoardDetail";
     }
 
     @RequestMapping("/insert")//게시글 작성 폼 호출
-    private String insertAsk(){ return "th/askBoard/askBoardInsert"; }
+    private String insertAsk() {
+        return "th/askBoard/askBoardInsert";
+    }
 
     @RequestMapping("/insertProc")//게시글 작성
-    private String insertAskProc(HttpServletRequest request, String editor) throws Exception{
+    private String insertAskProc(HttpServletRequest request) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(request.getParameter("memberId"));
-        askBoardVO.setAskContent(request.getParameter("content"));
+        askBoardVO.setAskContent(request.getParameter("askContent"));
 
-        System.err.println("저장할 내용: " + editor);
-
-        askBoardMapper.insertAsk(askBoardVO, editor);
+        askBoardMapper.insertAsk(askBoardVO);
 
         return "redirect:/list";
     }
 
-    @GetMapping("/reply/{askBoardNo}")//답글 작성 폼
-    private String askReply(@PathVariable int askBoardNo, Model model) throws Exception{
+    @GetMapping("/reply/{askBoardno}")//답글 작성 폼
+    private String askReply(@PathVariable int askBoardno, Model model) throws Exception {
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
 
         return "th/askBoard/askBoardReplyInsert";
     }
 
     @RequestMapping("/replyProc")
-    private String askReplyProc(HttpServletRequest request, String editor) throws Exception{
+    private String askReplyProc(HttpServletRequest request) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(request.getParameter("memberId"));
-        //content들어갈 자리
+        askBoardVO.setAskContent(request.getParameter("askContent"));
+        askBoardVO.setAskGroupNo(Integer.parseInt(request.getParameter("askGroupNo")));
+        askBoardVO.setAskIndent(Integer.parseInt(request.getParameter("askIndent")));
 
-        askBoardMapper.askReply(askBoardVO, editor);
+        askBoardMapper.askReply(askBoardVO);
 
         return "redirect:/list";
     }
 
-    @RequestMapping("/update/{askBoardNo}")//게시글 수정 폼
-    private String askUpdate(@PathVariable int askBoardNo, Model model) throws Exception{
+    @RequestMapping("/update/{askBoardno}")//게시글 수정 폼
+    private String askUpdate(@PathVariable int askBoardno, Model model) throws Exception {
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
 
         return "th/askBoard/askBoardUpdate";
     }
 
     @RequestMapping("/updateProc")
-    private String askUpdateProc(HttpServletRequest request, String editor) throws Exception{
+    private String askUpdateProc(HttpServletRequest request) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
-        askBoardVO.setMemberId(request.getParameter("memberId"));
-        //content들어갈 자리
+        askBoardVO.setAskContent(request.getParameter("askContent"));
+        askBoardVO.setAskBoardno(Integer.parseInt(request.getParameter("askBoardno")));
 
-        askBoardMapper.askUpdate(askBoardVO, editor);
+        askBoardMapper.askUpdate(askBoardVO);
 
-        return "redirect:/detail/" + request.getParameter("askBoardNo");
+        return "redirect:/detail/" + request.getParameter("askBoardno");
     }
 
-    @RequestMapping("/delete/{askBoardNo}")
-    private String askDelete(@PathVariable int askBoardNo) throws Exception{
+    @RequestMapping("/delete/{askBoardno}")
+    private String askDelete(@PathVariable int askBoardno) throws Exception {
 
-        askBoardMapper.askDelete(askBoardNo);
+        askBoardMapper.askDelete(askBoardno);
 
         return "redirect:/list";
     }

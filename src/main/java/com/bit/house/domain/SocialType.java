@@ -14,9 +14,13 @@ public enum SocialType {
         this.name = name;
     }
 
-    public String getRoleType() { return ROLE_PREFIX + name.toUpperCase(); }
+    public String getRoleType() {
+        return ROLE_PREFIX + name.toUpperCase();
+    }
 
-    public String getValue() { return name; }
+    public String getValue() {
+        return name;
+    }
 
     public boolean isEquals(String authority) {
 

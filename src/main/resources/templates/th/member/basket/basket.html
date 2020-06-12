@@ -32,7 +32,8 @@
                                     <span class="commerce-cart__header__left" onclick="checkAll(this.form);">
                                        <div class="round-checkbox-input round-checkbox-input--blue">
                                             <label class="round-checkbox-input__label">
-                             <!--모두선택체크박스--><input type="checkbox" id="th_checkAll"name="outerCheckbox" class="round-checkbox-input__input" autocomplete="off" checked="">
+                             <!--모두선택체크박스--><input type="checkbox" id="th_checkAll" name="outerCheckbox"
+                                                   class="round-checkbox-input__input" autocomplete="off" checked="">
                                                 <span class="round-checkbox-input__icon">
                                                     <svg class="check" width="24" height="24" viewBox="0 0 24 24"
                                                          preserveAspectRatio="xMidYMid meet">
@@ -71,7 +72,8 @@
 
                                 <li class="commerce-cart__content__group-item" th:each="list, listStat : ${basketList}">
 
-                                    <article class="commerce-cart__group"><h1 class="commerce-cart__group__header" >핀란디아<!--th:text="${list.productVO.getSellerName()}" -->
+                                    <article class="commerce-cart__group"><h1 class="commerce-cart__group__header">핀란디아
+                                        <!--th:text="${list.productVO.getSellerName()}" -->
                                         <!-- --> 배송</h1>
                                         <ul class="commerce-cart__group__item-list">
                                             <li class="commerce-cart__group__item">
@@ -106,7 +108,8 @@
                                                                         src=""
                                                                         alt=""></div>
                                                                 <div class="product-small-item__content"><h1
-                                                                        class="product-small-item__title" th:text="${list.productName}">[핀란디아]
+                                                                        class="product-small-item__title"
+                                                                        th:text="${list.productName}">[핀란디아]
                                                                     <!-- -->데이브 화이트/블랙 메쉬 책상의자 </h1>
                                                                     <p class="product-small-item__caption">무료배송 |
                                                                         일반택배</p></div>
@@ -328,7 +331,7 @@
         document.getElementById("output").innerHTML = output;
     }*/
 
-   $(document).ready(
+    $(document).ready(
         function () {
             console.log("len : " + len);
             if (len != 0) {
@@ -342,10 +345,10 @@
     );
 
 
-    function checkAll(){
-        if( $("#th_checkAll").is(':checked') ){
+    function checkAll() {
+        if ($("#th_checkAll").is(':checked')) {
             $("input[name=innerCheckbox]").prop("checked", true);
-        }else{
+        } else {
             $("input[name=innerCheckbox]").prop("checked", false);
         }
     }

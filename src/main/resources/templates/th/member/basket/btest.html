@@ -6,21 +6,21 @@
 </head>
 <body>
 asd
-<form action = "/loginPost" method="post">
+<form action="/loginPost" method="post">
     <input autocomplete="off" id="ibxLoginId" maxlength="20"
            type="text" placeholder="아이디" title="아이디를 입력하세요"
-           name = "userId">
+           name="userId">
     <!--아이디-->
     <!--아이디를 입력하세요-->
     <input autocomplete="off" id="ibxLoginPwd" maxlength="20"
            type="password" placeholder="비밀번호" title="비밀번호를 입력하세요"
-           name = "userpw">
+           name="userpw">
     <!--비밀번호-->
     <!--비밀번호를 입력하세요-->
     <div class="alert"></div>
 
     <button id="btnLogin" type="submit"
-            class="button purple large btn-login" >
+            class="button purple large btn-login">
 
         로그인
         <!--로그인-->
@@ -34,8 +34,7 @@ asd
     var email = false;
 
 
-
-    function InitValue(frm){
+    function InitValue(frm) {
 
         name = frm.txtName.value;
 
@@ -43,23 +42,23 @@ asd
 
     }
 
-    function ShipToBill(frm){
+    function ShipToBill(frm) {
         var n = null;
-        if(frm.copy.checked){
+        if (frm.copy.checked) {
 
             InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
 
             document.getElementById("txtDeliveryName").value = document.getElementById("txtName").value;
 
 
-        }else{						//체크박스를 해제한다면
+        } else {						//체크박스를 해제한다면
 
-            frm.txtDeliveryName.value=name;
+            frm.txtDeliveryName.value = name;
 
             frm.chkDeliveryEmail.checked = email;		//폼객체 활용
 
         }
-        if(!frm.copy.checked){
+        if (!frm.copy.checked) {
             document.getElementById("txtDeliveryName").value = n;
         }
     }
@@ -74,28 +73,25 @@ asd
 
     주문자 정보<br/>
 
-    이름 : <input type="text" id="txtName" /><br />
+    이름 : <input type="text" id="txtName"/><br/>
 
     <input type="checkbox" id="chkmail" name="chkmail"/> 배송정보를 메일로 받음
 
 
-
-    <hr />
+    <hr/>
 
     <input type="checkbox" id="copy" onclick="ShipToBill(this.form);"/>주문자 정보와 배송지 정보가 같음
 
-    <hr />
-
+    <hr/>
 
 
     배송지 정보<br/>
 
-    이름 : <input type="text" id="txtDeliveryName" /><br />
+    이름 : <input type="text" id="txtDeliveryName"/><br/>
 
     <input type="checkbox" id="chkDeliveryEmail" name="chkDeliveryEmail"/> 배송정보를 메일로 받음
 
 </form>
-
 
 
 </body>

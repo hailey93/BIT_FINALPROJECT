@@ -57,10 +57,11 @@
 }
 
 @media (min-width: 768px) {
-    .store-index-popular-items  __more-btn.button {
+    .store-index-popular-items __more-btn.button {
         display: none
     }
 }
+
 .filter-bar-order-button {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
@@ -369,7 +370,10 @@
     margin-top: 0
 }
 
-<!--인기상품 -->
+<!--
+인기상품
+
+-->
 .production-item {
     position: relative;
     padding: 0 0 20px
@@ -497,6 +501,7 @@
 .production-item--placeholder .production-item-stats {
     width: 100px
 }
+
 .production-item-image {
     position: relative;
     background-color: #f5f5f5;

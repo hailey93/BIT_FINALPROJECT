@@ -15,7 +15,7 @@ public class TestControllerTest {
     AllMemberMapper allMemberMapper;
 
     @Test
-    public void test(){
+    public void test() {
         AllMemberVO allMemberVO = allMemberMapper.read("kim123");
 
         log.info(String.valueOf(allMemberVO));

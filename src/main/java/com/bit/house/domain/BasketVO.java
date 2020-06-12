@@ -18,11 +18,11 @@ public class BasketVO {
     private String productMainImg;
     private String modelName;
 
-    @Autowired(required =false)
+    @Autowired(required = false)
     private ProductVO productVO;
 
     public BasketVO(int basketNo, String memberId, String productNo, String productColor, int sellPrice,
-                    String productName, String productMainImg, String modelName, ProductVO productVO){
+                    String productName, String productMainImg, String modelName, ProductVO productVO) {
         this.basketNo = basketNo;
         this.memberId = memberId;
         this.productColor = productColor;
