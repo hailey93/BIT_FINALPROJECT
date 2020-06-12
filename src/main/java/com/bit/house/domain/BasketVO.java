@@ -21,6 +21,9 @@ public class BasketVO {
     @Autowired(required = false)
     private ProductVO productVO;
 
+    @Autowired(required = false)
+    private ProductOptionVO productOptionVO;
+
     public BasketVO(int basketNo, String memberId, String productNo, String productColor, int sellPrice,
                     String productName, String productMainImg, String modelName, ProductVO productVO) {
         this.basketNo = basketNo;

@@ -13,6 +13,10 @@
         <association property="productVO" javaType="productVO">
             <result column="sellerName" property="sellerName"/>
         </association>
+
+        <association property="productOptionVO" javaType="productOptionVO">
+            <result column="colorCode" property="colorCode"/>
+        </association>
     </resultMap>
     <!--
     배열 파라미터를 직접 넘겼을 경우 - public List<Members> getAuthUserList(String[] userArray) {
@@ -45,10 +49,10 @@
 
 
     -->
-    <!--
+<!--
 
-    0608 쓸것
-    -->
+0608 쓸것
+-->
     <!--
     <select id="getNonMemberBasketList"  resultType="BasketVO">
                 select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate, p.productMainImg, p.purchasePrice, o.colorCode from product p,
@@ -70,7 +74,7 @@
         </foreach>
             -->
 
-    <select id="getNonMemberBasketList" resultType="BasketVO" parameterType="java.util.List">
+    <select id="getNonMemberBasketList"  resultMap="bskInfo" parameterType="java.util.List">
         select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
         p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
         productoption o where p.productNo = o.productNo) as a
@@ -80,13 +84,13 @@
         </foreach>
 
     </select>
-    <!--
-        <select id="getArray" parameterType="java.util.ArrayList" resultType="basketVO">
-            select * from product where productName in
-            <foreach collection="hoho2" item="item" index="index" separator=",">
-                #{item}
-            </foreach>
-        </select>-->
+<!--
+    <select id="getArray" parameterType="java.util.ArrayList" resultType="basketVO">
+        select * from product where productName in
+        <foreach collection="hoho2" item="item" index="index" separator=",">
+            #{item}
+        </foreach>
+    </select>-->
 
     <select id="getBasket" resultType="basketVO">
         select * from basket;

@@ -34,7 +34,7 @@ public class BasketController {
     BasketMapper basketMapper;
 
     @GetMapping("/basket")
-    public String cart(String MemberId, Model model, AllMemberVO allMemberVO, BasketVO basketVO) {
+    public String cart(String MemberId, Model model,AllMemberVO allMemberVO, BasketVO basketVO) {
         System.out.println("goBasket!");
         //UserId 있으면 (html에서 세션 검증)
         // basketVO = MemberService.getMemberBasket(MemberId);
@@ -68,10 +68,9 @@ public class BasketController {
     }
 
     @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
-    public @ResponseBody
-    void basket(HttpSession session, ProductVO productVO, BasketVO basketVO, String value, String[] hoho, Model model) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
+    public @ResponseBody void basket(HttpSession session,ProductVO productVO,BasketVO basketVO, String value, String[] hoho,Model model) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
         System.out.println("ajax!");
-        for (String a : hoho) {
+        for(String a : hoho){
             System.out.println("호호 출력 ArrayList");
             System.out.println(a);
         }
@@ -82,12 +81,12 @@ public class BasketController {
         String[] split;
         List<String> hoho3 = new ArrayList<>();
         int count = 0;
-        int k = 0;
+        int k=0;
         int arrNum = 0;
-        System.out.println("호호 길이 :: " + hoho.length);
+        System.out.println("호호 길이 :: "+ hoho.length);
 
 
-        // System.out.println("split : " + split);
+       // System.out.println("split : " + split);
         for (String string2 : hoho) {
             split = hoho[arrNum].split("[\"\\[\\]]");
             for (String string : split) {
@@ -99,7 +98,7 @@ public class BasketController {
                     System.out.println("hoho" + k + " 저장합니다 : " + string);
                     hoho2[count] = string;
                     hoho3.add(string);
-                    System.out.println("저장된 값 ? :  " + hoho2[k]);
+                    System.out.println("저장된 값 ? :  "+ hoho2[k]);
                     count++;
                     System.out.println(count);
                 }
@@ -107,9 +106,9 @@ public class BasketController {
             }
             arrNum++;
         }
-        System.out.println("hoho2 : ");
+        System.out.println("hoho2 : " );
         //hoho2는 배열 hoho에 기본 길이가 100으로 돼있어서 hoho2에 다시 저장
-        for (int i = 0; i < count; i++) {
+        for(int i=0; i<count; i++){
             System.out.println(hoho2[i]);
 
         }
@@ -118,7 +117,7 @@ public class BasketController {
         System.out.println("리스트 전체 출력 : " + hoho3.toString());
         System.out.println("hoho3 출력");
         //hoho3는 리스트
-        for (String item : hoho3) {
+        for(String item : hoho3){
             System.out.print(item);
         }
         System.out.println("setAttribute");
@@ -127,20 +126,20 @@ public class BasketController {
         List<String> hohoSession2 = new ArrayList<>();
         System.out.println("getAttribute");
         hohoSession2 = (List<String>) session.getAttribute("hoho3");
-        System.out.println("호호세션 : " + hohoSession2);
+        System.out.println("호호세션 : "+hohoSession2);
         //List로 쓰자
         System.out.println("Mapper 실행 ");
 
         List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // 아무튼 상품정보 가져옴
-        System.out.println(basketVOList.get(0));
+        //System.out.println(basketVOList.get(0));
 
         // 여기까지 비회원 장바구니
 
         // 회원 장바구니 시작
-        // String userId = (String) session.getAttribute("userId");
-        // List<BasketVO> basketVOListMember = (List<BasketVO>) basketMapper.getBasket(userId);
+       // String userId = (String) session.getAttribute("userId");
+       // List<BasketVO> basketVOListMember = (List<BasketVO>) basketMapper.getBasket(userId);
 
-        // model.addAttribute("memberBasket", basketVOListMember);
+       // model.addAttribute("memberBasket", basketVOListMember);
 
 
         //List<BasketVO> basketVOList = basketMapper.getArray(hoho2);
@@ -179,22 +178,23 @@ public class BasketController {
             System.out.println("");
         }*/
         //List<ProductVO> productVOList = adminMapper.getProduct();
-        // model.addAttribute("list", productVOList);
+       // model.addAttribute("list", productVOList);
     }
 
 
     @GetMapping("/goBasket")
-    public String gobasket(HttpSession session, ProductVO productVO, BasketVO basketVO, Model model) {
+    public String gobasket(HttpSession session,ProductVO productVO,BasketVO basketVO,Model model){
+
         List<String> hohoSession2 = new ArrayList<>();
         System.out.println("getAttribute");
         hohoSession2 = (List<String>) session.getAttribute("hoho3");
-        System.out.println("호호세션 : " + hohoSession2);
+        System.out.println("호호세션 : "+hohoSession2);
         //List로 쓰자
+
         System.out.println("Mapper 실행 ");
 
-        List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
-        System.out.println("리스트 : " + basketVOList.get(0).getProductNo());
-        model.addAttribute("basketList", basketVOList);
+        //System.out.println("리스트 : "+ basketVOList.get(0).getProductNo());
+
         // 여기까지 비회원 장바구니 
 
         // 회원 장바구니 시작  Mapper 만들고 실행해야 오류 안남
@@ -202,17 +202,28 @@ public class BasketController {
         //List<BasketVO> basketVOListMember = (List<BasketVO>) basketMapper.getBasket(userId);
 
         //model.addAttribute("memberBasket", basketVOListMember);
+        if(hohoSession2 == null){
+            System.out.println("값이 없다");
 
-        return "th/member/basket/basket";
+            return "th/member/basket/basketNull";
+        }else {
+             //if(userId == null){
+            System.out.println("값이 있다");
+            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
+            model.addAttribute("basketList", basketVOList);
+            return "th/member/basket/basket";
+             //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}
+        }
+
     }
 
     @GetMapping("/btest")
-    public String btest() {
+    public String btest(){
         return "th/member/basket/btest";
     }
 
     @GetMapping("/loginPost")
-    public String loginPost(HttpServletRequest request, Model model, HttpSession session, MemberVO houseUser) {
+    public String loginPost(HttpServletRequest request, Model model, HttpSession session, MemberVO houseUser){
         /*System.out.println("//////////////");
         houseUser = adminMapper.getUser();
         System.out.println(houseUser);

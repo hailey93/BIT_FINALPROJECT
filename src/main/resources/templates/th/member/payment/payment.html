@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,105 +11,39 @@
     <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/16-82708389.chunk.css">
     <link rel="stylesheet" media="screen"
           href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-7a3e77c9.chunk.css">
-    <link rel="stylesheet" media="all"
-          href="https://d1nyaccf3kuclt.cloudfront.net/assets/v2/orders/pre_order-a9341d94d054b478694e31b559c91d4c6f9004f1819d278a88456fa32578bff9.css">
+    <link rel="stylesheet" media="all" href="https://d1nyaccf3kuclt.cloudfront.net/assets/v2/orders/pre_order-a9341d94d054b478694e31b559c91d4c6f9004f1819d278a88456fa32578bff9.css">
 
 </head>
+
+<!--<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>-->
+<!--<script src="/resources/js/addressapi.js"></script>-->
 <body>
 
 <div class="sticky-child layout-navigation-primary" style="position: fixed; left: 0px; right: 0px; top: 0px;">
-    <div class="layout-navigation-primary__content">
-        <div class="layout-navigation-primary__leftmost">
-            <button class="layout-navigation-bar-icon layout-navigation-bar-drawer-button" title="메뉴" aria-label="메뉴"
-                    type="button">
-                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
-                    <path fill="currentColor" d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path>
-                </svg>
-            </button>
+    <div class="layout-navigation-primary__content"><div class="layout-navigation-primary__leftmost">
+        <button class="layout-navigation-bar-icon layout-navigation-bar-drawer-button" title="메뉴" aria-label="메뉴" type="button"><
+            svg class="icon" width="24" height="24" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet"><path fill="currentColor
+" d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"></path></svg></button>
+    </div>
+        <div class="layout-navigation-primary__left"><a class=layout-navigation-logo layout-navigation__bar__logo aria-label="오늘의집" href="/"><svg class="icon" width="74" height="30" viewBox="0 0 74 30" preserveAspectRatio="xMidYMid meet"><g fill="none" fill-rule="evenodd"><path fill="#000" d="M14.2 25.17H9.28V20.7a1.45 1.45 0 0 0-2.9 0v4.47H1.44a1.45 1.45 0 1 0 0 2.9H14.2a1.45 1.45 0 0 0 0-2.9M4.5 9.15c0-4.6 2.08-5.28 3.33-5.28 1.24 0 3.33.69 3.33 5.28v.36c0 4.6-2.09 5.28-3.33 5.28-1.25 0-3.34-.69-3.34-5.28v-.36zm3.33 8.54c3.84 0 6.23-3.13 6.23-8.18v-.36c0-5.05-2.39-8.18-6.23-8.18-3.85 0-6.24 3.13-6.24 8.18v.36c0 5.05 2.39 8.19 6.24 8.19zm25.54-7.34H17.81a1.45 1.45 0 0 0 0 2.9h15.56a1.45 1.45 0 1 0 0-2.9m-1.55 15.5c-7.08 1.83-9.45.79-10.14.25-.45-.35-.65-.8-.65-1.48v-.87h10.25c.8 0 1.46-.65 1.46-1.45v-5.08c0-.8-.66-1.45-1.46-1.45h-11.7a1.45 1.45 0 1 0 0 2.9h10.25v2.18H19.57c-.8 0-1.45.65-1.45 1.45v2.32a4.6 4.6 0 0 0 1.78 3.78c1.2.93 2.94 1.39 5.21 1.39 2.05 0 4.54-.38 7.44-1.13a1.45 1.45 0 1 0-.73-2.82M20.3 7.83h10.8a1.45 1.45 0 1 0 0-2.9h-9.35V1.45a1.45 1.45 0 1 0-2.9 0v4.93c0 .8.65 1.45 1.45 1.45"></path><rect width="3" height="15" x="70" fill="#000" rx="1.5"></rect><path fill="#000" d="M64.5 13.28a1.45 1.45 0 0 0 2.73-1c-.05-.13-1-2.68-3.38-4.5l3.7-4.1a1.45 1.45 0 0 0-1.09-2.42h-9.05a1.45 1.45 0 1 0 0 2.9h5.8l-6.88 7.64a1.45 1.45 0 1 0 2.16 1.95l3.41-3.8a8 8 0 0 1 2.6 3.33M69.56 26.52h-7.01a.82.82 0 0 1-.82-.82v-1.95h8.65v1.95c0 .45-.37.82-.82.82m2.27-9.37c-.8 0-1.45.65-1.45 1.45v2.25h-8.65V18.6a1.45 1.45 0 1 0-2.9 0v7.1a3.73 3.73 0 0 0 3.72 3.72h7.01a3.73 3.73 0 0 0 3.72-3.72v-7.1c0-.8-.65-1.45-1.45-1.45M42.46 3.87c2.22 0 2.33 4.24 2.33 5.08 0 .85-.11 5.09-2.33 5.09-2.21 0-2.32-4.24-2.32-5.08 0-.86.11-5.09 2.32-5.09m0 13.07c1.76 0 3.23-.93 4.14-2.62.71-1.34 1.1-3.2 1.1-5.36s-.39-4.02-1.1-5.37A4.6 4.6 0 0 0 42.46.97c-1.76 0-3.22.93-4.13 2.62-.72 1.35-1.1 3.2-1.1 5.37s.38 4.01 1.1 5.36a4.59 4.59 0 0 0 4.13 2.62"></path><path fill="#000" d="M51.4.49c-.8 0-1.45.65-1.45 1.45v17.78c-1.93.6-5.75 1.13-10.38 1.13h-2.2a1.45 1.45 0 0 0 0 2.9h2.2c2.64 0 7.21-.23 10.38-1.02v4.84a1.45 1.45 0 0 0 2.9 0V1.94c0-.8-.65-1.45-1.45-1.45"></path></g></svg></a></div><nav class="layout-navigation-primary__menu"><a class="layout-navigation-primary__menu__item" href="/">커뮤니티</a><a class="layout-navigation-primary__menu__item" href="/store">스토어</a><a class="layout-navigation-primary__menu__item" href="/experts">인테리어시공</a></nav><div class="layout-navigation-primary__right"><div class="layout-navigation-bar-search"><div class="layout-navigation-search" id="id-1"><div class="layout-navigation-search__header"><div id="id-1-combobox" class="layout-navigation-search__combobox" role="combobox" aria-haspopup="listbox" aria-expanded="false"><div class="layout-navigation-search__input"><input type="text" class="layout-navigation-search__input__text" value="" autocomplete="off" size="1" id="id-1-input" aria-autocomplete="list" placeholder="오늘의집 통합검색" aria-label="오늘의집 통합검색"><svg class="layout-navigation-search__input__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" preserveAspectRatio="xMidYMid meet"><path d="M22 22l-5-5"></path><circle cx="11" cy="11" r="8"></circle></svg></div></div></div></div></div><a class="layout-navigation-bar-upload-button" href="/upload_select">글쓰기</a><button class="layout-navigation-bar-icon layout-navigation-bar-search-button" title="검색" aria-label="검색" type="button"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" preserveAspectRatio="xMidYMid meet"><path d="M22 22l-5-5"></path><circle cx="11" cy="11" r="8"></circle></svg></button><a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart"><svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet"><path stroke-linecap="round" d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z"></path><path d="M1 2h3v3"></path></svg><span class="layout-navigation-bar-icon__ticker">1</span></a><div class="layout-navigation-bar-login"><a class="layout-navigation-bar-login__item" href="/users/sign_in?redirect_to=%2Forders%2Fpre_order">로그인</a><a class="layout-navigation-bar-login__item" href="/normal_users/new">회원가입</a>
         </div>
-        <div class="layout-navigation-primary__left"><a class="layout-navigation-logo layout-navigation__bar__logo"
-                                                        aria-label="오늘의집" href="/">
-            <svg class="icon" width="74" height="30" viewBox="0 0 74 30" preserveAspectRatio="xMidYMid meet">
-                <g fill="none" fill-rule="evenodd">
-                    <path fill="#000"
-                          d="M14.2 25.17H9.28V20.7a1.45 1.45 0 0 0-2.9 0v4.47H1.44a1.45 1.45 0 1 0 0 2.9H14.2a1.45 1.45 0 0 0 0-2.9M4.5 9.15c0-4.6 2.08-5.28 3.33-5.28 1.24 0 3.33.69 3.33 5.28v.36c0 4.6-2.09 5.28-3.33 5.28-1.25 0-3.34-.69-3.34-5.28v-.36zm3.33 8.54c3.84 0 6.23-3.13 6.23-8.18v-.36c0-5.05-2.39-8.18-6.23-8.18-3.85 0-6.24 3.13-6.24 8.18v.36c0 5.05 2.39 8.19 6.24 8.19zm25.54-7.34H17.81a1.45 1.45 0 0 0 0 2.9h15.56a1.45 1.45 0 1 0 0-2.9m-1.55 15.5c-7.08 1.83-9.45.79-10.14.25-.45-.35-.65-.8-.65-1.48v-.87h10.25c.8 0 1.46-.65 1.46-1.45v-5.08c0-.8-.66-1.45-1.46-1.45h-11.7a1.45 1.45 0 1 0 0 2.9h10.25v2.18H19.57c-.8 0-1.45.65-1.45 1.45v2.32a4.6 4.6 0 0 0 1.78 3.78c1.2.93 2.94 1.39 5.21 1.39 2.05 0 4.54-.38 7.44-1.13a1.45 1.45 0 1 0-.73-2.82M20.3 7.83h10.8a1.45 1.45 0 1 0 0-2.9h-9.35V1.45a1.45 1.45 0 1 0-2.9 0v4.93c0 .8.65 1.45 1.45 1.45"></path>
-                    <rect width="3" height="15" x="70" fill="#000" rx="1.5"></rect>
-                    <path fill="#000"
-                          d="M64.5 13.28a1.45 1.45 0 0 0 2.73-1c-.05-.13-1-2.68-3.38-4.5l3.7-4.1a1.45 1.45 0 0 0-1.09-2.42h-9.05a1.45 1.45 0 1 0 0 2.9h5.8l-6.88 7.64a1.45 1.45 0 1 0 2.16 1.95l3.41-3.8a8 8 0 0 1 2.6 3.33M69.56 26.52h-7.01a.82.82 0 0 1-.82-.82v-1.95h8.65v1.95c0 .45-.37.82-.82.82m2.27-9.37c-.8 0-1.45.65-1.45 1.45v2.25h-8.65V18.6a1.45 1.45 0 1 0-2.9 0v7.1a3.73 3.73 0 0 0 3.72 3.72h7.01a3.73 3.73 0 0 0 3.72-3.72v-7.1c0-.8-.65-1.45-1.45-1.45M42.46 3.87c2.22 0 2.33 4.24 2.33 5.08 0 .85-.11 5.09-2.33 5.09-2.21 0-2.32-4.24-2.32-5.08 0-.86.11-5.09 2.32-5.09m0 13.07c1.76 0 3.23-.93 4.14-2.62.71-1.34 1.1-3.2 1.1-5.36s-.39-4.02-1.1-5.37A4.6 4.6 0 0 0 42.46.97c-1.76 0-3.22.93-4.13 2.62-.72 1.35-1.1 3.2-1.1 5.37s.38 4.01 1.1 5.36a4.59 4.59 0 0 0 4.13 2.62"></path>
-                    <path fill="#000"
-                          d="M51.4.49c-.8 0-1.45.65-1.45 1.45v17.78c-1.93.6-5.75 1.13-10.38 1.13h-2.2a1.45 1.45 0 0 0 0 2.9h2.2c2.64 0 7.21-.23 10.38-1.02v4.84a1.45 1.45 0 0 0 2.9 0V1.94c0-.8-.65-1.45-1.45-1.45"></path>
-                </g>
-            </svg>
-        </a></div>
-        <nav class="layout-navigation-primary__menu"><a class="layout-navigation-primary__menu__item"
-                                                        href="/">커뮤니티</a><a
-                class="layout-navigation-primary__menu__item" href="/store">스토어</a><a
-                class="layout-navigation-primary__menu__item" href="/experts">인테리어시공</a></nav>
-        <div class="layout-navigation-primary__right">
-            <div class="layout-navigation-bar-search">
-                <div class="layout-navigation-search" id="id-1">
-                    <div class="layout-navigation-search__header">
-                        <div id="id-1-combobox" class="layout-navigation-search__combobox" role="combobox"
-                             aria-haspopup="listbox" aria-expanded="false">
-                            <div class="layout-navigation-search__input"><input type="text"
-                                                                                class="layout-navigation-search__input__text"
-                                                                                value="" autocomplete="off" size="1"
-                                                                                id="id-1-input" aria-autocomplete="list"
-                                                                                placeholder="오늘의집 통합검색"
-                                                                                aria-label="오늘의집 통합검색">
-                                <svg class="layout-navigation-search__input__icon" width="24" height="24"
-                                     viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                     preserveAspectRatio="xMidYMid meet">
-                                    <path d="M22 22l-5-5"></path>
-                                    <circle cx="11" cy="11" r="8"></circle>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="layout-navigation-bar-upload-button" href="/upload_select">글쓰기</a>
-            <button class="layout-navigation-bar-icon layout-navigation-bar-search-button" title="검색" aria-label="검색"
-                    type="button">
-                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="2" preserveAspectRatio="xMidYMid meet">
-                    <path d="M22 22l-5-5"></path>
-                    <circle cx="11" cy="11" r="8"></circle>
-                </svg>
-            </button>
-            <a class="layout-navigation-bar-icon" title="장바구니" aria-label="장바구니" href="/cart">
-                <svg class="icon" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" fill="none"
-                     stroke-linejoin="round" stroke-width="2" preserveAspectRatio="xMidYMid meet">
-                    <path stroke-linecap="round"
-                          d="M4 5h18l-2.6 10.5a2 2 0 0 1-2 1.5H8.6a2 2 0 0 1-2-1.5L4 5zm4 15.5a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0zm7 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 1 1-3 0z"></path>
-                    <path d="M1 2h3v3"></path>
-                </svg>
-                <span class="layout-navigation-bar-icon__ticker">1</span></a>
-            <div class="layout-navigation-bar-login"><a class="layout-navigation-bar-login__item"
-                                                        href="/users/sign_in?redirect_to=%2Forders%2Fpre_order">로그인</a><a
-                    class="layout-navigation-bar-login__item" href="/normal_users/new">회원가입</a></div>
         </div>
     </div>
 </div>
 
 <div id="body" class="orders pre_order" data-s_id="ad223c51bbde2a256a849d25cbb9b308" style="padding-bottom: 0px;">
 
-    <div data-pre_order="{&quot;pre_order&quot;:{&quot;from&quot;:&quot;bucket&quot;,&quot;bucket&quot;:[&quot;53293825&quot;]},&quot;utf8&quot;:&quot;✓&quot;,&quot;controller&quot;:&quot;orders&quot;,&quot;action&quot;:&quot;pre_order&quot;}"
-         id="pre_order_json" data-is_app="false"></div>
+    <div data-pre_order="{&quot;pre_order&quot;:{&quot;from&quot;:&quot;bucket&quot;,&quot;bucket&quot;:[&quot;53293825&quot;]},&quot;utf8&quot;:&quot;✓&quot;,&quot;controller&quot;:&quot;orders&quot;,&quot;action&quot;:&quot;pre_order&quot;}" id="pre_order_json" data-is_app="false"></div>
 
 
-    <!--
-        <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:10000;-webkit-overflow-scrolling:touch;">
-            <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" alt="닫기 버튼">
-        </div>-->
+<!--
+    <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:10000;-webkit-overflow-scrolling:touch;">
+        <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" alt="닫기 버튼">
+    </div>-->
 
     <div id="chai_event" data-id="1075" data-has_products="false"></div>
     <div id="pre_order" class=" bucket" data-id="23159872" data-is-overseas-purchase="false">
-        <form id="edit_order" class="edit_order" action="" accept-charset="UTF-8" method="post"><input name="utf8"
-                                                                                                       type="hidden"
-                                                                                                       value="✓"><input
-                type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token"
-                                                                  value="whYTwpYx4D2DYXiokA9ne2pTcTHQ0+U32o4uDOAIdvD4vH6Y/LKc1YUoJ+zRWHOTPwubpSHJ6wvX/Fing/9Kzg==">
+        <form id="edit_order" class="edit_order" action="/orders/23992859" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
             <div id="title">
                 주문/결제
             </div>
@@ -118,17 +52,16 @@
                     비회원은 쿠폰 &amp; 포인트 혜택을 받을 수 없습니다.<br>
                     회원가입하고 다양한 혜택을 받으세요.
                 </p>
-                <a class="current-user__blank__btn" href="/normal_users/new">
+                <a class="current-user__blank__btn" href="/signup">
                     오늘의집 회원가입하기<span class="arrow-right-icon"></span>
-                </a></div>
+                </a>      </div>
             <div class="panel">
                 <div class="title">
                     <div class="title">주문상품</div>
                 </div>
                 <table cellspacing="0" id="order_productions">
                     <tbody data-hj-suppress="" data-hj-ignore-attribute="">
-                    <tr class="production" data-id="41033" data-cost="55900" data-count="1"
-                        data-name="[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors">
+                    <tr class="production" data-id="41033" data-cost="55900" data-count="1" data-name="[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors">
                         <td>
                             <div class="information">
                                 <img src="" alt="320">
@@ -169,27 +102,22 @@
                     <div class="field">
                         <div class="label">받는분</div>
                         <div class="input">
-                            <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress=""
-                                   type="text" name="order[recipient]" id="order_recipient">
+                            <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="order[recipient]" id="order_recipient">
                             <input type="hidden" name="order[received_name]" id="order_received_name">
                         </div>
                     </div>
                     <div class="field">
                         <div class="label">우편번호</div>
                         <div class="input">
-                            <input class="non_edit quarter" presence="true" readonly="readonly" value=""
-                                   data-hj-suppress="" type="text" name="order[received_zip_code]"
-                                   id="order_received_zip_code">
+                            <input class="non_edit quarter" presence="true" readonly="readonly" value="" data-hj-suppress="" type="text" name="zipCode" id="order_received_zip_code">
                             <span id="find_address">우편번호</span>
                         </div>
                     </div>
                     <div class="field">
                         <div class="label">주소</div>
                         <div class="input vertical">
-                            <input readonly="readonly" class="non_edit full" value="" data-hj-suppress="" type="text"
-                                   name="order[received_at]" id="order_received_at">
-                            <input value="" autocomplete="off" data-hj-suppress="" class="full" type="text"
-                                   name="order[received_at_detail]" id="order_received_at_detail">
+                            <input  readonly="readonly" class="non_edit full" value="" data-hj-suppress="" type="text" name="receivedAt" id="order_received_at">
+                            <input  value="" autocomplete="off" data-hj-suppress="" class="full" type="text" name="receivedAtDetail" id="order_received_at_detail">
                         </div>
                     </div>
                     <div class="field">
@@ -203,23 +131,15 @@
                             배송 메모
                         </div>
                         <div class="input vertical">
-                            <input type="text" name="delivery_message" id="delivery_message"
-                                   class="delivery_memo donot_check_before_payment full view_delivery_preset"
-                                   autocomplete="off" data-hj-suppress="">
+                            <input type="text" name="delivery_message" id="delivery_message" class="delivery_memo donot_check_before_payment full view_delivery_preset" autocomplete="off" data-hj-suppress="">
                             <div id="delivery_messages" style="display: none;">
 
                                 <div class="delivery_message first">
                                     <div class="product_name">[핀란디아][오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors</div>
-                                    <input class="delivery_each_memo donot_check_before_payment full view_delivery_preset"
-                                           autocomplete="off" data-hj-suppress="" type="text"
-                                           name="order[order_productions_attributes][0][delivery_memo]"
-                                           id="order_order_productions_attributes_0_delivery_memo">
+                                    <input class="delivery_each_memo donot_check_before_payment full view_delivery_preset" autocomplete="off" data-hj-suppress="" type="text" name="order[order_productions_attributes][0][delivery_memo]" id="order_order_productions_attributes_0_delivery_memo">
                                 </div>
-                                <input class="products_delivery_is_backwoods" type="hidden" value="false"
-                                       name="order[order_productions_attributes][0][is_backwoods]"
-                                       id="order_order_productions_attributes_0_is_backwoods">
-                                <input type="hidden" value="41543208" name="order[order_productions_attributes][0][id]"
-                                       id="order_order_productions_attributes_0_id"></div>
+                                <input class="products_delivery_is_backwoods" type="hidden" value="false" name="order[order_productions_attributes][0][is_backwoods]" id="order_order_productions_attributes_0_is_backwoods">
+                                <input type="hidden" value="41543208" name="order[order_productions_attributes][0][id]" id="order_order_productions_attributes_0_id">            </div>
                             <div id="delivery_message_presets">
                                 <div class="preset">배송 전에 미리 연락 바랍니다.</div>
                                 <div class="preset">부재시 경비실에 맡겨주세요.</div>
@@ -230,40 +150,37 @@
                 </div>
             </div>
 
-            <div class="panel">
+
+        <div class="panel">
                 <div class="title">
                     <div class="title">주문자</div>
-                    <input type="checkbox" id="copy_delivery" onclick="ShipToBill(this.form);">배송지 정보와 동일하게</input>
+                    <input type="checkbox" id="copy_delivery"  onclick="ShipToBill(this.form);">배송지 정보와 동일하게</input>
                     <span> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-                    <input type="checkbox" id="addrCheckbox" class="addrCheckbox">&nbsp;배송지 저장하기</input>
+                   <input type="checkbox" id="addrCheckbox" class="addrCheckbox" >&nbsp;배송지 저장하기</input>
                 </div>
                 <div class="input">
                     <div class="field">
                         <div class="label">이름</div>
                         <div class="input">
-                            <input autocomplete="off" data-hj-suppress="" class="half" type="text"
-                                   name="order[payer_name]" id="order_payer_name">
+                            <input autocomplete="off" data-hj-suppress="" class="half" type="text" name="order[payer_name]" id="order_payer_name">
                         </div>
                     </div>
                     <div class="field">
                         <div class="label">이메일</div>
                         <div class="input email">
-                            <input presence="true" value="" autocomplete="off" data-hj-suppress="" type="text"
-                                   name="order[payer_email]" id="order_payer_email">
+                            <input presence="true" value="" autocomplete="off" data-hj-suppress="" type="text" name="order[payer_email]" id="order_payer_email">
                         </div>
                     </div>
                     <div class="field">
                         <div class="label">휴대전화</div>
                         <div class="input phone">
-                            <input presence="true" value="" data-hj-suppress="" type="text"
-                                   name="order[payer_phone_number]" id="order_payer_phone_number">
+                            <input presence="true" value="" data-hj-suppress="" type="text" name="order[payer_phone_number]" id="order_payer_phone_number">
                             <div id="verified_phone_number">
                                 <div class="verified_phone_number" data-value="" data-verified=""></div>
                                 <div class="need_verified">
 
                                     <div id="verified_inputs" style="display: none;">
-                                        <input id="verified_input" class="donot_check_before_payment" placeholder="인증번호"
-                                               autocomplete="off" type="text" data-hj-suppress="" size="6">
+                                        <input id="verified_input" class="donot_check_before_payment" placeholder="인증번호" autocomplete="off" type="text" data-hj-suppress="" size="6">
                                         <div id="check_verified">확인</div>
                                         <div id="resend_verified_number">재전송</div>
                                     </div>
@@ -276,19 +193,15 @@
                         <div class="input">
                             <div class="form-check sms_agreement">
                                 <label class="form-check-label" for="order_sms_aggrement">
-                                    <input name="order[sms_aggrement]" type="hidden" value="0"><input class="form-check"
-                                                                                                      type="checkbox"
-                                                                                                      value="1"
-                                                                                                      checked="checked"
-                                                                                                      name="order[sms_aggrement]"
-                                                                                                      id="order_sms_aggrement">
+                                    <input name="order[sms_aggrement]" type="hidden" value="0"><input class="form-check" type="checkbox" value="1" checked="checked" name="order[sms_aggrement]" id="order_sms_aggrement">
                                     <!--<span class="check-img"></span>
                                     SMS 수신동의 <span> (배송 정보를 SMS로 보내드립니다.)</span>-->
-                                </label></div>
+                                </label>            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
 
 
             <div class="panel">
@@ -329,21 +242,20 @@
                 <div class="title light">결제 수단</div>
                 <div class="pay_method">
                     <div class="payment_panel">
-                        <input type="radio" value="kcp_credit_card" name="order[payment_method]"
-                               id="order_payment_method_kcp_credit_card">
+                        <input type="radio" value="kcp_credit_card" name="order[payment_method]" id="order_payment_method_kcp_credit_card">
                         <label class="first  top" for="order_payment_method_kcp_credit_card"> <!-- 카드 label -->
-                            <img class="img" width="64" src="@{'/uploadImg/'+'kakaopay.png'}" alt="Card">
-                            <div class="title">카드</div>
-                            <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다"
-                                 data-detail2="">
+                            <img class="img" width="64" src="" alt="Card">
+                            <div class="title">ㅇ</div>
+
+                            <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다" data-detail2="">
 
                             </div>
-                        </label> <input type="radio" value="without_bankbook" name="order[payment_method]"
-                                        id="order_payment_method_without_bankbook">
+                        </label>            <input type="radio" value="without_bankbook" name="order[payment_method]" id="order_payment_method_without_bankbook">
                         <label class=" top" for="order_payment_method_without_bankbook">
-                            <img class="img" width="64"
-                                 src="https://bucketplace-v2-development.s3.amazonaws.com/pg/vbank.png" alt="Vbank">
+                            <img class="img" width="64" src="https://bucketplace-v2-development.s3.amazonaws.com/pg/vbank.png" alt="Vbank">
                             <div class="title">무통장입금</div>
+                            <h2> 이니시스 이용하기</h2>
+
                             <div class="event" data-title="" data-detail1="" data-detail2="">
 
                             </div>
@@ -374,39 +286,131 @@
                     <div class="opener">보기</div>
                 </div>
             </div>
-
-            <div id="do_payment">결제하기</div>
+            <a  class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
+                onsubmit="true" >결제하기</a>
+            <input id="do2_payment" type="submit" value="결제하기">
+            <div id="do_payment" >
+                결제하기</div>
         </form>
     </div>
+<!--
+<form name="fr" onsubmit="return check()">
+
+
+<form id="edit_order" class="edit_order"  action="/basketPop" name="fr" onsubmit="return check()" accept-charset="UTF-8" method="get">
+        </form>
+-->
 
 
 </div>
+<!-- iamport.payment.js -->
+<script th:inline="javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script th:inline="javascript">
+    var IMP = window.IMP;
+    function requestPay(){
+        IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+
+        //IMP.request_pay(param, callback) 호출
+        IMP.request_pay({ // param
+            pg: "inicis",
+            pay_method: "card",
+            merchant_uid: "ORD20180131-0000011",
+            name: "노르웨이 회전 의자",
+            amount: 64900,
+            buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            buyer_addr: "서울특별시 강남구 신사동",
+            buyer_postcode: "01181"
+        }, function (rsp) { // callback
+            if (rsp.success) {
+                $.ajax({
+                    url : '/paymentComplete',
+                    method : 'POST',
+                    dataType : 'JSON',
+                    data : {
+                        'customer.customerID' : '3',
+                        'paymentMethod' : '3',
+                        'reservationStartDate' : '3',
+                        'reservationFinishDate' : '3',
+                        'reservationDate' : '3',
+                        'imp_uid' : '3',
+                        'merchant_uid' : '3',
+                        'totalAmount' : '3',
+                        'room.roomTypeTable.roomType' : '3',
+                        'room.roomPerson' :'3'
+                    },
+                    success : function() {
+                        alert("결제가 완료되었습니다.홈으로 이동합니다.");
+                        location.href = "/index";
+                    },
+                    error : function() {
+                        alert('ajax 실패')
+                    }
+
+                })
+            } else {
+                alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+            }
+        });
+    }
+</script>
+<button onClick="requestPay()">이니시스 결제</button>
+<script th:inline="javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+<form method="post" action="/kakaoPay">
+    <button>카카오페이로 결제하기</button>
+</form>
+
+
+
 <script>
     //모두 체크하기
     var name = "";
-
-    function InitValue(frm) {
+    function InitValue(frm){
 
         name = frm.order_payer_name.value;
     }
-
-    function ShipToBill(frm) {
+    function ShipToBill(frm){
         var n = null;
-        if (frm.copy_delivery.checked) {
+        if(frm.copy_delivery.checked){
 
             InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
 
             document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value;
 
 
-        } else {						//체크박스를 해제한다면
+        }else{						//체크박스를 해제한다면
 
-            frm.order_payer_name.value = name;
+            frm.order_payer_name.value=name;
 
         }
-        if (!frm.copy_delivery.checked) {
+        if(!frm.copy_delivery.checked){
             document.getElementById("order_recipient").value = "삭제됨";
         }
+    }
+</script>
+
+
+
+
+<script>
+    function check() {
+        if(fr.zipCode.value == "") { // 지번
+            alert("값을 입력해 주세요.1");
+            fr.fr.zipCode.value.focus();
+            return false;
+        }
+        else if(fr.receivedAt.value == "") {	//주소
+            alert("값을 입력해 주세요.2");
+            fr.fr.receivedAt.value.focus();
+            return false;
+        }else if(receivedAtDetail == "") {	//주소
+            alert("값을 입력해 주세요.3");
+            fr.receivedAtDetail.focus();
+            return false;
+        }
+        else return true;
     }
 </script>
 </body>

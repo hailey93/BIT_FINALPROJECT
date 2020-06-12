@@ -12,8 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,9 +63,9 @@ public class StatAdminController {
         return "th/admin/statAdmin/memberManagement";
     }
 
-/*
-    @PostMapping("/yearGraphAjax")
-    public Object yearAjaxGraph(String quantity, String year) {
+
+    @RequestMapping(value = "/yearGraphAjax", method = RequestMethod.POST)
+    public @ResponseBody Object yearAjaxGraph(String quantity, String year) {
         //List<통계domain> house통계 = userDAO.get통계();
         //ObjectMapper mapper = new ObjectMapper();
         //String jsonText;
@@ -74,15 +73,15 @@ public class StatAdminController {
         // return jsonText  Map으로 보낼지 어떻게 보낼지
         ArrayList<String> graph2ArrList = new ArrayList<String>();
         System.out.println("ajax ===> Quantity : "+ quantity + " year ====> " + year);
-        //Service.getSelectedYear(quantity);
+        //Service.getSelectedYear(year);
         return graph2ArrList;
     }
 
-    @PostMapping("/monthGraphAjax")
-    public Object monthAjaxGraph(String quantity, String year) {
+    @RequestMapping(value = "/monthGraphAjax", method = RequestMethod.POST)
+    public @ResponseBody Object monthAjaxGraph(String quantity, String year) {
         ArrayList<String> graph2ArrList = new ArrayList<String>();
         System.out.println("ajax ===> Quantity : "+ quantity + " year ====> " + year);
-        //Service.getSelectedYear(quantity);
+        //Service.getSelectedYear(year);
         return graph2ArrList;
-    }*/
+    }
 }
