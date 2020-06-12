@@ -39,7 +39,6 @@ public class ProductController {
     @GetMapping("/category")
     public String findByCategory(@RequestParam(value = "categoryCode", required = false) String category, Model model) {
         List<ProductVO> categoryList = productMapper.selectProductByCategory(category);
-//8
         model.addAttribute("productList", categoryList);
         return "th/main/categoryList";
     }
