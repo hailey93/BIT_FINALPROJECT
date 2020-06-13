@@ -59,4 +59,16 @@ public class RecommenderController {
 
         return "th/main/recommendList";
     }
+
+    @GetMapping("/clickTest")
+    public String test(){
+        return "th/admin/recommender/insertClickTest";
+    }
+    @GetMapping("/clickProduct")
+    public String getClickCount(Model model){
+        //상품페이지 들어갈때 clickproduct테이블에 insert or update 조건1. 회원이 같은 상품을 조회한 이력이 있으면 날짜는 오늘날짜로, clickCount +1 update 없으면 insert
+        recommenderService.checkClickHistory();
+
+        return "th/admin/recommender/insertClickTest";
+    }
 }

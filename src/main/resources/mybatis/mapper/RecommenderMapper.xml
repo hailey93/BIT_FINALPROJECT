@@ -31,4 +31,28 @@
 	</select>
 
 
+    <!--회원이 상품을 조회한 이력을 검색 -->
+    <select id="selectClickHistory" resultType="int">
+        select exists (select * from thehouse.clickproduct where memberId='kim6' and productNo='DK028-100100001') as success
+    </select>
+    <!--<select id="selectClickHistory" parameterType="map" resultType="int">
+        select exists (select * from thehouse.clickproduct where memberId=#{memberId} and productNo=#{productNo}) as success
+    </select>-->
+
+    <!--상품페이지 들어갈때 clickproduct테이블에 회원이 같은 상품을 조회한 이력이 없으면 insert -->
+    <insert id="insertCount">
+        insert into thehouse.clickproduct(memberId, productNo, clickDate, clickCount) values ('kim6', 'DK028-100100001', now(), 1)
+    </insert>
+    <!--<insert id="insertCount" parameterType="map">
+        insert into thehouse.clickproduct values (#{memberId}, #{productNo}, now(), 1)
+    </insert>-->
+
+    <!-- 있으면 날짜는 오늘날짜로, clickCount +1 update  -->
+    <update id="updateClickHistory">
+        update thehouse.clickproduct set clickDate=now(), clickCount=clickCount+1 where memberId='kim1' and productNo='CFARM-100100003'
+    </update>
+    <!--<update id="updateClickHistory" parameterType="map">
+        update thehouse.clickproduct set clickDate=now(), clickCount=clickCount+1 where memberId=#{memberId} and productNo=#{productNo}
+    </update>-->
+
 </mapper>

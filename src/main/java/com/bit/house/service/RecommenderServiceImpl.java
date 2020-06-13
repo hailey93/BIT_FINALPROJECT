@@ -56,4 +56,15 @@ public class RecommenderServiceImpl implements RecommenderService {
         return recommendList;
     }
 
+    @Override
+    public void checkClickHistory() {
+        if(recommenderMapper.selectClickHistory()==0){
+            //조회이력이 없으면 insert
+            recommenderMapper.insertCount();
+        }else{
+            //조회이력이 있으면 update
+            recommenderMapper.updateClickHistory();
+        }
+    }
+
 }

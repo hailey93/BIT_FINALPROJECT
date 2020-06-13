@@ -10,4 +10,5 @@ public interface RecommenderService {
     /*String selectClickProduct(@SessionAttribute("memberId") String memberId);*/
     String selectClickProduct();
     List<ProductVO> selectProductList(Collection<String> productNos);
+    void checkClickHistory();
 }
