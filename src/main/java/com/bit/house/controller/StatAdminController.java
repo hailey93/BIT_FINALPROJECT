@@ -1,6 +1,7 @@
 package com.bit.house.controller;
 
 import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.OrderListVO;
 import com.bit.house.domain.ProductOptionVO;
 import com.bit.house.domain.ProductVO;
 import com.bit.house.mapper.AdminMapper;
@@ -35,14 +36,18 @@ public class StatAdminController {
         //판매량, 품목
 
         List<ProductVO> houseProductList = adminMapper.getProduct();
+        //List<ProductVO> salesVol = adminMapper.getSalesVolume();
+        //log.info("salesVol = "+salesVol);
         List<ProductOptionVO> productOptionVOList = adminMapper.getProductOption();
         List<String> yearList = adminMapper.getYear();
+        List<OrderListVO> totalPrice = adminMapper.getTotalPrice();
+        log.info("totalPrice : "+ totalPrice);
         log.info("안녕하세요 yearList입니다" + yearList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonText;
 
         try {
-            jsonText = mapper.writeValueAsString(productOptionVOList);
+            jsonText = mapper.writeValueAsString(productOptionVOList); // orerList를 뽑아서 출력해야하나
             model.addAttribute("jsonText", jsonText);
             model.addAttribute("yearList", yearList);
             log.info(jsonText);

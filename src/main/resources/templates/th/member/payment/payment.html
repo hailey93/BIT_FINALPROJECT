@@ -14,9 +14,8 @@
     <link rel="stylesheet" media="all" href="https://d1nyaccf3kuclt.cloudfront.net/assets/v2/orders/pre_order-a9341d94d054b478694e31b559c91d4c6f9004f1819d278a88456fa32578bff9.css">
 
 </head>
-
-<!--<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>-->
-<!--<script src="/resources/js/addressapi.js"></script>-->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/resources/js/addressapi.js"></script>
 <body>
 
 <div class="sticky-child layout-navigation-primary" style="position: fixed; left: 0px; right: 0px; top: 0px;">
@@ -96,7 +95,7 @@
 
             <div class="panel">
                 <div class="title">
-                    <div class="title">배송지</div>
+                    <div class="title">배송지</div>  <input type="checkbox" id="addrCheckbox" class="addrCheckbox" >&nbsp;배송지 저장하기</input>
                 </div>
                 <div class="input">
                     <div class="field">
@@ -110,7 +109,7 @@
                         <div class="label">우편번호</div>
                         <div class="input">
                             <input class="non_edit quarter" presence="true" readonly="readonly" value="" data-hj-suppress="" type="text" name="zipCode" id="order_received_zip_code">
-                            <span id="find_address">우편번호</span>
+                            <span id="find_address" onclick="execPostCode();">우편번호</span>
                         </div>
                     </div>
                     <div class="field">
@@ -120,6 +119,16 @@
                             <input  value="" autocomplete="off" data-hj-suppress="" class="full" type="text" name="receivedAtDetail" id="order_received_at_detail">
                         </div>
                     </div>
+                    <!--<div class="form-group">
+                        <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="zipCode" id="zipCode" type="text" readonly="readonly" >
+                        <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="receivedAt" id="receivedAt" type="text" readonly="readonly" />
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
+                    </div>-->
                     <div class="field">
                         <div class="label">휴대전화</div>
                         <div class="input phone">
@@ -156,7 +165,7 @@
                     <div class="title">주문자</div>
                     <input type="checkbox" id="copy_delivery"  onclick="ShipToBill(this.form);">배송지 정보와 동일하게</input>
                     <span> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
-                   <input type="checkbox" id="addrCheckbox" class="addrCheckbox" >&nbsp;배송지 저장하기</input>
+
                 </div>
                 <div class="input">
                     <div class="field">
@@ -303,6 +312,54 @@
 
 
 </div>
+
+
+<script>
+    function execPostCode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                    extraRoadAddr += data.bname;
+                }
+                // 건물명이 있고, 공동주택일 경우 추가한다.
+                if(data.buildingName !== '' && data.apartment === 'Y'){
+                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                if(extraRoadAddr !== ''){
+                    extraRoadAddr = ' (' + extraRoadAddr + ')';
+                }
+                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                if(fullRoadAddr !== ''){
+                    fullRoadAddr += extraRoadAddr;
+                }
+
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                console.log(data.zonecode);
+                console.log(fullRoadAddr);
+
+
+                $("[name=zipCode]").val(data.zonecode);
+                $("[name=receivedAt]").val(fullRoadAddr);
+
+                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+            }
+        }).open();
+    }
+
+
+</script>
 <!-- iamport.payment.js -->
 <script th:inline="javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script th:inline="javascript">
@@ -369,7 +426,7 @@
     var name = "";
     function InitValue(frm){
 
-        name = frm.order_payer_name.value;
+        name = frm.order_payer_name.value; //이름
     }
     function ShipToBill(frm){
         var n = null;
@@ -377,17 +434,17 @@
 
             InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
 
-            document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value;
+            document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value; // 이름 = 받는사람
 
 
         }else{						//체크박스를 해제한다면
 
-            frm.order_payer_name.value=name;
+            frm.order_payer_name.value=''; // 이름 = 이름
 
         }
-        if(!frm.copy_delivery.checked){
-            document.getElementById("order_recipient").value = "삭제됨";
-        }
+        /*if(!frm.copy_delivery.checked){
+            document.getElementById("order_recipient").value = '';
+        }*/
     }
 </script>
 
