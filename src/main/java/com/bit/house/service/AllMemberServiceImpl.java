@@ -17,7 +17,7 @@ public class AllMemberServiceImpl implements AllMemberService {
 
     @Override
     public AllMemberVO read(String userid) {
-        return null;
+        return allMemberMapper.read(userid);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class AllMemberServiceImpl implements AllMemberService {
     }
 
     @Override
-    public String searchSocial(String id) {
+    public AllMemberVO searchSocial(String id) {
 
         return allMemberMapper.searchSocial(id);
     }

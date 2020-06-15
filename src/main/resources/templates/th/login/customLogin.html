@@ -14,8 +14,11 @@
 <div class="container">
     <div class="login_wrapper">
         <div class="text-center">
+
             <div class="col-md-12 md-auto mt-4 mb-3">
-                <img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width="70px" height="70px">
+                    <a th:href="@{/storeMain}">
+                    <img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width="70px" height="70px">
+                    </a>
             </div>
 
 
@@ -45,7 +48,7 @@
                     <div class="text-center">
                         <div class="row">
                             <a class="col-md-6 xs-6" href="#">아이디 찾기</a>
-                            <a class="col-md-6 xs-6" href="#">회원 가입</a>
+                            <a class="col-md-6 xs-6" th:href="@{/signup}">회원 가입</a>
                         </div>
                     </div>
                 </form>

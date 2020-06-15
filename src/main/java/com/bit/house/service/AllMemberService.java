@@ -10,5 +10,5 @@ public interface AllMemberService {
 
     public void insertSocialToUser(AllMemberVO allMemberVO);
 
-    String searchSocial(String id);
+    AllMemberVO searchSocial(String id);
 }
