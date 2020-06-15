@@ -7,7 +7,7 @@
 <script type="text/javascript">
     function reply(idx) {
         var askBoardno = idx;
-        location.href = "/reply/" + askBoardno;
+        location.href = "/askreply/" + askBoardno;
     }
 
     function del(idx) {
@@ -16,14 +16,14 @@
         var result = confirm("정말 삭제하시겠습니까?");
 
         if (result) {
-            location.href = "/delete/" + askBoardno;
+            location.href = "/askdelete/" + askBoardno;
 
         }
     }
 
     function update(idx) {
         var askBoardno = idx;
-        location.href = "/update/" + askBoardno;
+        location.href = "/askupdate/" + askBoardno;
     }
 </script>
 <body>
@@ -34,7 +34,7 @@
 <button class="btn btn-primary" th:onclick="'javascript:reply('+${detail.askBoardno}+');'">답변하기</button>
 
 <div class="container">
-    <form action="/insertProc" method="POST">
+    <form action="/askinsertProc" method="POST">
         <div clas="form-group">
             <label>제목</label>
             <th:block th:text="${detail.askTitle}"/>
