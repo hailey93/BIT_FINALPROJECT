@@ -7,7 +7,8 @@
         <div class="row justify-content-center">
             <div class="col-md-12 xs-12 md-auto">
                 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-light" style="background-color: white;">
-                    <a class="navbar-brand" href="#"><img th:src="@{icon/thehouse.jpg}" class="rounded-circle" width=50px
+
+                    <a class="navbar-brand" href="#"><img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width=50px
                                                           height=50px /> <b> TheHouse</b></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -37,7 +38,7 @@
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="#">스토어홈</a>
-                                    <a class="dropdown-item" href="#">카테고리</a>
+                                    <a class="dropdown-item" href="">카테고리</a>
                                     <a class="dropdown-item" href="#">베스트</a>
                                 </div>
 
@@ -68,16 +69,15 @@
                             </li>
 
                             <div class="nav-wrapper">
-                                <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
+                                <form class="form-inline d-flex justify-content-center md-form form-sm mt-0" method="get" action="/productions/searchlist">
 
                                     <input class="form-control form-control-sm ml-3 w-75" type="text" placeholder="Search"
-                                           aria-label="Search"></input>
+                                           aria-label="Search" name="index" id="${index}" th:value="${index?:''}" onfocus="this.value=''"></input>
                                     <i class="fas fa-search ml-2" > </i>
 
                                 </form>
                             </div>
                         </ul>
-
 
 
                         <ul class="navbar-nav">

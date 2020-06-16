@@ -8,13 +8,13 @@
 <div class="layout">
     <th:block th:replace="th/fragments/header :: headerFragment"></th:block>
 
+    <th:block th:replace="th/fragments/sidebarfilter :: sidebarFragment"></th:block>
 
-        <th:block layout:fragment="content"></th:block>
+    <th:block layout:fragment="content"></th:block>
 
+    <th:block th:replace="th/fragments/footer :: footerFragment"></th:block>
 
-        <th:block th:replace="th/fragments/footer :: footerFragment"></th:block>
-
-    </div>
+</div>
 </div>
 </body>
 </html>
