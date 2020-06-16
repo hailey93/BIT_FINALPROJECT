@@ -20,7 +20,33 @@
         EXTRACT(YEAR FROM productCreateDate ) as year from product
          group by productCreateDate;
         -->
+<!-- 필요 없을지도
+	<select id="getSalesVolume" resultType="productVO">&lt;!&ndash; 판매량 &ndash;&gt;
+		select sum(orderQty) as orderQty, productCreateDate, productName,
+        EXTRACT(YEAR FROM productCreateDate ) as year, EXTRACT(MONTH FROM productCreateDate ) as month
+         , EXTRACT(DAY FROM productCreateDate ) as day from orderlist
+         group by productNo, orderDate, colorName;
+	</select>-->
+	<!--
+		orderList에서 가져와야함 resultMap 만들어서 productName ,sellerName, orderDate, orderQty,
+	-->
 
+	<select id="getTotalPrice" resultType="orderListVO"> <!-- 날짜별 이건 판매 총액, 판매량 -->
+		select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
+		from orderlist
+		group by productNo, orderDate order by orderDate;
+	</select>
+	<!-- where productNo = ''
+	/*year = #{year} , productNo = #{productNo},
+		 						  month = #{month}, colorName 만약 색상까지 세분화 안한다면 주석처리 */
+		 						  -->
+	<select id="getSpendingPattern" resultType="orderListVO"> <!-- 그냥 판매량 순으로 정렬해서 USERSPENDINGPATTERN이나 매출순위 뽑음 -->
+		select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
+		from orderlist <!-- where productNo = '' -->
+		group by productNo order by totalPrice;
+	</select>
 
 	<select id="getHouseUser" resultType="memberVO">
 		select * from user where userId=#{memberId} and userPassword=#{memberpw}
@@ -28,6 +54,23 @@
 	<select id="getUser" resultType="MemberVO">
 		select * from member
 	</select>
+
+	<!--<select id="getMonthData" resultType="orderListVO">
+		select sum(totalPrice) as totalPrice, productName, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month
+		from adminstat where productName = #{product} and EXTRACT(YEAR FROM orderDate ) = #{year}
+		group by productNo, orderDate order by orderDate;
+	</select>
+
+
+	<select id="getDayData" resultType="orderListVO">
+		select sum(totalPrice) as totalPrice, productName, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
+		from adminstat where productName = #{product} and EXTRACT(YEAR FROM orderDate ) = #{year} and EXTRACT(MONTH FROM orderDate ) = #{month}
+		group by productNo, orderDate order by orderDate;
+	</select>-->
+
+
 	<!--
         <select id="getMember" resultType="MemberVO">
             select * from user where Id=#{Id} and pw=#{pw}
