@@ -15,4 +15,6 @@ public interface MainMapper {
     productQtyVO selectDetail(String productNo);
     //int selectTotal();
 
+    List<productQtyVO> selectbestLists();
+
 }

@@ -30,8 +30,8 @@
                 <div class="ranking-feed-item-wrap col-12 col-md-12 col-lg-3">
                     <div class="ranking-product-item__wrap">
                         <article class="production-item"><a class="ranking-product-item__link" th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
-                            <div class="ranking-product-item__number-wrap ranking-product-item__number__medal ranking-product-item__number__gold-wrap">
-                                <span class="ranking-product-item__number ranking-product-item__number__gold" th:text="${products.ranking}"></span>
+                            <div class="ranking-product-item__number-wrap ranking-product-item__number__medal">
+                                <span id="abc" class="ranking-product-item__number" th:text="${products.ranking}" ></span>
                             </div>
                             <div class="ranking-product-item__img-wrap">
 
@@ -45,7 +45,7 @@
                                     <span class="ranking-product-item__header__name" th:text="${products.productName}"></span>
                                 </h1>
                                 <span class="production-item-price">
-                                <span class="production-item-price__price" th:text="${products.customerPrice}"></span>
+                                <span class="production-item-price__price" th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
                                 </span>
                             </div>
                         </article>
@@ -69,11 +69,16 @@
                 $('.ranking-type-filter__item--right').addClass('right--active');
             });
 
-            //var rank=$('.ranking-product-item__number').val();
-            console.log(rank);
+            var ranking = $('.ranking-product-item__number:contains("1")').addClass('ranking-product-item__number__gold');
+            ranking.closest('.ranking-product-item__number__medal').addClass('ranking-product-item__number__gold-wrap');
+            var ranking = $('.ranking-product-item__number:contains("2")').addClass('ranking-product-item__number__silver');
+            ranking.closest('.ranking-product-item__number__medal').addClass('ranking-product-item__number__silver-wrap');
+            var ranking = $('.ranking-product-item__number:contains("3")').addClass('ranking-product-item__number__bronze');
+            ranking.closest('.ranking-product-item__number__medal').addClass('ranking-product-item__number__bronze-wrap');
+
+
+
         });
-
-
     </script>
 
 </div>
