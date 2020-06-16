@@ -95,4 +95,5 @@ update member1 set memberAddr=if(memberAddr is null,'asd',memberAddr), deliveryA
  where memberId='test';
 	-->
 
+
 </mapper>

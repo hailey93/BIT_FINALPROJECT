@@ -1,6 +1,8 @@
 package com.bit.house.security;
 
+import com.bit.house.service.AllMemberService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
@@ -13,6 +15,9 @@ import java.util.List;
 
 @Slf4j
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
+
+    @Autowired
+    AllMemberService allMemberService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
@@ -28,8 +33,7 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         });
 
-//        log.warn("ROLE NAMES: " + roleNames);
-//
+
 //        if (roleNames.contains("ROLE_ADMIN")) {
 //
 //            response.sendRedirect("/admin");

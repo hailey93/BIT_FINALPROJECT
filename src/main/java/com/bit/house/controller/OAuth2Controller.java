@@ -57,7 +57,6 @@ public class OAuth2Controller {
 
     }
 
-
     @GetMapping("/testAuth")
     public String testAuth(HttpSession session){
 

@@ -12,6 +12,6 @@ public interface AllMemberMapper {
 
     public void insertSocialToUser(AllMemberVO allMemberVO);
 
-    public AllMemberVO searchSocial(String id);
+    AllMemberVO searchSocial(String id);
 
 }
