@@ -20,14 +20,14 @@ public class AskBoardController {
     @Autowired(required = false)
     AskBoardMapper askBoardMapper;
 
-    @RequestMapping("/list")//게시판 리스트 화면 호출
+    @RequestMapping("/asklist")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
 
         model.addAttribute("list", askBoardMapper.askBoardList());
         return "th/askBoard/askBoardList";
     }
 
-    @RequestMapping("detail/{askBoardno}") //글 상세페이지
+    @RequestMapping("askdetail/{askBoardno}") //글 상세페이지
     private String askDetail(@PathVariable int askBoardno, Model model) throws Exception {
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
@@ -35,12 +35,12 @@ public class AskBoardController {
         return "th/askBoard/askBoardDetail";
     }
 
-    @RequestMapping("/insert")//게시글 작성 폼 호출
+    @RequestMapping("/askinsert")//게시글 작성 폼 호출
     private String insertAsk() {
         return "th/askBoard/askBoardInsert";
     }
 
-    @RequestMapping("/insertProc")//게시글 작성
+    @RequestMapping("/askinsertProc")//게시글 작성
     private String insertAskProc(HttpServletRequest request) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
@@ -51,10 +51,10 @@ public class AskBoardController {
 
         askBoardMapper.insertAsk(askBoardVO);
 
-        return "redirect:/list";
+        return "redirect:/asklist";
     }
 
-    @GetMapping("/reply/{askBoardno}")//답글 작성 폼
+    @GetMapping("/askreply/{askBoardno}")//답글 작성 폼
     private String askReply(@PathVariable int askBoardno, Model model) throws Exception {
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
@@ -62,7 +62,7 @@ public class AskBoardController {
         return "th/askBoard/askBoardReplyInsert";
     }
 
-    @RequestMapping("/replyProc")
+    @RequestMapping("/askreplyProc")
     private String askReplyProc(HttpServletRequest request) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
@@ -75,10 +75,10 @@ public class AskBoardController {
 
         askBoardMapper.askReply(askBoardVO);
 
-        return "redirect:/list";
+        return "redirect:/asklist";
     }
 
-    @RequestMapping("/update/{askBoardno}")//게시글 수정 폼
+    @RequestMapping("/askupdate/{askBoardno}")//게시글 수정 폼
     private String askUpdate(@PathVariable int askBoardno, Model model) throws Exception {
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
@@ -86,7 +86,7 @@ public class AskBoardController {
         return "th/askBoard/askBoardUpdate";
     }
 
-    @RequestMapping("/updateProc")
+    @RequestMapping("/askupdateProc")
     private String askUpdateProc(HttpServletRequest request) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
@@ -97,15 +97,15 @@ public class AskBoardController {
 
         askBoardMapper.askUpdate(askBoardVO);
 
-        return "redirect:/detail/" + request.getParameter("askBoardno");
+        return "redirect:/askdetail/" + request.getParameter("askBoardno");
     }
 
-    @RequestMapping("/delete/{askBoardno}")
+    @RequestMapping("/askdelete/{askBoardno}")
     private String askDelete(@PathVariable int askBoardno) throws Exception {
 
         askBoardMapper.askDelete(askBoardno);
 
-        return "redirect:/list";
+        return "redirect:/asklist";
     }
 
 
@@ -139,7 +139,7 @@ public class AskBoardController {
             sb = new StringBuffer();
             sb.append("&bNewLine=true")
                     .append("&sFileName=").append(oldName)
-                    .append("&sFileURL=").append("/image/board/").append(saveName);
+                    .append("&sFileURL=").append("/uploadImg/board/").append(saveName);
             System.out.println(sb);
         } catch (Exception e) {
             e.printStackTrace();
