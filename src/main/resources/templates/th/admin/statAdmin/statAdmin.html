@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>메인</title>
+
 </head>
 <body>
-통계관리페이지
+        <div layout:fragment="content">
+            회사명 입력 <input type="text" value="" id="sellerName"> <!-- th:attr="onclick=|alert('${thingCertificate.certificateId}')|" -->
+            <button name="sellerBtn" onsubmit="true" onclick="sellerBtn()" >제출</button>
+            <br>
+            <a href="/spendingPattern">회원 소비 패턴</a><br>
+            <a href="/memberInfo">회원 정보</a><br>
+            <a href="/memberOrderList">회원 주문 내역</a><br>
+            <a href="">채팅</a><br>
+            <a href="/productRegistration">제품 판매 등록 내역</a><br>
+            <a href="/productManagement">제품 판매 관리</a><br>
+            <script>
+                function sellerBtn() {
+                    var sellerName = document.getElementById("sellerName").value;
+                    console.log("sellerName : "+sellerName);
+                    var sellform ={
+                        sellerName : sellerName
+                    }
+                    $.ajax({
+                        //console.log("hi");
+                        url: "sellerGraphAjax",
+                        type: "POST",
+                        data: sellform,
+                        success: function (data) {
+                            alert("suc");
+                        },//이제 이값보내서 db 통계 뽑아서 다시 불러와서 2번 그래프에 다시 배열
+                        error: function () {
+                            alert("test err");
+                        }
+                    });
+                }
+            </script>
+        </div>
+<!---->
+
 </body>
 </html>
