@@ -37,115 +37,135 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.getParameterAnnotation(SocialUser.class) != null && parameter.getParameterType().equals(AllMemberVO.class);
+        return parameter.getParameterAnnotation(SocialUser.class) != null && parameter.getParameterType().equals(MemberVO.class);
 
     }
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         HttpSession session = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest().getSession();
-        AllMemberVO allMemberVO = (AllMemberVO) session.getAttribute("allMemberVO");
-        return getUser(allMemberVO, session);
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        return getUser(memberVO, session);
     }
 
-    private AllMemberVO getUser(AllMemberVO allMemberVO, HttpSession session) {
-        if (allMemberVO == null) {
+    private MemberVO getUser(MemberVO memberVO, HttpSession session) {
+        if (memberVO == null) {
             try {
                 OAuth2AuthenticationToken authentication = (OAuth2AuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
 
+                String principal = authentication.getPrincipal().getName();
                 Map<String, Object> map = authentication.getPrincipal().getAttributes();
-                AllMemberVO convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map);
-                MemberVO convertMember = convertMember(authentication.getAuthorizedClientRegistrationId(), map);
-
-                if (allMemberService.searchSocial(convertUser.getUserid()) == null) {
+                AllMemberVO convertUser = convertUser(authentication.getAuthorizedClientRegistrationId(), map , principal);
+                MemberVO convertMember = convertMember(authentication.getAuthorizedClientRegistrationId(), map, principal);
+//
+//                MemberVO = MemberService.searchSocial()
+                if (memberService.searchMember(convertMember.getUserid()) == null) {
 
                     allMemberService.insertSocialToUser(convertUser);
                     memberService.insertSocialToMember(convertMember);
-                }
 
-                session.setAttribute("allMemberVO", allMemberVO);
+                }
+//                allMemberVO = allMemberService.searchSocial(convertUser.getUserid());
+                memberVO = memberService.searchMember(convertMember.getUserid());
+//                session.setAttribute("memberVO", memberVO);
+                session.setAttribute("memberVO", memberVO);
 
 
             } catch (ClassCastException e) {
-                return allMemberVO;
+                return memberVO;
             }
         }
-        return allMemberVO;
+        return memberVO;
     }
 
-    private AllMemberVO convertUser(String authority, Map<String, Object> map) {
-        if (GOOGLE.isEquals(authority)) return getGoogleUser(map);
-        if (KAKAO.isEquals(authority)) return getKaKaoUser(map);
-        if (NAVER.isEquals(authority)) return getNaverUser(map);
+    private AllMemberVO convertUser(String authority, Map<String, Object> map, String principal) {
 
-        return null;
-    }
-
-    private MemberVO convertMember(String authority, Map<String, Object> map) {
-        if (GOOGLE.isEquals(authority)) return getGoogleMember(map);
-        if (KAKAO.isEquals(authority)) return getKaKaoMember(map);
-        if (NAVER.isEquals(authority)) return getNaverMember(map);
+        if (GOOGLE.isEquals(authority)) return getGoogleUser(map, principal);
+        if (KAKAO.isEquals(authority)) return getKaKaoUser(map, principal);
+        if (NAVER.isEquals(authority)) return getNaverUser(map, principal);
 
         return null;
     }
 
 
-    private AllMemberVO getGoogleUser(Map<String, Object> map) {
+
+    private MemberVO convertMember(String authority, Map<String, Object> map, String principal) {
+
+        if (GOOGLE.isEquals(authority)) return getGoogleMember(map, principal);
+        if (KAKAO.isEquals(authority)) return getKaKaoMember(map, principal);
+        if (NAVER.isEquals(authority)) return getNaverMember(map, principal);
+
+        return null;
+    }
+
+
+    private AllMemberVO getGoogleUser(Map<String, Object> map, String principal) {
 
         AllMemberVO allMemberVO = new AllMemberVO();
-        allMemberVO.setUserid(String.valueOf(map.get("email")));
+
+        //allMemberVO.setUserid(String.valueOf(map.get("email")));
+        allMemberVO.setUserid(principal);
         allMemberVO.setSocialType(SocialType.GOOGLE);
 
         return allMemberVO;
     }
 
 
-    private AllMemberVO getKaKaoUser(Map<String, Object> map) {
+    private AllMemberVO getKaKaoUser(Map<String, Object> map, String principal) {
         Map<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
         Map<String, String> accountMap = (HashMap<String, String>) map.get("kakao_account");
 
         AllMemberVO allMemberVO = new AllMemberVO();
-        allMemberVO.setUserid(String.valueOf(accountMap.get("email")));
+        //allMemberVO.setUserid(String.valueOf(accountMap.get("email")));
+        allMemberVO.setUserid(principal);
         allMemberVO.setSocialType(SocialType.KAKAO);
 
         return allMemberVO;
     }
 
-    private AllMemberVO getNaverUser(Map<String, Object> map) {
+    private AllMemberVO getNaverUser(Map<String, Object> map, String principal) {
 
         AllMemberVO allMemberVO = new AllMemberVO();
-        allMemberVO.setUserid(String.valueOf(map.get("email")));
+        //allMemberVO.setUserid(String.valueOf(map.get("email")));
+        allMemberVO.setUserid(principal);
         allMemberVO.setSocialType(SocialType.NAVER);
 
         return allMemberVO;
     }
 
-    private MemberVO getGoogleMember(Map<String, Object> map) {
+
+
+    private MemberVO getGoogleMember(Map<String, Object> map, String principal) {
         MemberVO memberVO = new MemberVO();
-        memberVO.setUserid(String.valueOf(map.get("email")));
+        memberVO.setUserid(principal);
+        memberVO.setUserEmail(String.valueOf(map.get("email")));
         memberVO.setUserName(String.valueOf(map.get("name")));
 
 
         return memberVO;
     }
 
-    private MemberVO getKaKaoMember(Map<String, Object> map) {
+    private MemberVO getKaKaoMember(Map<String, Object> map, String principal) {
         Map<String, String> propertyMap = (HashMap<String, String>) map.get("properties");
         Map<String, String> accountMap = (HashMap<String, String>) map.get("kakao_account");
 
         MemberVO memberVO = new MemberVO();
-        memberVO.setUserid(String.valueOf(accountMap.get("email")));
+        memberVO.setUserid(principal);
+        memberVO.setUserEmail(String.valueOf(accountMap.get("email")));
         memberVO.setUserName(String.valueOf(propertyMap.get("nickname")));
 
         return memberVO;
     }
 
-    private MemberVO getNaverMember(Map<String, Object> map) {
+    private MemberVO getNaverMember(Map<String, Object> map, String principal) {
         MemberVO memberVO = new MemberVO();
-        memberVO.setUserid(String.valueOf(map.get("email")));
+        memberVO.setUserid(principal);
+        memberVO.setUserEmail(String.valueOf(map.get("email")));
         memberVO.setUserName(String.valueOf(map.get("name")));
 
         return memberVO;
     }
 }
+
+
 

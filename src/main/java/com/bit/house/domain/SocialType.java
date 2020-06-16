@@ -2,7 +2,7 @@ package com.bit.house.domain;
 
 public enum SocialType {
     //FACEBOOK("facebook"),
-
+    NULL("null"),
     GOOGLE("google"),
     KAKAO("kakao"),
     NAVER("naver");

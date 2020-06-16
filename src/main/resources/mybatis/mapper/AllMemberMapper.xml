@@ -24,7 +24,7 @@
         WHERE mem.userid = #{userid}
     </select>
 
-    <select id="searchSocial" resultType="String">
+    <select id="searchSocial" resultType="com.bit.house.domain.AllMemberVO">
         SELECT
         *
         FROM
