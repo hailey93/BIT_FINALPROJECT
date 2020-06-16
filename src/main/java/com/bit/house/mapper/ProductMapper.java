@@ -19,4 +19,8 @@ public interface ProductMapper {
     @Select("select * from product where categorycode LIKE CONCAT('%',#{categoryCode},'%')")
     List<ProductVO> selectProductByCategory(String categoryCode);
 
+    @Select("Select * from product where productNo = #{productNo}")
+    ProductVO getProductVOByProductNo(String productNo);
+
+
 }
