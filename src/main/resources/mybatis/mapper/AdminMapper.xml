@@ -34,10 +34,13 @@
 	<select id="getTotalPrice" resultType="orderListVO"> <!-- 날짜별 이건 판매 총액, 판매량 -->
 		select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
 		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
-		from orderlist <!-- where productNo = '' -->
-		group by productNo, orderDate/*, colorName 만약 색상까지 세분화 안한다면 주석처리 */ order by orderDate;
+		from orderlist
+		group by productNo, orderDate order by orderDate;
 	</select>
-
+	<!-- where productNo = ''
+	/*year = #{year} , productNo = #{productNo},
+		 						  month = #{month}, colorName 만약 색상까지 세분화 안한다면 주석처리 */
+		 						  -->
 	<select id="getSpendingPattern" resultType="orderListVO"> <!-- 그냥 판매량 순으로 정렬해서 USERSPENDINGPATTERN이나 매출순위 뽑음 -->
 		select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
 		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
@@ -51,6 +54,23 @@
 	<select id="getUser" resultType="MemberVO">
 		select * from member
 	</select>
+
+	<!--<select id="getMonthData" resultType="orderListVO">
+		select sum(totalPrice) as totalPrice, productName, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month
+		from adminstat where productName = #{product} and EXTRACT(YEAR FROM orderDate ) = #{year}
+		group by productNo, orderDate order by orderDate;
+	</select>
+
+
+	<select id="getDayData" resultType="orderListVO">
+		select sum(totalPrice) as totalPrice, productName, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
+		from adminstat where productName = #{product} and EXTRACT(YEAR FROM orderDate ) = #{year} and EXTRACT(MONTH FROM orderDate ) = #{month}
+		group by productNo, orderDate order by orderDate;
+	</select>-->
+
+
 	<!--
         <select id="getMember" resultType="MemberVO">
             select * from user where Id=#{Id} and pw=#{pw}
