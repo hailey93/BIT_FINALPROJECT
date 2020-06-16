@@ -7,9 +7,12 @@ import com.bit.house.service.AllMemberService;
 import com.bit.house.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.security.Principal;
 
 @Slf4j
 @Controller
@@ -32,14 +35,18 @@ public class OAuth2Controller {
         return "th/login/customLogin";
     }
 
-    @GetMapping("/customLogout")
+    @GetMapping("" +
+            "")
     public String customLogout() {
         return "th/login/customLogout";
     }
 
 
     @GetMapping("/loginSuccess")
-    public String loginSuccess(@SocialUser AllMemberVO allMemberVO) {
+    public String loginSuccess(@SocialUser AllMemberVO allMemberVO, @AuthenticationPrincipal Principal principal) {
+
+        log.info(principal.getName());
+        log.info(String.valueOf(principal));
 
         return "th/login/loginSuccess";
 

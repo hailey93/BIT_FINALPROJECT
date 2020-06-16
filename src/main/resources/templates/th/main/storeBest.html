@@ -9,32 +9,73 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
         <link rel="stylesheet" th:href="@{/css/storeBest.css}">
     </th:block>
+
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="container">
-        <div class="virtualized-list ranking-feed__content row"
-             style="padding-top: 0px; padding-bottom: 6844px; transform: translateY(0px);">
-            <div class="ranking-feed__item-wrap col-12 col-md-12 col-lg-3">
-                <div class="ranking-product-item__wrap">
-                    <div class="ranking-product-item__number-wrap ranking-product-item__number__medal ranking-product-item__number__gold-wrap">
-                        <span class="ranking-product-item__number ranking-product-item__number__gold">1</span>
-                    </div>
-                    <div class="production-item-image">
-                        <img class="image" alt="" src="" srcset="">
-                    </div>
-                    <div class="ranking-product-item__content">
-                        <h1 class="ranking-product-item__header">
-                            <span class="ranking-product-item__header__brand">상일리베가구</span>
-                            <span class="ranking-product-item__header__name">[기간한정] 아이언 행거형 드레스룸 4colors</span></h1>
-                        <span class="production-item-price">
-                                <span class="production-item-price__price">74,900</span>
-                            </span>
+    <div class="ranking-feed" id="ranking-type-filter">
+        <ol class="ranking-type-filter">
+            <a href="#">
+                <li class="ranking-type-filter__item ranking-type-filter__item--left left--active">
+                    판매량</li>
+            </a>
+            <a href="#">
+                <li class="ranking-type-filter__item ranking-type-filter__item--right">신제품</li>
+            </a>
+        </ol>
+        <div class="container">
+            <div class="virtualized-list ranking-feed__content row"
+                 style="padding-top: 0px; transform: translateY(0px);">
+                <tr th:each="products : ${bestList}">
+                <div class="ranking-feed-item-wrap col-12 col-md-12 col-lg-3">
+                    <div class="ranking-product-item__wrap">
+                        <article class="production-item"><a class="ranking-product-item__link" th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
+                            <div class="ranking-product-item__number-wrap ranking-product-item__number__medal ranking-product-item__number__gold-wrap">
+                                <span class="ranking-product-item__number ranking-product-item__number__gold" th:text="${products.ranking}"></span>
+                            </div>
+                            <div class="ranking-product-item__img-wrap">
+
+                                <div class="production-item-image production-item__image">
+                                    <img class="image" alt="" th:src="@{'/uploadImg/'+${products.productMainImg}}" srcset="">
+                                </div>
+                            </div>
+                            <div class="ranking-product-item__content">
+                                <h1 class="ranking-product-item__header">
+                                    <span class="ranking-product-item__header__brand" th:text="${products.sellerName}"></span>
+                                    <span class="ranking-product-item__header__name" th:text="${products.productName}"></span>
+                                </h1>
+                                <span class="production-item-price">
+                                <span class="production-item-price__price" th:text="${products.customerPrice}"></span>
+                                </span>
+                            </div>
+                        </article>
+
+
                     </div>
                 </div>
+                </tr>
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('.ranking-type-filter__item--left').click(function () {
+                $('.ranking-type-filter__item--right').removeClass('right--active')
+                $('.ranking-type-filter__item--left').addClass('left--active');
+            });
+            $('.ranking-type-filter__item--right').click(function () {
+                $('.ranking-type-filter__item--left').removeClass('left--active');
+                $('.ranking-type-filter__item--right').addClass('right--active');
+            });
+
+            //var rank=$('.ranking-product-item__number').val();
+            console.log(rank);
+        });
+
+
+    </script>
+
 </div>
 </body>
 </html>
