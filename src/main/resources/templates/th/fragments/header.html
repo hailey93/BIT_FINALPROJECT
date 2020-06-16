@@ -70,7 +70,8 @@
                             <div class="nav-wrapper">
                                 <form class="form-inline ml-0 ml-md-3">
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search"
+                                               name="index" id="${index}" th:value="${index?:''}" onfocus="this.value=''">
                                         <div class="input-group-append">
                                             <button class="btn btn-navbar" type="submit">
                                                 <i class="fas fa-search"></i>
