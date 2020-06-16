@@ -7,19 +7,21 @@
     <title>메인</title>
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+        <link rel="stylesheet" th:href="@{/css/sidebar.css}">
     </th:block>
 
 
 </head>
 <body>
 <div layout:fragment="content">
-    <div id="store-index">
+    <div id="store-index margin-right">
+
         <section class="container store-index-section store-index-product-list">
             <div class="virtualized-list row"
                  style="padding-top: 0px; padding-bottom: 3888px; transform: translateY(0px);">
                 <tr th:each="products : ${productList}">
                     <div class="col-6 col-md-3 product-item-wrap">
-                        <article class="production-item"><a class="production-item__overlay" href=""></a>
+                        <article class="production-item"><a class="production-item__overlay" th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
                             <div class="production-item-image production-item__image">
                                 <img class="image" alt="" th:src="@{'/uploadImg/'+${products.productMainImg}}"
                                      srcset="">

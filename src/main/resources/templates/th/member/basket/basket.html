@@ -8,17 +8,15 @@
     <link href="/img/theHouseLogo.png" rel="shortcut icon" type="image/x-icon">
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+        <link rel="stylesheet" th:href="@{/css/basket.css}">
     </th:block>
-    <link rel="stylesheet" media="screen"
-          href="https://d1nyaccf3kuclt.cloudfront.net/assets/v3/layout/application_react-c68374e516e05258989e1c408ec53ff0ffa468ef1755a945c31caf2e365af3d0.css">
-    <link rel="stylesheet" media="screen"
+   <!--<link rel="stylesheet" media="screen"
           href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-7a3e77c9.chunk.css">
-    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/19-dfb1ddc9.chunk.css">
-</head>
-<script src="http://code.jquery.com/jquery-2.0.2.js"></script>
+   --> </head>
+<!--<script src="http://code.jquery.com/jquery-2.0.2.js"></script>-->
 <body>
 
-<div layout:fragment="content" data-react-class="App" data-hydrate="t" class="page">
+<div layout:fragment="content">
     <div class="layout">
 
         <div class="commerce-cart-wrap">
@@ -56,12 +54,12 @@
 
                             <div>
                                 <ul>
-                                    <th:block th:each="list : ${basketList}">
+                                    <!--<th:block th:each="list : ${basketList}">
                                         <li th:text="${list}"></li>
                                         셀러네임
                                         <h1 th:text="${list.getProductVO()}"></h1>
                                         <h2 th:text="${list.getProductVO().getSellerName()}"></h2>
-                                    </th:block>
+                                    </th:block>-->
                                 </ul>
                             </div>
                             <!-- 셀러네임안듬 -->

@@ -24,4 +24,8 @@ public class OrderListVO {
     private Date orderConfirmDate;
     private Date orderCancelDate;
     private String cancelReason;
+
+    private String year;
+    private String month;
+    private String day;
 }

@@ -13,4 +13,13 @@ public interface RecommenderMapper {
     /*String selectClickProduct(@SessionAttribute("memberId") String memberId);*/
     String selectClickProduct();
     ProductVO selectProductDetail(String productNo);
+
+    /*RecommenderVO selectClickHistory(@SessionAttribute("memberId") String memberId, String productNo);*/
+    int selectClickHistory();
+
+    /*void insertCount(RecommenderVO recommenderVO);*/
+    int insertCount();
+
+    /*int updateClickHistory(@SessionAttribute("memberId") String memberId, String productNo);*/
+    int updateClickHistory();
 }

@@ -33,4 +33,9 @@ public class ProductVO {
     private String productExpImg;
     private int clickTotalCount;
 
+
+    private String Year;
+    private String Month;
+    private String day;
+
 }

@@ -31,7 +31,7 @@
 <h2>답글 작성</h2>
 
 <div class="container">
-    <form action="/replyProc" method="post" id="replyInsertBoardFrm" enctype="multipart/form-data">
+    <form action="/askreplyProc" method="post" id="replyInsertBoardFrm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="askTitle">제목</label>
             <input type="text" th:value="'RE: '+${detail.askTitle}" id="askTitle" name="askTitle" readonly/>

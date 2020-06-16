@@ -1,7 +1,9 @@
 package com.bit.house.controller;
 
 import com.bit.house.mapper.MainMapper;
+import com.bit.house.service.MainService;
 import lombok.extern.slf4j.Slf4j;
+import com.bit.house.service.MainService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +18,9 @@ public class MainController {
     @Autowired(required = false)
     MainMapper mainMapper;
 
+    @Autowired(required = false)
+    MainService mainService;
+
     @GetMapping(value = {"/storeMain", "/"})
     public String main(Model model, HttpSession session) {
 
@@ -25,7 +30,8 @@ public class MainController {
     }
 
     @GetMapping("/storeBest")
-    public String storeBest() {
+    public String storeBest(Model model) {
+        model.addAttribute("bestList", mainService.selectBestList());
         return "th/main/storeBest";
     }
 
