@@ -20,7 +20,7 @@ public class AskBoardController {
     @Autowired(required = false)
     AskBoardMapper askBoardMapper;
 
-    @RequestMapping("/asklist")//게시판 리스트 화면 호출
+    @RequestMapping("/askList")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
 
         model.addAttribute("list", askBoardMapper.askBoardList());

@@ -27,7 +27,7 @@ public class PhotoBoardController {
 
 
     //사진 메인
-    @RequestMapping("/comunitymain")
+    @RequestMapping("/comunityMain")
     private String communityMain(Model model, PhotoBoardVO photoBoardVO) throws Exception{
 
         return "th/photoBoard/photoBoardMain";
