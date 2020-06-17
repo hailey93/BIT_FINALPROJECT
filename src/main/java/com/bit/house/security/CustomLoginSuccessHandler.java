@@ -28,20 +28,20 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
         });
 
-        log.warn("ROLE NAMES: " + roleNames);
+//        log.warn("ROLE NAMES: " + roleNames);
+//
+//        if (roleNames.contains("ROLE_ADMIN")) {
+//
+//            response.sendRedirect("/admin");
+//            return;
+//        }
+//
+//        if (roleNames.contains("ROLE_MEMBER")) {
+//
+//            response.sendRedirect("/loginSuccess");
+//            return;
+//        }
 
-        if (roleNames.contains("ROLE_ADMIN")) {
-
-            response.sendRedirect("/admin");
-            return;
-        }
-
-        if (roleNames.contains("ROLE_MEMBER")) {
-
-            response.sendRedirect("/member");
-            return;
-        }
-
-        response.sendRedirect("/");
+        response.sendRedirect("/loginSuccess");
     }
 }

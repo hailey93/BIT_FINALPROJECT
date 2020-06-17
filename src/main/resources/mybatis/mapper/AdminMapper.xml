@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.house.mapper.AdminMapper">
 
+	<resultMap id="saleStat" type="orderListVO">
+		<result column="memberId" property="memberId"/>
+		<result column="totalPrice" property="totalPrice"/>
+		<result column="orderQty" property="orderQty"/>
+		<result column="year" property="year"/>
+		<result column="month" property="month"/>
+		<result column="day" property="day"/>
+
+		<association property="memberVO" javaType="memberVO">
+			<result column="memberId" property="memberId"/>
+		</association>
+
+	</resultMap>
     <select id="getMember" resultType="allMemberVO">
 		select * from allmember
 	</select>
@@ -15,30 +28,53 @@
 	<select id = "getYear" resultType="String">
             SELECT EXTRACT(YEAR FROM productCreateDate) as year from product ;
         </select>
-	<!-- 년도별로 품목당 판매량 정렬
-        select sum(sellPrice), productCreateDate, productName,
-        EXTRACT(YEAR FROM productCreateDate ) as year from product
-         group by productCreateDate;
-        -->
 
+
+
+	<select id="getTotalPrice" resultType="orderListVO"> <!-- 날짜별 이건 판매 총액, 판매량 -->
+		select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
+		from orderlist
+		group by productNo, orderDate order by orderDate;
+	</select>
+	<!-- where productNo = ''
+	/*year = #{year} , productNo = #{productNo},
+		 						  month = #{month}, colorName 만약 색상까지 세분화 안한다면 주석처리 */
+		 						  -->
+	<select id="getSpendingPattern" resultType="orderListVO"> <!-- 그냥 판매량 순으로 정렬해서 USERSPENDINGPATTERN이나 매출순위 뽑음 -->
+		select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
+		EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as day
+		from orderlist <!-- where productNo = '' -->
+		group by productNo order by totalPrice;
+	</select>
 
 	<select id="getHouseUser" resultType="memberVO">
-		select * from user where userId=#{memberId} and userPassword=#{memberpw}
+		select * from user where userId=#{memberId}
 	</select>
-	<select id="getUser" resultType="MemberVO">
-		select * from member
+
+	<!--#월단위 구매 많이한 유저
+select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, month, year
+from dailysalestats2
+group by memberId, month,year, month order by orderQty desc;
+	-->
+
+	<select id="getYearlyPurchaseVolume" resultMap="saleStat">
+		select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty,
+		year from dailysalestats2
+		group by memberId, year order by orderQty desc;
 	</select>
-	<!--
-        <select id="getMember" resultType="MemberVO">
-            select * from user where Id=#{Id} and pw=#{pw}
-        </select>
-        &lt;!&ndash; 연도 추출? &ndash;&gt;
 
+	<!--#연단위 구매 많이한 유저
+	select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, year
+	from dailysalestats2
+	group by memberId, year order by orderQty desc;-->
 
-        <insert id="insertAddr" >
-            INSERT INTO user(userAddr)
-            VALUES ( #{userAddr} )
-        </insert>-->
+	<!--#일단위 구매 많이한 유저
+	select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, day, month, year
+	from dailysalestats2
+	group by memberId, day order by orderQty desc;-->
+
+	<!--EXTRACT(YEAR FROM orderDate ) = #{year}-->
 
 
 	<!-- 주소를 등록
@@ -46,6 +82,8 @@
 	<select id="insertAddr" r>
 select *,if(memberAddr is null,'하리보',if(deliveryAddr1 is null,'하리보둘',
 if(deliveryAddr2 is null,'하리보셋',deliveryAddr2))) as news from member1;
+
+
 	멤버 주소 업데이트
 update member1 set memberAddr=if(memberAddr is null,'asd',memberAddr), deliveryAddr1 = if(memberAddr is not null, null, 'Addr1에들어감'),
  deliveryAddr2 = if(memberAddr is not null, null, if(deliveryAddr1 is not null,null,'Addr2에 들어감' ))

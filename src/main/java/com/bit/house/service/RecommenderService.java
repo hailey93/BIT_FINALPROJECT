@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface RecommenderService {
     List<String> selectClickProductById();
-    /*String selectClickProduct(@SessionAttribute("memberId") String memberId);*/
+    /*String selectClickProduct(String memberId);*/
     String selectClickProduct();
     List<ProductVO> selectProductList(Collection<String> productNos);
+    void checkClickHistory(String memberId, String productNo);
+    void updateClickTotalCount(String productNo);
 }

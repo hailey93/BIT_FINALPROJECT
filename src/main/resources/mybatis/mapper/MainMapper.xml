@@ -3,7 +3,24 @@
 <mapper namespace="com.bit.house.mapper.MainMapper">
 
     <select id="selectMainList" resultType="productVO">
-		select sellerName, productName, customerPrice, productMainImg from thehouse.product
+		select productNo, sellerName, productName, customerPrice, productMainImg from thehouse.product
 	</select>
+	<!--productNo별로 총판매량 구해서 100개만 가져오기 -->
+	<select id="selectTotalQty" resultType="productQtyVO">
+		select productNo, sum(productSellingQty) totalQty from thehouse.productoption group by productNo order by totalQty desc limit 100
+	</select>
+
+	<select id="selectDetail" parameterType="String" resultType="productQtyVO">
+		select sellerName, productName, customerPrice, productMainImg from thehouse.product where productNo=#{productNO}
+	</select>
+
+	<select id="selectbestLists" resultType="productQtyVO">
+		select *, dense_rank() over (order by totalQty desc) as ranking from thehouse.producttotalqty limit 100
+	</select>
+
+	<!--<select id="selectbestList" resultType="productVO">
+		select sellerName, productName, customerPrice, productMainImg, rank() over (order by totalQty desc) ranking from thehouse.product limit 100
+		select sum(productSellingQty) totalQty from thehouse.productoption where productNo='CAFEFABRICAWB-100100001';
+	</select>-->
 
 </mapper>

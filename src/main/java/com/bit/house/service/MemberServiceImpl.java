@@ -25,4 +25,10 @@ public class MemberServiceImpl implements MemberService {
 
         memberMapper.insertSocialToMember(memberVO);
     }
+
+    @Override
+    public MemberVO searchMember(String id) {
+
+        return memberMapper.searchMember(id);
+    }
 }

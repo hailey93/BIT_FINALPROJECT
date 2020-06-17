@@ -11,6 +11,7 @@ public class MemberVO {
     private String memberName;
     private String memberTel;
     private String memberAddr;
+    private String memberEmail;
     private String deliveryAddr1;
     private String deliveryAddr2;
     private String nickName;
@@ -22,6 +23,7 @@ public class MemberVO {
     private String userid;
     private String userName;
     private String userTel;
+    private String userEmail;
 
 
 }

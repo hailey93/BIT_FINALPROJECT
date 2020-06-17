@@ -1,9 +1,6 @@
 package com.bit.house.mapper;
 
-import com.bit.house.domain.AllMemberVO;
-import com.bit.house.domain.MemberVO;
-import com.bit.house.domain.ProductOptionVO;
-import com.bit.house.domain.ProductVO;
+import com.bit.house.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -22,5 +19,13 @@ public interface AdminMapper {
 
     public List<ProductOptionVO> getProductOption();
 
+    public List<ProductVO> getSalesVolume();
+
+    public List<OrderListVO> getTotalPrice();
+    public List<OrderListVO> getSpendingPattern();
+
     public MemberVO getUser();
+    public List<OrderListVO> getYearlyPurchaseVolume();
+    public List<OrderListVO> getMonthData(String year,String product); // 해당 Year 해당 품목 Month별 데이터 출력
+    public List<OrderListVO> getDayData(String year, String month, String product);
 }

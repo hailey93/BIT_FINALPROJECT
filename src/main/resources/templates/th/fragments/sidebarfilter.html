@@ -1,64 +1,6 @@
-
-
+<html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="sidebarFragment">
-
-    <style>
-        /*html, body{*/
-        /*    width: 40%;*/
-        /*    margin: 0;*/
-        /*    padding: 0;*/
-        /*    font-family: helvetica, sans-serif;*/
-        /*}*/
-        /*Func*/
-        .item ul, .nav input[type="checkbox"] {
-            display: none;
-        }
-        #menu:checked ~ .multi-level, .item input:checked ~ ul {
-            display: block;
-        }
-
-        /*Styles*/
-        label:hover {
-            cursor: pointer;
-        }
-        label {
-            width: 100%;
-            display: block;
-            z-index: 3;
-            position: relative;
-        }
-        .nav {
-            width: 100%;
-            background-color: white;
-            overflow-x: hidden;
-            border-bottom: 1px solid gainsboro;
-        }
-        .nav ul, .nav li, label {
-            line-height: 50px;
-            margin: 0;
-            padding: 0 2em;
-            list-style: none;
-            text-decoration: none;
-            color: black;
-            font-weight: 100;
-            width: 100%;
-        }
-        .item ul {
-            padding: 0 0.25em;
-        }
-        .nav li a {
-            line-height: 50px;
-            margin: 0;
-            padding: 0 4em;
-            list-style: none;
-            text-decoration: none;
-            color: black;
-            font-weight: 100;
-        }
-
-    </style>
-
-    <div class="nav">
+    <div class="nav margin-left">
         <div class="item">
             <input type="checkbox" id="A"/>
             <label for="A">가구</label>
@@ -78,10 +20,10 @@
                     <input type="checkbox" id="A-B"/>
                     <label for="A-B">침실가구</label>
                     <ul>
-                        <li><a href="100200001">침대</a></li>
-                        <li><a href="100200002">서랍장</a></li>
-                        <li><a href="100200003">화장대</a></li>
-                        <li><a href="100200004">매트리스</a></li>
+                        <li><a href="/productions/category?categoryCode=100200001">침대</a></li>
+                        <li><a href="/productions/category?categoryCode=100200002">서랍장</a></li>
+                        <li><a href="/productions/category?categoryCode=100200003">화장대</a></li>
+                        <li><a href="/productions/category?categoryCode=100200004">매트리스</a></li>
                     </ul>
                 </div></li>
 
@@ -89,9 +31,9 @@
                     <input type="checkbox" id="A-C"/>
                     <label for="A-C">주방가구</label>
                     <ul>
-                        <li><a href="100300001">주방수납장</a></li>
-                        <li><a href="100300002">식탁의자</a></li>
-                        <li><a href="100300003">식탁</a></li>
+                        <li><a href="/productions/category?categoryCode=100300001">주방수납장</a></li>
+                        <li><a href="/productions/category?categoryCode=100300002">식탁의자</a></li>
+                        <li><a href="/productions/category?categoryCode=100300003">식탁</a></li>
                     </ul>
                 </div></li>
 
@@ -99,9 +41,9 @@
                     <input type="checkbox" id="A-D"/>
                     <label for="A-D">드레스룸</label>
                     <ul>
-                        <li><a href="100400001">옷장</a></li>
-                        <li><a href="100400002">행거</a></li>
-                        <li><a href="100400003">서랍장</a></li>
+                        <li><a href="/productions/category?categoryCode=100400001">옷장</a></li>
+                        <li><a href="/productions/category?categoryCode=100400002">행거</a></li>
+                        <li><a href="/productions/category?categoryCode=100400003">서랍장</a></li>
                     </ul>
                 </div></li>
             </ul>
@@ -116,8 +58,8 @@
                     <input type="checkbox" id="B-A"/>
                     <label for="B-A">서랍정리</label>
                     <ul>
-                        <li><a href="200100001">서랍장</a></li>
-                        <li><a href="200100002">이동식정리함</a></li>
+                        <li><a href="/productions/category?categoryCode=200100001">서랍장</a></li>
+                        <li><a href="/productions/category?categoryCode=200100002">이동식정리함</a></li>
                     </ul>
                 </div></li>
 
@@ -125,8 +67,8 @@
                     <input type="checkbox" id="B-B"/>
                     <label for="B-B">수납정리</label>
                     <ul>
-                        <li><a href="200200001">리빙박스</a></li>
-                        <li><a href="200200002">기타정리용품</a></li>
+                        <li><a href="/productions/category?categoryCode=200200001">리빙박스</a></li>
+                        <li><a href="/productions/category?categoryCode=200200002">기타정리용품</a></li>
                     </ul>
                 </div></li>
 
@@ -134,8 +76,8 @@
                     <input type="checkbox" id="B-C"/>
                     <label for="B-C">현관/신발정리</label>
                     <ul>
-                        <li><a href="200300001">신발장</a></li>
-                        <li><a href="200300002">우산꽂이</a></li>
+                        <li><a href="/productions/category?categoryCode=200300001">신발장</a></li>
+                        <li><a href="/productions/category?categoryCode=200300002">우산꽂이</a></li>
                     </ul>
                 </div></li>
 
@@ -151,8 +93,8 @@
                     <input type="checkbox" id="C-A"/>
                     <label for="C-A">조명</label>
                     <ul>
-                        <li><a href="300100001">스탠드</a></li>
-                        <li><a href="300100002">무드등</a></li>
+                        <li><a href="/productions/category?categoryCode=300100001">스탠드</a></li>
+                        <li><a href="/productions/category?categoryCode=300100002">무드등</a></li>
                     </ul>
                 </div></li>
 
@@ -160,8 +102,8 @@
                     <input type="checkbox" id="C-B"/>
                     <label for="C-B">장식</label>
                     <ul>
-                        <li><a href="300200001">액자</a></li>
-                        <li><a href="300200002">리스/가랜드</a></li>
+                        <li><a href="/productions/category?categoryCode=300200001">액자</a></li>
+                        <li><a href="/productions/category?categoryCode=300200002">리스/가랜드</a></li>
                     </ul>
                 </div></li>
             </ul>

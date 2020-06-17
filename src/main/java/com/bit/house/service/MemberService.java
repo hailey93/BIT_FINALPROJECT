@@ -7,4 +7,6 @@ public interface MemberService {
     public void insertMember(MemberVO memberVO);
 
     public void insertSocialToMember(MemberVO memberVO);
+
+    public MemberVO searchMember(String id);
 }

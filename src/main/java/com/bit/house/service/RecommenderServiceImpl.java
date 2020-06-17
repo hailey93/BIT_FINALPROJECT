@@ -3,13 +3,14 @@ package com.bit.house.service;
 import com.bit.house.domain.ProductVO;
 import com.bit.house.domain.RecommenderVO;
 import com.bit.house.mapper.RecommenderMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
+@Slf4j
 @Service
 public class RecommenderServiceImpl implements RecommenderService {
 
@@ -54,6 +55,22 @@ public class RecommenderServiceImpl implements RecommenderService {
             recommendList.add(recommenderMapper.selectProductDetail(productNo));
         }
         return recommendList;
+    }
+
+    @Override
+    public void checkClickHistory(String memberId, String productNo) {
+        if(recommenderMapper.selectClickHistory(memberId, productNo)==0){
+            //조회이력이 없으면 insert
+            recommenderMapper.insertCount(memberId, productNo);
+        }else{
+            //조회이력이 있으면 update
+            recommenderMapper.updateClickHistory(memberId, productNo);
+        }
+    }
+
+    @Override
+    public void updateClickTotalCount(String productNo) {
+        recommenderMapper.updateClickTotalCount(productNo);
     }
 
 }

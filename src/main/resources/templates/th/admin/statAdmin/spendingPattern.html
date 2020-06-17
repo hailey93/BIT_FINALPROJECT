@@ -5,6 +5,117 @@
     <title>Title</title>
 </head>
 <body>
+일별, 월별, 연도별 품목 구매 현황
+가장 많이 구매한 항목 (top10).
+<div id="name" style="width:35%; height:50px">
+    <canvas id="myChart" style="width:35%; height:100%; float:left"></canvas>
+</div>
+<script type="text/javascript">
+    var json = [[${jsonText}]];
+    console.log(json);
+    var jsonParse = JSON.parse(json);
+    var chart1Arr = new Array();
+    var yearArr = new Array();
+    var yearArr2 = new Array();
+    var productNo = new Array();
+    for (var i = 0; i < jsonParse.length; i++) {
+        chart1Arr[i] = jsonParse[i].orderQty;
+        productNo[i] = jsonParse[i].productNo; // 품목명을 입력 받아서  날짜ㅡㅣ판매량
+        yearArr2[i] = jsonParse[i].year;                                        // 날짜를 입력 받아서 품목 ㅡ ㅣ 판매량
+        //yearArr[i] = jsonParse[i].productionDay;
+    }
+    var backC = [
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(54, 162, 235, 0.2)'
+    ];
+    //borderColor: backgroundColor:
+    var borderC = [
+        'rgba(54, 162, 235, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(54, 162, 235, 1)'
+    ];
+    var options = {
+        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    };
 
+    // 차트 data
+    var chart1Data = {
+        labels: [1, 2, 3, 4, 5, 6],
+        datasets: [{
+            label: productNo,
+            data: chart1Arr, // 판매량 1, 품목, 날짜 ==== 0507날짜의 판매량 1위~6위 품목
+            backgroundColor: backC,
+            borderColor: borderC,
+            borderWidth: 1
+        }]
+    };
+    $(document).ready(
+        function () {
+            var chart1Canvas = document.getElementById("myChart");
+            var ctx = chart1Canvas.getContext('2d');
+            var myNewChart = new Chart(ctx, {
+                type: 'bar',
+                data: chart1Data,
+                options: options
+            });
+
+            chart1Canvas.onclick = function (evt) {
+                if (document.getElementById("myChart2").style.display == 'none') {
+                    document.getElementById("myChart2").style.display = 'block';
+                } else {
+                    document.getElementById("myChart2").style.display = 'none';
+                }
+                var activePoints = myNewChart.getElementsAtEvent(evt); // activePoints선언
+                console.log("activePoints: "+activePoints);
+                if (activePoints[0]) {
+                    var chartData = activePoints[0]['_chart'].config.data;
+                    var idx = activePoints[0]['_index'];
+
+                    yearLabel = chartData.labels[idx];
+                    var value = chartData.datasets[0].data[idx];
+                    var labels = chartData.labels[idx];
+                    var yearform = {
+                        product: productNo[0],
+                        year: yearLabel
+                    }
+                    console.log("product : " + productNo[0]);
+                    console.log("year : " + yearLabel);
+                    $.ajax({
+                        //console.log("hi");
+                        url: "yearGraphAjax",
+                        type: "POST",
+                        data: yearform,
+                        success: function (data) {
+                            chart2(); // ajax 성공시 chart2() 호출
+                        },//이제 이값보내서 db 통계 뽑아서 다시 불러와서 2번 그래프에 다시 배열
+                        error: function () {
+                            alert("test err");
+                        }
+                    });
+
+
+                    //var url = "http://example.com/?label=" + label + "&value=" + value;
+                    //console.log(url);
+                    //alert(url);
+                    //location.replace(url);
+                }
+            };
+        }
+    );
+</script>
 </body>
 </html>

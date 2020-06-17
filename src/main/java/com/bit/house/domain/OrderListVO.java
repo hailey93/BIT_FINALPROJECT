@@ -3,6 +3,7 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 
@@ -24,4 +25,11 @@ public class OrderListVO {
     private Date orderConfirmDate;
     private Date orderCancelDate;
     private String cancelReason;
+
+    private String year;
+    private String month;
+    private String day;
+
+    @Autowired(required = false)
+    MemberVO memberVO;
 }

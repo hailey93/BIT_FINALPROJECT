@@ -1,10 +1,169 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>메인</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+    </th:block>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
 </head>
 <body>
+<div layout:fragment="content">
+    <div th:class="container">
+        <img th:src="@{'/uploadImg/'+${product.productSubImg1}}" class="w3-round w3-padding" alt="" style="width:5%">
+        <img th:src="@{'/uploadImg/'+${product.productMainImg}}" class="w3-round w3-padding" alt="" style="width:25%">
+    </div>
 
+    <div class="production-selling-overview__content col-12 col-md-6 col-lg-5">
+        <div class="production-selling-header">
+            <h1 class="production-selling-header__title"><p class="production-selling-header__title__brand-wrap"><a
+                    class="production-selling-header__title__brand"
+                    href="" th:text="${product.sellerName}"></a>
+            </p><span class="production-selling-header__title__name" th:text="${product.productName}"></span></h1>
+            <div class="production-selling-header__content">
+                <div class="production-selling-header__action">
+                    <button class="production-selling-header__action__button production-selling-header__action__button-scrap"
+                            type="button">
+                        <svg class="icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor"
+                             viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+                            <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
+                        </svg>
+                        <span class="count">9,576</span></button>
+                    <div class="drop-down">
+                        <button class="production-selling-header__action__button" type="button">
+                            <svg class="icon" aria-label="공유하기" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="currentColor" preserveAspectRatio="xMidYMid meet">
+                                <path d="M9.64 14.646a4.5 4.5 0 1 1 0-5.292l4.54-2.476a4.5 4.5 0 1 1 .63.795l-4.675 2.55c.235.545.365 1.146.365 1.777s-.13 1.232-.365 1.777l4.675 2.55a4.5 4.5 0 1 1-.63.795l-4.54-2.476zM18 8a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM6 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zM18 23a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"></path>
+                            </svg>
+                            <span class="count">885</span></button>
+                    </div>
+                </div>
+                <p class="production-selling-header__review-wrap"><a class="production-selling-header__review"
+                                                                     href="#production-selling-review"><span
+                        class="production-selling-header__review__icon" aria-label="별점 4.6점"><svg fill="#35C5F0"
+                                                                                                  width="1em"
+                                                                                                  height="1em"
+                                                                                                  preserveAspectRatio="xMidYMid meet"
+                                                                                                  viewBox="0 0 16 16"><defs><path
+                        id="star-path-135"
+                        d="M8 13.54l-4.37 1.85c-.5.22-.88-.06-.83-.6l.4-4.73L.1 6.47c-.37-.41-.22-.85.32-.98l4.62-1.07L7.48.36c.29-.48.75-.47 1.04 0l2.44 4.06 4.62 1.07c.54.13.68.57.32.98l-3.1 3.59.4 4.72c.05.55-.33.83-.83.61L8 13.54z"></path><clipPath
+                        id="star-clip-135"><rect x="0" y="0" width="16" height="16"></rect></clipPath></defs><use
+                        xlink:href="#star-path-135" fill="#DBDBDB"></use><use clip-path="url(#star-clip-135)"
+                                                                              xlink:href="#star-path-135"></use></svg><svg
+                        fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><defs><path
+                        id="star-path-136"
+                        d="M8 13.54l-4.37 1.85c-.5.22-.88-.06-.83-.6l.4-4.73L.1 6.47c-.37-.41-.22-.85.32-.98l4.62-1.07L7.48.36c.29-.48.75-.47 1.04 0l2.44 4.06 4.62 1.07c.54.13.68.57.32.98l-3.1 3.59.4 4.72c.05.55-.33.83-.83.61L8 13.54z"></path><clipPath
+                        id="star-clip-136"><rect x="0" y="0" width="16" height="16"></rect></clipPath></defs><use
+                        xlink:href="#star-path-136" fill="#DBDBDB"></use><use clip-path="url(#star-clip-136)"
+                                                                              xlink:href="#star-path-136"></use></svg><svg
+                        fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><defs><path
+                        id="star-path-137"
+                        d="M8 13.54l-4.37 1.85c-.5.22-.88-.06-.83-.6l.4-4.73L.1 6.47c-.37-.41-.22-.85.32-.98l4.62-1.07L7.48.36c.29-.48.75-.47 1.04 0l2.44 4.06 4.62 1.07c.54.13.68.57.32.98l-3.1 3.59.4 4.72c.05.55-.33.83-.83.61L8 13.54z"></path><clipPath
+                        id="star-clip-137"><rect x="0" y="0" width="16" height="16"></rect></clipPath></defs><use
+                        xlink:href="#star-path-137" fill="#DBDBDB"></use><use clip-path="url(#star-clip-137)"
+                                                                              xlink:href="#star-path-137"></use></svg><svg
+                        fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><defs><path
+                        id="star-path-138"
+                        d="M8 13.54l-4.37 1.85c-.5.22-.88-.06-.83-.6l.4-4.73L.1 6.47c-.37-.41-.22-.85.32-.98l4.62-1.07L7.48.36c.29-.48.75-.47 1.04 0l2.44 4.06 4.62 1.07c.54.13.68.57.32.98l-3.1 3.59.4 4.72c.05.55-.33.83-.83.61L8 13.54z"></path><clipPath
+                        id="star-clip-138"><rect x="0" y="0" width="16" height="16"></rect></clipPath></defs><use
+                        xlink:href="#star-path-138" fill="#DBDBDB"></use><use clip-path="url(#star-clip-138)"
+                                                                              xlink:href="#star-path-138"></use></svg><svg
+                        fill="#35C5F0" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><defs><path
+                        id="star-path-139"
+                        d="M8 13.54l-4.37 1.85c-.5.22-.88-.06-.83-.6l.4-4.73L.1 6.47c-.37-.41-.22-.85.32-.98l4.62-1.07L7.48.36c.29-.48.75-.47 1.04 0l2.44 4.06 4.62 1.07c.54.13.68.57.32.98l-3.1 3.59.4 4.72c.05.55-.33.83-.83.61L8 13.54z"></path><clipPath
+                        id="star-clip-139"><rect x="0" y="0" width="9.280000000000001"
+                                                 height="16"></rect></clipPath></defs><use xlink:href="#star-path-139"
+                                                                                           fill="#DBDBDB"></use><use
+                        clip-path="url(#star-clip-139)" xlink:href="#star-path-139"></use></svg></span><span
+                        class="production-selling-header__review__text"><span class="number">635</span><span
+                        class="postfix">개 리뷰</span></span></a></p>
+                <p class="production-selling-header__price"><span class="production-selling-header__price__row"><span
+                        class="production-selling-header__price__discount"><span class="number">38</span><span
+                        class="percent">%</span>&nbsp;</span><span class="production-selling-header__price__price-wrap"><del
+                        class="production-selling-header__price__original"><span class="number" th:text="${product.sellPrice}"></span><span
+                        class="won">원</span></del><span class="production-selling-header__price__separator"></span><span
+                        class="production-selling-header__price__price"><span class="number" th:text="${product.customerPrice}"></span><span
+                        class="won">원</span><span class="production-selling-header__price__badge"><svg class="icon"
+                                                                                                       aria-label="최저가"
+                                                                                                       width="37"
+                                                                                                       height="20"
+                                                                                                       viewBox="0 0 37 20"
+                                                                                                       preserveAspectRatio="xMidYMid meet"><g
+                        fill="none" fill-rule="evenodd"><rect width="37" height="20" fill="#F77" rx="4"></rect><path
+                        fill="#FFF"
+                        d="M5.1 8.04V7.02h5.34v1.02H8.5c.21.83 1.27 1.54 2.23 1.66l-.6 1.02a3.98 3.98 0 0 1-2.29-1.6 3.89 3.89 0 0 1-2.43 1.86L4.77 10c1.18-.26 2.2-1.03 2.37-1.95H5.09zM12.65 5v9.8h-1.3V5h1.3zm-1.8 6.73l.1.98c-1.79.24-4.44.34-6.27.34l-.19-1.04c.9 0 1.8 0 2.66-.03v-1.6h1.3v1.55c.88-.03 1.7-.11 2.4-.2zM6.35 6.48v-1h2.92v1H6.35zm13.67 5.34l-.72.95a5.58 5.58 0 0 1-2.36-2.67 4.88 4.88 0 0 1-2.36 2.86l-.8-.94c1.63-.9 2.48-2.4 2.48-4.46v-.5h-1.97V6h5.21v1.06h-1.9v.5c0 2.06.95 3.46 2.42 4.26zm2.08 2.98h-1.29V9.47h-1.65v-1.1h1.65V5h1.29v9.8zm10.48-4.97h-1.42v4.97H29.9V5h1.27v3.76h1.42v1.07zM28.6 6a7.8 7.8 0 0 1-4.39 7.03l-.78-.97a6.46 6.46 0 0 0 3.77-5h-3.18V6h4.58z"></path></g></svg></span></span></span></span><span
+                        class="production-selling-header__price__row"><span
+                        class="production-selling-header__price__cell"></span><span
+                        class="production-selling-header__price__coupon"><span class="number" th:text="${product.purchasePrice}"></span><span
+                        class="won">원</span><a class="production-selling-header__price__coupon__reason"
+                                               href="/competitions/222">첫구매할인가 <svg width="10" height="10"
+                                                                                    viewBox="0 0 10 10"
+                                                                                    fill="currentColor"
+                                                                                    preserveAspectRatio="xMidYMid meet"><path
+                        d="M2.5 8.2L5.63 5 2.5 1.8l.94-.97L7.5 5 3.44 9.17z"></path></svg></a></span></span></p>
+                <div class="production-selling-header__promotion"><p
+                        class="production-selling-header__promotion__entry"><b>159P</b> 적립해드립니다.</p></div>
+            </div>
+            <p class="production-selling-header__delivery"><span
+                    class="production-selling-header__delivery__type"><span>일반택배</span></span><span
+                    class="production-selling-header__delivery__fee">3,000원 <small>(100,000원 이상 구매시 무료배송)</small></span><span
+                    class="production-selling-header__delivery__disclaimer-wrap"><span
+                    class="production-selling-header__delivery__disclaimer">조건에 따라 추가비용 발생 가능 (상품 상세 정보 참고)</span></span>
+            </p><a class="production-selling-header__seller production-selling-header__seller--simple"
+                   href="/brands/home?query=%EC%95%A8%EB%B9%88%EB%94%94%EC%9E%90%EC%9D%B8&amp;affect_type=ProductSaleDetail&amp;affect_id=154487"><span
+                class="production-selling-header__seller__text"><svg class="icon" width="20" height="20"
+                                                                     fill="currentColor" viewBox="0 0 20 20"
+                                                                     preserveAspectRatio="xMidYMid meet"><path
+                d="M16.67 3.33H3.33V5h13.34V3.33zm.83 8.34V10l-.83-4.17H3.33L2.5 10v1.67h.83v5h8.34v-5H15v5h1.67v-5h.83zM10 15H5v-3.33h5V15z"></path></svg> 앨빈디자인 브랜드홈</span></a>
+        </div>
+        <div class="production-selling-option-form production-selling-overview__option-form">
+            <section class="selling-option-form-content production-selling-option-form__form">
+                <div class="selling-option-form-content__form">
+                    <div class="selling-option-select-input">
+                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-1 focused">
+                            <select class="form-control empty">
+                                <option value="" disabled="">크기(호)선택</option>
+                                <option value="0">1호액자(15,900원)</option>
+                                <option value="1">6호액자(39,900원)</option>
+                                <option value="2">15호액자(119,900원)</option>
+                            </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
+                                                                           preserveAspectRatio="xMidYMid meet"
+                                                                           style="fill: currentcolor;"><path
+                                fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div>
+                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-2">
+                            <select class="form-control empty">
+                                <option value="" disabled="">색상선택</option>
+                            </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
+                                                                           preserveAspectRatio="xMidYMid meet"
+                                                                           style="fill: currentcolor;"><path
+                                fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div>
+                        <div class="input-group select-input selling-option-select-input__option selling-option-select-input__option-extra">
+                            <select class="form-control empty">
+                                <option value="" disabled="">추가상품을 선택해주세요.</option>
+                                <option value="0">꼭꼬핀 (1,500원)</option>
+                            </select><span class="select-input__icon"><svg class="icon" width="10" height="10"
+                                                                           preserveAspectRatio="xMidYMid meet"
+                                                                           style="fill: currentcolor;"><path
+                                fill-rule="evenodd" d="M0 3l5 5 5-5z"></path></svg></span></div>
+                    </div>
+                </div>
+                <ul class="selling-option-form-content__list"></ul>
+                <p class="selling-option-form-content__price"><span class="selling-option-form-content__price__left">주문금액</span><span
+                        class="selling-option-form-content__price__right"><span
+                        class="selling-option-form-content__price__number">0</span>원</span></p></section>
+            <div class="production-selling-option-form__footer">
+                <button class="button button--color-blue-inverted button--size-55 button--shape-4" type="button">장바구니
+                </button>
+                <button class="button button--color-blue button--size-55 button--shape-4" type="button">바로구매</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>
