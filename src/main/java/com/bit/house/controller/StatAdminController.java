@@ -26,13 +26,14 @@ public class StatAdminController {
     @Autowired
     AdminMapper adminMapper;
 
+    //statAdmintPage
     @GetMapping("/statAdmin")
     public String statAdmin() {
         return "th/admin/statAdmin/statAdmin";
     }
 
     @GetMapping("/graph")
-    public String graph(Model model, MemberVO user) {
+    public String graph(Model model) {
         //판매량, 품목
 
         List<ProductVO> houseProductList = adminMapper.getProduct();
@@ -96,6 +97,13 @@ public class StatAdminController {
         return year;
     }
 
+
+    
+    
+    
+    //-----------------------------------------statAdmin Page
+    
+    //회사명 받아오기 resp
     @RequestMapping(value = "/sellerGraphAjax", method = RequestMethod.POST)
     public @ResponseBody Object sellerGraphAjax(String sellerName){
 
@@ -105,11 +113,13 @@ public class StatAdminController {
 
         //전체 판매량 순으로 정렬
         //adminMapper.getSpendingPattern();
-        return  "";
+        return  sellerName;
     }
-
+    
+    
+    //회원 소비패턴
     @GetMapping("/spendingPattern")
-    public String spendingPattern(){
+    public String spendingPattern(Model model){
         // 가장 많이 구매한 회원 목록 (당일)
         SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
         Date time = new Date();
@@ -125,6 +135,59 @@ public class StatAdminController {
         String month = monthFormat.format(currentTime);
         String day = dayFormat.format(currentTime);
         System.out.println(year + "/" + month + "/" + day );
+
+
+        //List<ProductVO> houseProductList = adminMapper.getProduct();
+        //List<ProductVO> salesVol = adminMapper.getSalesVolume();
+        //log.info("salesVol = "+salesVol);
+        
+        List<OrderListVO> spendingPattern = adminMapper.getYearlyPurchaseVolume(); // 연단위 가장 많이 소비한 사람
+        log.info("spendingPattern : "+spendingPattern.toString());
+        //List<String> yearList = adminMapper.getYear();
+        //List<OrderListVO> totalPrice = adminMapper.getTotalPrice();
+        //log.info("totalPrice : "+ totalPrice.toString());
+        //log.info("productOptionVOList : " +spendingPattern.toString());
+        //log.info("안녕하세요 yearList입니다" + yearList);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonText;
+
+        try {
+            jsonText = mapper.writeValueAsString(spendingPattern);
+            model.addAttribute("jsonText", jsonText);
+            System.out.println("jsonText는 : ? : " + jsonText);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("houseProductList : ? " + productOptionVOList);
+
+
         return "th/admin/statAdmin/spendingPattern";
+    }
+    
+    //회원정보
+    @GetMapping("/memberInfo")
+    public String memberInfo(){
+        return "th/admin/statAdmin/memberInfo";
+    }
+    
+    //회원 주문내역
+    @GetMapping("/memberOrderList")
+    public String memberOrderList(){
+        return "th/admin/statAdmin/memberInfo";
+    }
+
+    //------------------------------ 제품 관리
+    @GetMapping("/productManagement")
+    public String productManagement(){
+        return "th/admin/statAdmin/productManagement";
+    }
+    @GetMapping("/productRegistration")
+    public String productRegistration(){
+        return "th/admin/statAdmin/productRegistration";
     }
 }

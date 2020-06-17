@@ -1,5 +1,6 @@
 package com.bit.house.controller;
 
+import com.bit.house.domain.MemberVO;
 import com.bit.house.domain.ProductVO;
 import com.bit.house.recommenderProcess.RecommendProcess;
 import com.bit.house.recommenderProcess.TrainingProcess;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
@@ -64,10 +66,16 @@ public class RecommenderController {
     public String test(){
         return "th/admin/recommender/insertClickTest";
     }
+
     @GetMapping("/clickProduct")
-    public String getClickCount(Model model){
-        //상품페이지 들어갈때 clickproduct테이블에 insert or update 조건1. 회원이 같은 상품을 조회한 이력이 있으면 날짜는 오늘날짜로, clickCount +1 update 없으면 insert
-        recommenderService.checkClickHistory();
+    public String getClickCount(@RequestParam(value = "productNo") String productNo,  Model model, HttpSession session){
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        if(memberVO!=null){
+            String memberId = memberVO.getMemberName();
+            //상품페이지 들어갈때 clickproduct테이블에 insert or update 조건1. 회원이 같은 상품을 조회한 이력이 있으면 날짜는 오늘날짜로, clickCount +1 update 없으면 insert
+            recommenderService.checkClickHistory(memberId, productNo);
+        }
 
         return "th/admin/recommender/insertClickTest";
     }

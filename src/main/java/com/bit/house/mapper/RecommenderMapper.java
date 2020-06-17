@@ -14,12 +14,12 @@ public interface RecommenderMapper {
     String selectClickProduct();
     ProductVO selectProductDetail(String productNo);
 
-    /*RecommenderVO selectClickHistory(@SessionAttribute("memberId") String memberId, String productNo);*/
-    int selectClickHistory();
+    int selectClickHistory(String memberId, String productNo);
 
-    /*void insertCount(RecommenderVO recommenderVO);*/
-    int insertCount();
+    int insertCount(String memberId, String productNo);
 
-    /*int updateClickHistory(@SessionAttribute("memberId") String memberId, String productNo);*/
-    int updateClickHistory();
+    int updateClickHistory(String memberId, String productNo);
+
+    int updateClickTotalCount(String productNo);
+
 }
