@@ -119,7 +119,7 @@ public class AskBoardController {
             // 파일명을 받는다 - 일반 원본파일명
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
-            String filePath = request.getSession().getServletContext().getRealPath("image/board/");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
+            String filePath = request.getSession().getServletContext().getRealPath("image/board/askboard");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
             System.err.println(filePath);
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
                     .append(UUID.randomUUID().toString())
@@ -139,7 +139,7 @@ public class AskBoardController {
             sb = new StringBuffer();
             sb.append("&bNewLine=true")
                     .append("&sFileName=").append(oldName)
-                    .append("&sFileURL=").append("/uploadImg/board/").append(saveName);
+                    .append("&sFileURL=").append("/uploadImg/board/askboard").append(saveName);
             System.out.println(sb);
         } catch (Exception e) {
             e.printStackTrace();

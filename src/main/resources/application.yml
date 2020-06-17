@@ -25,6 +25,10 @@ spring:
           google:
             client-id: 932323453386-c35qir2hsql97gji2b80b34btdja99jl.apps.googleusercontent.com
             client-secret: _GSWMfIo02A1e-tSkgVidzoW
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
 
 
 custom:
@@ -50,4 +54,3 @@ mybatis:
 logging:
   file:
     path: logback-spring.xml
-

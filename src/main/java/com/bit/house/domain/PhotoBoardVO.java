@@ -17,7 +17,7 @@ public class PhotoBoardVO {
     private int likeCount;
     private int scrapCount;
     private Date photoDate;
-    private String photothumbnail;
+    private String photothumb;
     private String photoImg1;
     private String photoImg2;
     private String photoImg3;
