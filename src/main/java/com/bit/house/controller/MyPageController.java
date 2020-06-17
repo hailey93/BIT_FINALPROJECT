@@ -2,14 +2,20 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.*;
 import com.bit.house.mapper.MyPageMapper;
+import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.UUID;
 
+@Slf4j
 @Controller
 public class MyPageController {
 
@@ -18,22 +24,44 @@ public class MyPageController {
 
 
     //프로필설정
-    @RequestMapping("/myProfile")
-    private String viewProfile(Model model, String memberId) throws Exception{
+    @GetMapping("/myProfile")
+    private String viewProfile(Model model) throws Exception{
 
-        model.addAttribute("profile", myPageMapper.selectProfile(memberId));
+        //MemberVO memberVO = myPageMapper.selectProfile("youn123");
+        model.addAttribute("profile", myPageMapper.selectProfile("youn123"));
 
         return "th/member/mypage/profile/profileInfo";
     }
+
     //프로필수정
     @RequestMapping("/modifyProfile")
-    private String modifyProfile(MemberVO memberVO, HttpServletRequest request) throws Exception{
+    private String modifyProfile(MemberVO memberVO, HttpServletRequest request, MultipartHttpServletRequest mreq) throws Exception{
 
+        memberVO.setMemberId("youn123");
         memberVO.setNickName(request.getParameter("nickName"));
-        memberVO.setMemberImg(request.getParameter("memberImg"));
         memberVO.setMemberIntro(request.getParameter("memberIntro"));
 
+        StringBuffer sb = new StringBuffer();
+
+        String src = mreq.getParameter("src");
+        MultipartFile mf = mreq.getFile("uploadFile");
+
+        String oldName = mf.getOriginalFilename();
+        String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
+                            .append(UUID.randomUUID().toString())
+                            .append(oldName.substring(oldName.lastIndexOf("."))).toString();
+
+        String filePath = request.getSession().getServletContext().getRealPath("image/profileImg/");
+        File dest = new File(filePath+saveName);
+        mf.transferTo(dest);
+
+        String img = dest.toString();
+
+        memberVO.setMemberImg("/profileImg/"+saveName);
+        System.out.println(img);
+
         myPageMapper.modifyProfile(memberVO);
+
         return "redirect:/myProfile";
     }
     //팔로워메뉴

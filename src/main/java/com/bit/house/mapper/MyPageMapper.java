@@ -9,10 +9,10 @@ import java.util.List;
 public interface MyPageMapper {
 
     //프로필설정
-    public String selectProfile(String memberId) throws Exception;
+    public MemberVO selectProfile(String memberId) throws Exception;
 
     //프로필수정
-    public String modifyProfile(MemberVO memberVO) throws Exception;
+    public void modifyProfile(MemberVO memberVO) throws Exception;
 
     //팔로워
     public List<FollowVO> follower() throws Exception;
@@ -27,7 +27,7 @@ public interface MyPageMapper {
     public String cancelFollow(String memberId) throws Exception;
 
     //내 프로필
-    public String myProfile() throws Exception;
+    public MemberVO myProfile() throws Exception;
 
     public List<PhotoBoardVO> profilePhoto() throws Exception;
 
