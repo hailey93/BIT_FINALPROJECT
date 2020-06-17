@@ -17,7 +17,7 @@
         <div class="form-group">
             <label for="nickName">닉네임</label>
 
-            <input type="text" id="nickName" name="nickName" th:text="${profile.nickName}" placeholder="입력하지 않을 시 아이디로 출력됩니다."/>
+            <input type="text" id="nickName" name="nickName" th:value="${profile.nickName}" placeholder="입력하지 않을 시 아이디로 출력됩니다."/>
         </div>
         <div>
             <label for="uploadFile">프로필사진</label>
@@ -28,7 +28,7 @@
 
         <div class="form-group">
             <label for="memberIntro">한줄소개</label>
-            <input type="text" id="memberIntro" name="memberIntro" th:text="${profile.memberIntro}"/>
+            <input type="text" id="memberIntro" name="memberIntro" th:value="${profile.memberIntro}"/>
         </div>
 
         <input type="submit" value="등록"/>
