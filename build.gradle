@@ -80,6 +80,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
     compile group: 'org.nd4j', name: 'nd4j-native-platform', version: '1.0.0-beta6'
 
+    //chatting
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    compile group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+
     test {
         useJUnitPlatform()
     }

@@ -9,6 +9,9 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
         <link rel="stylesheet" th:href="@{/css/storeBest.css}">
     </th:block>
+    <th:block layout:fragment="js">
+        <script type="text/javascript" th:src="@{/js/storeBest.js}"></script>
+    </th:block>
 
 </head>
 <body>
@@ -30,11 +33,10 @@
                 <div class="ranking-feed-item-wrap col-12 col-md-12 col-lg-3">
                     <div class="ranking-product-item__wrap">
                         <article class="production-item"><a class="ranking-product-item__link" th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
-                            <div class="ranking-product-item__number-wrap ranking-product-item__number__medal">
-                                <span id="abc" class="ranking-product-item__number" th:text="${products.ranking}" ></span>
+                            <div th:name="|a${products.ranking}|" class="ranking-product-item__number-wrap ranking-product-item__number__medal">
+                                <span th:name="|b${products.ranking}|" class="ranking-product-item__number" th:text="${products.ranking}" th:data-rank="${products.ranking}" ></span>
                             </div>
                             <div class="ranking-product-item__img-wrap">
-
                                 <div class="production-item-image production-item__image">
                                     <img class="image" alt="" th:src="@{'/uploadImg/'+${products.productMainImg}}" srcset="">
                                 </div>
@@ -49,38 +51,12 @@
                                 </span>
                             </div>
                         </article>
-
-
                     </div>
                 </div>
                 </tr>
             </div>
         </div>
     </div>
-    <script type="text/javascript">
-
-        $(document).ready(function() {
-            $('.ranking-type-filter__item--left').click(function () {
-                $('.ranking-type-filter__item--right').removeClass('right--active')
-                $('.ranking-type-filter__item--left').addClass('left--active');
-            });
-            $('.ranking-type-filter__item--right').click(function () {
-                $('.ranking-type-filter__item--left').removeClass('left--active');
-                $('.ranking-type-filter__item--right').addClass('right--active');
-            });
-
-            var ranking = $('.ranking-product-item__number:contains("1")').addClass('ranking-product-item__number__gold');
-            ranking.closest('.ranking-product-item__number__medal').addClass('ranking-product-item__number__gold-wrap');
-            var ranking = $('.ranking-product-item__number:contains("2")').addClass('ranking-product-item__number__silver');
-            ranking.closest('.ranking-product-item__number__medal').addClass('ranking-product-item__number__silver-wrap');
-            var ranking = $('.ranking-product-item__number:contains("3")').addClass('ranking-product-item__number__bronze');
-            ranking.closest('.ranking-product-item__number__medal').addClass('ranking-product-item__number__bronze-wrap');
-
-
-
-        });
-    </script>
-
 </div>
 </body>
 </html>

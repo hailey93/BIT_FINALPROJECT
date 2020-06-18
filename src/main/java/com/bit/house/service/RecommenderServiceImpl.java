@@ -36,15 +36,10 @@ public class RecommenderServiceImpl implements RecommenderService {
         return clickLists;
     }
 
-    /*@Override
+    @Override
     public String selectClickProduct(String memberId) {
         //인풋데이터 전처리
-        return recommenderMapper.selectClickProduct().toUpperCase();
-    }*/
-    @Override
-    public String selectClickProduct() {
-        //인풋데이터 전처리
-        return recommenderMapper.selectClickProduct();
+        return recommenderMapper.selectClickProduct(memberId);
     }
 
     @Override

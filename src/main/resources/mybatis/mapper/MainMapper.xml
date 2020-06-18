@@ -3,7 +3,7 @@
 <mapper namespace="com.bit.house.mapper.MainMapper">
 
     <select id="selectMainList" resultType="productVO">
-		select productNo, sellerName, productName, customerPrice, productMainImg from thehouse.product
+		select productNo, sellerName, productName, customerPrice, productMainImg from thehouse.product limit 12
 	</select>
 	<!--productNo별로 총판매량 구해서 100개만 가져오기 -->
 	<select id="selectTotalQty" resultType="productQtyVO">
