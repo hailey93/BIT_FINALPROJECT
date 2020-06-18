@@ -3,6 +3,7 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
@@ -10,6 +11,7 @@ import java.sql.Date;
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class OrderListVO {
     private String orderNo;
     private String productNo;

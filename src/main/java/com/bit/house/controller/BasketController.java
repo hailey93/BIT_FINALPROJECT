@@ -33,7 +33,7 @@ public class BasketController {
     @Autowired
     BasketMapper basketMapper;
 
-    @GetMapping("/basket")
+    @GetMapping("/goBasket")
     public String cart(String MemberId, Model model,AllMemberVO allMemberVO, BasketVO basketVO) {
         System.out.println("goBasket!");
         //UserId 있으면 (html에서 세션 검증)
@@ -45,9 +45,39 @@ public class BasketController {
         return "th/member/basket/basket";
     }
 
+
+    //test
+    @GetMapping("givePoint")
+    public String givePoint(){
+        return "th/admin/statAdmin/givePoint";
+    }
+
     //productDetail
     @GetMapping("/productDetails")
-    public String product() {
+    public String product(HttpSession session,String productName, String colorCode,int qty) {
+
+        //basketMapper.insertBasket(String productName, String colorCode, int qty); --> ajax에서 할거임
+
+        /* 필요없다 아이디있으면 테이블에저장, 없음녀 세션에 저장하니
+        List<String> getMap = (List<String>) session.getAttribute("map");
+        System.out.println("getMapt : "+getMap);
+        Map<String, Object> map = new HashMap<>();
+        map.put("productName", productName);
+        map.put("colorCode", colorCode);
+        map.put("qty", qty);
+
+        //list에 map 저장
+        List<Map> list = new LinkedList<>();
+        list.add(map);
+        list.add((Map) getMap);
+
+
+        session.setAttribute("map",list);
+        System.out.println(list);*/
+
+
+        //색상 이름 수량
+        //session.setAttribute(productName, productName);
         return "th/main/productDetailsLJH";
     }
 
@@ -130,16 +160,19 @@ public class BasketController {
         //List로 쓰자
         System.out.println("Mapper 실행 ");
 
-        List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // 아무튼 상품정보 가져옴
+        List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // product 테이블에서 상품정보 가져옴
         //System.out.println(basketVOList.get(0));
 
         // 여기까지 비회원 장바구니
 
-        // 회원 장바구니 시작
+        // 회원 장바구니 시작 회원 장바구니 테이블에 insert
        // String userId = (String) session.getAttribute("userId");
-       // List<BasketVO> basketVOListMember = (List<BasketVO>) basketMapper.getBasket(userId);
+        //basketVO.setMemberId(userId);
+        //basketVO.setproductNo(productNo);
+        //basketVO.setproductColor(productColor);
+        //basketVO.setQty(qty);
+       // basketMapper.insertMemberBasket(basketVO);
 
-       // model.addAttribute("memberBasket", basketVOListMember);
 
 
         //List<BasketVO> basketVOList = basketMapper.getArray(hoho2);
@@ -182,13 +215,13 @@ public class BasketController {
     }
 
 
-    @GetMapping("/goBasket")
+    @GetMapping("/basket")
     public String gobasket(HttpSession session,ProductVO productVO,BasketVO basketVO,Model model){
-
+        //if{userId != null
         List<String> hohoSession2 = new ArrayList<>();
         System.out.println("getAttribute");
         hohoSession2 = (List<String>) session.getAttribute("hoho3");
-        System.out.println("호호세션 : "+hohoSession2);
+        //System.out.println("호호세션 : "+hohoSession2);
         //List로 쓰자
 
         System.out.println("Mapper 실행 ");
@@ -213,6 +246,13 @@ public class BasketController {
             model.addAttribute("basketList", basketVOList);
             return "th/member/basket/basket";
              //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}
+            // 여기까지 비회원
+            //}
+            //else{
+            //이제 회원
+            //
+            // model.addAttribute("memberBasket", basketMapper.getMemberBasket());
+
         }
 
     }

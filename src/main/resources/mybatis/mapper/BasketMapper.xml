@@ -92,6 +92,10 @@
         </foreach>
     </select>-->
 
+    <insert id="insertMemberBasket">
+
+    </insert>
+
     <select id="getBasket" resultType="basketVO">
         select * from basket;
     </select>

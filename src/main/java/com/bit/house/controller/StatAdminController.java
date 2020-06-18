@@ -26,7 +26,7 @@ public class StatAdminController {
     @Autowired
     AdminMapper adminMapper;
 
-    //statAdmintPage
+       //statAdmintPage
     @GetMapping("/statAdmin")
     public String statAdmin() {
         return "th/admin/statAdmin/statAdmin";
@@ -141,8 +141,11 @@ public class StatAdminController {
         //List<ProductVO> salesVol = adminMapper.getSalesVolume();
         //log.info("salesVol = "+salesVol);
         
-        List<OrderListVO> spendingPattern = adminMapper.getYearlyPurchaseVolume(); // 연단위 가장 많이 소비한 사람
-        log.info("spendingPattern : "+spendingPattern.toString());
+        //log.info("spendingPattern : "+spendingPattern.toString());
+
+        List<OrderListVO> userPurchaseVolume = adminMapper.getUserPurchaseVolume();
+        log.info("userPurchaseVolume : "+userPurchaseVolume.toString());
+
         //List<String> yearList = adminMapper.getYear();
         //List<OrderListVO> totalPrice = adminMapper.getTotalPrice();
         //log.info("totalPrice : "+ totalPrice.toString());
@@ -153,7 +156,7 @@ public class StatAdminController {
         String jsonText;
 
         try {
-            jsonText = mapper.writeValueAsString(spendingPattern);
+            jsonText = mapper.writeValueAsString(userPurchaseVolume);
             model.addAttribute("jsonText", jsonText);
             System.out.println("jsonText는 : ? : " + jsonText);
         } catch (JsonGenerationException e) {
@@ -171,14 +174,28 @@ public class StatAdminController {
     
     //회원정보
     @GetMapping("/memberInfo")
-    public String memberInfo(){
+    public String memberInfo(Model model , MemberVO memberVO){
+        List<MemberVO> memberVOList = (List<MemberVO>) adminMapper.getUserInfo();
+        log.info("memberVO : " + memberVOList.toString());
+        model.addAttribute("userInfo" , memberVOList);
+
+        //이름, 아이디, 주소, 이메일
+        // memberName, memberId, memberAddr,memberEmail
+
+        //  주문량, 주문 총액
+        // sum(orderQty2), sum(totalPrice2)
+
         return "th/admin/statAdmin/memberInfo";
     }
     
     //회원 주문내역
     @GetMapping("/memberOrderList")
-    public String memberOrderList(){
-        return "th/admin/statAdmin/memberInfo";
+    public String memberOrderList(Model model, OrderListVO orderListVO){
+        List<OrderListVO> orderListVOList = adminMapper.getOrderList();
+        log.info("orderListVOList : " + orderListVOList.toString());
+        model.addAttribute("orderList" , orderListVOList);
+
+        return "th/admin/statAdmin/memberOrderList";
     }
 
     //------------------------------ 제품 관리
@@ -190,4 +207,29 @@ public class StatAdminController {
     public String productRegistration(){
         return "th/admin/statAdmin/productRegistration";
     }
+
+    @RequestMapping(value = "/userDateStat", method = RequestMethod.POST)
+    public @ResponseBody Object userDateStat(Model model, String date1, String date2) {
+        List<OrderListVO> userDateStat = adminMapper.getUserDateStat(date1, date2);
+        log.info("info : " + userDateStat);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonText;
+
+        try {
+            jsonText = mapper.writeValueAsString(userDateStat);
+            System.out.println("jsonText는 : ? : " + jsonText);
+            return jsonText;
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //System.out.println("houseProductList : ? " + productOptionVOList);
+
+        return "";
+    }
+
 }
