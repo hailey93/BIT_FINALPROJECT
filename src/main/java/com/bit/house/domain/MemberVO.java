@@ -20,6 +20,7 @@ public class MemberVO {
     private Date memberSignUpDate;
     private Date memberUpdateDate;
     private int point;
+    private String memberIntro;
 
     private String userid;
     private String userName;
