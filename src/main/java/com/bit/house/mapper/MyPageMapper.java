@@ -40,10 +40,13 @@ public interface MyPageMapper {
     public List<ScrapVO> allScrap() throws Exception;
 
     //보낸쪽지함
-    public List<MsgVO> sendNote() throws Exception;
+    public List<MsgVO> sendNote(String memberId) throws Exception;
 
     //받은쪽지함
-    public List<MsgVO> receiveNote() throws Exception;
+    public List<MsgVO> receiveNote(String memberId) throws Exception;
+
+    //쪽지 보내기 폼
+
 
     //쪽지 보내기
     public String noteSending(MsgVO msgVO) throws Exception;

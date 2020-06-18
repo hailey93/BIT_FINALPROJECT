@@ -34,7 +34,7 @@
 <button class="btn btn-primary" th:onclick="'javascript:reply('+${detail.askBoardno}+');'">답변하기</button>
 
 <div class="container">
-    <form action="/askinsertProc" method="POST">
+
         <div clas="form-group">
             <label>제목</label>
             <th:block th:text="${detail.askTitle}"/>
@@ -51,7 +51,7 @@
             <label>내용</label>
             <th:block th:utext="${detail.askContent}"/>
         </div>
-    </form>
+
 </div>
 </body>
 </html>

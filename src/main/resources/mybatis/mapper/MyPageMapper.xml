@@ -76,7 +76,7 @@
     </select>
 
     <select id="receiveNote" resultType="MsgVO">
-        SELECT msgNo, receiveId, msgContent, msgDate
+        SELECT msgNo, receiveId, msgContents, msgDate
         FROM msg
         WHERE memberId = #{memberId}
         ORDER BY msgNo desc

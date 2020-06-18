@@ -2,6 +2,7 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.*;
 import com.bit.house.mapper.MyPageMapper;
+import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -21,6 +23,7 @@ public class MyPageController {
 
     @Autowired(required = false)
     MyPageMapper myPageMapper;
+    MyPageService myPageService;
 
 
     //프로필설정
@@ -108,7 +111,7 @@ public class MyPageController {
         return "";
     }
     //내 프로필
-    @RequestMapping("/myProfile")
+    @RequestMapping("/myBoard")
     private String myProfile(Model model) throws Exception{
 
         model.addAttribute("profile", myPageMapper.myProfile());
@@ -151,7 +154,7 @@ public class MyPageController {
     @RequestMapping("/sendNote")
     private String sendNote(Model model) throws Exception{
 
-        model.addAttribute("sendnote", myPageMapper.sendNote());
+        model.addAttribute("sendnote", myPageMapper.sendNote("youn123"));
 
         return "th/member/mypage/profile/sendNote";
     }
@@ -160,14 +163,22 @@ public class MyPageController {
     @RequestMapping("/receiveNote")
     private String receiveNote(Model model) throws Exception{
 
-        model.addAttribute("receiveNote", myPageMapper.receiveNote());
+        model.addAttribute("receiveNote", myPageMapper.receiveNote("youn123"));
 
         return "th/member/mypage/profile/receiveNote";
     }
 
     //쪽지보내기 폼
     @RequestMapping("/noteSending")
-    private String noteSending(){return "th/member/mypage/profile/noteSending";}
+    private String noteSending(Model model, @RequestParam(required = false) String receiveId){
+
+        System.out.println("id : "+receiveId);
+        model.addAttribute("sending", receiveId);
+        System.out.println("model end");
+        System.out.println(model);
+
+        return "th/member/mypage/profile/noteSending";
+    }
 
     //쪽지보내기
     @RequestMapping("/noteSendingProc")
@@ -175,7 +186,7 @@ public class MyPageController {
 
         msgVO.setMemberId(request.getParameter("memberId")); //내 아이디 = 세션처리
         msgVO.setMsgContents(request.getParameter("msgContent"));
-        msgVO.setRecieveId(request.getParameter("memberId"));
+        msgVO.setReceiveId(request.getParameter("memberId"));
 
         myPageMapper.noteSending(msgVO);
 
@@ -184,10 +195,11 @@ public class MyPageController {
 
     //쪽지 삭제
     @RequestMapping("/deleteNote")
-    private String deleteNote(@PathVariable int msgNo) throws Exception{
+    private void deleteNote(@RequestParam List<String> msgNum) throws Exception{
 
-        myPageMapper.deleteNote(msgNo);
+        myPageService.deleteNote(msgNum);
 
-        return "redirect:/sendNote";
+
     }
+
 }

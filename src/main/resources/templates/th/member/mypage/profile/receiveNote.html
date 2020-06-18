@@ -2,11 +2,47 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>질문 게시판</title>
-</head>
+    <title>보낸 쪽지함</title>
 
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+    <script>
+        $(function(){ //체크박스 전체선택
+            $("#allcheck").click(function(){
+                var chk = $(this).is(":checked");//.attr('checked');
+                if(chk) $(".select_note input").prop('checked', true);
+                else $(".select_note input").prop('checked', false);
+            });
+        });
+    </script>
+</head>
 <body>
 
+<h2>보낸 쪽지함</h2>
+
+<div class="container">
+    <input type="button" id="sendingNote" name="sendingNote" value="쪽지보내기">
+    <input type="button" id="deleteNote" name="deleteNote" value="삭제">
+
+    <table class="table table-hover">
+        <tr>
+            <th><input type="checkbox" name="allcheck" id="allcheck"/></th>
+            <th>쪽지내용</th>
+            <th>받은사람</th>
+        </tr>
+
+        <th:block th:each="receive : ${receiveNote}">
+            <tr>
+                <td class="select_note">
+                    <input type="checkbox" name="check" id="check" class="check" th:data-No="${receive.msgNo}"/>
+                </td>
+                <td th:onclick="'javascript: '" th:text="${receive.msgContents}"/><!-- onclick ajax로 연결 --></td>
+                <td th:text="${receive.receiveId}"/>
+            </tr>
+        </th:block>
+    </table>
 </div>
+
+
 </body>
 </html>

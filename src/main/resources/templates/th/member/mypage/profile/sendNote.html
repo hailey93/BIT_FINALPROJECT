@@ -11,6 +11,19 @@
     }
 
 </style>
+    <script src="https://code.jquery.com/jquery-latest.js"></script>
+
+    <script>
+        $(function(){ //체크박스 전체선택
+            $("#allcheck").click(function(){
+                var chk = $(this).is(":checked");//.attr('checked');
+                if(chk) $(".select_note input").prop('checked', true);
+                else $(".select_note input").prop('checked', false);
+            });
+        });
+
+
+    </script>
 </head>
 
 <body>
@@ -18,26 +31,83 @@
 <h2>받은 쪽지함</h2>
 
 <div class="container">
-    <input type="button" id="sendingNote" name="sendingNote" value="쪽지보내기">
-    <input type="button" id="deleteNote" name="deleteNote" value="삭제" >
+    <form action="/noteSending" method="post" id="sending" name="sending">
+
+    <input type="button" id="send" name="send" value="쪽지보내기">
+    <input type="button" id="delete" name="delete" value="삭제" >
     <table class="table table-hover" >
         <tr>
-            <th></th>
+            <th><input type="checkbox" name="allcheck" id="allcheck"/></th>
             <th>쪽지내용</th>
             <th>보낸사람</th>
         </tr>
 
         <th:block th:each="send : ${sendnote}">
         <tr>
-            <td class="num footable-first-column">
-                <input type="checkbox" name="ckeck" id="check" th:data-msgContents="${send.msgContents}"
-                       th:data="${send.receiveId}"/>
+            <td class="select_note">
+                <input type="checkbox" name="check" id="check" th:data-No="${send.msgNo}"
+                th:data-sendId="${send.memberId}"/>
             </td>
-            <td th:onclick="'javascript:'" th:text="${send.msgContents}"><!-- onclick에 ajax 연결 경로-->
-            <td th:text="${send.receiveId}"/>
+            <td th:onclick="'javascript:'" th:text="${send.msgContents}"/><!-- onclick에 ajax 연결 경로-->
+            <td th:text="${send.memberId}"/>
         </tr>
+
         </th:block>
+
     </table>
+        <input type="hidden" id="receiveId" name="receiveId" value=""/>
+    </form>
 </div>
 </body>
+
+<script>
+    $(function(){
+    $("#send").click(function(){
+        var count = $(".select_note input:checked").length;
+        var chk;
+        $("input[name=check]:checked").each(function(){
+            chk = ($(this).attr("data-sendId"));
+        });
+        document.sending.receiveId.value=chk;
+        console.log(chk);
+        if(count == 0){
+            alert("선택된 쪽지가 없습니다.")
+        }else {
+            if (count > 1) {
+                alert("하나만 선택해주세요.")
+            } else {
+                alert("쪽지보내러 ㄱㄱ");
+
+                $("#sending").submit();
+
+            }
+        }
+    });
+
+
+        $("#delete").click(function(){
+            var dcount = $(".select_note input:checked").length;
+            var dchk;
+            $("input[name=check]:checked").each(function(){
+                dchk=($(this).attr("data-No"));
+            });
+            console.log(dchk);
+            if(dcount == 0){
+                alert("선택된 쪽지가 없습니다.")
+            }else{
+                confirm(dcount+"개의 쪽지를 삭제하시겠습니까?")
+
+                $.ajaxSettings.traditional=true;
+                $.ajax({
+                    url : "/deleteNote",
+                    type : "post",
+                    data : {msgNum : dchk},
+                    success : function(data){
+                        location.reload();
+                    },
+                });
+            }
+        });
+    });
+</script>
 </html>
