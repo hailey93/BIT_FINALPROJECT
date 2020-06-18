@@ -23,9 +23,17 @@ public interface AdminMapper {
 
     public List<OrderListVO> getTotalPrice();
     public List<OrderListVO> getSpendingPattern();
+    public List<OrderListVO> getUserPurchaseVolume();
+    public List<OrderListVO> getUserDateStat(String date1, String date2);
 
     public MemberVO getUser();
     public List<OrderListVO> getYearlyPurchaseVolume();
     public List<OrderListVO> getMonthData(String year,String product); // 해당 Year 해당 품목 Month별 데이터 출력
     public List<OrderListVO> getDayData(String year, String month, String product);
+
+
+    // userInfo
+    public List<MemberVO> getUserInfo();
+    // orderList
+    public List<OrderListVO> getOrderList();
 }
