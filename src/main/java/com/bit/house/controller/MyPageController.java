@@ -24,7 +24,7 @@ public class MyPageController {
 
 
     //프로필설정
-    @GetMapping("/myProfile")
+    @RequestMapping("/myProfile")
     private String viewProfile(Model model) throws Exception{
 
         //MemberVO memberVO = myPageMapper.selectProfile("youn123");
@@ -71,7 +71,7 @@ public class MyPageController {
         model.addAttribute("follower", myPageMapper.follower());
         model.addAttribute("following", myPageMapper.following());
 
-        return "/th/member/mypage/viewFollow";
+        return "th/member/mypage/profile/viewFollow";
     }
     //팔로우 팔로잉 전체보기 html 하나로 합쳐볼것.
     @RequestMapping("/allFollow")
@@ -79,7 +79,7 @@ public class MyPageController {
 
         model.addAttribute("follow", myPageMapper.follower());
 
-        return "/th/member/mypage/allFollow";
+        return "th/member/mypage/profile/allFollow";
     }
     //팔로잉 전체보기
     @RequestMapping("allFollowing")
@@ -87,7 +87,7 @@ public class MyPageController {
 
         model.addAttribute("following", myPageMapper.following());
 
-        return "/th/member/mypage/allFollowing";
+        return "th/member/mypage/profile/allFollowing";
     }
     //팔로우
     @RequestMapping("/follow")
@@ -115,7 +115,7 @@ public class MyPageController {
         model.addAttribute("mphoto", myPageMapper.profilePhoto());
         model.addAttribute("mscrap", myPageMapper.profileScrap());
 
-        return "/th/member/mypage/myProfile";
+        return "th/member/mypage/profile/myBoard";
     }
     //이것도 내 프로필이랑 같은 페이지에서 처리 가능할지 확인
     @RequestMapping("/memberProfile")
@@ -125,7 +125,7 @@ public class MyPageController {
         model.addAttribute("mphoto", myPageMapper.profilePhoto());
         model.addAttribute("mscrap", myPageMapper.profileScrap());
 
-        return "/th/member/mypage/memberProfile";
+        return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
     @RequestMapping("/allPhoto")
@@ -134,7 +134,7 @@ public class MyPageController {
 
         model.addAttribute("photo", myPageMapper.allPhoto());
 
-        return "/th/member/mypage/allPhoto";
+        return "th/member/mypage/profile/allPhoto";
     }
 
     //스크랩 전체보기
@@ -144,7 +144,7 @@ public class MyPageController {
 
         model.addAttribute("scrap", myPageMapper.allScrap());
 
-        return "/th/member/mypage/allScrap";
+        return "th/member/mypage/profile/allScrap";
     }
 
     //보낸쪽지함
@@ -153,7 +153,7 @@ public class MyPageController {
 
         model.addAttribute("sendnote", myPageMapper.sendNote());
 
-        return "/th/member/mypage/sendNote";
+        return "th/member/mypage/profile/sendNote";
     }
 
     //받은쪽지함
@@ -162,12 +162,12 @@ public class MyPageController {
 
         model.addAttribute("receiveNote", myPageMapper.receiveNote());
 
-        return "/th/member/mypage/receiveNote";
+        return "th/member/mypage/profile/receiveNote";
     }
 
     //쪽지보내기 폼
     @RequestMapping("/noteSending")
-    private String noteSending(){return "/th/member/mypage/noteSending";}
+    private String noteSending(){return "th/member/mypage/profile/noteSending";}
 
     //쪽지보내기
     @RequestMapping("/noteSendingProc")

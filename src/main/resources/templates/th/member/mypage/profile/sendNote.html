@@ -2,11 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>질문 게시판</title>
+    <title>받은 쪽지함</title>
+<style type="text/css">
+    .container
+    {
+        width: 1000px;
+        margin:0 auto;
+    }
+
+</style>
 </head>
 
 <body>
 
+<h2>받은 쪽지함</h2>
+
+<div class="container">
+    <input type="button" id="sendingNote" name="sendingNote" value="쪽지보내기">
+    <input type="button" id="deleteNote" name="deleteNote" value="삭제" >
+    <table class="table table-hover" >
+        <tr>
+            <th></th>
+            <th>쪽지내용</th>
+            <th>보낸사람</th>
+        </tr>
+
+        <th:block th:each="send : ${sendnote}">
+        <tr>
+            <td class="num footable-first-column">
+                <input type="checkbox" name="ckeck" id="check" th:data-msgContents="${send.msgContents}"
+                       th:data="${send.receiveId}"/>
+            </td>
+            <td th:onclick="'javascript:'" th:text="${send.msgContents}"><!-- onclick에 ajax 연결 경로-->
+            <td th:text="${send.receiveId}"/>
+        </tr>
+        </th:block>
+    </table>
 </div>
 </body>
 </html>
