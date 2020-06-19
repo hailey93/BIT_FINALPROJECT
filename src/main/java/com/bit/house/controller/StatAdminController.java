@@ -35,7 +35,10 @@ public class StatAdminController {
     @GetMapping("/graph")
     public String graph(Model model) {
         //판매량, 품목
+        String sellerName = "가쯔";
+        List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
 
+        log.info("yearlySellerSalesVolume :: " +yearlySellerSalesVolume);
         List<ProductVO> houseProductList = adminMapper.getProduct();
         //List<ProductVO> salesVol = adminMapper.getSalesVolume();
         //log.info("salesVol = "+salesVol);
@@ -47,12 +50,20 @@ public class StatAdminController {
         log.info("안녕하세요 yearList입니다" + yearList);
         ObjectMapper mapper = new ObjectMapper();
         String jsonText;
+        String yearlyJson;
 
         try {
             jsonText = mapper.writeValueAsString(spendingPattern);
+
+
+            yearlyJson = mapper.writeValueAsString(yearlySellerSalesVolume);
+
+            model.addAttribute("yearlyJson", yearlyJson);
+            model.addAttribute("sellN", sellerName );
+
             model.addAttribute("jsonText", jsonText);
             model.addAttribute("yearList", yearList);
-            log.info(jsonText);
+            log.info(yearlyJson);
             System.out.println("jsonText는 : ? : " + jsonText);
         } catch (JsonGenerationException e) {
             e.printStackTrace();
@@ -72,29 +83,30 @@ public class StatAdminController {
 
 
     @RequestMapping(value = "/yearGraphAjax", method = RequestMethod.POST)
-    public @ResponseBody Object yearAjaxGraph(String product, String year) {
+    public @ResponseBody Object yearAjaxGraph(String product, String year,String sellerName) {
         //List<OrderListVO> spendingPattern = adminMapper.getMonthData(year, product);
 
         //ObjectMapper mapper = new ObjectMapper();
         //String jsonText;
         //jsonText = mapper.writeValueAsString(house통계 );
         // return jsonText  Map으로 보낼지 어떻게 보낼지
-        ArrayList<String> graph2ArrList = new ArrayList<String>();
-        System.out.println("ajax ===> productNo : "+ product + " year ====> " + year);
+        //ArrayList<String> graph2ArrList = new ArrayList<String>();
+        System.out.println("ajax ===> productNo : "+ product + " year ====> " + year + "sellerName" + sellerName);
         //Service.getSelectedYear(year);
-        return graph2ArrList;
+        List<OrderListVO> monthlySellerSalesVolume = adminMapper.getMonthlySellerSalesVolume(sellerName, year);
+        log.info("mothly Sale sadmkldmslkdnsanqlTqdwqwd : "+monthlySellerSalesVolume);
+
+        return monthlySellerSalesVolume;
     }
 
     @RequestMapping(value = "/monthGraphAjax", method = RequestMethod.POST)
-    public @ResponseBody Object monthAjaxGraph( String month, String product, String year) {
+    public @ResponseBody Object monthAjaxGraph( String month, String sellerName, String year) {
         //List<OrderListVO> spendingPattern = adminMapper.getDayData(year,month, product);
-
+        List<OrderListVO> dailySellerSalesVolume = adminMapper.getDailySellerSalesVolume(sellerName, year, month);
         ArrayList<String> graph2ArrList = new ArrayList<String>();
-        System.out.println("ajax ===> productNo : "+ product + " year ====> " + year + " month : " + month);
-        //Service.getSelectedYear(year);
+        System.out.println("ajax ===> sellerName : "+ sellerName + " year ====> " + year + " month : " + month);
 
-        String test = "이히히";
-        return year;
+        return dailySellerSalesVolume;
     }
 
 
@@ -105,15 +117,15 @@ public class StatAdminController {
     
     //회사명 받아오기 resp
     @RequestMapping(value = "/sellerGraphAjax", method = RequestMethod.POST)
-    public @ResponseBody Object sellerGraphAjax(String sellerName){
+    public @ResponseBody Object sellerGraphAjax(String inputSellerName){
 
-        log.info("sellerAjax 호출" + sellerName);
+        log.info("sellerAjax 호출" + inputSellerName);
         //회사 이름으로 찾기
         //adminMapper.getSellerStat(sellerName);
 
         //전체 판매량 순으로 정렬
         //adminMapper.getSpendingPattern();
-        return  sellerName;
+        return  inputSellerName;
     }
     
     

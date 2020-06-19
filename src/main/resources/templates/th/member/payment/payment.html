@@ -50,14 +50,13 @@
             <input type="hidden" name="memberId" value="${basket.memberId}"><br>
             <input type="hidden" name="productNo" value="${basket.productNo}"><br>
             <input type="hidden" name="colorName" value="${basket.productColor}"><br>
-            <input type="hidden" name="orderQty" value=""><br>
-            <input type="hidden" name="totalPrice" value=""><br>
-            <input type="hidden" name="usedPoint" value=""><br>
-            <input type="hidden" name="recipient" value=""><br>
-            <input type="hidden" name="orderAddr "value=""><br>
-            <input type="hidden" name="orderDate "value=""><br>
-            <input type="hidden" name="payCode" value=""><br>
-            <input type="hidden" name="orderCode" value=""><br>
+            <input type="hidden" name="orderQty" value="1"><br>
+            <input type="hidden" name="totalPrice" value="2"><br>
+            <input type="hidden" name="usedPoint" value="3"><br>
+            <input type="hidden" name="orderAddr "value="4"><br>
+            <input type="hidden" name="orderDate "value="5"><br>
+            <input type="hidden" name="payCode" value="6"><br>
+            <input type="hidden" name="orderCode" value="7"><br>
 
 
                 <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
@@ -111,8 +110,8 @@
                         <div class="field">
                             <div class="label">받는분</div>
                             <div class="input">
-                                <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="order[recipient]" id="order_recipient">
-                                <input type="hidden" name="order[received_name]" id="order_received_name">
+                                <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="recipient" id="recipient">
+                                <input type="hidden" name="order[received_name]" id="order_received_name" value="">
                             </div>
                         </div>
                         <div class="field">
@@ -262,7 +261,7 @@
                             <label class="first  top" for="order_payment_method_kcp_credit_card" onclick=""  > <!-- kakaoPay submit 어떻게? -->
                                 <img class="img" width="64" src="" alt="Card">
                                 <div class="title">카카오페이</div>
-                                    <button >카카오페이로 결제하기</button>
+                                    <button onsubmit="true">카카오페이로 결제하기</button>
                                 <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다" data-detail2="">
 
                                 </div>

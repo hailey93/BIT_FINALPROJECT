@@ -53,8 +53,8 @@ public class BasketController {
     }
 
     //productDetail
-    @GetMapping("/productDetails")
-    public String product(HttpSession session,String productName, String colorCode,int qty) {
+    @GetMapping("/productDetailsLJH")
+    public String product(/*HttpSession session,String productName, String colorCode,int qty*/) {
 
         //basketMapper.insertBasket(String productName, String colorCode, int qty); --> ajax에서 할거임
 
@@ -98,7 +98,7 @@ public class BasketController {
     }
 
     @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
-    public @ResponseBody void basket(HttpSession session,ProductVO productVO,BasketVO basketVO, String value, String[] hoho,Model model) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
+    public @ResponseBody void basket(HttpSession session, String[] hoho) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
         System.out.println("ajax!");
         for(String a : hoho){
             System.out.println("호호 출력 ArrayList");

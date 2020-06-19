@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.house.mapper.AdminMapper">
 
-	<resultMap id="saleStat" type="orderListVO">
+	<resultMap id="saleStat" type="orderListVO"> <!-- 필요 없을ㅈ ㅣ도 -->
 		<result column="memberId" property="memberId"/>
 		<result column="totalPrice" property="totalPrice"/>
 		<result column="orderQty" property="orderQty"/>
@@ -29,11 +29,52 @@
 
 	</resultMap>
 
+	<resultMap id="dailysalestats" type="orderListVO">
+		<result column="memberId" property="memberId"/>
+		<result column="totalPrice" property="totalPrice"/>
+		<result column="orderQty" property="orderQty"/>
+		<result column="year" property="year"/>
+		<result column="month" property="month"/>
+		<result column="day" property="day"/>
+
+		<association property="memberVO" javaType="memberVO">
+			<result column="memberId" property="memberId"/>
+		</association>
+		<association property="productVO" javaType="productVO">
+			<result column="sellerName" property="sellerName"/>
+		</association>
+
+	</resultMap>
+
+				<!-- 해당 업체 연간 판매량 -->
+				<select id="getYearlySellerSalesVolume" resultMap="dailysalestats">
+				select sellerName, sum(orderQty) as orderQty,
+				sum(totalPrice)as totalPrice, year  from dailysalestats where sellerName = #{sellerName}
+				group by sellerName, year order by year desc;
+				</select>
+
+				<!--#매출액순 (연간 월간)-->
+				<select id="getMonthlySellerSalesVolume" resultMap="dailysalestats">
+				select sellerName, sum(orderQty) as orderQty,
+				sum(totalPrice)as totalPrice, year, month  from dailysalestats where sellerName = #{sellerName} and year=#{year}
+				group by sellerName, year, month order by year desc;
+				</select>
+
+				<!--매출액순 (연간 월간 일갈)-->
+				<select id="getDailySellerSalesVolume" resultMap="dailysalestats">
+				select sellerName, sum(orderQty) as orderQty,
+				sum(totalPrice)as totalPrice, year, month, day  from dailysalestats where sellerName = #{sellerName} and year=#{year}
+				 and month = #{month}
+				 group by sellerName, year, month, day order by year desc;
+				</select>
     <select id="getMember" resultType="allMemberVO">
 		select * from allmember
 	</select>
     <select id="getProduct" resultType="productVO">
 		select * from product
+	</select>
+	<select id="getYear" resultType="String">
+		select year from dailysalestats group by YEAR
 	</select>
 	<select id="getProductOption" resultType="productOptionVO">
 		select * from productoption
@@ -79,13 +120,16 @@ group by memberId;
 
 	<!-- graph page -->
 	<select id="getUserPurchaseVolume" resultMap="saleStat">
-		  select sum(totalPrice2) as totalPrice, memberId from userpurchasevolume group by memberId;
+		  select sum(totalPrice) as totalPrice, memberId from dailysalestats group by memberId order by totalPrice desc;
 	</select>
 	<!-- userDateStat page -->
 	<select id="getUserDateStat" resultMap="saleStat">
 		  select sum(totalPrice2) as totalPrice, memberId, year,month,day from userpurchasevolume where
 		    orderdate between #{date1} and #{date2} group by memberId;
 	</select>
+
+
+
 
 
 
