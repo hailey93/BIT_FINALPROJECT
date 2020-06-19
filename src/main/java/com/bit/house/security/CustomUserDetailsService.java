@@ -34,6 +34,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         // userName means userid
         AllMemberVO allMemberVO = allMemberMapper.read(userName);
 
+
+        if(!allMemberVO.isEnabled()){
+            return null;
+        }
+
         log.warn("queried by member mapper: " + allMemberVO);
 
         List<GrantedAuthority> authorities = new ArrayList<>();

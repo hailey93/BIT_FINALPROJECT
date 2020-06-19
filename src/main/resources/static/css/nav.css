@@ -59,5 +59,10 @@
     color:rgb(92, 195, 255);
 }
 
+.navbar-light .btn-navbar, .navbar-light .form-control-navbar {
+    background-color: #f2f4f6;
+    border: 0;
+}
+
 
 
