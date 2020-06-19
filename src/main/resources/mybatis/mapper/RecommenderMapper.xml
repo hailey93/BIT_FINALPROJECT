@@ -25,7 +25,7 @@
 
     <!--추천시스템으로 나온 아이템 정보 조회-->
     <select id="selectProductDetail" parameterType="String" resultType="productVO">
-		select sellerName, productName, customerPrice, productMainImg from thehouse.product where productNo=#{productNo}
+		select productNo, sellerName, productName, customerPrice, productMainImg from thehouse.product where productNo=#{productNo}
 	</select>
     <!-- 추천 시스템 END-->
 

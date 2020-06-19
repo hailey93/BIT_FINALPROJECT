@@ -1,18 +1,28 @@
 package com.bit.house.controller;
 
+import com.bit.house.chattingProcess.RedisPublisher;
+import com.bit.house.domain.ChatVO;
+import com.bit.house.chattingProcess.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class ChatController {
-    /*private final RedisPublisher redisPublisher;
-    private final ChatService chatService;*/
+    private final RedisPublisher redisPublisher;
+    private final ChatRepository chatRepository;
 
-    @GetMapping("/chat")
-    public String startChat(){
-        return "th/main/chatting";
+    @MessageMapping("/chat/message")
+    public void message(ChatVO message){
+        if(ChatVO.MessageType.ENTER.equals(message.getType())){
+
+            chatRepository.enterChatRoom(message.getChatId());
+            message.setMsg(message.getSender()+"님이 입장하셨습니다.");
+        }
+        redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
     }
+
 }

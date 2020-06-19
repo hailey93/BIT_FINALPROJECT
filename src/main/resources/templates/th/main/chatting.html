@@ -1,12 +1,162 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta charset="UTF-8">
     <title>채팅</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .container{
+            width: 500px;
+            margin: 0 auto;
+            padding: 25px
+        }
+        .container h1{
+            text-align: left;
+            padding: 5px 5px 5px 15px;
+            color: #FFBB00;
+            border-left: 3px solid #FFBB00;
+            margin-bottom: 20px;
+        }
+        .roomContainer{
+            background-color: #F6F6F6;
+            width: 500px;
+            height: 500px;
+            overflow: auto;
+        }
+        .roomList{
+            border: none;
+        }
+        .roomList th{
+            border: 1px solid #FFBB00;
+            background-color: #fff;
+            color: #FFBB00;
+        }
+        .roomList td{
+            border: 1px solid #FFBB00;
+            background-color: #fff;
+            text-align: left;
+            color: #FFBB00;
+        }
+        .roomList .num{
+            width: 75px;
+            text-align: center;
+        }
+        .roomList .room{
+            width: 350px;
+        }
+        .roomList .go{
+            width: 71px;
+            text-align: center;
+        }
+        button{
+            background-color: #FFBB00;
+            font-size: 14px;
+            color: #000;
+            border: 1px solid #000;
+            border-radius: 5px;
+            padding: 3px;
+            margin: 3px;
+        }
+        .inputTable th{
+            padding: 5px;
+        }
+        .inputTable input{
+            width: 330px;
+            height: 25px;
+        }
+    </style>
 </head>
 <body>
-<h1>채팅</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>채팅방리스트</h1>
+        </div>
+        <div th:id="roomContainer" class="roomContainer">
+            <table th:id="roomList" class="roomList"></table>
+        </div>
+    </div>
+    <!--<div>
+        <tr>
+            <th class="num">순서</th>
+            <th class="roomName">방 이름</th>
+            <th class="enterRoom"></th>
+        </tr>
+    </div>
+    <div>
+        <tr th:each="roomList: ${roomLists}">
+            <td class="num" th:text="${roomListStat}"></td>
+            <td class="roomName" th:text="${roomList.chatId}"></td>
+            <td class="enterRoom"><button type="button" th:onclick="|enterRoom${roomList.chatId}|">상담시작</button></td>
+        </tr>
+    </div>-->
+    <div class="input-group">
+        <table class="inputTable">
+        <tr>
+            <th>방이름</th>
+            <th><input type="text" th:name="roomName" th:id="roomName"></th>
+            <th><button th:id="createRoom">방개설</button></th>
+        </tr>
+        </table>
+    </div>
 
-
+    <script type="text/javascript">
+        var ws;
+        window.onload=function () {
+            getRoom();
+            createRoom();
+        }
+        function getRoom() {
+            commonAjax('/chatroom',"", 'get', function (result) {
+                createChatRoom(result);
+            });
+        }
+        function createRoom(){
+            $('#createRoom').click(function () {
+                var msg={ roomName : $('#roomName').val() };
+                commonAjax('/chat', msg, 'post', function (result) {
+                    createChatRoom(result);
+                });
+                $('#roomName').val("");
+                location.reload();
+            });
+        }
+        function enterRoom(chatId) {
+            location.href="/chat/enter/"+chatId;
+        }
+        function createChatRoom(res) {
+            if(res!=null){
+                var tag="<tr><th class=\"num\">순서</th><th class=\"roomName\">방이름</th><th class=\"enterRoom\"></th></tr>";
+                [].forEach.call(res, function (d, index) {
+                    var roomName=d.roomName.trim();
+                    var chatId=d.chatId;
+                    tag+="<tr><td class='num'>"+(index+1)+"</td>"+
+                              "<td class='roomName'>"+roomName+"</td>"+
+                              "<td class='enterRoom'><button type='button' onclick='enterRoom(\""+chatId+"\")'>상담시작</button></td></tr>";
+                });
+                $('#roomList').empty().append(tag);
+            }
+        }
+        function commonAjax(url, parameter, type, callback, contentType){
+            $.ajax({
+                url:url,
+                data:parameter,
+                type:type,
+                contentType:contentType!=null?contentType:'application/x-www-form-urlencoded; charset=UTF-8',
+                success:function (res) {
+                    callback(res);
+                },
+                    error:function (err) {
+                    console.log('error');
+                    callback(err);
+                }
+            });
+        }
+    </script>
+</div>
 </body>
 </html>

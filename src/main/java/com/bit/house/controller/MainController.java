@@ -31,7 +31,7 @@ public class MainController {
     @GetMapping(value = {"/storeMain", "/"})
     public String main(Model model, HttpSession session) {
 
-        log.info(String.valueOf(session.getAttribute("memberVO")));
+        //log.info(String.valueOf(session.getAttribute("memberVO")));
 
         model.addAttribute("mainList", mainMapper.selectMainList());
 
