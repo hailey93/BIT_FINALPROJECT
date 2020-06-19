@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 @Getter
 @NoArgsConstructor
 public class ChatVO {
+    private MessageType type;
     private int chatId;
     private String memberId;
     private String msg;

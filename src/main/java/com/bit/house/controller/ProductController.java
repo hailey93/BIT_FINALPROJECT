@@ -1,7 +1,6 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.MemberVO;
-import com.bit.house.domain.ProductVO;
+import com.bit.house.domain.*;
 import com.bit.house.mapper.ProductMapper;
 import com.bit.house.mapper.RecommenderMapper;
 import com.bit.house.service.RecommenderService;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,6 +25,7 @@ public class ProductController {
 
     @Autowired(required =false)
     RecommenderService recommenderService;
+
     @Autowired(required =false)
     RecommenderMapper recommenderMapper;
 
@@ -45,16 +46,23 @@ public class ProductController {
 
 
     @GetMapping("/category")
-    public String findByCategory(@RequestParam(value = "categoryCode", required = false) String category, Model model) {
+    public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {
         List<ProductVO> categoryList = productMapper.selectProductByCategory(category);
         model.addAttribute("productList", categoryList);
         return "th/main/categoryList";
     }
 
     @GetMapping("/productDetails")
-    public String getProductVODetails(@RequestParam(value = "productNo") String productNo, Model model, HttpSession session){
+    public String getProductVODetails(@ModelAttribute("basketVO") BasketVO basketVO , String productNo, Model model, HttpSession session){
         ProductVO productVO = productMapper.getProductVOByProductNo(productNo);
+        List<String> colorCodeVOList = productMapper.getProductVOByProductColorCode(productNo);
+        productVO.setColorCodeVOList(colorCodeVOList);
+
         model.addAttribute("product", productVO);
+
+
+
+
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         if(memberVO!=null){
@@ -66,6 +74,7 @@ public class ProductController {
         recommenderService.updateClickTotalCount(productNo);
         return "th/main/productDetails";
     }
+
 
 
 }

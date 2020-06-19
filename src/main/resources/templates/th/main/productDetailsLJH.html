@@ -13,7 +13,8 @@
 <input type="hidden" id="productName" value="productNmae">나무나무상자</input>
 <input type="hidden" id="productNo" value="ASSIBANGKYLE-100400001-736F6E">
 <form action="/basket" method="get">
-    <input type="button" value="저장" onClick="saveSessionStorage();"/>
+    <a href="basketPop" value="저장" onClick="saveSessionStorage();
+    window.open(this.href, '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
     <input type="submit" value="장바구니모양" id="basketBtn" onClick="saveSessionStorage();">
 </form>
 안녕
@@ -79,7 +80,7 @@
         // 변수를 선언한다.
         var key = document.getElementById("productName").value;
         var value = document.getElementById("productNo").value;
-        //console.log("value  :  "+value);
+        console.log("value  :  "+value);
         if (sessionCheck == null) {
             console.log("sessionCheck is null");
             while (true) {
@@ -94,8 +95,15 @@
             }
             sessionStorage.setItem("ProductNameSession", JSON.stringify(valList));
         } else {
+            a=0;
             console.log("sessionCheck is  not null");
             while (true) {
+                console.log("stored[a] : " + stored[a]);
+                console.log("value : " + value);
+                if(stored[a] == value){
+                    alert("이미 저장돼있습니다");
+                    break;
+                }
                 if (stored[a] == null) {
                     console.log("stored" + a + " is Null");
                     stored[a] = value;
@@ -188,8 +196,8 @@
                 console.log("success");
                 //console.log(hoho3);
                 console.log(e);
-                alert("저장 됐습니다")
-                location.href = "/goBasket";
+                alert("ajax완료")
+                location.href = "/productDetails";
             },
             error: function () {
                 alert("test err");

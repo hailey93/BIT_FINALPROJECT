@@ -1,373 +1,323 @@
-2020-06-10 16:48:44.175  INFO 6968 --- [restartedMain] com.bit.house.HouseApplication           : Starting HouseApplication on DESKTOP-FNC03QL with PID 6968 (D:\injImportFolder\thehouse\build\classes\java\main started by bitcamp in D:\injImportFolder\thehouse)
-2020-06-10 16:48:44.179  INFO 6968 --- [restartedMain] com.bit.house.HouseApplication           : No active profile set, falling back to default profiles: default
-2020-06-10 16:48:44.567  INFO 6968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-2020-06-10 16:48:44.568  INFO 6968 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2020-06-10 16:48:44.568  INFO 6968 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
-2020-06-10 16:48:44.583  INFO 6968 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2020-06-10 16:48:44.583  INFO 6968 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 402 ms
-2020-06-10 16:48:44.691  INFO 6968 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7f4462e1, org.springframework.security.web.context.SecurityContextPersistenceFilter@4a39e356, org.springframework.security.web.header.HeaderWriterFilter@50d8c363, org.springframework.security.web.authentication.logout.LogoutFilter@71687377, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@26afd2cf, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@e5ea324, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@2ecad8f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3b701108, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2da51ede, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2725fe6c, org.springframework.security.web.session.SessionManagementFilter@61570ca5, org.springframework.security.web.access.ExceptionTranslationFilter@6522935a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5f445229]
-2020-06-10 16:48:44.776  INFO 6968 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-2020-06-10 16:48:44.790  INFO 6968 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-2020-06-10 16:48:44.794  INFO 6968 --- [restartedMain] com.bit.house.HouseApplication           : Started HouseApplication in 0.673 seconds (JVM running for 16514.538)
-2020-06-10 16:48:44.796  INFO 6968 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
-2020-06-10 16:48:45.115  INFO 6968 --- [http-nio-8080-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2020-06-10 16:48:45.117  INFO 6968 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2020-06-10 16:48:45.119  INFO 6968 --- [http-nio-8080-exec-10] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
-2020-06-10 16:48:45.121  INFO 6968 --- [http-nio-8080-exec-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
-2020-06-10 16:48:45.128  INFO 6968 --- [http-nio-8080-exec-10] jdbc.connection                          : 91. Connection opened
-2020-06-10 16:48:45.128  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.new Connection returned 
-2020-06-10 16:48:45.128  INFO 6968 --- [http-nio-8080-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-2 - Driver does not support get/set network timeout for connections. (net.sf.log4jdbc.sql.jdbcapi.ConnectionSpy.getNetworkTimeout()I)
-2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.isValid(1) returned true
-2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getTransactionIsolation() returned 4
-2020-06-10 16:48:45.129  INFO 6968 --- [http-nio-8080-exec-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
-2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.new PreparedStatement returned 
-2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.prepareStatement(select * from allmember) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@6bb6dc71
-2020-06-10 16:48:45.130  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqlonly                             : select * from allmember
+2020-06-17 12:04:44.329  INFO 8032 --- [restartedMain] com.bit.house.HouseApplication           : Starting HouseApplication on DESKTOP-FNC03QL with PID 8032 (D:\injImportFolder\thehouse\build\classes\java\main started by bitcamp in D:\injImportFolder\thehouse)
+2020-06-17 12:04:44.340  INFO 8032 --- [restartedMain] com.bit.house.HouseApplication           : No active profile set, falling back to default profiles: default
+2020-06-17 12:04:44.849  INFO 8032 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-17 12:04:44.850  INFO 8032 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-17 12:04:44.850  INFO 8032 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-17 12:04:44.855  INFO 8032 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-17 12:04:44.855  INFO 8032 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 509 ms
+2020-06-17 12:04:45.027  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-17 12:04:45.028  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-17 12:04:45.028  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-06-17 12:04:45.028  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-17 12:04:45.028  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-17 12:04:45.045  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@4e754033, org.springframework.security.web.context.SecurityContextPersistenceFilter@5ba7cdc1, org.springframework.security.web.header.HeaderWriterFilter@1e9a422b, org.springframework.web.filter.CharacterEncodingFilter@5bef1c98, org.springframework.security.web.authentication.logout.LogoutFilter@2158aabd, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@401ab2af, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@183f403c, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@4e961d9, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@13ce9242, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@39339979, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5f011d9b, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1346874a, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@761bd02f, org.springframework.security.web.session.SessionManagementFilter@3f37f7ef, org.springframework.security.web.access.ExceptionTranslationFilter@62acd1c7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@19ea6790]
+2020-06-17 12:04:45.278  INFO 8032 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-17 12:04:45.294  INFO 8032 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-06-17 12:04:45.299  INFO 8032 --- [restartedMain] com.bit.house.HouseApplication           : Started HouseApplication in 1.068 seconds (JVM running for 187.063)
+2020-06-17 12:04:45.301  INFO 8032 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-06-17 12:04:48.046  INFO 8032 --- [restartedMain] com.bit.house.HouseApplication           : Starting HouseApplication on DESKTOP-FNC03QL with PID 8032 (D:\injImportFolder\thehouse\build\classes\java\main started by bitcamp in D:\injImportFolder\thehouse)
+2020-06-17 12:04:48.046  INFO 8032 --- [restartedMain] com.bit.house.HouseApplication           : No active profile set, falling back to default profiles: default
+2020-06-17 12:04:48.559  INFO 8032 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-17 12:04:48.560  INFO 8032 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-17 12:04:48.561  INFO 8032 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-17 12:04:48.566  INFO 8032 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-06-17 12:04:48.566  INFO 8032 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 518 ms
+2020-06-17 12:04:48.695  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/resources/**'], []
+2020-06-17 12:04:48.696  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/css/**'], []
+2020-06-17 12:04:48.696  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/img/**'], []
+2020-06-17 12:04:48.696  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/js/**'], []
+2020-06-17 12:04:48.696  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/images/**'], []
+2020-06-17 12:04:48.713  INFO 8032 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@f5e6a5b, org.springframework.security.web.context.SecurityContextPersistenceFilter@1f6dc701, org.springframework.security.web.header.HeaderWriterFilter@5b201daa, org.springframework.web.filter.CharacterEncodingFilter@509912bc, org.springframework.security.web.authentication.logout.LogoutFilter@59d1ffa4, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@43d3997d, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@2052a0bb, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@10c3a817, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@24132930, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@657b376c, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6cac08d6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@37ba95a4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@68f5b8c4, org.springframework.security.web.session.SessionManagementFilter@7ffd98e3, org.springframework.security.web.access.ExceptionTranslationFilter@75c0ce54, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2c967296]
+2020-06-17 12:04:48.806  INFO 8032 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2020-06-17 12:04:48.817  INFO 8032 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-06-17 12:04:48.826  INFO 8032 --- [restartedMain] com.bit.house.HouseApplication           : Started HouseApplication in 0.823 seconds (JVM running for 190.59)
+2020-06-17 12:04:48.827  INFO 8032 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2020-06-17 15:19:58.114  INFO 2772 --- [restartedMain] com.bit.house.HouseApplication           : Starting HouseApplication on DESKTOP-FNC03QL with PID 2772 (D:\injImportFolder\thehouse\build\classes\java\main started by bitcamp in D:\injImportFolder\thehouse)
+2020-06-17 15:19:58.163  INFO 2772 --- [restartedMain] com.bit.house.HouseApplication           : No active profile set, falling back to default profiles: default
+2020-06-17 15:20:00.895  INFO 2772 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-06-17 15:20:00.895  INFO 2772 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-06-17 15:20:00.895  INFO 2772 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-06-17 15:20:00.900  INFO 2772 --- [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/]     : Initializing Spring embedded WebApplicationContext
+2020-06-17 15:20:00.900  INFO 2772 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2725 ms
+2020-06-17 15:20:01.418  WARN 2772 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'houseApplication': Unsatisfied dependency expressed through field 'userArgumentResolver'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userArgumentResolver' defined in file [D:\injImportFolder\thehouse\build\classes\java\main\com\bit\house\security\UserArgumentResolver.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'allMemberServiceImpl': Unsatisfied dependency expressed through field 'passwordEncoder'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through method 'setContentNegotationStrategy' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+2020-06-17 15:20:01.419  INFO 2772 --- [restartedMain] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2020-06-17 15:20:01.423  INFO 2772 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
 
-2020-06-10 16:48:45.133  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqltiming                           : select * from allmember
- {executed in 3 msec}
-2020-06-10 16:48:45.133  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.execute() returned true
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.new ResultSet returned 
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@1fda1f2a
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@3974438f - Field level information: 
-	com.mysql.cj.result.Field@7dd932f8[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=userid,originalColumnName=userid,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@20513c66[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=userpw,originalColumnName=userpw,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@6f3d4409[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=authCode,originalColumnName=authCode,mysqlType=3(FIELD_TYPE_INT),sqlType=4,flags= MULTI_KEY, charsetIndex=63, charsetName=ISO-8859-1]
-	com.mysql.cj.result.Field@74ce0a5a[dbName=thehouse,tableName=allmember,originalTableName=allmember,columnName=socialType,originalColumnName=socialType,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getType() returned 1003
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned alives
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned assibang
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.134  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned bonoHouse
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned hitmans
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned irisKorea
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned iwb01
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned mfmagic
-2020-06-10 16:48:45.135  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned polimoly01
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned qwe123
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned qwe123
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned shabas
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned snailLiving
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.136  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userid) returned sr100
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(userpw) returned 1234
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultsettable                      : 
-|------------|-------|---------|-----------|
-|userid      |userpw |authcode |socialtype |
-|------------|-------|---------|-----------|
-|alives      |1234   |[unread] |[unread]   |
-|assibang    |1234   |[unread] |[unread]   |
-|bonoHouse   |1234   |[unread] |[unread]   |
-|hitmans     |1234   |[unread] |[unread]   |
-|irisKorea   |1234   |[unread] |[unread]   |
-|iwb01       |1234   |[unread] |[unread]   |
-|mfmagic     |1234   |[unread] |[unread]   |
-|polimoly01  |1234   |[unread] |[unread]   |
-|qwe123      |qwe123 |[unread] |[unread]   |
-|shabas      |1234   |[unread] |[unread]   |
-|snailLiving |1234   |[unread] |[unread]   |
-|sr100       |1234   |[unread] |[unread]   |
-|------------|-------|---------|-----------|
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-06-17 15:20:01.432 ERROR 2772 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
 
-2020-06-10 16:48:45.137  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned false
-2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.close() returned void
-2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@69af1ea5
-2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getMoreResults() returned false
-2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getUpdateCount() returned -1
-2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.close() returned 
-2020-06-10 16:48:45.138  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.clearWarnings() returned 
-2020-06-10 16:48:45.232  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 92. Connection opened
-2020-06-10 16:48:45.233  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 92. Connection.new Connection returned 
-2020-06-10 16:48:45.233  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 92. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.233  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 92. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 93. Connection opened
-2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 93. Connection.new Connection returned 
-2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 93. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.236  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 93. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.239  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 94. Connection opened
-2020-06-10 16:48:45.239  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 94. Connection.new Connection returned 
-2020-06-10 16:48:45.240  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 94. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.240  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 94. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 95. Connection opened
-2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 95. Connection.new Connection returned 
-2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 95. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.242  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 95. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.246  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 96. Connection opened
-2020-06-10 16:48:45.246  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 96. Connection.new Connection returned 
-2020-06-10 16:48:45.246  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 96. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.247  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 96. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 97. Connection opened
-2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 97. Connection.new Connection returned 
-2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 97. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.249  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 97. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.252  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 98. Connection opened
-2020-06-10 16:48:45.252  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 98. Connection.new Connection returned 
-2020-06-10 16:48:45.252  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 98. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.253  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 98. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 99. Connection opened
-2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 99. Connection.new Connection returned 
-2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 99. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.255  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 99. Connection.getAutoCommit() returned true
-2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.connection                          : 100. Connection opened
-2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 100. Connection.new Connection returned 
-2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 100. Connection.isReadOnly() returned false
-2020-06-10 16:48:45.257  INFO 6968 --- [HikariPool-2 connection adder] jdbc.audit                               : 100. Connection.getAutoCommit() returned true
-2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.isValid(5) returned true
-2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
-2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.new PreparedStatement returned 
-2020-06-10 16:49:01.600  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.prepareStatement(select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
-         (  
-            ?
-         , 
-            ?
-         , 
-            ?
-         , 
-            ?
-         )) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@6240c22a
-2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(1, "IWBTONYSOFA-100100001-663300") returned 
-2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(2, "PMBBGRANDSOFA-100100001-0000FF") returned 
-2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(3, "PMBBGRANDSOFA-100100001-0000FF") returned 
-2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.setString(4, "PMBBGRANDSOFA-100100001-0000FF") returned 
-2020-06-10 16:49:01.601  INFO 6968 --- [http-nio-8080-exec-1] jdbc.sqlonly                             : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
-         (  
-            'IWBTONYSOFA-100100001-663300'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         )
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'houseApplication': Unsatisfied dependency expressed through field 'userArgumentResolver'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userArgumentResolver' defined in file [D:\injImportFolder\thehouse\build\classes\java\main\com\bit\house\security\UserArgumentResolver.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'allMemberServiceImpl': Unsatisfied dependency expressed through field 'passwordEncoder'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through method 'setContentNegotationStrategy' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:895) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:878) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:550) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:758) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:750) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:315) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.bit.house.HouseApplication.main(HouseApplication.java:21) [main/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_231]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_231]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_231]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_231]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'userArgumentResolver' defined in file [D:\injImportFolder\thehouse\build\classes\java\main\com\bit\house\security\UserArgumentResolver.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'allMemberServiceImpl': Unsatisfied dependency expressed through field 'passwordEncoder'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through method 'setContentNegotationStrategy' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:798) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:228) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1358) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1204) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 25 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'allMemberServiceImpl': Unsatisfied dependency expressed through field 'passwordEncoder'; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through method 'setContentNegotationStrategy' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:643) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:885) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 38 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'securityConfig': Unsatisfied dependency expressed through method 'setContentNegotationStrategy' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:723) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:640) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 52 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.web.servlet.config.annotation.DelegatingWebMvcConfiguration': Unsatisfied dependency expressed through method 'setConfigurers' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:723) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:715) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 74 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'org.springframework.security.config.annotation.web.configuration.OAuth2ClientConfiguration$OAuth2ClientWebMvcSecurityConfiguration': Unsatisfied dependency expressed through method 'setAuthorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:723) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:130) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:399) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1422) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:594) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1524) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1488) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1377) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1264) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:715) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 96 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientRepository' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientRepository' parameter 0; nested exception is org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:798) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:539) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.addCandidateEntry(DefaultListableBeanFactory.java:1524) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.findAutowireCandidates(DefaultListableBeanFactory.java:1488) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveMultipleBeans(DefaultListableBeanFactory.java:1377) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1264) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredMethodElement.inject(AutowiredAnnotationBeanPostProcessor.java:715) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 112 common frames omitted
+Caused by: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'authorizedClientService' defined in class path resource [org/springframework/boot/autoconfigure/security/oauth2/client/servlet/OAuth2WebSecurityConfiguration.class]: Unsatisfied dependency expressed through method 'authorizedClientService' parameter 0; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:798) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:539) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:885) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 128 common frames omitted
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'clientRegistrationRepository' defined in class path resource [com/bit/house/config/SecurityConfig.class]: Bean instantiation via factory method failed; nested exception is org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:656) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:636) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:276) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1306) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:885) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:789) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 142 common frames omitted
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.springframework.security.oauth2.client.registration.ClientRegistrationRepository]: Circular reference involving containing bean 'securityConfig' - consider declaring the factory method as static for independence from its containing instance. Factory method 'clientRegistrationRepository' threw exception; nested exception is java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:185) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:651) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 156 common frames omitted
+Caused by: java.lang.NoClassDefFoundError: com/bit/house/security/CustomOAuth2Provider
+	at com.bit.house.config.SecurityConfig.clientRegistrationRepository(SecurityConfig.java:113) ~[main/:na]
+	at com.bit.house.config.SecurityConfig$$EnhancerBySpringCGLIB$$9beda4ab.CGLIB$clientRegistrationRepository$6(<generated>) ~[main/:na]
+	at com.bit.house.config.SecurityConfig$$EnhancerBySpringCGLIB$$9beda4ab$$FastClassBySpringCGLIB$$ad7fa6a3.invoke(<generated>) ~[main/:na]
+	at org.springframework.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:244) ~[spring-core-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassEnhancer$BeanMethodInterceptor.intercept(ConfigurationClassEnhancer.java:331) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at com.bit.house.config.SecurityConfig$$EnhancerBySpringCGLIB$$9beda4ab.clientRegistrationRepository(<generated>) ~[main/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_231]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_231]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_231]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_231]
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:154) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 157 common frames omitted
+Caused by: java.lang.ClassNotFoundException: com.bit.house.security.CustomOAuth2Provider
+	at java.net.URLClassLoader.findClass(URLClassLoader.java:382) ~[na:1.8.0_231]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:418) ~[na:1.8.0_231]
+	at sun.misc.Launcher$AppClassLoader.loadClass(Launcher.java:355) ~[na:1.8.0_231]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351) ~[na:1.8.0_231]
+	at java.lang.Class.forName0(Native Method) ~[na:1.8.0_231]
+	at java.lang.Class.forName(Class.java:348) ~[na:1.8.0_231]
+	at org.springframework.boot.devtools.restart.classloader.RestartClassLoader.loadClass(RestartClassLoader.java:144) ~[spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at java.lang.ClassLoader.loadClass(ClassLoader.java:351) ~[na:1.8.0_231]
+	... 168 common frames omitted
 
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.sqltiming                           : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
-         (  
-            'IWBTONYSOFA-100100001-663300'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         )
- {executed in 4 msec}
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.execute() returned true
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.new ResultSet returned 
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@79339b44
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@8f690ef - Field level information: 
-	com.mysql.cj.result.Field@1678a406[dbName=thehouse,tableName=a,originalTableName=p,columnName=productNo,originalColumnName=productNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@72cd7571[dbName=thehouse,tableName=a,originalTableName=p,columnName=productName,originalColumnName=productName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@174129d7[dbName=thehouse,tableName=a,originalTableName=p,columnName=sellerName,originalColumnName=sellerName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@2b8cb238[dbName=thehouse,tableName=a,originalTableName=p,columnName=modelName,originalColumnName=modelName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= UNIQUE_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@78876bdb[dbName=thehouse,tableName=a,originalTableName=p,columnName=productCreateDate,originalColumnName=productCreateDate,mysqlType=10(FIELD_TYPE_DATE),sqlType=91,flags= BINARY, charsetIndex=8, charsetName=WINDOWS-1252]
-	com.mysql.cj.result.Field@61f8ef47[dbName=thehouse,tableName=a,originalTableName=p,columnName=productMainImg,originalColumnName=productMainImg,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@7fe96d3e[dbName=thehouse,tableName=a,originalTableName=p,columnName=purchasePrice,originalColumnName=purchasePrice,mysqlType=3(FIELD_TYPE_INT),sqlType=4,flags=, charsetIndex=63, charsetName=ISO-8859-1]
-	com.mysql.cj.result.Field@313a1d89[dbName=thehouse,tableName=a,originalTableName=o,columnName=colorCode,originalColumnName=colorCode,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@722071c6[dbName=thehouse,tableName=a,originalTableName=o,columnName=productOptionNo,originalColumnName=productOptionNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getType() returned 1003
-2020-06-10 16:49:01.605  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned IWBTONYSOFA-100100001
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 토니 2인소파 3colors
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned IWBTONYSOFA
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/tonysofa.jpg
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned PMBBGRANDSOFA-100100001
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 빈백 607C 그랜드 소파 12colors
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned PMBBGRANDSOFA
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/pmgs.jpg
-2020-06-10 16:49:01.606  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultsettable                      : 
-|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
-|productno               |productname             |sellername |modelname     |productcreatedate |productmainimg       |purchaseprice |colorcode |productoptionno |
-|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
-|IWBTONYSOFA-100100001   |토니 2인소파 3colors         |[unread]   |IWBTONYSOFA   |[unread]          |product/tonysofa.jpg |[unread]      |[unread]  |[unread]        |
-|PMBBGRANDSOFA-100100001 |빈백 607C 그랜드 소파 12colors |[unread]   |PMBBGRANDSOFA |[unread]          |product/pmgs.jpg     |[unread]      |[unread]  |[unread]        |
-|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
+2020-06-17 15:20:01.435  WARN 2772 --- [restartedMain] o.s.boot.SpringApplication               : Unable to close ApplicationContext
 
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.next() returned false
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.resultset                           : 91. ResultSet.close() returned void
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@60b03d21
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.getMoreResults() returned false
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.getUpdateCount() returned -1
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. PreparedStatement.close() returned 
-2020-06-10 16:49:01.607  INFO 6968 --- [http-nio-8080-exec-1] jdbc.audit                               : 91. Connection.clearWarnings() returned 
-2020-06-10 16:49:02.745  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.isValid(5) returned true
-2020-06-10 16:49:02.745  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getAutoCommit() returned true
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.new PreparedStatement returned 
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.prepareStatement(select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
-         (  
-            ?
-         , 
-            ?
-         , 
-            ?
-         , 
-            ?
-         )) returned net.sf.log4jdbc.sql.jdbcapi.PreparedStatementSpy@282bb2b
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(1, "IWBTONYSOFA-100100001-663300") returned 
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(2, "PMBBGRANDSOFA-100100001-0000FF") returned 
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(3, "PMBBGRANDSOFA-100100001-0000FF") returned 
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.setString(4, "PMBBGRANDSOFA-100100001-0000FF") returned 
-2020-06-10 16:49:02.746  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqlonly                             : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
-         (  
-            'IWBTONYSOFA-100100001-663300'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         )
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'delegatingApplicationListener' defined in class path resource [org/springframework/security/config/annotation/web/configuration/WebSecurityConfiguration.class]: Initialization of bean failed; nested exception is org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.retrieveApplicationListeners(AbstractApplicationEventMulticaster.java:245) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.AbstractApplicationEventMulticaster.getApplicationListeners(AbstractApplicationEventMulticaster.java:197) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:134) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:81) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.availability.AvailabilityChangeEvent.publish(AvailabilityChangeEvent.java:67) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:167) ~[spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:978) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.boot.SpringApplication.handleRunFailure(SpringApplication.java:814) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1237) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1226) [spring-boot-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+	at com.bit.house.HouseApplication.main(HouseApplication.java:21) [main/:na]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:1.8.0_231]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:1.8.0_231]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:1.8.0_231]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[na:1.8.0_231]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.3.0.RELEASE.jar:2.3.0.RELEASE]
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration': Initialization of bean failed; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:409) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1338) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1177) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:557) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:517) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:323) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:226) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:321) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.BeanFactoryAdvisorRetrievalHelper.findAdvisorBeans(BeanFactoryAdvisorRetrievalHelper.java:91) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findCandidateAdvisors(AbstractAdvisorAutoProxyCreator.java:109) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.findEligibleAdvisors(AbstractAdvisorAutoProxyCreator.java:94) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator.getAdvicesAndAdvisorsForBean(AbstractAdvisorAutoProxyCreator.java:76) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.wrapIfNecessary(AbstractAutoProxyCreator.java:347) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.aop.framework.autoproxy.AbstractAutoProxyCreator.postProcessAfterInitialization(AbstractAutoProxyCreator.java:299) ~[spring-aop-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:431) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1800) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 24 common frames omitted
+Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No bean named 'org.springframework.context.annotation.ConfigurationClassPostProcessor.importRegistry' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBeanDefinition(DefaultListableBeanFactory.java:814) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getMergedLocalBeanDefinition(AbstractBeanFactory.java:1282) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:297) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:207) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor$ImportAwareBeanPostProcessor.postProcessBeforeInitialization(ConfigurationClassPostProcessor.java:456) ~[spring-context-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsBeforeInitialization(AbstractAutowireCapableBeanFactory.java:416) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1788) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:595) ~[spring-beans-5.2.6.RELEASE.jar:5.2.6.RELEASE]
+	... 47 common frames omitted
 
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.sqltiming                           : select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
-         (  
-            'IWBTONYSOFA-100100001-663300'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         , 
-            'PMBBGRANDSOFA-100100001-0000FF'
-         )
- {executed in 1 msec}
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.execute() returned true
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.new ResultSet returned 
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getResultSet() returned net.sf.log4jdbc.sql.jdbcapi.ResultSetSpy@47991f6f
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getMetaData() returned com.mysql.cj.jdbc.result.ResultSetMetaData@3b36e96e - Field level information: 
-	com.mysql.cj.result.Field@3da6b1d[dbName=thehouse,tableName=a,originalTableName=p,columnName=productNo,originalColumnName=productNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@1496c3ae[dbName=thehouse,tableName=a,originalTableName=p,columnName=productName,originalColumnName=productName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@1bfbd434[dbName=thehouse,tableName=a,originalTableName=p,columnName=sellerName,originalColumnName=sellerName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@170a23bc[dbName=thehouse,tableName=a,originalTableName=p,columnName=modelName,originalColumnName=modelName,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= UNIQUE_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@47d820c3[dbName=thehouse,tableName=a,originalTableName=p,columnName=productCreateDate,originalColumnName=productCreateDate,mysqlType=10(FIELD_TYPE_DATE),sqlType=91,flags= BINARY, charsetIndex=8, charsetName=WINDOWS-1252]
-	com.mysql.cj.result.Field@65711025[dbName=thehouse,tableName=a,originalTableName=p,columnName=productMainImg,originalColumnName=productMainImg,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@206e32cb[dbName=thehouse,tableName=a,originalTableName=p,columnName=purchasePrice,originalColumnName=purchasePrice,mysqlType=3(FIELD_TYPE_INT),sqlType=4,flags=, charsetIndex=63, charsetName=ISO-8859-1]
-	com.mysql.cj.result.Field@663fe2b9[dbName=thehouse,tableName=a,originalTableName=o,columnName=colorCode,originalColumnName=colorCode,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= BINARY MULTI_KEY, charsetIndex=83, charsetName=UTF-8]
-	com.mysql.cj.result.Field@60670885[dbName=thehouse,tableName=a,originalTableName=o,columnName=productOptionNo,originalColumnName=productOptionNo,mysqlType=253(FIELD_TYPE_VARCHAR),sqlType=12,flags= PRIMARY_KEY BINARY, charsetIndex=83, charsetName=UTF-8]
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getType() returned 1003
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned IWBTONYSOFA-100100001
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 토니 2인소파 3colors
-2020-06-10 16:49:02.747  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned IWBTONYSOFA
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/tonysofa.jpg
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned true
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productNo) returned PMBBGRANDSOFA-100100001
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productName) returned 빈백 607C 그랜드 소파 12colors
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(modelName) returned PMBBGRANDSOFA
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.getString(productMainImg) returned product/pmgs.jpg
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.wasNull() returned false
-2020-06-10 16:49:02.748  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultsettable                      : 
-|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
-|productno               |productname             |sellername |modelname     |productcreatedate |productmainimg       |purchaseprice |colorcode |productoptionno |
-|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
-|IWBTONYSOFA-100100001   |토니 2인소파 3colors         |[unread]   |IWBTONYSOFA   |[unread]          |product/tonysofa.jpg |[unread]      |[unread]  |[unread]        |
-|PMBBGRANDSOFA-100100001 |빈백 607C 그랜드 소파 12colors |[unread]   |PMBBGRANDSOFA |[unread]          |product/pmgs.jpg     |[unread]      |[unread]  |[unread]        |
-|------------------------|------------------------|-----------|--------------|------------------|---------------------|--------------|----------|----------------|
-
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.next() returned false
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.resultset                           : 91. ResultSet.close() returned void
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.getMetaData() returned com.mysql.cj.jdbc.DatabaseMetaDataUsingInfoSchema@5cd34f9a
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getMoreResults() returned false
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.getUpdateCount() returned -1
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. PreparedStatement.close() returned 
-2020-06-10 16:49:02.749  INFO 6968 --- [http-nio-8080-exec-10] jdbc.audit                               : 91. Connection.clearWarnings() returned 
-2020-06-10 16:50:08.627  INFO 6968 --- [Thread-3585] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
-2020-06-10 16:50:08.638  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 91. Connection closed
-2020-06-10 16:50:08.640  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 91. Connection.close() returned 
-2020-06-10 16:50:08.641  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 92. Connection closed
-2020-06-10 16:50:08.641  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 92. Connection.close() returned 
-2020-06-10 16:50:08.643  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 93. Connection closed
-2020-06-10 16:50:08.644  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 93. Connection.close() returned 
-2020-06-10 16:50:08.644  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 94. Connection closed
-2020-06-10 16:50:08.644  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 94. Connection.close() returned 
-2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 95. Connection closed
-2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 95. Connection.close() returned 
-2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 96. Connection closed
-2020-06-10 16:50:08.645  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 96. Connection.close() returned 
-2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 97. Connection closed
-2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 97. Connection.close() returned 
-2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 98. Connection closed
-2020-06-10 16:50:08.646  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 98. Connection.close() returned 
-2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 99. Connection closed
-2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 99. Connection.close() returned 
-2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.connection                          : 100. Connection closed
-2020-06-10 16:50:08.647  INFO 6968 --- [HikariPool-2 connection closer] jdbc.audit                               : 100. Connection.close() returned 
-2020-06-10 16:50:08.648  INFO 6968 --- [Thread-3585] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.

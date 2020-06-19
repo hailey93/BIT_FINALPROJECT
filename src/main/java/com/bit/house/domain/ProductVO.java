@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
+import java.util.List;
 
 @Setter
 @Getter
@@ -38,4 +39,7 @@ public class ProductVO {
     private String Month;
     private String day;
 
+    private List<String> colorCodeVOList;
+
+//    private SellerVO sellerVO;
 }

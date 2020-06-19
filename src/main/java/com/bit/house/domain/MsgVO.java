@@ -10,8 +10,10 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor
 public class MsgVO {
+
+    private int msgNo;
     private String memberId;
-    private String recieveId;
+    private String receiveId;
     private String msgContents;
     private Date msgDate;
 }

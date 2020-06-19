@@ -1,121 +1,195 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+        <link rel="stylesheet" th:href="@{/css/basket.css}">
+    </th:block>
 </head>
 <body>
-일별, 월별, 연도별 품목 구매 현황
-가장 많이 구매한 항목 (top10).
-<div id="name" style="width:35%; height:50px">
-    <canvas id="myChart" style="width:35%; height:100%; float:left"></canvas>
-</div>
-<script type="text/javascript">
-    var json = [[${jsonText}]];
-    console.log(json);
-    var jsonParse = JSON.parse(json);
-    var chart1Arr = new Array();
-    var yearArr = new Array();
-    var yearArr2 = new Array();
-    var productNo = new Array();
-    for (var i = 0; i < jsonParse.length; i++) {
-        chart1Arr[i] = jsonParse[i].orderQty;
-        productNo[i] = jsonParse[i].productNo; // 품목명을 입력 받아서  날짜ㅡㅣ판매량
-        yearArr2[i] = jsonParse[i].year;                                        // 날짜를 입력 받아서 품목 ㅡ ㅣ 판매량
-        //yearArr[i] = jsonParse[i].productionDay;
-    }
-    var backC = [
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)'
-    ];
-    //borderColor: backgroundColor:
-    var borderC = [
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)'
-    ];
-    var options = {
-        maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
+
+<div layout:fragment="content">
+
+    <div id="name" >
+        Total 유저별 구매금액
+
+        <br>
+
+        <h1>
+            <a href="">연간</a>
+        </h1>날짜 : <input id="dateCalendar" type='date'/> - <input id="dateCalendar2" type='date'/><button onclick="getDate()">클릭</button>
+        <div>
+        <canvas id="myChart" style="width:100%; height:100%; float:none"></canvas>
+        </div>
+        <!-- 차트 지우고 다시 만들어아햐나? -->
+        <script th:inline="javascript" type="text/javascript">
+            var jsonData;
+            var chart1Data;
+            var options;
+            drawGraph();
+            drawCanvas();
+            function getDate() {
+                var date1 = document.getElementById('dateCalendar').value;
+                var date2 = document.getElementById('dateCalendar2').value;
+                var now = new Date();
+                console.log(date1 +""+date2);
+                year = now.getFullYear()
+                month = now.getMonth()+1;
+                if((month+"").length <2){
+                    month = "0"+month;
                 }
-            }]
-        }
-    };
-
-    // 차트 data
-    var chart1Data = {
-        labels: [1, 2, 3, 4, 5, 6],
-        datasets: [{
-            label: productNo,
-            data: chart1Arr, // 판매량 1, 품목, 날짜 ==== 0507날짜의 판매량 1위~6위 품목
-            backgroundColor: backC,
-            borderColor: borderC,
-            borderWidth: 1
-        }]
-    };
-    $(document).ready(
-        function () {
-            var chart1Canvas = document.getElementById("myChart");
-            var ctx = chart1Canvas.getContext('2d');
-            var myNewChart = new Chart(ctx, {
-                type: 'bar',
-                data: chart1Data,
-                options: options
-            });
-
-            chart1Canvas.onclick = function (evt) {
-                if (document.getElementById("myChart2").style.display == 'none') {
-                    document.getElementById("myChart2").style.display = 'block';
-                } else {
-                    document.getElementById("myChart2").style.display = 'none';
+                date = now.getDate();
+                if((date+"").length <2){
+                    date = "0" +date;
                 }
-                var activePoints = myNewChart.getElementsAtEvent(evt); // activePoints선언
-                console.log("activePoints: "+activePoints);
-                if (activePoints[0]) {
-                    var chartData = activePoints[0]['_chart'].config.data;
-                    var idx = activePoints[0]['_index'];
+                var today = year + "" + month + "" + date;
+                var dateSplit1 = date1.split("-");
+                var year1 = dateSplit1[0]; console.log(year1);
+                var month1 = dateSplit1[1]; console.log(month1);
+                var day1 = dateSplit1[2]; console.log(day1);
 
-                    yearLabel = chartData.labels[idx];
-                    var value = chartData.datasets[0].data[idx];
-                    var labels = chartData.labels[idx];
-                    var yearform = {
-                        product: productNo[0],
-                        year: yearLabel
-                    }
-                    console.log("product : " + productNo[0]);
-                    console.log("year : " + yearLabel);
+                var dateSplit2 = date2.split("-");
+                var year2 = dateSplit2[0]; console.log(year2);
+                var month2 = dateSplit2[1]; console.log(month2);
+                var day2 = dateSplit2[2]; console.log(day2);
+
+                var a = year1+month1+day1;
+                var b = year2+month2+day2;
+                var a1 = year1+'-'+month1+'-'+day1;
+                var b1 = year2+'-'+month2+'-'+day2;
+                console.log("a1:"+a1);
+                var dateform = {
+                   /* year1 : year1,
+                    year2 : year2,
+                    month1 : month1,
+                    month2 : month2,
+                    day1 : day1,
+                    day2 : day2*/
+                    date1 : date1,
+                    date2 : date2
+
+                }
+                console.log("1 : "+a+" 2 : "+b+" 오늘 : " +today)
+                if(a>b || a>today){
+
+                    alert("안됩니다");
+                }else{
                     $.ajax({
-                        //console.log("hi");
-                        url: "yearGraphAjax",
-                        type: "POST",
-                        data: yearform,
-                        success: function (data) {
-                            chart2(); // ajax 성공시 chart2() 호출
-                        },//이제 이값보내서 db 통계 뽑아서 다시 불러와서 2번 그래프에 다시 배열
+                        url: "userDateStat",
+                        type : "POST",
+                        data : dateform,
+                        success : function(data){
+                            alert("suc");
+                            console.log("ajax 성공!");
+                            jsonData = data;
+                            drawGraph();
+                            drawCanvas();
+                        },
                         error: function () {
-                            alert("test err");
+                            alert("err");
+
                         }
                     });
 
-
-                    //var url = "http://example.com/?label=" + label + "&value=" + value;
-                    //console.log(url);
-                    //alert(url);
-                    //location.replace(url);
                 }
-            };
-        }
-    );
-</script>
+
+
+
+            }
+
+
+            function drawGraph(){
+                console.log("drawGraph()  실행 !" );
+                console.log("jsonGraph는?" + jsonData);
+                var json = [[${jsonText}]];
+                //console.log(json);
+                var jsonParse;
+                if(jsonData == null){
+                    jsonParse = JSON.parse(json);
+                }else {
+                    jsonParse = JSON.parse(jsonData);
+                }
+                console.log("json? : "+json);
+                console.log("jsonParse는? : "+jsonParse);
+                var chart1Arr = new Array();
+                var labelElement = new Array();
+                var yearArr = new Array();
+                var yearArr2 = new Array();
+                var productNo = new Array();
+                //var productName = '구매순위';
+                for (var i = 0; i < jsonParse.length; i++) {
+                    labelElement[i] = jsonParse[i].memberId;
+                    chart1Arr[i] = jsonParse[i].totalPrice;
+
+
+                    //chart1Arr[i] = jsonParse[i].orderQty;
+                    //productNo[i] = jsonParse[i].productNo; // 품목명을 입력 받아서  날짜ㅡㅣ판매량
+                    //yearArr2[i] = jsonParse[i].year;                                        // 날짜를 입력 받아서 품목 ㅡ ㅣ 판매량
+                    //yearArr[i] = jsonParse[i].productionDay;
+                }
+                console.log("char1Arr는 ? : " + chart1Arr);
+                var backC = [
+                    'rgba(124, 192, 135, 1)',
+                    'rgba(154, 62, 235, 1)',
+                    'rgba(154, 62, 35, 1)',
+                    'blue',
+                    'purple',
+                    'yellow'
+                ];
+                //borderColor: backgroundColor:
+                var borderC = [
+                    'rgba(124, 192, 135, 1)',
+                    'rgba(154, 62, 235, 1)',
+                    'rgba(154, 62, 35, 1)',
+                    'blue',
+                    'purple',
+                    'yellow'
+                ];
+                options = {
+                    maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                };
+
+                // 차트 data
+                chart1Data = {
+                    labels: labelElement,
+                    datasets: [{
+                        label: '구매금액',
+                        data: chart1Arr, // 판매량 1, 품목, 날짜 ==== 0507날짜의 판매량 1위~6위 품목
+                        backgroundColor: backC,
+                        borderColor: borderC,
+                        borderWidth: 1
+                    }]
+                };
+                drawCanvas();
+            }
+
+
+
+                function drawCanvas() {
+                    var chart1Canvas = document.getElementById("myChart");
+                    var ctx = chart1Canvas.getContext('2d');
+                    var myNewChart = new Chart(ctx, {
+                        type: 'pie',
+                        data: chart1Data,
+                        options: options
+                    });
+                }
+
+
+        </script>
+    </div>
+</div>
+
 </body>
 </html>

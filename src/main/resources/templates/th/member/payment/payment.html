@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      <!--layout:decorator="th/layout/defaultLayout"-->> <!-- 이거 쓰면 이니시스 안먹힘 -->
+      layout:decorator="th/layout/defaultLayout"> <!-- 이거 쓰면 이니시스 안먹힘 -->
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,12 +13,12 @@
     <!--<link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/16-82708389.chunk.css">-->
    <!-- <link rel="stylesheet" media="screen"
           href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-7a3e77c9.chunk.css">-->
-    <link rel="stylesheet" media="all" href="https://d1nyaccf3kuclt.cloudfront.net/assets/v2/orders/pre_order-a9341d94d054b478694e31b559c91d4c6f9004f1819d278a88456fa32578bff9.css">
-<!-- <th:block layout:fragment="css">
+    <!--<link rel="stylesheet" media="all" href="https://d1nyaccf3kuclt.cloudfront.net/assets/v2/orders/pre_order-a9341d94d054b478694e31b559c91d4c6f9004f1819d278a88456fa32578bff9.css">-->
+    <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
         <link rel="stylesheet" th:href="@{/css/basket.css}">
 
-    </th:block>-->
+    </th:block>
 </head>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/addressapi.js"></script>
@@ -36,279 +36,437 @@
     </div>
 </div>-->
 <div layout:fragment="content">
-<div id="body" class="orders pre_order" data-s_id="ad223c51bbde2a256a849d25cbb9b308" style="padding-bottom: 0px;">
 
-    <div data-pre_order="{&quot;pre_order&quot;:{&quot;from&quot;:&quot;bucket&quot;,&quot;bucket&quot;:[&quot;53293825&quot;]},&quot;utf8&quot;:&quot;✓&quot;,&quot;controller&quot;:&quot;orders&quot;,&quot;action&quot;:&quot;pre_order&quot;}" id="pre_order_json" data-is_app="false"></div>
+    <div id="body" class="orders pre_order" data-s_id="ad223c51bbde2a256a849d25cbb9b308" style="padding-bottom: 0px;">
+    <!--
+        <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:10000;-webkit-overflow-scrolling:touch;">
+            <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" alt="닫기 버튼">
+        </div>-->
+
+        <div id="chai_event" data-id="1075" data-has_products="false"></div>
+        <div id="pre_order" class=" bucket" data-id="23159872" data-is-overseas-purchase="false">
+
+<!-- form --><form id="edit_order" class="edit_order" action="/kakaoPay" accept-charset="UTF-8" method="post">
+            <input type="hidden" name="memberId" value="${basket.memberId}"><br>
+            <input type="hidden" name="productNo" value="${basket.productNo}"><br>
+            <input type="hidden" name="colorName" value="${basket.productColor}"><br>
+            <input type="hidden" name="orderQty" value=""><br>
+            <input type="hidden" name="totalPrice" value=""><br>
+            <input type="hidden" name="usedPoint" value=""><br>
+            <input type="hidden" name="recipient" value=""><br>
+            <input type="hidden" name="orderAddr "value=""><br>
+            <input type="hidden" name="orderDate "value=""><br>
+            <input type="hidden" name="payCode" value=""><br>
+            <input type="hidden" name="orderCode" value=""><br>
 
 
-<!--
-    <div id="layer" style="display:none;position:fixed;overflow:hidden;z-index:10000;-webkit-overflow-scrolling:touch;">
-        <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnCloseLayer" style="cursor:pointer;position:absolute;right:-3px;top:-3px;z-index:1" alt="닫기 버튼">
-    </div>-->
-
-    <div id="chai_event" data-id="1075" data-has_products="false"></div>
-    <div id="pre_order" class=" bucket" data-id="23159872" data-is-overseas-purchase="false">
-        <form id="edit_order" class="edit_order" action="/orders/23992859" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
-            <div id="title">
-                주문/결제
-            </div>
-            <div class="current-user__blank">
-                <p class="current-user__blank__text">
-                    비회원은 쿠폰 &amp; 포인트 혜택을 받을 수 없습니다.<br>
-                    회원가입하고 다양한 혜택을 받으세요.
-                </p>
-                <a class="current-user__blank__btn" href="/signup">
-                    오늘의집 회원가입하기<span class="arrow-right-icon"></span>
-                </a>      </div>
-            <div class="panel">
-                <div class="title">
-                    <div class="title">주문상품</div>
+                <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
+                <div id="title">
+                    주문/결제
                 </div>
-                <table cellspacing="0" id="order_productions">
-                    <tbody data-hj-suppress="" data-hj-ignore-attribute="">
-                    <tr class="production" data-id="41033" data-cost="55900" data-count="1" data-name="[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors">
-                        <td>
-                            <div class="information">
-                                <img src="" alt="320">
-                                <div>
-                                    <div class="name">[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors</div>
-                                    <div class="option">프레임컬러: 블랙 / 패브릭컬러: 그린</div>
-                                    <div class="cost_count">
-                                        <div class="cost">55,900원</div>
-                                        <div class="divider">|</div>
-                                        <div class="count">1개</div>
+                <div class="current-user__blank">
+                    <p class="current-user__blank__text">
+                        비회원은 쿠폰 &amp; 포인트 혜택을 받을 수 없습니다.<br>
+                        회원가입하고 다양한 혜택을 받으세요.
+                    </p>
+                    <a class="current-user__blank__btn" href="/signup">
+                        오늘의집 회원가입하기<span class="arrow-right-icon"></span>
+                    </a>      </div>
+                <div class="panel">
+                    <div class="title">
+                        <div class="title">주문상품</div>
+                    </div>
+                    <table cellspacing="0" id="order_productions">
+                        <tbody data-hj-suppress="" data-hj-ignore-attribute="">
+                        <tr class="production" data-id="41033" data-cost="55900" data-count="1" data-name="[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors">
+                            <td>
+                                <div class="information">
+                                    <img src="" alt="320">
+                                    <div>
+                                        <div class="name">[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors</div>
+                                        <div class="option">프레임컬러: 블랙 / 패브릭컬러: 그린</div>
+                                        <div class="cost_count">
+                                            <div class="cost">55,900원</div>
+                                            <div class="divider">|</div>
+                                            <div class="count">1개</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="delivery_fee" data-id="_41543208">
+                                <div class="type">무료배송</div>
+                                <div class="seller">핀란디아</div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="panel">
+                    <div class="title">
+                        <div class="title">배송지</div>  <input type="checkbox" id="addrCheckbox" class="addrCheckbox" >&nbsp;배송지 저장하기</input>
+                    </div>
+                    <div class="input">
+                        <div class="field">
+                            <div class="label">받는분</div>
+                            <div class="input">
+                                <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="order[recipient]" id="order_recipient">
+                                <input type="hidden" name="order[received_name]" id="order_received_name">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="label">우편번호</div>
+                            <div class="input">
+                                <input class="non_edit quarter" presence="true" readonly="readonly" value="" data-hj-suppress="" type="text" name="zipCode" id="order_received_zip_code">
+                                <span id="find_address" onclick="execPostCode();">우편번호</span>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="label">주소</div>
+                            <div class="input vertical">
+                                <input  readonly="readonly" class="non_edit full" value="" data-hj-suppress="" type="text" name="receivedAt" id="order_received_at">
+                                <input  value="" autocomplete="off" data-hj-suppress="" class="full" type="text" name="receivedAtDetail" id="order_received_at_detail">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">
+                            <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="zipCode" id="zipCode" type="text" readonly="readonly" >
+                            <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="receivedAt" id="receivedAt" type="text" readonly="readonly" />
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
+                        </div>-->
+                        <div class="field">
+                            <div class="label">휴대전화</div>
+                            <div class="input phone">
+                                <input type="text" name="order[received_phone_number]" id="order_received_phone_number">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="label vertical">
+                                배송 메모
+                            </div>
+                            <div class="input vertical">
+                                <input type="text" name="delivery_message" id="delivery_message" class="delivery_memo donot_check_before_payment full view_delivery_preset" autocomplete="off" data-hj-suppress="">
+                                <div id="delivery_messages" style="display: none;">
+
+                                    <div class="delivery_message first">
+                                        <div class="product_name">[핀란디아][오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors</div>
+                                        <input class="delivery_each_memo donot_check_before_payment full view_delivery_preset" autocomplete="off" data-hj-suppress="" type="text" name="order[order_productions_attributes][0][delivery_memo]" id="order_order_productions_attributes_0_delivery_memo">
+                                    </div>
+                                    <input class="products_delivery_is_backwoods" type="hidden" value="false" name="order[order_productions_attributes][0][is_backwoods]" id="order_order_productions_attributes_0_is_backwoods">
+                                    <input type="hidden" value="41543208" name="order[order_productions_attributes][0][id]" id="order_order_productions_attributes_0_id">            </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            <div class="panel">
+                    <div class="title">
+                        <div class="title">주문자</div>
+                        <input type="checkbox" id="copy_delivery"  onclick="ShipToBill(this.form);">배송지 정보와 동일하게</input>
+                        <span> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
+
+                    </div>
+                    <div class="input">
+                        <div class="field">
+                            <div class="label">이름</div>
+                            <div class="input">
+                                <input autocomplete="off" data-hj-suppress="" class="half" type="text" name="order[payer_name]" id="order_payer_name">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="label">이메일</div>
+                            <div class="input email">
+                                <input presence="true" value="" autocomplete="off" data-hj-suppress="" type="text" name="order[payer_email]" id="order_payer_email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="label">휴대전화</div>
+                            <div class="input phone">
+                                <input presence="true" value="" data-hj-suppress="" type="text" name="order[payer_phone_number]" id="order_payer_phone_number">
+                                <div id="verified_phone_number">
+                                    <div class="verified_phone_number" data-value="" data-verified=""></div>
+                                    <div class="need_verified">
+
+                                        <div id="verified_inputs" style="display: none;">
+                                            <input id="verified_input" class="donot_check_before_payment" placeholder="인증번호" autocomplete="off" type="text" data-hj-suppress="" size="6">
+                                            <div id="check_verified">확인</div>
+                                            <div id="resend_verified_number">재전송</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </td>
-                        <td class="delivery_fee" data-id="_41543208">
-                            <div class="type">무료배송</div>
-                            <div class="delivery_fee_backwoods" style="display: none;">
-                                <div class="etc_title">
-                                    도서산간추가
+                        </div>
+                        <div class="field">
+                            <div class="label"></div>
+                            <div class="input">
+                                <div class="form-check sms_agreement">
+                                    <label class="form-check-label" for="order_sms_aggrement">
+                                        <input name="order[sms_aggrement]" type="hidden" value="0"><input class="form-check" type="checkbox" value="1" checked="checked" name="order[sms_aggrement]" id="order_sms_aggrement">
+                                        <!--<span class="check-img"></span>
+                                        SMS 수신동의 <span> (배송 정보를 SMS로 보내드립니다.)</span>-->
+                                    </label>            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="panel">
+                    <div class="title">포인트</div>
+                    <div class="mileage">
+                        <div class="can-not-be-used__text">
+                            비회원은 사용할 수 없습니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel">
+                    <div class="title">최종 결제 금액</div>
+                    <div class="cost">
+                        <div class="cost_panel">
+                            <div class="title">총 상품 금액</div>
+                            <div class="amount" id="preview_product_cost" data-hj-suppress="">55,900</div>
+                        </div>
+
+                        <div class="cost_panel">
+                            <div class="title">배송비</div>
+                            <div class="amount" id="preview_delivery_cost" data-hj-suppress="">0</div>
+                        </div>
+
+                        <div class="cost_panel">
+                            <div class="title">포인트 사용</div>
+                            <div class="amount" id="preview_mileage_cost" data-hj-suppress="">0</div>
+                        </div>
+
+                        <div class="total cost_panel">
+                            <div class="amount" id="preview_selling_cost" data-hj-suppress="">55,900원</div>
+                        </div>
+                    </div>
+
+                </div>
+                <button onClick="requestPay()">이니시스 결제</button>
+                <div class="panel">
+                    <div class="title light">결제 수단</div>
+                    <div class="pay_method">
+                        <div class="payment_panel">
+                            <input type="radio" value="kcp_credit_card" name="order[payment_method]" id="order_payment_method_kcp_credit_card">
+
+                            <label class="first  top" for="order_payment_method_kcp_credit_card" onclick=""  > <!-- kakaoPay submit 어떻게? -->
+                                <img class="img" width="64" src="" alt="Card">
+                                <div class="title">카카오페이</div>
+                                    <button >카카오페이로 결제하기</button>
+                                <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다" data-detail2="">
+
                                 </div>
-                                <div class="etc_cost">
-                                    +5,000원
+                            </label>            <input type="radio" value="without_bankbook" name="order[payment_method]" id="order_payment_method_without_bankbook">
+
+                            <label class=" top" for="order_payment_method_without_bankbook" onclick="requestPay()">
+                                <img class="img" width="64" src="https://bucketplace-v2-development.s3.amazonaws.com/pg/vbank.png" alt="Vbank">
+                                <div class="title" >이니시스</div>
+                                <div class="event" data-title="" data-detail1="" data-detail2="">
+
                                 </div>
-                            </div>
-                            <div class="seller">핀란디아</div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                            </label>
+                        </div>
 
-            </div>
+                        <div id="event_information">
+                            <div class="title">유의사항</div>
+                            <div class="detail line1">-긴급재난지원금은 오늘의집에서 사용이 불가합니다</div>
+                            <div class="detail line2" style="display: none;"></div>
+                        </div>
 
-            <div class="panel">
-                <div class="title">
-                    <div class="title">배송지</div>  <input type="checkbox" id="addrCheckbox" class="addrCheckbox" >&nbsp;배송지 저장하기</input>
-                </div>
-                <div class="input">
-                    <div class="field">
-                        <div class="label">받는분</div>
-                        <div class="input">
-                            <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="order[recipient]" id="order_recipient">
-                            <input type="hidden" name="order[received_name]" id="order_received_name">
-                        </div>
                     </div>
-                    <div class="field">
-                        <div class="label">우편번호</div>
-                        <div class="input">
-                            <input class="non_edit quarter" presence="true" readonly="readonly" value="" data-hj-suppress="" type="text" name="zipCode" id="order_received_zip_code">
-                            <span id="find_address" onclick="execPostCode();">우편번호</span>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label">주소</div>
-                        <div class="input vertical">
-                            <input  readonly="readonly" class="non_edit full" value="" data-hj-suppress="" type="text" name="receivedAt" id="order_received_at">
-                            <input  value="" autocomplete="off" data-hj-suppress="" class="full" type="text" name="receivedAtDetail" id="order_received_at_detail">
-                        </div>
-                    </div>
-                    <!--<div class="form-group">
-                        <input class="form-control" style="width: 40%; display: inline;" placeholder="우편번호" name="zipCode" id="zipCode" type="text" readonly="readonly" >
-                        <button type="button" class="btn btn-default" onclick="execPostCode();"><i class="fa fa-search"></i> 우편번호 찾기</button>
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" style="top: 5px;" placeholder="도로명 주소" name="receivedAt" id="receivedAt" type="text" readonly="readonly" />
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="상세주소" name="addr3" id="addr3" type="text"  />
-                    </div>-->
-                    <div class="field">
-                        <div class="label">휴대전화</div>
-                        <div class="input phone">
-                            <input type="text" name="order[received_phone_number]" id="order_received_phone_number">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label vertical">
-                            배송 메모
-                        </div>
-                        <div class="input vertical">
-                            <input type="text" name="delivery_message" id="delivery_message" class="delivery_memo donot_check_before_payment full view_delivery_preset" autocomplete="off" data-hj-suppress="">
-                            <div id="delivery_messages" style="display: none;">
-
-                                <div class="delivery_message first">
-                                    <div class="product_name">[핀란디아][오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors</div>
-                                    <input class="delivery_each_memo donot_check_before_payment full view_delivery_preset" autocomplete="off" data-hj-suppress="" type="text" name="order[order_productions_attributes][0][delivery_memo]" id="order_order_productions_attributes_0_delivery_memo">
-                                </div>
-                                <input class="products_delivery_is_backwoods" type="hidden" value="false" name="order[order_productions_attributes][0][is_backwoods]" id="order_order_productions_attributes_0_is_backwoods">
-                                <input type="hidden" value="41543208" name="order[order_productions_attributes][0][id]" id="order_order_productions_attributes_0_id">            </div>
-                            <div id="delivery_message_presets">
-                                <div class="preset">배송 전에 미리 연락 바랍니다.</div>
-                                <div class="preset">부재시 경비실에 맡겨주세요.</div>
-                                <div class="preset">부재시 전화 주시거나 문자 남겨 주세요.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        <div class="panel">
-                <div class="title">
-                    <div class="title">주문자</div>
-                    <input type="checkbox" id="copy_delivery"  onclick="ShipToBill(this.form);">배송지 정보와 동일하게</input>
-                    <span> &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span>
 
                 </div>
-                <div class="input">
-                    <div class="field">
-                        <div class="label">이름</div>
-                        <div class="input">
-                            <input autocomplete="off" data-hj-suppress="" class="half" type="text" name="order[payer_name]" id="order_payer_name">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label">이메일</div>
-                        <div class="input email">
-                            <input presence="true" value="" autocomplete="off" data-hj-suppress="" type="text" name="order[payer_email]" id="order_payer_email">
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label">휴대전화</div>
-                        <div class="input phone">
-                            <input presence="true" value="" data-hj-suppress="" type="text" name="order[payer_phone_number]" id="order_payer_phone_number">
-                            <div id="verified_phone_number">
-                                <div class="verified_phone_number" data-value="" data-verified=""></div>
-                                <div class="need_verified">
 
-                                    <div id="verified_inputs" style="display: none;">
-                                        <input id="verified_input" class="donot_check_before_payment" placeholder="인증번호" autocomplete="off" type="text" data-hj-suppress="" size="6">
-                                        <div id="check_verified">확인</div>
-                                        <div id="resend_verified_number">재전송</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field">
-                        <div class="label"></div>
-                        <div class="input">
-                            <div class="form-check sms_agreement">
-                                <label class="form-check-label" for="order_sms_aggrement">
-                                    <input name="order[sms_aggrement]" type="hidden" value="0"><input class="form-check" type="checkbox" value="1" checked="checked" name="order[sms_aggrement]" id="order_sms_aggrement">
-                                    <!--<span class="check-img"></span>
-                                    SMS 수신동의 <span> (배송 정보를 SMS로 보내드립니다.)</span>-->
-                                </label>            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <div class="panel">
-                <div class="title">포인트</div>
-                <div class="mileage">
-                    <div class="can-not-be-used__text">
-                        비회원은 사용할 수 없습니다.
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel">
-                <div class="title">최종 결제 금액</div>
-                <div class="cost">
-                    <div class="cost_panel">
-                        <div class="title">총 상품 금액</div>
-                        <div class="amount" id="preview_product_cost" data-hj-suppress="">55,900</div>
-                    </div>
-
-                    <div class="cost_panel">
-                        <div class="title">배송비</div>
-                        <div class="amount" id="preview_delivery_cost" data-hj-suppress="">0</div>
-                    </div>
-
-                    <div class="cost_panel">
-                        <div class="title">포인트 사용</div>
-                        <div class="amount" id="preview_mileage_cost" data-hj-suppress="">0</div>
-                    </div>
-
-                    <div class="total cost_panel">
-                        <div class="amount" id="preview_selling_cost" data-hj-suppress="">55,900원</div>
-                    </div>
-                </div>
-
-            </div>
-            <button onClick="requestPay()">이니시스 결제</button>
-            <div class="panel">
-                <div class="title light">결제 수단</div>
-                <div class="pay_method">
-                    <div class="payment_panel">
-                        <input type="radio" value="kcp_credit_card" name="order[payment_method]" id="order_payment_method_kcp_credit_card">
-                        <form action="/kakaoPay">
-                        <label class="first  top" for="order_payment_method_kcp_credit_card" onclick="onsubmit=true"  > <!-- kakaoPay submit 어떻게? -->
-                            <img class="img" width="64" src="" alt="Card">
-                            <div class="title" >카카오페이</div>
-
-                            <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다" data-detail2="">
-
-                            </div>
-                        </label>            <input type="radio" value="without_bankbook" name="order[payment_method]" id="order_payment_method_without_bankbook">
-                        </form>
-                        <label class=" top" for="order_payment_method_without_bankbook" onclick="requestPay()">
-                            <img class="img" width="64" src="https://bucketplace-v2-development.s3.amazonaws.com/pg/vbank.png" alt="Vbank">
-                            <div class="title" >무통장입금</div>
-                            <div class="event" data-title="" data-detail1="" data-detail2="">
-
-                            </div>
+                <div id="confirm_checkbox">
+                    <div class="form-check check_agree_policy">
+                        <label class="form-check-label" for="check_agree_policy">
+                            <input type="checkbox" id="check_agree_policy" class="form-check">
+                            <span class="check-img"></span>
+                            결제 진행 필수사항 동의
                         </label>
                     </div>
 
-                    <div id="event_information">
-                        <div class="title">유의사항</div>
-                        <div class="detail line1">-긴급재난지원금은 오늘의집에서 사용이 불가합니다</div>
-                        <div class="detail line2" style="display: none;"></div>
+                    <div class="all_policy">
+                        <div class="title">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관</div>
+                        <div class="opener">보기</div>
                     </div>
-
                 </div>
-
-            </div>
-
-            <div id="confirm_checkbox">
-                <div class="form-check check_agree_policy">
-                    <label class="form-check-label" for="check_agree_policy">
-                        <input type="checkbox" id="check_agree_policy" class="form-check">
-                        <span class="check-img"></span>
-                        결제 진행 필수사항 동의
-                    </label>
-                </div>
-
-                <div class="all_policy">
-                    <div class="title">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관</div>
-                    <div class="opener">보기</div>
-                </div>
-            </div>
-            <a  class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
-                onsubmit="true" >결제하기</a>
-            <input id="do2_payment" type="submit" value="결제하기">
-            <div id="do_payment" >
-                결제하기</div>
-        </form>
+                <a  class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
+                    onsubmit="true" >결제하기</a>
+                <input id="do2_payment" type="submit" value="결제하기">
+                <div id="do_payment" >
+                    결제하기</div>
+            </form>
+        </div>
     </div>
-</div>
+
+    <script>
+
+
+        function execPostCode() {
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                    // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+                    var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraRoadAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraRoadAddr !== ''){
+                        extraRoadAddr = ' (' + extraRoadAddr + ')';
+                    }
+                    // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+                    if(fullRoadAddr !== ''){
+                        fullRoadAddr += extraRoadAddr;
+                    }
+
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    console.log(data.zonecode);
+                    console.log(fullRoadAddr);
+
+
+                    $("[name=zipCode]").val(data.zonecode);
+                    $("[name=receivedAt]").val(fullRoadAddr);
+
+                    /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                    document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                    document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
+                }
+            }).open();
+        }
+
+
+    </script>
+
+
+
+
+    <!-- iamport.payment.js -->
+    <script th:inline="javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script th:inline="javascript">
+        var IMP = window.IMP;
+        function requestPay(){
+            IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+
+            //IMP.request_pay(param, callback) 호출
+            IMP.request_pay({ // param
+                pg: "inicis",
+                pay_method: "card",
+                merchant_uid: "ORD20180131-0000011",
+                name: "노르웨이 회전 의자",
+                amount: 64900,
+                buyer_email: "gildong@gmail.com",
+                buyer_name: "홍길동",
+                buyer_tel: "010-4242-4242",
+                buyer_addr: "서울특별시 강남구 신사동",
+                buyer_postcode: "01181"
+            }, function (rsp) { // callback
+                if (rsp.success) {
+                    $.ajax({
+                        url : '/paymentComplete',
+                        method : 'POST',
+                        dataType : 'JSON',
+                        data : {
+                            'customer.customerID' : '3',
+                            'paymentMethod' : '3',
+                            'reservationStartDate' : '3',
+                            'reservationFinishDate' : '3',
+                            'reservationDate' : '3',
+                            'imp_uid' : '3',
+                            'merchant_uid' : '3',
+                            'totalAmount' : '3',
+                            'room.roomTypeTable.roomType' : '3',
+                            'room.roomPerson' :'3'
+                        },
+                        success : function() {
+                            alert("결제가 완료되었습니다.홈으로 이동합니다.");
+                            location.href = "/index";
+                        },
+                        error : function() {
+                            alert('ajax 실패')
+                        }
+
+                    })
+                } else {
+                    alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                }
+            });
+        }
+    </script>
+
+
+
+
+    <script>
+        //모두 체크하기
+        var name = "";
+        function InitValue(frm){
+
+            name = frm.order_payer_name.value; //이름
+        }
+        function ShipToBill(frm){
+            var n = null;
+            if(frm.copy_delivery.checked){
+
+                InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
+
+                document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value; // 이름 = 받는사람
+
+
+            }else{						//체크박스를 해제한다면
+
+                frm.order_payer_name.value=''; // 이름 = 이름
+
+            }
+            /*if(!frm.copy_delivery.checked){
+                document.getElementById("order_recipient").value = '';
+            }*/
+        }
+    </script>
+
+
+
+
+    <script>
+        function check() {
+            if(fr.zipCode.value == "") { // 지번
+                alert("값을 입력해 주세요.1");
+                fr.fr.zipCode.value.focus();
+                return false;
+            }
+            else if(fr.receivedAt.value == "") {	//주소
+                alert("값을 입력해 주세요.2");
+                fr.fr.receivedAt.value.focus();
+                return false;
+            }else if(receivedAtDetail == "") {	//주소
+                alert("값을 입력해 주세요.3");
+                fr.receivedAtDetail.focus();
+                return false;
+            }
+            else return true;
+        }
+    </script>
 </div>
 <button onClick="requestPay()">이니시스 결제</button>
 <script th:inline="javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
@@ -327,158 +485,6 @@
 
 
 
-<script>
 
-
-    function execPostCode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-                var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-                // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
-                    extraRoadAddr += data.bname;
-                }
-                // 건물명이 있고, 공동주택일 경우 추가한다.
-                if(data.buildingName !== '' && data.apartment === 'Y'){
-                    extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                if(extraRoadAddr !== ''){
-                    extraRoadAddr = ' (' + extraRoadAddr + ')';
-                }
-                // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-                if(fullRoadAddr !== ''){
-                    fullRoadAddr += extraRoadAddr;
-                }
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                console.log(data.zonecode);
-                console.log(fullRoadAddr);
-
-
-                $("[name=zipCode]").val(data.zonecode);
-                $("[name=receivedAt]").val(fullRoadAddr);
-
-                /* document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-                document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-                document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress; */
-            }
-        }).open();
-    }
-
-
-</script>
-<!-- iamport.payment.js -->
-<script th:inline="javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<script th:inline="javascript">
-    var IMP = window.IMP;
-    function requestPay(){
-        IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
-
-        //IMP.request_pay(param, callback) 호출
-        IMP.request_pay({ // param
-            pg: "inicis",
-            pay_method: "card",
-            merchant_uid: "ORD20180131-0000011",
-            name: "노르웨이 회전 의자",
-            amount: 64900,
-            buyer_email: "gildong@gmail.com",
-            buyer_name: "홍길동",
-            buyer_tel: "010-4242-4242",
-            buyer_addr: "서울특별시 강남구 신사동",
-            buyer_postcode: "01181"
-        }, function (rsp) { // callback
-            if (rsp.success) {
-                $.ajax({
-                    url : '/paymentComplete',
-                    method : 'POST',
-                    dataType : 'JSON',
-                    data : {
-                        'customer.customerID' : '3',
-                        'paymentMethod' : '3',
-                        'reservationStartDate' : '3',
-                        'reservationFinishDate' : '3',
-                        'reservationDate' : '3',
-                        'imp_uid' : '3',
-                        'merchant_uid' : '3',
-                        'totalAmount' : '3',
-                        'room.roomTypeTable.roomType' : '3',
-                        'room.roomPerson' :'3'
-                    },
-                    success : function() {
-                        alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                        location.href = "/index";
-                    },
-                    error : function() {
-                        alert('ajax 실패')
-                    }
-
-                })
-            } else {
-                alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-            }
-        });
-    }
-</script>
-
-
-
-
-<script>
-    //모두 체크하기
-    var name = "";
-    function InitValue(frm){
-
-        name = frm.order_payer_name.value; //이름
-    }
-    function ShipToBill(frm){
-        var n = null;
-        if(frm.copy_delivery.checked){
-
-            InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
-
-            document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value; // 이름 = 받는사람
-
-
-        }else{						//체크박스를 해제한다면
-
-            frm.order_payer_name.value=''; // 이름 = 이름
-
-        }
-        /*if(!frm.copy_delivery.checked){
-            document.getElementById("order_recipient").value = '';
-        }*/
-    }
-</script>
-
-
-
-
-<script>
-    function check() {
-        if(fr.zipCode.value == "") { // 지번
-            alert("값을 입력해 주세요.1");
-            fr.fr.zipCode.value.focus();
-            return false;
-        }
-        else if(fr.receivedAt.value == "") {	//주소
-            alert("값을 입력해 주세요.2");
-            fr.fr.receivedAt.value.focus();
-            return false;
-        }else if(receivedAtDetail == "") {	//주소
-            alert("값을 입력해 주세요.3");
-            fr.receivedAtDetail.focus();
-            return false;
-        }
-        else return true;
-    }
-</script>
 </body>
 </html>

@@ -3,12 +3,14 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 import java.sql.Date;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@Alias("sellerVO")
 public class SellerVO {
     private String sellerId;
     private String sellerPw;

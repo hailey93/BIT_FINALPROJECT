@@ -10,16 +10,52 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
     <script type="text/javascript" th:inline="javascript">history.scrollRestoration = "auto"</script>
+
 </head>
 <body>
 <div layout:fragment="content">
+    <div class="fixed-btn-area" >
+        <div class="fixed-wrap"><!-- [D] btn-tit 클릭시 open 클래스 추가 -->
+            <a th:href="@{/chat}" class="btn-tit">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/>
+                </svg>
+            </a>
+        </div>
+    </div>
     <div id="store-index">
-        <section class="container store-index-section store-index-recommend-list" sec:authorize access="hasRole('ROLE_MEMBER')" ><h1>추천 상품</h1></section>
+        <section class="container store-index-section store-index-recommend-list" th:style="${showRecommend}!=null ? 'display:block' : 'display:none'">
+            <h1>추천 상품</h1>
+            <div class="recommendItem__header">
+            <p class="recommendItem__header__summary">최근 보신 상품과 비슷한 상품을 추천드립니다.</p>
+            </div>
+            <div class="virtualized-list row" style="padding-top: 0px; transform: translateY(0px);">
+                <tr th:each="item : ${recommendList}">
+                    <div class="col-6 col-md-3 product-item-wrap">
+                        <article class="production-item"><a class="production-item__overlay" href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
+                            <div class="production-item-image production-item__image">
+                                <img class="image" alt="" th:src="@{'/uploadImg/'+${item.productMainImg}}" srcset="">
+                            </div>
+                            <div class="production-item__content">
+                                <h1 class="production-item__header">
+                                    <span class="production-item__header__brand" th:text="${item.sellerName}"></span>
+                                    <span class="production-item__header__name" th:text="${item.productName}"></span>
+                                </h1>
+                                <span class="production-item-price">
+                                    <span class="production-item-price__price" th:text="${#numbers.formatInteger(item.customerPrice, 3, 'COMMA')}"></span>
+                                </span>
+                            </div>
+                        </article>
+                    </div>
+                </tr>
+            </div>
+        </section>
         <section class="container store-index-section store-index-product-list"><h1>인기 상품</h1>
             <div class="virtualized-list row" style="padding-top: 0px; transform: translateY(0px);">
                 <tr th:each="products : ${mainList}">
                     <div class="col-6 col-md-3 product-item-wrap">
                         <article class="production-item"><a class="production-item__overlay" th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
+                            <div type="hidden" class="productNo" data-no="${products.productNo}"></div>
                             <div class="production-item-image production-item__image">
                                 <img class="image" alt="" th:src="@{'/uploadImg/'+${products.productMainImg}}"
                                      srcset="">
@@ -40,6 +76,61 @@
 
         </section>
     </div>
+    <!--<script type="text/javascript">
+        var lastScrollTop=0;
+        $(window).scroll(function(){
+            var currentScrollTop=$(window).scrollTop();
+
+            if(currentScrollTop-lastScrollTop>0){
+                lastScrollTop=currentScrollTop;
+            } else{
+                lastScrollTop=currentScrollTop;
+            }
+
+            var lastProductNo=$(".productNo:last").attr("data-no");
+            //console(lastProductNo);
+
+            $.ajax({
+                type:'post',
+                url:'infiniteScrollDown',
+                headers: {
+                    "Content-Type" : "application/json",
+                    "X-HTTP-Method-Override" : "POST"
+                },
+                dataType: 'json',
+                data: JSON.stringify({
+                    productNo : lastProductNo
+                }),
+
+                success: function(data){
+                    var str="";
+                    if(data!=""){
+                        $(data).each(
+                            function(){
+                                console.log(this);
+                                str+='<article class="production-item"><a class="production-item__overlay" th:href="@{/productions/productDetails(productNo='+'this.productNo'+')}"></a>'
+                                    +'<div type="hidden" class="productNo" th:value='+'this.productNo'+'></div>'
+                                    +'<div class="production-item-image production-item__image">'
+                                    +'<img class="image" alt="" th:src="@{\'/uploadImg/\'+'+'this.productMainImg'+'}" srcset="">'
+                                    +'</div>'
+                                    +'<div class="production-item__content">'+'<h1 class="production-item__header">'
+                                    +'<span class="production-item__header__brand" th:text="'+'this.sellerName' +'"></span>'
+                                    +'<span class="production-item__header__name" th:text="'+'this.productName'+'"></span>'
+                                    +'</h1>'+'<span class="production-item-price">'
+                                    +'<span class="production-item-price__price" th:text="'+'#numbers.formatInteger(this.customerPrice, 3, \'COMMA\')'+'"></span>'
+                                    +'</span>'+'</div>'+'</article>';
+                            });
+                        $('.production-item').empty();
+                        $('.scrollLocation').after(str);
+                    } else{
+                        alert("실패");
+                    }
+
+                }
+            });
+
+        })
+    </script>-->
 </div>
 </body>
 </html>

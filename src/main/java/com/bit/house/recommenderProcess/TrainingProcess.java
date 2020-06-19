@@ -97,7 +97,7 @@ public class TrainingProcess {
 
         word2Vec.fit();
 
-        Collection<String> uptrainWords = word2Vec.wordsNearestSum("SOFAS-100100001", 5);
+        Collection<String> uptrainWords = word2Vec.wordsNearestSum("UUIIOOPP4-300100002", 5);
         log.info("Closest words : " + uptrainWords);
 
         for(String word:uptrainWords){

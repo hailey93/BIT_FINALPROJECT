@@ -10,8 +10,9 @@ import java.util.List;
 public interface RecommenderMapper {
 
     List<RecommenderVO> selectClickProductById();
-    /*String selectClickProduct(@SessionAttribute("memberId") String memberId);*/
-    String selectClickProduct();
+
+    String selectClickProduct(String memberId);
+
     ProductVO selectProductDetail(String productNo);
 
     int selectClickHistory(String memberId, String productNo);

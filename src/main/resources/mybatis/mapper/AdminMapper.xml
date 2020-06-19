@@ -15,6 +15,20 @@
 		</association>
 
 	</resultMap>
+
+	<resultMap id="memberInfo" type="memberVO">
+		<result column="memberName" property="memberName"/>
+		<result column="memberId" property="memberId"/>
+		<result column="memberAddr" property="memberAddr"/>
+		<result column="memberEmail" property="memberEmail"/>
+
+		<association property="orderListVO" javaType="orderListVO">
+			<result column="orderQty" property="orderQty"/>
+			<result column="totalPrice" property="totalPrice"/>
+		</association>
+
+	</resultMap>
+
     <select id="getMember" resultType="allMemberVO">
 		select * from allmember
 	</select>
@@ -24,10 +38,6 @@
 	<select id="getProductOption" resultType="productOptionVO">
 		select * from productoption
 	</select>
-
-	<select id = "getYear" resultType="String">
-            SELECT EXTRACT(YEAR FROM productCreateDate) as year from product ;
-        </select>
 
 
 
@@ -48,9 +58,6 @@
 		group by productNo order by totalPrice;
 	</select>
 
-	<select id="getHouseUser" resultType="memberVO">
-		select * from user where userId=#{memberId}
-	</select>
 
 	<!--#월단위 구매 많이한 유저
 select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, month, year
@@ -58,11 +65,43 @@ from dailysalestats2
 group by memberId, month,year, month order by orderQty desc;
 	-->
 
-	<select id="getYearlyPurchaseVolume" resultMap="saleStat">
-		select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty,
-		year from dailysalestats2
-		group by memberId, year order by orderQty desc;
+
+	<!-- memberInfo Page -->
+	<select id="getUserInfo" resultMap="memberInfo">
+		select m.memberName, m.memberId, m.memberAddr, m.memberEmail, sum(u.orderQty2)as orderQty,
+sum(u.totalPrice2)as totalPrice from member m, userpurchasevolume u where u.memberId = m.memberId
+group by memberId;
 	</select>
+
+	<select id="getOrderList" resultType="orderListVO">
+		select * from orderlist order by orderDate desc;
+	</select>
+
+	<!-- graph page -->
+	<select id="getUserPurchaseVolume" resultMap="saleStat">
+		  select sum(totalPrice2) as totalPrice, memberId from userpurchasevolume group by memberId;
+	</select>
+	<!-- userDateStat page -->
+	<select id="getUserDateStat" resultMap="saleStat">
+		  select sum(totalPrice2) as totalPrice, memberId, year,month,day from userpurchasevolume where
+		    orderdate between #{date1} and #{date2} group by memberId;
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	<!--#연단위 구매 많이한 유저
 	select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, year

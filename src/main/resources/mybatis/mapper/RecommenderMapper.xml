@@ -19,11 +19,8 @@
 	</select>
 
     <!--회원이 가장 최근(24시간이내) 조회한 상품넘버 조회-->
-    <!--<select id="selectClickProduct" parameterType="String" resultType="String">
+    <select id="selectClickProduct" parameterType="String" resultType="String">
 		select productNo from thehouse.clickproduct where memberId=#{memberId} and clickDate > DATE_ADD(now(), INTERVAL -24 HOUR) order by clickDate desc limit 1
-	</select>-->
-    <select id="selectClickProduct" resultType="String">
-		select productNo from thehouse.clickproduct where memberId='kim1' and clickDate > DATE_ADD(now(), INTERVAL -24 HOUR) order by clickDate desc limit 1
 	</select>
 
     <!--추천시스템으로 나온 아이템 정보 조회-->
