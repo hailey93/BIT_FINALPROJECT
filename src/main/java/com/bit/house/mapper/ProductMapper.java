@@ -28,7 +28,7 @@ public interface ProductMapper {
     @Select("select * from product where productno=#{productNo}")
     ProductVO getProductVOByProductNo(String productNo);
 
-//    @Select("select s.sellerName, s. from product p join seller s on p.sellerName=s.sellerName where productno =#{productNo}")
-//    SellerVO getProductVOBySellerName(String productNo);
+    @Select("select s.sellerName, s.managerTel, s.managerEmail, s.sellerAddr from product p join seller s on p.sellerName=s.sellerName where productno =#{productNo}")
+    SellerVO getProductVOBySellerName(String productNo);
 
 }

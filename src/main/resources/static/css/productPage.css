@@ -51,3 +51,7 @@
     margin: 0 auto;
 
 }
+
+.production-selling-header__price__original{
+text-decoration: line-through;
+}

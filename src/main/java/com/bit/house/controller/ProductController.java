@@ -54,15 +54,15 @@ public class ProductController {
 
     @GetMapping("/productDetails")
     public String getProductVODetails(@ModelAttribute("basketVO") BasketVO basketVO , String productNo, Model model, HttpSession session){
-        ProductVO productVO = productMapper.getProductVOByProductNo(productNo);
+        ProductVO product = productMapper.getProductVOByProductNo(productNo);
         List<String> colorCodeVOList = productMapper.getProductVOByProductColorCode(productNo);
-        productVO.setColorCodeVOList(colorCodeVOList);
-
-        model.addAttribute("product", productVO);
+        product.setColorCodeVOList(colorCodeVOList);
 
 
+        SellerVO seller = productMapper.getProductVOBySellerName(productNo);
 
-
+        model.addAttribute("product", product);
+        model.addAttribute("seller",seller);
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         if(memberVO!=null){
