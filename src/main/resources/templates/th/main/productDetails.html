@@ -81,13 +81,24 @@
                     <div>
                         <label>수량</label><input th:type="text" th:class="input-qty"/>
                     </div>
-                    <button type="submit" class="btn-basket" onclick="saveSessionStorage();  window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구</button>
-                    <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
+                    <button type="submit" class="btn-basket" onclick="saveSessionStorage();
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구</button>
+                    <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank',
+                     'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
                     <button type="submit" class="btn-buy-now">바로구</button>
                 </form>
             </div>
         </div>
-        <script >
+        <script th:inline="javascript">
+
+            var memId = [[${jsonText}]];
+            console.log("memId : " + memId);
+
+            // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
+            // var memberId = sessionStorage.getSession(memberId);
+            // if(memberId != null){
+            // }
+
             var i = 0;
             //var arrValue = new Array();
             var goSession;
@@ -184,12 +195,12 @@
 
 
             document.addEventListener("DOMContentLoaded", function () {
-                if (window.sessionStorage) {
+                if (window.sessionStorage.length != 0) {
 
                     console.log("sessionStorage가 있음");
                     //sessionStorage.clear();
                 } else {
-                    alert("세션을 사용할 수 없는 브라우저입니다.");
+                    alert("담긴 장바구니 0.");
                 }
 
             });
@@ -262,7 +273,7 @@
             <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><img th:src="@{'/uploadImg/'+${product.productExpImg}}" class="d-block w-100" alt="..."></div>
             <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
             <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <table class="table table-sm">
+                <!--<table class="table table-sm">
                     <tbody>
                     <tr>
                         <th scope="row">업체이름:</th>
@@ -281,7 +292,7 @@
                         <td></td>
                     </tr>
                     </tbody>
-                </table>
+                </table>-->
             </div>
         </div>
     </div>
