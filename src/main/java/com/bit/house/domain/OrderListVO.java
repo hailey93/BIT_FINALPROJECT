@@ -34,4 +34,6 @@ public class OrderListVO {
 
     @Autowired(required = false)
     MemberVO memberVO;
+    @Autowired(required = false)
+    ProductVO productVO;
 }

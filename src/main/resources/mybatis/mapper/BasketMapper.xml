@@ -78,7 +78,7 @@
         select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
         p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
         productoption o where p.productNo = o.productNo) as a
-        WHERE productOptionNo IN
+        WHERE productNo IN
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>

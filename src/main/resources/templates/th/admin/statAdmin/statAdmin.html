@@ -9,7 +9,7 @@
 </head>
 <body>
         <div layout:fragment="content">
-            회사명 입력 <input type="text" value="" id="sellerName"> <!-- th:attr="onclick=|alert('${thingCertificate.certificateId}')|" -->
+            회사명 입력 <input type="text" value="" id="inputSellerName"> <!-- th:attr="onclick=|alert('${thingCertificate.certificateId}')|" -->
             <button name="sellerBtn" onsubmit="true" onclick="sellerBtn()" >제출</button>
             <br>
             <h1> 회원관리 </h1>
@@ -25,10 +25,10 @@
             <a href="#">업체신청승인</a><br>
             <script>
                 function sellerBtn() {
-                    var sellerName = document.getElementById("sellerName").value;
-                    console.log("sellerName : "+sellerName);
+                    var inputSellerName = document.getElementById("inputSellerName").value;
+                    console.log("inputSellerName : "+inputSellerName);
                     var sellform ={
-                        sellerName : sellerName
+                        inputSellerName : inputSellerName
                     }
                     $.ajax({
                         //console.log("hi");

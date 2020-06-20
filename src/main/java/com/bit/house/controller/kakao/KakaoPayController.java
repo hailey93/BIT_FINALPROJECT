@@ -5,9 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.bit.house.domain.MemberVO;
-import com.bit.house.domain.ProductOptionVO;
-import com.bit.house.domain.ProductVO;
+import com.bit.house.domain.*;
 import com.bit.house.domain.kakao.KakaoPayApprovalVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,12 +49,12 @@ public class KakaoPayController {
     // form ~post 
     // <div> 안에 <a href> button false js에서 선택한게 있으면 submit 아니면 되돌아가기
     @PostMapping("/kakaoPay")
-    public String kakaoPay(@ModelAttribute("productVO") ProductVO productVO,
-                           @ModelAttribute("productOptionVO") ProductOptionVO productOptionVO
-                           , HttpServletRequest request, MemberVO memberVO) {
+    public String kakaoPay(@ModelAttribute("basketVO") BasketVO basketVO,String recipient
+            , HttpServletRequest request, MemberVO memberVO) {
         log.info("kakaoPay post 호출............................................");
-        log.info("product : " + productVO + "productOption" + productOptionVO + "memberVO : "+memberVO);
-
+        log.info("Recip" + recipient + "basketVO" + basketVO +"hidden input에서 basketVO 제외 String으로 가져오고" +
+                "kakaoPayReady에 보내서 결제 완료시 query 저장 끝" );
+        //orderListVO에 한번에 가져와서 쓰면 안될까?
         // 아이디 세션 받는법
 
 

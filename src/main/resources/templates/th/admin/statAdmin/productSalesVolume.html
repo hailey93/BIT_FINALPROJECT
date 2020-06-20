@@ -16,7 +16,8 @@
 <!-- 차트 div -->
 <!-- 차트 1 -->
 <div>
-    회사명 입력 <input type="text" value="" id="sellerName">
+    <h1> 연도별 매출 순위 </h1>
+    회사명 입력 <input type="text" value="" id="inputSellerName">
         <button name="sellerBtn" onsubmit="true" onclick="sellerBtn()">제출</button>
 
         <div id="name" style="width:35%; height:50px">
@@ -33,10 +34,10 @@
 </div>
 <script type="text/javascript">
     function sellerBtn() {
-        var sellerName = document.getElementById("sellerName").value;
-        console.log("sellerName : "+sellerName);
+        var inputSellerName = document.getElementById("inputSellerName").value;
+        console.log("inputSellerName : "+inputSellerName);
         var sellform ={
-            sellerName : sellerName
+            inputSellerName : inputSellerName
         }
         $.ajax({
             //console.log("hi");
@@ -114,12 +115,14 @@
 
 
 <!-- 보여주기 감추기 -->
+<!-- 필요 없을지도
 <script>
     function showHide2() {
         if (document.getElementById("myChart2").style.display == 'none') {
             document.getElementById("myChart2").style.display = 'block';
         } else {
-            document.getElementById("myChart2").style.display = 'none';
+            console.log("이미 보여져있다");
+            //document.getElementById("myChart2").style.display = 'none';
         }
     }
 
@@ -135,25 +138,58 @@
     }
 
 </script>
+-->
 
 <script th:inline="javascript">
+    var globalGraph2Return;
+    var globalGraph3Return;
 
     var json = [[${jsonText}]];
     var yearList = [[${yearList}]];
+    var yearlyJson = [[${yearlyJson}]];
+    var sellN = [[${sellN}]];
+
+
     console.log("안녕하세요 yearList입니다 : " + yearList);
-    console.log(json); // year, productName, orderQty
+    //console.log("안녕하세요 yearlyJson입니다 : " + yearlyJson123);
+    console.log("json ? : " + json); // year, productName, orderQty
     var jsonParse = JSON.parse(json);
+    console.log("sellN : ? " + sellN);
+
+    console.log("yearlyJson : ? " + yearlyJson);
+    var yearlyJsonParse = JSON.parse(yearlyJson);
+    console.log("yearlyJsonParse ? : " + yearlyJsonParse);
+
+    var yearlyYearArr = new Array(); // 연
+    var yerlyQtyArr = new Array();// 판매량
+    var yearlyTotalPrice = new Array();    // 총액
+    var yearlySellerNameArr = new Array();    // 판매자
+    console.log("len : " + yearlyJsonParse.length + yearlyJsonParse);
+    for(var j = 0; j<yearlyJsonParse.length; j++){
+        yearlyYearArr[j] = yearlyJsonParse[j].year;
+        yerlyQtyArr[j] = yearlyJsonParse[j].orderQty;
+        yearlyTotalPrice[j] = yearlyJsonParse[j].totalPrice;
+       // yearlySellerNameArr[j] = yearlyJsonParse[j].sellerName;
+    }
+
+    console.log("yearlyYearArr :: " + yearlyYearArr + yerlyQtyArr + yearlyTotalPrice + "sellerName :: "+sellN);
+    //var jsonYear = JSON.parse(yearList);
+
     var chart1Arr = new Array();
     var yearArr = new Array();
     var yearArr2 = new Array();
     var productNo = new Array();
+
     for (var i = 0; i < jsonParse.length; i++) {
         chart1Arr[i] = jsonParse[i].orderQty;
         productNo[i] = jsonParse[i].productNo; // 품목명을 입력 받아서  날짜ㅡㅣ판매량
         yearArr2[i] = jsonParse[i].year;                                        // 날짜를 입력 받아서 품목 ㅡ ㅣ 판매량
         //yearArr[i] = jsonParse[i].productionDay;
     }
-    console.log(chart1Arr + "" + yearArr);
+    for(var i = 0; i<yearList.length; i++){
+        yearArr[i] = yearList[i];
+    }
+    console.log("chart1Arr" + chart1Arr + "yearArr : " + yearArr);
     console.log("productNo : "+productNo);
 
 
@@ -161,23 +197,13 @@
     //var chart1ProductArray = new Array(1,2,3,4,5,6);
 
     // 공통 data
-    var backC = [
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
-        'rgba(54, 162, 235, 0.2)',
+    var backC =
         'rgba(54, 162, 235, 0.2)'
-    ];
+    ;
     //borderColor: backgroundColor:
-    var borderC = [
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
-        'rgba(54, 162, 235, 1)',
+    var borderC =
         'rgba(54, 162, 235, 1)'
-    ];
+    ;
     var options = {
         maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
         scales: {
@@ -191,10 +217,10 @@
 
     // 차트 data
     var chart1Data = {
-        labels: [1, 2, 3, 4, 5, 6],
+        labels: yearlyYearArr,  // 연도 들어갈 자리
         datasets: [{
-            label: productNo,
-            data: chart1Arr, // 판매량 1, 품목, 날짜 ==== 0507날짜의 판매량 1위~6위 품목
+            label: sellN, // 품목 들어갈 자리
+            data: yearlyTotalPrice, // 판매량 1, 품목, 날짜 ==== 0507날짜의 판매량 1위~6위 품목
             backgroundColor: backC,
             borderColor: borderC,
             borderWidth: 1
@@ -226,7 +252,8 @@
                 if (document.getElementById("myChart2").style.display == 'none') {
                     document.getElementById("myChart2").style.display = 'block';
                 } else {
-                    document.getElementById("myChart2").style.display = 'none';
+                    console.log("이미 보여져있다");
+                    //document.getElementById("myChart2").style.display = 'none';
                 }
                 var activePoints = myNewChart.getElementsAtEvent(evt); // activePoints선언
                 console.log("activePoints: "+activePoints);
@@ -239,7 +266,8 @@
                     var labels = chartData.labels[idx];
                     var yearform = {
                         product: productNo[0],
-                        year: yearLabel
+                        year: yearLabel,
+                        sellerName : sellN
                     }
                     console.log("product : " + productNo[0]);
                     console.log("year : " + yearLabel);
@@ -249,7 +277,10 @@
                         type: "POST",
                         data: yearform,
                         success: function (data) {
-                            chart2(); // ajax 성공시 chart2() 호출
+                             // ajax 성공시 chart2() 호출
+                            globalGraph2Return = data;
+                            alert(globalGraph2Return);
+                            chart2();
                         },//이제 이값보내서 db 통계 뽑아서 다시 불러와서 2번 그래프에 다시 배열
                         error: function () {
                             alert("test err");
@@ -271,11 +302,24 @@
 
         function chart2() {
 
+            console.log("chart2입니다 :: " + globalGraph2Return);
+            //var monthlyAjaxResult = JSON.parse(globalGraph2Return);
+            var monthlyMonthArr = new Array();
+            var monthlyQtyArr = new Array();
+            var monthlyTotalPriceArr = new Array();
+            //console.log("graph : " + monthlyAjaxResult +"len : "+2);
+            for(var i=0; i<globalGraph2Return.length ; i++){
+                monthlyMonthArr[i] = globalGraph2Return[i].month;
+                monthlyQtyArr[i] = globalGraph2Return[i].totalPrice;
+                monthlyTotalPriceArr[i] = globalGraph2Return[i].orderQty;
+            }
+            console.log("monthly : "+ monthlyMonthArr + monthlyQtyArr+ monthlyTotalPriceArr);
+
             var chart2Data = {
-                labels: [1, 2, 3, 4, 5, 6], // month 들어갈 자리
+                labels: monthlyMonthArr, // month 들어갈 자리
                 datasets: [{
-                    label: '품목명', // 품목명
-                    data: [1, 2, 3, 4, 5, 6], // 달당 수량
+                    label: sellN, //
+                    data: monthlyTotalPriceArr, // 달당 수량
                     backgroundColor: backC,
                     borderColor: borderC,
                     borderWidth: 1
@@ -293,7 +337,8 @@
                 if (document.getElementById("myChart3").style.display == 'none') {
                     document.getElementById("myChart3").style.display = 'block';
                 } else {
-                    document.getElementById("myChart3").style.display = 'none';
+                    console.log("이미 보여져있다");
+                    //document.getElementById("myChart3").style.display = 'none';
                 }
 
                 var activePoints = chart2.getElementsAtEvent(evt); // aP선언
@@ -318,7 +363,8 @@
                     var monthform = {
                         product: productNo[0],
                         year : yearLabel,
-                        month: monthLabel
+                        month: monthLabel,
+                        sellerName : sellN
                     }
                     console.log("product : " + productNo[0]);
                     console.log("month : " + monthLabel);
@@ -330,9 +376,8 @@
                         async : false,
                         data: monthform,
                         success: function (data) {
-                            monthData = data;
-                            console.log(data);
-                            console.log(monthData);
+                            globalGraph3Return = data;
+                            alert(globalGraph3Return);
                             chart3();
                         },//이제 이값보내서 db 통계 뽑아서 다시 불러와서 2번 그래프에 다시 배열
                         error: function () {
@@ -346,11 +391,25 @@
 
 
         function chart3() {
+            console.log("전역변수차트3변수" + globalGraph3Return);
+
+            var dailyDayArr = new Array();
+            var dailyQtyArr = new Array();
+            var dailyTotalPriceArr = new Array();
+            //console.log("graph : " + monthlyAjaxResult +"len : "+2);
+            for(var i=0; i<globalGraph3Return.length ; i++){
+                dailyDayArr[i] = globalGraph3Return[i].month;
+                dailyQtyArr[i] = globalGraph3Return[i].totalPrice;
+                dailyTotalPriceArr[i] = globalGraph3Return[i].orderQty;
+            }
+            console.log("monthly : "+ dailyDayArr + dailyQtyArr+ dailyTotalPriceArr);
+
+
             var chart3Data = {
-                labels: [monthData, monthData, 3, 4, 5, 6], //day 들어갈 자리
+                labels: dailyDayArr, //day 들어갈 자리
                 datasets: [{
-                    label: '품목명',   // 품목명
-                    data: [11, 22, 33, 44, 55, 66], // 일당 수량
+                    label: sellN,   // 이름
+                    data: dailyQtyArr, // 데이터
                     backgroundColor: backC,
                     borderColor: borderC,
                     borderWidth: 1
