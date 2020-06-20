@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+        <link rel="stylesheet" th:href="@{/css/myInfoSetup.css}">
+    </th:block>
+    <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:class="conteiner-nav">
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+                   aria-controls="nav-home" aria-selected="true">회원정보수정</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+                   aria-controls="nav-profile" aria-selected="false">비밀번호변경</a>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <div class="container" th:id="block-setup">
+                    <form class="form-group-all col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputName">이름</label>
+                            <input type="text" class="form-control" id="exampleInputName"  th:value="${member.memberName?:''}" onfocus="this.value=''">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail">이메일</label>
+                            <input type="email" class="form-control" id="exampleInputEmail" th:value="${member.memberEmail?:''}" onfocus="this.value=''">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputNickName">별명</label>
+                            <input type="text" class="form-control" id="exampleInputNickName" th:value="${member.nickName?:''}" onfocus="this.value=''">
+                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <label for="exampleInputDateBirth">생년월일</label>-->
+<!--                            <input type="text" class="form-control" id="exampleInputDateBirth" th:value="${member.?:''}" onfocus="this.value=''">-->
+<!--                        </div>-->
+                        <div class="form-group">
+                            <label for="exampleInputTelephoneNumber">전화번호</label>
+                            <input type="text" class="form-control" id="exampleInputTelephoneNumber" th:value="${member.memberTel?:''}" onfocus="this.value=''">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputAddr">주소</label>
+                            <input type="text" class="form-control" id="exampleInputAddr" th:value="${member.memberAddr?:''}" onfocus="this.value=''">
+                        </div>
+                        <button type="submit" class="btn btn-primary">회원 정보 수정</button>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">...</div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

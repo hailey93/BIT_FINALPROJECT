@@ -1,10 +1,12 @@
 package com.bit.house.controller;
 
 import com.bit.house.domain.*;
+import com.bit.house.mapper.MemberInfoMapper;
 import com.bit.house.mapper.MyPageMapper;
 import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,9 @@ import java.util.UUID;
 @Slf4j
 @Controller
 public class MyPageController {
+
+    @Autowired(required = false)
+    MemberInfoMapper memberInfoMapper;
 
     @Autowired(required = false)
     MyPageMapper myPageMapper;
@@ -201,5 +206,22 @@ public class MyPageController {
 
 
     }
+
+    @GetMapping("/user/{memberId}")
+    public String getProfileInfo(@PathVariable String memberId, Model model){
+
+        model.addAttribute("member", memberInfoMapper.getInfoMemberById(memberId));
+        return "th/member/mypage/info/myInfoSetup";
+    }
+
+    @PostMapping("/user")
+    public String updateMemberInfo(@AuthenticationPrincipal MemberVO memberVO, Model model){
+
+
+
+        return "redirect:/user";
+    }
+
+
 
 }
