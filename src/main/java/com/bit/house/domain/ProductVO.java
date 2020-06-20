@@ -14,7 +14,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @ToString
-@Alias("productVO")
 public class ProductVO {
     private String productNo;
     private String sellerName;

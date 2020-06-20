@@ -10,7 +10,6 @@ import java.sql.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-@Alias("sellerVO")
 public class SellerVO {
     private String sellerId;
     private String sellerPw;
@@ -20,7 +19,6 @@ public class SellerVO {
     private String sellerManager;
     private String managerEmail;
     private String managerTel;
-    private String managerEmail;
     private String sellerAddr;
     private boolean permit;
     private Date applyDate;

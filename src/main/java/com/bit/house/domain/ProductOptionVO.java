@@ -8,7 +8,6 @@ import org.apache.ibatis.type.Alias;
 @Setter
 @Getter
 @NoArgsConstructor
-@Alias("productOptionVO")
 public class ProductOptionVO {
     private String productOptionNo;
     private String productNo;
