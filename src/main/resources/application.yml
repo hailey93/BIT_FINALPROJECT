@@ -1,4 +1,5 @@
 spring:
+
   #chat(redis)
   profiles:
     active: local
