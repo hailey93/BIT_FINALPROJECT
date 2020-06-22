@@ -45,13 +45,22 @@ public interface MyPageMapper {
     //받은쪽지함
     public List<MsgVO> receiveNote(String memberId) throws Exception;
 
-    //쪽지 보내기 폼
-
-
     //쪽지 보내기
     public String noteSending(MsgVO msgVO) throws Exception;
 
     //쪽지 삭제
-    public int deleteNote(int msgNo) throws Exception;
+    public void deleteNote(int msgNo) throws Exception;
 
+    //팔로워 카운트
+    int followCount() throws Exception;
+
+    //팔로잉 카운트
+    int followingCount() throws Exception;
+    
+    //사진 게시글 카운트
+    int photoCount() throws Exception;
+    
+    //스크랩 카운트
+    int scrapCount() throws Exception;
+    
 }

@@ -34,6 +34,16 @@
         DELETE FROM follow WHERE followId = #{followId}
     </delete>
 
+    <!--팔로우 카운트-->
+    <select id="followCount" resultType="int">
+        SELECT count(*) FROM thehouse.follow WHERE memberId=#{memberId}
+    </select>
+
+    <!--팔로잉 카운트-->
+    <select id="followingCount" resultType="int">
+        SELECT count(*) FROM thehouse.follow WHERE followId=#{memberid}
+    </select>
+
     <select id="myProfile" resultType="MemberVO">
         SELECT nickName, memberImg, memberIntro
         FROM member
@@ -48,6 +58,12 @@
         LIMIT 4;
     </select>
 
+    <select id="photoCount" resultType="int">
+        SELECT count(*)
+        FROM photoboard
+        WHERE memberId = #{memberId}
+    </select>
+
     <select id="ProfileScrap" resultType="String">
         SELECT s.scrapNo, p.photoBoardNo, p.photoImg1
         FROM scrap s INNER JOIN photoboard p
@@ -55,6 +71,12 @@
         WHERE s.memberId = #{memberId}
         ORDER BY s.scrapNo desc
         LIMIT 4;
+    </select>
+
+    <select id="scrapCount" resultType="int">
+        SELECT count(*)
+        FROM scrap
+        WHERE memberId=#{memberId}
     </select>
 
     <select id="allPhoto" resultType="PhotoBoardVO">

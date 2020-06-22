@@ -20,10 +20,11 @@ public class AskBoardController {
     @Autowired(required = false)
     AskBoardMapper askBoardMapper;
 
-    @RequestMapping("/askList")//게시판 리스트 화면 호출
+    @RequestMapping("/askBoardList")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
 
         model.addAttribute("list", askBoardMapper.askBoardList());
+
         return "th/askBoard/askBoardList";
     }
 
@@ -51,7 +52,7 @@ public class AskBoardController {
 
         askBoardMapper.insertAsk(askBoardVO);
 
-        return "redirect:/asklist";
+        return "redirect:/askList";
     }
 
     @GetMapping("/askreply/{askBoardno}")//답글 작성 폼

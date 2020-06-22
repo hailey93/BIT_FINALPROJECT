@@ -2,11 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>내 프로필</title>
 </head>
-
 <body>
 
+<div class="container">
+    <div class="form-group">
+            <img th:src=@{'/uploadImg'+${profile.memberImg}}" style="width: 300px; height: 300px;"/>
+    </div>
+    <div class="form-group">
+            <th:block th:text="${profile.memberId}"/>
+    </div>
+    <div class="form-group">
+            <p>팔로워<th:block th:text="${followCount}"></th:block>
+                팔로잉<th:block th:text="${followingCount}"></th:block></p>
+    </div>
+    <div class="form-group">
+        <input type="button" id="follow" name="follow" value=""/>
+        <input type="button" id="notesend" name="notesend" value="쪽지보내기">
+    </div>
+    <div class="form-group">
+        <th:block th:text="${profile.memberIntro}"/>
+    </div>
 </div>
+
+<div class="container">
+    <div class="form-group">
+    <h3>사진</h3><th:block th:text="${photoCount}"/>
+    </div>
+    <div class="form-group">
+        <th:block th:each="myphoto : ${mphoto}">
+        <tr th:onclick="" ><!-- photodetail로 이동-->
+        <td th:text="${myphoto.photoImg1}"/>
+        </tr>
+        </th:block>
+    </div>
+    <div class="form-group">
+        <h3>스크랩</h3><th:block th:text="${scrapCount}"/>
+    </div>
+    <div class="form-group">
+        <th:block th:each="myscrap : ${mscrap}">
+            <tr th:onclick=""><!-- photodetail로 이동-->
+            <td th:text="${myscrap.photoImg1}"/>
+            </tr>
+        </th:block>
+    </div>
+
+</div>
+
+
+
+
 </body>
 </html>

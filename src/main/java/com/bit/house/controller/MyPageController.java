@@ -28,6 +28,8 @@ public class MyPageController {
 
     @Autowired(required = false)
     MyPageMapper myPageMapper;
+
+    @Autowired(required = false)
     MyPageService myPageService;
 
 
@@ -122,6 +124,10 @@ public class MyPageController {
         model.addAttribute("profile", myPageMapper.myProfile());
         model.addAttribute("mphoto", myPageMapper.profilePhoto());
         model.addAttribute("mscrap", myPageMapper.profileScrap());
+        model.addAttribute("followCount", myPageMapper.followCount());
+        model.addAttribute("followingCount", myPageMapper.followingCount());
+        model.addAttribute("photoCount", myPageMapper.photoCount());
+        model.addAttribute("scrapCount", myPageMapper.scrapCount());
 
         return "th/member/mypage/profile/myBoard";
     }
@@ -129,9 +135,14 @@ public class MyPageController {
     @RequestMapping("/memberProfile")
     private String memberProfile(Model model, @PathVariable String memberId) throws Exception{
 
+
         model.addAttribute("memprofile", myPageMapper.myProfile());
         model.addAttribute("mphoto", myPageMapper.profilePhoto());
         model.addAttribute("mscrap", myPageMapper.profileScrap());
+        model.addAttribute("followCount", myPageMapper.followCount());
+        model.addAttribute("followingCount", myPageMapper.followingCount());
+        model.addAttribute("photoCount", myPageMapper.photoCount());
+        model.addAttribute("scrapCount", myPageMapper.scrapCount());
 
         return "th/member/mypage/profile/memberProfile";
     }
@@ -199,12 +210,15 @@ public class MyPageController {
     }
 
     //쪽지 삭제
+
     @RequestMapping("/deleteNote")
-    private void deleteNote(@RequestParam List<String> msgNum) throws Exception{
+    private String deleteNote(@RequestParam(required = false) List<String> msgNum) throws Exception{
+
+        System.out.println(msgNum);
 
         myPageService.deleteNote(msgNum);
 
-
+        return "redirect:/sendNote";
     }
 
     @GetMapping("/user/{memberId}")
