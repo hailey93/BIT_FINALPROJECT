@@ -54,4 +54,6 @@ public interface MyPageMapper {
     //쪽지 삭제
     public int deleteNote(int msgNo) throws Exception;
 
+
+
 }

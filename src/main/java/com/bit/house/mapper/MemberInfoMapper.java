@@ -11,5 +11,7 @@ public interface MemberInfoMapper {
     @Select("select * from member where memberId=#{memberId}")
     MemberVO getInfoMemberById(String memberId);
 
+    @Update("update member set memberName=?, memberEmail=?, memberTel=?, memberAddr=? where memberId=#{memberId}")
+    MemberVO updateInfoMemberById(String memberId);
 
 }

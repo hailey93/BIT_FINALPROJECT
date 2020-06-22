@@ -214,11 +214,10 @@ public class MyPageController {
         return "th/member/mypage/info/myInfoSetup";
     }
 
-    @PostMapping("/user")
-    public String updateMemberInfo(@AuthenticationPrincipal MemberVO memberVO, Model model){
-
-
-
+    @PostMapping("/user/{memberId}")
+    public String updateMemberInfo(@PathVariable String memberId, Model model){
+        MemberVO memberVO = memberInfoMapper.updateInfoMemberById(memberId);
+        model.addAttribute("memberInfo", memberVO);
         return "redirect:/user";
     }
 
