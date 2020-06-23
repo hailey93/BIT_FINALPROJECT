@@ -11,25 +11,46 @@ $(function(){
 $(function () {
     $("#follow").click(function(){
 
-        var followVO = {
+        var follow = {
             followId: $("#fol").val(),
         };
-        console.log(followVO);
+        console.log(follow);
 
 
         $.ajaxSettings.traditional=true;
         $.ajax({
             type : "post",
             url : "/follow",
-            data : followVO,
+            data : follow,
             dataType : "json",
             success : function(data){
-                location.reload();
+                location.reload(true);
             },
         });
     });
 });
 
+//팔로우취소버튼
+$(function(){
+    $("#followcancel").click(function(){
+
+        var follow = {
+            followId: $("#fol").val(),
+        };
+        console.log(follow);
+
+        $.ajaxSettings.traditional=true;
+        $.ajax({
+            type : "post",
+            url : "/cancelFollow",
+            data : follow,
+            dataType : "json",
+            success : function(data){
+                location.reload(true);
+            }
+        })
+    })
+})
 
 //쪽지 보내기버튼
 $(function() {

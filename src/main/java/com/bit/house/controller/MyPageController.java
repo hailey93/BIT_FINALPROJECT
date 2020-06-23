@@ -41,7 +41,7 @@ public class MyPageController {
     @RequestMapping("/myProfile")
     private String viewProfile(Model model) throws Exception{
 
-        //MemberVO memberVO = myPageMapper.selectProfile("youn123");
+
         model.addAttribute("profile", myPageMapper.selectProfile("youn123"));
 
         return "th/member/mypage/profile/profileInfo";
@@ -105,29 +105,37 @@ public class MyPageController {
     }
     //팔로우
     @RequestMapping("/follow")
-    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session) throws Exception{
+    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session, String followNo) throws Exception{
 
-        memberId = "oleg123";
+        memberId = "jung123";
+        followNo = memberId+followId;
+
 
         followVO.setMemberId(memberId);
-        followVO.setFollowId(request.getParameter(followId));
+        followVO.setFollowId(followId);
+        followVO.setFollowNo(followNo);
 
-        String followNo = memberId+followId;
 
         System.out.println("followNo : "+followNo);
         System.out.println("followId : "+followId);
 
-        myPageMapper.follow(memberId, followId);
+        myPageMapper.follow(followVO);
 
     }
 
     //팔로우취소
     @RequestMapping("/cancelFollow")
-    private String cancelFollow(@PathVariable String memberId) throws Exception{
+    private void cancelFollow(@RequestParam("followId") String followId, String memberId, FollowVO followVO) throws Exception{
 
-        myPageMapper.cancelFollow(memberId);
+        memberId="jung123";
+        followVO.setMemberId(memberId);
+        followVO.setFollowId(followId);
 
-        return "";
+        System.out.println("followId : "+followId);
+
+        myPageMapper.cancelFollow(followVO);
+
+
     }
     //내 프로필
     @RequestMapping("/myBoard")
@@ -153,7 +161,7 @@ public class MyPageController {
     private String memberProfile(Model model, /*@PathVariable*/ String userId, String memberId) throws Exception{
 
         userId = "youn123";
-        memberId = "oleg123";
+        memberId = "jung123";
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));

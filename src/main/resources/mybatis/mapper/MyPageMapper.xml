@@ -26,12 +26,12 @@
 
     <insert id="follow" parameterType="FollowVO">
         INSERT INTO
-        follow(memberId, followId)
-        VALUES(#{memberId}, #{followId})
+        follow(memberId, followId, followNo)
+        VALUES(#{memberId}, #{followId}, #{followNo})
     </insert>
 
     <delete id="cancelFollow" parameterType="FollowVO">
-        DELETE FROM follow WHERE followId = #{followId}
+        DELETE FROM follow WHERE followId = #{followId} AND memberId = #{memberId}
     </delete>
 
     <!--팔로우 카운트-->

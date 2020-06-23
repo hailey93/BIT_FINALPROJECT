@@ -11,7 +11,7 @@
 <div class="container">
     <form action="/noteSendingProc" method="post" id="send" name="send">
     <div class="form-group">
-    <th:block th:text="${sending}"/>
+    <input type="hidden" th:value="${sending}"/>
     </div>
     <div class="form-group">
         <textarea id="msgContent" name="msgContent" style="width: 700px"></textarea>
