@@ -101,7 +101,7 @@
                                                                     class="product-small-item product-small-item--clickable"
                                                                     href="/productions/41033/selling">
                                                                 <div class="product-small-item__image"><img
-                                                                        src=""
+                                                                        th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}"
                                                                         alt=""></div>
                                                                 <div class="product-small-item__content"><h1
                                                                         class="product-small-item__title" th:text="${list.productName}">[핀란디아]
@@ -121,7 +121,7 @@
                                                                 <ul class="carted-product__option-list">
                                                                     <li class="carted-product__option-list__item">
                                                                         <article class="selling-option-item"><h2
-                                                                                class="selling-option-item__name" th:text="${list.getProductOptionVO().getColorCode()}">컬러 :
+                                                                                class="selling-option-item__name" th:text="${list.getColorVO().getColorType()}">컬러 :
                                                                             그린</h2>
 
                                                                             <div class="selling-option-item__controls">
@@ -140,7 +140,7 @@
                                                                                             <option value="8">9</option>
                                                                                             <option value="9">10
 
-                                                                                            <option value="11" selected="">이히</option>
+                                                                                            <option value="11" selected="1"></option>
                                                                                             </option>
                                                                                         </select><span
                                                                                             class="select-input__icon"><svg
@@ -153,7 +153,7 @@
                                                                                     </div>
                                                                                 </div>
                                                                                 <p class="selling-option-item__price">
-                                                                                    <span class="selling-option-item__price__number">55,900</span>원
+                                                                                    <span class="selling-option-item__price__number" th:price-total="${list.getProductVO().getPurchasePrice()}" th:text="${list.getProductVO().getPurchasePrice()}"></span>원
                                                                                 </p></div>
                                                                         </article>
                                                                     </li>
@@ -182,86 +182,74 @@
                                 <dl class="commerce-cart__summary commerce-cart__side-bar__summary">
                                     <div class="commerce-cart__summary__row">
                                         <dt>총 상품금액</dt>
-                                        <dd><span class="number">98,000</span>원</dd>
+                                        <dd><span class="number" th:id="getTP"></span>원
+                                        </dd>
+
                                     </div>
                                     <div class="commerce-cart__summary__row">
                                         <dt>총 배송비</dt>
                                         <dd>+ <span class="number">0</span>원</dd>
                                     </div>
-                                    <div class="commerce-cart__summary__row">
+                                    <!--<div class="commerce-cart__summary__row">
                                         <dt>총 할인금액</dt>
                                         <dd>- <span class="number">42,100</span>원</dd>
-                                    </div>
+                                    </div>-->
                                     <div class="commerce-cart__summary__row commerce-cart__summary__row--total">
                                         <dt>결제금액</dt>
-                                        <dd><span class="number">55,900</span>원</dd>
+                                        <dd><span class="number" th:id="paymentTP"></span>원</dd>
                                     </div>
                                 </dl>
                                 <div class="commerce-cart__side-bar__order">
-                                    <form action="/goPayment" method="get">
-                                    <a href="#">
+                                    <a href="/goPayment">
                                         <button class="button button--color-blue button--size-50 button--shape-4 commerce-cart__side-bar__order__btn"
                                                 type="submit" >1개 상품 구매하기
                                         </button>
                                     </a>
-                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="commerce-cart-empty" id="SNExist" style="display: block">
-                <div class="commerce-cart-empty__content"><img class="commerce-cart-empty__content__image"
-                                                               src="/img/basketNull.png"
-                                                               alt="장바구니가 비었습니다."> 장바구니가 비었습니다<a
-                        class="button button--color-blue button--size-50 button--shape-4 commerce-cart-empty__content__button"
-                        href="/store">상품 담으러 가기</a>
+            <script type="text/javascript" th:inline="javascript">
+                $('#getTP').text( getTP());
+                $('#paymentTP').text(getTP());
 
+                function  getTP() {
+                    console.log("getTP실행");
+                    var tPrice=new Array();
+                    var TP = 0;
+                    $('.selling-option-item__price__number').each(function(){
+                        tPrice.push($(this).attr('price-total'));
+                    });
+                    //console.log("tPrice :: "+tPrice);
 
-                    <a href="/goPayment">payment래</a>
-                    상품 페이지에서 장바구니 클릭 -> script ~ userId ? null : @
-                    (userId==null) {
-                    sessionStorage.setItem(key, value);
+                    for(var m = 0; m<tPrice.length; m++){
+                        console.log(Number(tPrice[m]));
+                        TP += Number(tPrice[m]);
+                    }
+                    console.log("결과 : "+ TP);
+                    return TP;
+
+                }
+
+                function checkAll(){
+                    if( $("#th_checkAll").is(':checked') ){
+                        $("input[name=innerCheckbox]").prop("checked", true);
                     }else{
-                    $ajax.
-                    : /basketProcess.do ~~~~~
-                    <basketMapper class="insert"></basketMapper>
+                        $("input[name=innerCheckbox]").prop("checked", false);
                     }
-                    (회원) 장바구니 아이콘 누르면 popup (db에 품목 저장) ||장바구니로||계속쇼핑|| -->>> Product Mapperㅔㅇㅇ ㅣㅆ음
-                    (비회원) 장바구니 아이콘 누르면 popup (세션에 품목 저장) ||장바구니로||계속쇼핑||
+                }
+                $("input[name=innerCheckbox]").click(function(){
+                    $("#th_checkAll").prop("checked", false);
+                });
+/*
+                function deleteBtn(){
+                    $("ul").remove("#one, #two");
 
+                }*/
 
-                    if(memberId == null){
-                    for(var key in window.sessionStorage) {
-                    sessionStorage.getItem(key) }
-                    ~~~ data : list ~~
-                    }
-                    ProductDetail ---> (세션 있다 없다, 유저Id 있다 없다)
-                    1. 유저 ID 있다 --> COntroller에서 장바구니 정보 가져옴
-                    Session에서 MemId 가져와서 Controoller에 보낸 뒤 정보 가져옴
-                    2. 유저 ID 없다 SEssion에서 장바구니 정보 가져옴 popup -- BasketController --> basket
-                    Session에서 장바구니 리스트 뽑아와서 가져옴
-                    @@Controller@@
-
-                    if(memberId == null{
-                    service.~ ??? --> 어덯게 가져올ㄹ지 session key값은 1개에 1개 저장됨 mapper에서 key값 여러개 어떻게 가져오는지
-                    ==>> select ~ from ~ where ~ name = haha || name =asd || name = asd
-                    }
-                    else{
-                    getAllProduct(name)
-                    }
-
-                    장바구니 페이지
-                    실험용 -- db
-                    <!--<tr th:each="val, valStat : ${allMemberVOList} ">
-                        <td th:text="${valStat.count}">1</td>
-                        <td th:text="${val.userid}"></td>
-                        <td th:text="${val.userpw}"></td>
-                    </tr>-->
-                </div>
-
-            </div>
+            </script>
         </div>
 
         <div class="toast-message-root"></div>
@@ -271,86 +259,6 @@
 <div id="output">
     <!-- 저장된 내용을 출력할 DIV 엘리먼트 -->
 </div>
-<script type="text/javascript">
 
-    console.log("처음으로 실행시켜");
-    var test2 = window.sessionStorage;
-    console.log(sessionStorage.getItem(test2));
-    var len = (sessionStorage.getItem("ProductNameSession")).length;
-    var arrKey = new Array();
-    //세션
-    console.log("session 갯수 : " + len);
-    /*document.addEventListener("DOMContentLoaded", function () {
-        console.log("DOMContentLoaded func 호출 --")
-        if (window.sessionStorage) {
-
-            // 해당 예제를 실행하기전 이전 세션의 데이터를 clear( ) 메서드를 사용해 전부 삭제한다.
-            console.log("sessionStorage가 있음");
-            console.log("session : " + window.sessionStorage);
-            console.log("object : " + printSessionStorage());
-            //sessionStorage.clear();
-
-            //var sessionKey = window.sessionStorage;
-            //console.log(sessionStorage.getItem(key));
-        } else {
-            alert("세션을 사용할 수 없는 브라우저입니다.");
-        }
-    });
-
-    function printSessionStorage() {
-        console.log("PrintSessionStorage func 호출 --")
-        var key2;
-        var output = "";
-        var i = 0;
-        var arrValue = new Array();
-        for (var key in window.sessionStorage) {
-            arrKey[i] = sessionStorage.getItem(key)
-            console.log("어레이키 출력");
-            console.log("arr0 : " + arrKey[i]);
-
-            console.log("키값은 : " + sessionStorage.getItem(key));
-            output += "<p>";
-            // getItem( ) 메서드를 이용하여 key 값의 value 값을 찾는다.
-            output += key + " : " + sessionStorage.getItem(key);
-            output += "<br>";
-            output += "</p>";
-            i++;
-            console.log(i);
-            //console.log("key : " + key + "value = " + sessionStorage.getItem(key));
-        }
-        for (var i = 0; i < sessionStorage.length; i++) {
-            arrValue[i] = sessionStorage.getItem(key);
-            var keyTest = window.sessionStorage;
-            console.log(keyTest);
-            key2 = sessionStorage.getItem(keyTest);
-            console.log(key2);
-            console.log(arrValue);
-        }
-        document.getElementById("output").innerHTML = output;
-    }*/
-
-   $(document).ready(
-        function () {
-            console.log("len : " + len);
-            if (len != 0) {
-                document.getElementById("SExist").style.display = 'block';
-                document.getElementById("SNExist").style.display = 'none';
-            } else {
-                document.getElementById("SNExist").style.display = 'block';
-                document.getElementById("SExist").style.display = 'none';
-            }
-        }
-    );
-
-
-    function checkAll(){
-        if( $("#th_checkAll").is(':checked') ){
-            $("input[name=innerCheckbox]").prop("checked", true);
-        }else{
-            $("input[name=innerCheckbox]").prop("checked", false);
-        }
-    }
-
-</script>
 </body>
 </html>

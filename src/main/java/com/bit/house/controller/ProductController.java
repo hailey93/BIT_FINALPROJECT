@@ -37,6 +37,8 @@ public class ProductController {
 
         if (index != null && !index.isEmpty()) {
             productList = productMapper.selectProduct(index);
+        } else {
+            productList = productMapper.selectAllProduct();
         }
 
         model.addAttribute("productList", productList);
@@ -66,9 +68,10 @@ public class ProductController {
         model.addAttribute("seller",seller);
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
         if(memberVO!=null){
             String memberId = memberVO.getMemberId();
-
+            log.info(memberId);
             ObjectMapper mapper = new ObjectMapper();
             String jsonText;
             try {

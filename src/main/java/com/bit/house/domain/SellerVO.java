@@ -16,9 +16,12 @@ public class SellerVO {
     private String sellerRes;
     private String sellerUrl;
     private String sellerManager;
+    private String managerEmail;
     private String managerTel;
     private String sellerAddr;
     private boolean permit;
     private Date applyDate;
     private Date permitDate;
+
+
 }
