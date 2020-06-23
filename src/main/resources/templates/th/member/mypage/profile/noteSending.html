@@ -9,6 +9,7 @@
 <h2>쪽지 보내기</h2>
 
 <div class="container">
+    <form action="/noteSendingProc" method="post" id="send" name="send">
     <div class="form-group">
     <th:block th:text="${sending}"/>
     </div>
@@ -17,6 +18,7 @@
     </div>
 
     <input type="button" id="sending" name="sending" value="보내기"/>
+    </form>
 </div>
 
 

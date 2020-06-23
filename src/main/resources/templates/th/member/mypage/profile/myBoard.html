@@ -2,11 +2,45 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>내 프로필</title>
 </head>
-
 <body>
-
+<div class="container">
+    <div class="form-group">
+        <img th:src="@{'/uploadImg'+${mprofile.memberImg}}" style="width: 300px; height: 300px;"/>
+    </div>
+    <div class="form-group">
+            <th:block th:text="${mprofile.memberId}"/>
+    </div>
+    <div class="form-group">
+            <p>팔로워<th:block th:text="${followCount}"></th:block>
+                팔로잉<th:block th:text="${followingCount}"></th:block></p>
+    </div>
+    <div class="form-group">
+        <th:block th:text="${mprofile.memberIntro}"/>
+    </div>
+</div>
+<div class="container">
+    <div class="form-group">
+    <h3>사진<th:block th:text="${photoCount}"/></h3>
+    </div>
+    <div class="form-group">
+        <th:block th:each="mphoto : ${myphoto}">
+        <tr th:onclick="" ><!-- photodetail로 이동-->
+        <td th:text="${mphoto.photoImg1}"/>
+        </tr>
+        </th:block>
+    </div>
+    <div class="form-group">
+        <h3>스크랩<th:block th:text="${scrapCount}"/></h3>
+    </div>
+    <div class="form-group">
+        <th:block th:each="mscrap : ${myscrap}">
+            <tr th:onclick=""><!-- photodetail로 이동-->
+            <td th:text="${mscrap.photoImg1}"/>
+            </tr>
+        </th:block>
+    </div>
 </div>
 </body>
 </html>

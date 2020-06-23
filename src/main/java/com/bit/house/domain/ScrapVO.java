@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class ScrapVO {
+public class ScrapVO extends PhotoBoardVO{
     private String memberId;
     private int photoBoardNo;
 }

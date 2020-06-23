@@ -10,19 +10,19 @@
         margin:0 auto;
     }
 
+
 </style>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
-
+    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
     <script>
-        $(function(){ //체크박스 전체선택
-            $("#allcheck").click(function(){
-                var chk = $(this).is(":checked");//.attr('checked');
-                if(chk) $(".select_note input").prop('checked', true);
-                else $(".select_note input").prop('checked', false);
-            });
-        });
-
-
+        function down(){
+            var con = document.getElementById("sub");
+            if(con.style.display=='none'){
+                con.style.display = 'block';
+            }else{
+                con.style.display = 'none';
+            }
+        }
     </script>
 </head>
 
@@ -35,22 +35,31 @@
 
     <input type="button" id="send" name="send" value="쪽지보내기">
     <input type="button" id="delete" name="delete" value="삭제" >
-    <table class="table table-hover" >
+
+    <table class="table" >
         <tr>
             <th><input type="checkbox" name="allcheck" id="allcheck"/></th>
             <th>쪽지내용</th>
             <th>보낸사람</th>
         </tr>
-
         <th:block th:each="send : ${sendnote}">
-        <tr>
+        <td>
             <td class="select_note">
                 <input type="checkbox" name="check" id="check" th:data-No="${send.msgNo}"
                 th:data-sendId="${send.memberId}"/>
             </td>
-            <td th:onclick="'javascript:'" th:text="${send.msgContents}"/><!-- onclick에 ajax 연결 경로-->
+            <td th:onclick="'javascript:down();'" th:text="${send.msgContents}">
+                <!--<span class="sub" th:text="${send.msgContents}" />--><!-- onclick에 ajax 연결 경로-->
+            <textarea id="sub" name="sub" th:text="${send.msgContents}" style="width:500px; height:150px; display: none" readonly></textarea>
+        </td>
+
             <td th:text="${send.memberId}"/>
+
         </tr>
+            <!--<tr>
+                <td></td>
+                <td><textarea id="sub" name="sub" th:text="${send.msgContents}" style="width:500px; height:150px; display: none" readonly></textarea></td>
+            </tr>-->
 
         </th:block>
 
@@ -59,55 +68,4 @@
     </form>
 </div>
 </body>
-
-<script>
-    $(function(){
-    $("#send").click(function(){
-        var count = $(".select_note input:checked").length;
-        var chk;
-        $("input[name=check]:checked").each(function(){
-            chk = ($(this).attr("data-sendId"));
-        });
-        document.sending.receiveId.value=chk;
-        console.log(chk);
-        if(count == 0){
-            alert("선택된 쪽지가 없습니다.")
-        }else {
-            if (count > 1) {
-                alert("하나만 선택해주세요.")
-            } else {
-                alert("쪽지보내러 ㄱㄱ");
-
-                $("#sending").submit();
-
-            }
-        }
-    });
-
-
-        $("#delete").click(function(){
-            var dcount = $(".select_note input:checked").length;
-            var dchk;
-            $("input[name=check]:checked").each(function(){
-                dchk=($(this).attr("data-No"));
-            });
-            console.log(dchk);
-            if(dcount == 0){
-                alert("선택된 쪽지가 없습니다.")
-            }else{
-                confirm(dcount+"개의 쪽지를 삭제하시겠습니까?")
-
-                $.ajaxSettings.traditional=true;
-                $.ajax({
-                    url : "/deleteNote",
-                    type : "post",
-                    data : {msgNum : dchk},
-                    success : function(data){
-                        location.reload();
-                    },
-                });
-            }
-        });
-    });
-</script>
 </html>

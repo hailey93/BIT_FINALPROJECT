@@ -19,9 +19,8 @@
         </tr>
 
         <th:block th:each="board : ${list}">
-            <tr>
-                <td th:onclick="'location.href=\''+@{/askdetail/{askBoardno}(askBoardno=${board.askBoardno})}+'\''"
-                    th:text="${board.askBoardno}"/>
+            <tr th:onclick="'location.href=\''+@{/askdetail/{askBoardno}(askBoardno=${board.askBoardno})}+'\''">
+                <td th:text="${board.askBoardno}"/>
                 <td>
                     <th:block th:text="${board.askTitle}"/>
                 </td>

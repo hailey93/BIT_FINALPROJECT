@@ -1,6 +1,7 @@
 package com.bit.house.controller;
 
 import com.bit.house.domain.AskBoardVO;
+import com.bit.house.domain.MemberVO;
 import com.bit.house.mapper.AskBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,10 +22,11 @@ public class AskBoardController {
     @Autowired(required = false)
     AskBoardMapper askBoardMapper;
 
-    @RequestMapping("/askList")//게시판 리스트 화면 호출
+    @RequestMapping("/askBoardList")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
 
         model.addAttribute("list", askBoardMapper.askBoardList());
+
         return "th/askBoard/askBoardList";
     }
 
@@ -41,17 +44,22 @@ public class AskBoardController {
     }
 
     @RequestMapping("/askinsertProc")//게시글 작성
-    private String insertAskProc(HttpServletRequest request) throws Exception {
+    private String insertAskProc(HttpServletRequest request, HttpSession session) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
-        askBoardVO.setMemberId(request.getParameter("memberId"));
         askBoardVO.setAskContent(request.getParameter("askContent"));
+        askBoardVO.setMemberId(memberVO.getMemberId());
+
+
 
         askBoardMapper.insertAsk(askBoardVO);
 
-        return "redirect:/asklist";
+        return "redirect:/askBoardList";
     }
 
     @GetMapping("/askreply/{askBoardno}")//답글 작성 폼
@@ -63,19 +71,21 @@ public class AskBoardController {
     }
 
     @RequestMapping("/askreplyProc")
-    private String askReplyProc(HttpServletRequest request) throws Exception {
+    private String askReplyProc(HttpServletRequest request, HttpSession session) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
 
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
-        askBoardVO.setMemberId(request.getParameter("memberId"));
+        askBoardVO.setMemberId(memberVO.getMemberId());
         askBoardVO.setAskContent(request.getParameter("askContent"));
         askBoardVO.setAskGroupNo(Integer.parseInt(request.getParameter("askGroupNo")));
         askBoardVO.setAskIndent(Integer.parseInt(request.getParameter("askIndent")));
 
         askBoardMapper.askReply(askBoardVO);
 
-        return "redirect:/asklist";
+        return "redirect:/askBoardList";
     }
 
     @RequestMapping("/askupdate/{askBoardno}")//게시글 수정 폼
@@ -105,7 +115,7 @@ public class AskBoardController {
 
         askBoardMapper.askDelete(askBoardno);
 
-        return "redirect:/asklist";
+        return "redirect:/askBoardList";
     }
 
 
@@ -119,7 +129,7 @@ public class AskBoardController {
             // 파일명을 받는다 - 일반 원본파일명
             String oldName = request.getHeader("file-name");
             // 파일 기본경로 _ 상세경로
-            String filePath = request.getSession().getServletContext().getRealPath("image/board/askboard");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
+            String filePath = request.getSession().getServletContext().getRealPath("image/board/askboard/");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
             System.err.println(filePath);
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
                     .append(UUID.randomUUID().toString())
@@ -139,7 +149,7 @@ public class AskBoardController {
             sb = new StringBuffer();
             sb.append("&bNewLine=true")
                     .append("&sFileName=").append(oldName)
-                    .append("&sFileURL=").append("/uploadImg/board/askboard").append(saveName);
+                    .append("&sFileURL=").append("/uploadImg/board/askboard/").append(saveName);
             System.out.println(sb);
         } catch (Exception e) {
             e.printStackTrace();
