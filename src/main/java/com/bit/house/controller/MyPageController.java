@@ -201,7 +201,7 @@ public class MyPageController {
     private String noteSendingProc(MsgVO msgVO, HttpServletRequest request) throws Exception{
 
         msgVO.setMemberId(request.getParameter("memberId")); //내 아이디 = 세션처리
-        msgVO.setMsgContents(request.getParameter("msgContent"));
+        msgVO.setMsgContent(request.getParameter("msgContent"));
         msgVO.setReceiveId(request.getParameter("memberId"));
 
         myPageMapper.noteSending(msgVO);

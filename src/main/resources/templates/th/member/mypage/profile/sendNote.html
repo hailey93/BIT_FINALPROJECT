@@ -48,9 +48,9 @@
                 <input type="checkbox" name="check" id="check" th:data-No="${send.msgNo}"
                 th:data-sendId="${send.memberId}"/>
             </td>
-            <td th:onclick="'javascript:down();'" th:text="${send.msgContents}">
+            <td th:onclick="'javascript:down();'" th:text="${send.msgContent}">
                 <!--<span class="sub" th:text="${send.msgContents}" />--><!-- onclick에 ajax 연결 경로-->
-            <textarea id="sub" name="sub" th:text="${send.msgContents}" style="width:500px; height:150px; display: none" readonly></textarea>
+            <textarea id="sub" name="sub" th:text="${send.msgContent}" style="width:500px; height:150px; display: none" readonly></textarea>
         </td>
 
             <td th:text="${send.memberId}"/>

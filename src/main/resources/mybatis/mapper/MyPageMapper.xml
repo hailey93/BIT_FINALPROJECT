@@ -91,14 +91,14 @@
     </select>
 
     <select id="sendNote" resultType="MsgVO">
-        SELECT msgNo, memberId, msgContents, msgDate
+        SELECT msgNo, memberId, msgContent, msgDate
         FROM msg
         WHERE receiveId = #{memberId}
         ORDER BY msgNo desc
     </select>
 
     <select id="receiveNote" resultType="MsgVO">
-        SELECT msgNo, receiveId, msgContents, msgDate
+        SELECT msgNo, receiveId, msgContent, msgDate
         FROM msg
         WHERE memberId = #{memberId}
         ORDER BY msgNo desc
