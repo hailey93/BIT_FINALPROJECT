@@ -44,4 +44,6 @@ public class SellerController {
 
         return sellerService.searchSeller(id);
     }
+
+
 }

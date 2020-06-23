@@ -7,7 +7,9 @@ import com.bit.house.service.AllMemberService;
 import com.bit.house.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,11 +63,8 @@ public class OAuth2Controller {
     @GetMapping("/testAuth")
     public String testAuth(HttpSession session){
 
-        log.info(String.valueOf(session.getAttribute("memberVO")));
-
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO"); // session에 담긴 객체를 memberVO객체에 담는다.
-        log.info(memberVO.getMemberName()); // memberVO객체에 담긴 정보를 뺄 수 있다.
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info(String.valueOf(authentication.getAuthorities()));
 
         return  "th/login/testAuth";
     }
