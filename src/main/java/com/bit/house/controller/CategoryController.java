@@ -43,8 +43,8 @@ public class CategoryController {
             jsonText = mapper.writeValueAsString(category);
             jsonColor = mapper.writeValueAsString(color);
 
-            model.addAttribute("jsonText", jsonText );
-            model.addAttribute("jsonColor", jsonColor );
+            model.addAttribute("jsonText", jsonText);
+            model.addAttribute("jsonColor", jsonColor);
 //            log.info(jsonText);
 //
 //            log.info(jsonColor);
@@ -63,23 +63,24 @@ public class CategoryController {
 
         String uploadFolder = request.getSession().getServletContext().getRealPath("image/test");
 
-        for(MultipartFile multipartFile : file){
+        for (MultipartFile multipartFile : file) {
 
             log.info(multipartFile.getOriginalFilename());
 
             File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
 
-            try{
+            try {
                 multipartFile.transferTo((saveFile));
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 log.error(e.getMessage());
             }
         }
 
         return "th/seller/testCategory";
     }
-//
+
+    //
 //    @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
 //    @ResponseBody
 //    public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
@@ -108,7 +109,6 @@ public class CategoryController {
 //
 //        return jsonObject;
 //    }
-
 
 
 }

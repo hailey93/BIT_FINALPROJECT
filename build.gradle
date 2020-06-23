@@ -48,7 +48,7 @@ dependencies {
 
     // Json
     compile group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
-    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.2'
+
 
 
     annotationProcessor 'org.projectlombok:lombok'

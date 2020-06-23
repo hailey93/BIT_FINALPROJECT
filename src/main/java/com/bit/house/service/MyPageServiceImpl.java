@@ -17,4 +17,6 @@ public class MyPageServiceImpl implements MyPageService{
             myPageMapper.deleteNote(msgNo);
         }
     }
+
+
 }
