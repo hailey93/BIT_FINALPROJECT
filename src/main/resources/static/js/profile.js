@@ -7,6 +7,25 @@ $(function(){
     });
 });
 
+//팔로우버튼
+$(function () {
+    $("#follow").click(function(){
+        var follow;
+        follow = $("form[name=foll]").serialize();
+
+        $.ajaxSettings.traditional=true;
+        $.ajax({
+            type : "post",
+            url : "/follow",
+            data : {followId : follow},
+            success : function(data){
+                location.reload();
+            },
+        });
+    });
+});
+
+
 //쪽지 보내기버튼
 $(function() {
     $("#send").click(function () {
