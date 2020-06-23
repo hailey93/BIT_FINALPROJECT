@@ -18,7 +18,7 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <div th:class="container-product">
+    <div th:class="container">
         <div th:class="row">
             <div th:class="col-md-4">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
@@ -58,183 +58,219 @@
                             class="production-selling-header__title__brand"
                             href="" th:value="${product.productNo}" th:text="${product.sellerName}"></a>
                     </p><span class="production-selling-header__title__name" th:value="${product.productName}"
-                              th:text="${product.productName}"></span>
-
-
+                              th:text="${product.productName}" th:id="pName" ></span>
                     </h1>
                     <h4><span class="production-selling-header__price__original"
-                              th:text="${product.customerPrice}"></span></h4>
-                    <h4><span class="production-selling-header__price__customer"
                               th:text="${product.sellPrice}"></span></h4>
+                    <h4><span class="production-selling-header__price__customer"
+                              th:text="${product.customerPrice}"></span></h4>
                     <h4><span class="production-selling-header__price__purchase"
                               th:text="${product.purchasePrice}"></span></h4>
                 </div>
-                <form action="" method="post" th:object="${basketVO}" >
+                <form action="" method="post" th:object="${basketVO}">
                     <div class="input-group">
-                        <select th:field="*{productColor}" class="custom-select col-md-7" id="inputGroupSelect01">
-                            <option th:value selected>색상</option>
+                        <select th:field="*{productColor}" class="custom-select col-md-7" th:id="inputGroupSelect01">
+                            <option th:value selected disabled>색상</option>
                             <option th:each="color : ${product.colorCodeVOList}"
                                     th:value="${color}"
                                     th:utext="${color}"/>
                         </select>
                     </div>
                     <div>
-                        <label>수량</label><input th:type="text" th:class="input-qty"/>
+                        <label>수량</label><input th:type="text" th:class="input-qty" th:id="qty"/>
                     </div>
-                    <button type="submit" class="btn-basket" onclick="saveSessionStorage();  window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구</button>
-                    <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
-                    <button type="submit" class="btn-buy-now">바로구</button>
+                    <button type="submit" class="btn-basket" onclick="saveSessionStorage();
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구니</button>
+                    <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank',
+                     'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
+                    <button type="submit" class="btn-buy-now">바로구매</button>
                 </form>
             </div>
         </div>
-        <script >
-            var i = 0;
-            //var arrValue = new Array();
-            var goSession;
-            var sessionCheck = sessionStorage.getItem("ProductNameSession");
-            if (sessionCheck != null) {
-                var stored = JSON.parse(sessionCheck);
-                console.log("stroed : " + stored + "stored[1] = " + stored[1]);
-            } else {
-                console.log("stored 없음");
-            }
-            console.log("sessionCheck : " + sessionCheck + "getItem" + sessionStorage.getItem(sessionStorage.key(1)));
-            /*if (sessionCheck == null) {
-                console.log("sessionCheck is null");
-            } else {
-                console.log(" 길이 : " + sessionStorage.getItem(sessionStorage.key(1)).length);
-            }*/
-            //sessionStorage.key(1)
-            var a;
 
-            //이건 인덱스로 가져와야 되는데 key 값을 어떻게 가져올까
-            //console.log("키 확인 : "+ sessionStorage.key(1));
-            //console.log("값 확인 : "+ sessionCheck[2]);
-            //console.log("값 길이 확인 : " + sessionCheck.length);
 
-            //세션 값의 빈자리에 저장시켜야되는데 길이가 다른값 포함된 길이로 잡힘
-            //값이 있는 자리만 추출하려 했는데 함수가 없는듯
+        <div th:class="container-product_2">
+            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
+                       aria-controls="pills-home" aria-selected="true">상품정보</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
+                       aria-controls="pills-profile" aria-selected="false">리뷰</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
+                       aria-controls="pills-contact" aria-selected="false">업체정보</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <img th:src="@{'/uploadImg/'+${product.productExpImg}}" class="d-block w-100" alt="..."></div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                    <table class="table table-sm">
+                        <tbody>
+                        <tr>
+                            <th scope="row">업체이름:</th>
+                            <td th:text="${seller.sellerName}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">업체관리자전화번호:</th>
+                            <td th:text="${seller.managerTel}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">업체관리자이메일:</th>
+                            <td th:text="${seller.managerEmail}"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">주소:</th>
+                            <td th:text="${seller.sellerAddr}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
 
-            // 세션 받아와서  값 추가한 뒤  다시 세션에 저장
-            var valList;
-            var getHoho;
+        var memId2 = [[${jsonText}]];
+        var memId = JSON.parse(memId2);
+        console.log("memId : " + memId);
+
+
+
+        // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
+        // var memberId = sessionStorage.getSession(memberId);
+        // if(memberId != null){
+        // }
+
+        var i = 0;
+        //var arrValue = new Array();
+        var goSession;
+        var sessionCheck = sessionStorage.getItem("ProductNameSession");
+        if (sessionCheck != null) {
+            var stored = JSON.parse(sessionCheck);
+            console.log("stroed : " + stored + "stored[1] = " + stored[1]);
+        } else {
+            console.log("stored 없음");
+        }
+        console.log("sessionCheck : " + sessionCheck + "getItem" + sessionStorage.getItem(sessionStorage.key(1)));
+        /*if (sessionCheck == null) {
+            console.log("sessionCheck is null");
+        } else {
+            console.log(" 길이 : " + sessionStorage.getItem(sessionStorage.key(1)).length);
+        }*/
+        //sessionStorage.key(1)
+        var a;
+
+        //이건 인덱스로 가져와야 되는데 key 값을 어떻게 가져올까
+        //console.log("키 확인 : "+ sessionStorage.key(1));
+        //console.log("값 확인 : "+ sessionCheck[2]);
+        //console.log("값 길이 확인 : " + sessionCheck.length);
+
+        //세션 값의 빈자리에 저장시켜야되는데 길이가 다른값 포함된 길이로 잡힘
+        //값이 있는 자리만 추출하려 했는데 함수가 없는듯
+
+        // 세션 받아와서  값 추가한 뒤  다시 세션에 저장
+        var valList;
+        var getHoho;
+        if (sessionCheck == null) {
+            valList = new Array();
+            a = 0;
+        } else {
+            a = stored.length;
+            console.log("stored Len : " + a);
+            /* valList = sessionCheck;
+             a=valList.length;
+             console.log("a : " + a);*/
+        }
+        var key;
+
+        function saveSessionStorage() {
+            if(memId == null){
+
+            console.log("saveSessionStorage 실행");
+            // 변수를 선언한다.
+            var key = document.getElementById("productName").value;
+            var value = document.getElementById("productNo").value;
+            console.log("value  :  "+value);
             if (sessionCheck == null) {
-                valList = new Array();
-                a = 0;
+                console.log("sessionCheck is null");
+                while (true) {
+                    console.log(a + "번째");
+                    if (valList[a] == null) {
+                        console.log("확인 : " + valList);
+                        valList[a] = value;
+                        console.log("varList" + a + "번째 : " + valList[a]);
+                        break;
+                    }
+                    a++;
+                }
+                sessionStorage.setItem("ProductNameSession", JSON.stringify(valList));
             } else {
-                a = stored.length;
-                console.log("stored Len : " + a);
-                /* valList = sessionCheck;
-                 a=valList.length;
-                 console.log("a : " + a);*/
-            }
-            var key;
-
-            function saveSessionStorage() {
-                console.log("saveSessionStorage 실행");
-                // 변수를 선언한다.
-                var key = document.getElementById("productName").value;
-                var value = document.getElementById("productNo").value;
-                console.log("value  :  "+value);
-                if (sessionCheck == null) {
-                    console.log("sessionCheck is null");
-                    while (true) {
-                        console.log(a + "번째");
-                        if (valList[a] == null) {
-                            console.log("확인 : " + valList);
-                            valList[a] = value;
-                            console.log("varList" + a + "번째 : " + valList[a]);
-                            break;
-                        }
-                        a++;
+                a=0;
+                console.log("sessionCheck is  not null");
+                while (true) {
+                    console.log("stored[a] : " + stored[a]);
+                    console.log("value : " + value);
+                    if(stored[a] == value){
+                        alert("이미 저장돼있습니다");
+                        break;
                     }
-                    sessionStorage.setItem("ProductNameSession", JSON.stringify(valList));
-                } else {
-                    a=0;
-                    console.log("sessionCheck is  not null");
-                    while (true) {
-                        console.log("stored[a] : " + stored[a]);
-                        console.log("value : " + value);
-                        if(stored[a] == value){
-                            alert("이미 저장돼있습니다");
-                            break;
-                        }
-                        if (stored[a] == null) {
-                            console.log("stored" + a + " is Null");
-                            stored[a] = value;
-                            console.log("append 한 값은 : " + stored);
-                            break;
-                        } else {
-                            console.log("stored" + a + " is Not Null");
-                        }
-                        a++;
+                    if (stored[a] == null) {
+                        console.log("stored" + a + " is Null");
+                        stored[a] = value;
+                        console.log("append 한 값은 : " + stored);
+                        break;
+                    } else {
+                        console.log("stored" + a + " is Not Null");
                     }
-                    sessionStorage.setItem("ProductNameSession", JSON.stringify(stored));
+                    a++;
                 }
-
-
-                // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
-               // sessionStorage.setItem(key, value);
-                //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
-                printSessionStorage();
-
+                sessionStorage.setItem("ProductNameSession", JSON.stringify(stored));
             }
 
-            //고쳐야함
 
+            // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
+            // sessionStorage.setItem(key, value);
+            //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
+            printSessionStorage();
 
-            document.addEventListener("DOMContentLoaded", function () {
-                if (window.sessionStorage) {
+        }
+        else{
+            console.log("memId : ~ajax " + memId);
 
-                    console.log("sessionStorage가 있음");
-                    //sessionStorage.clear();
-                } else {
-                    alert("세션을 사용할 수 없는 브라우저입니다.");
-                }
+            var selectOption = document.getElementById("inputGroupSelect01");
+            console.log(selectOption);
+            selectOption = selectOption.options[selectOption.selectedIndex].value;
+            console.log("옵션 : "+selectOption);
+            var qty = document.getElementById("qty").value;
+            console.log("qty : "+qty|0);
+            //var pName = document.getElementById("pName").value;
+            //console.log("pName" + pName);
+            var pNo = document.getElementById("productNo").value;
+            console.log("pNo" + pNo);
 
-            });
+            if(qty == ""){
+                    alert("숫자 입력하세요");
 
-            function printSessionStorage() {
-                console.log("printSessionStorage 실행");
-                var i = 0;
-                //console.log("len : " + len);
-                // 값이 있는 주소만 가져오기
-
-
-                //console.log(arrValue);
-                // console.log(arrValue[0]);
-                /*for (var i = 0; i < sessionStorage.length; i++) {
-                    var keyTest = window.sessionStorage;
-                    arrValue[i] = JSON.stringify(sessionStorage.getItem(keyTest));
-                    //    console.log(keyTest);
-                    //   console.log(window.sessionStorage.length);        }
-                    //console.log("keyTest : " + keyTest);
-                    //console.log("Json:"+JSON.stringify(sessionStorage.getItem(keyTest)));
-
-                }*/
-                /*var form = {
-                    value : 1,
-                    hoho : arrValue
-                }*/
-                //console.log(" hoho 0: " +form.hoho[0]);
-                //console.log(" hoho 1 : " +form.hoho[1]);
-                //console.log("form : " +form.hoho[2]);
-                //jQuery.ajaxSettings.traditional = true;
-                goSession = sessionStorage.getItem("ProductNameSession")
-                console.log("goSession" + goSession);
+                }else{
+                    alert("qty 0 아님");
                 $.ajax({ // 세션 보내기 ajax
                     //console.log("hi");
-                    url: "/basketSession",
+                    url: "/basketMember",
                     type: "POST",
-                    traditional: true,
-                    data: {'hoho': goSession}
+                    data: {
+                        memberId : memId,
+                        productNo : pNo,
+                        productColor : selectOption,
+                        qty : qty
+                    }
                     ,
                     success: function (e) {
-                        var result = e.result
-                        console.log("success");
-                        //console.log(hoho3);
-                        console.log(e);
-                        alert("ajax완료")
+                        alert("basketMem 완료")
 
                     },
                     error: function () {
@@ -243,50 +279,73 @@
                 });
             }
 
-        </script>
-    </div>
+        }
+        }
+        //고쳐야함
 
-    <div th:class="container-product_2">
-        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">상품정보</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">리뷰</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">업체정보</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab"><img th:src="@{'/uploadImg/'+${product.productExpImg}}" class="d-block w-100" alt="..."></div>
-            <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
-            <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-                <table class="table table-sm">
-                    <tbody>
-                    <tr>
-                        <th scope="row">업체이름:</th>
-                        <td th:text=""></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">업체관리자전화번호:</th>
-                        <td th:text=""></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">업체관리자이메일:</th>
-                        <td ></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">주소:</th>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
 
+        document.addEventListener("DOMContentLoaded", function () {
+            if (window.sessionStorage.length != 0) {
+
+                console.log("sessionStorage가 있음");
+                //sessionStorage.clear();
+            } else {
+                alert("담긴 장바구니 0.");
+            }
+
+        });
+
+        function printSessionStorage() {
+            console.log("printSessionStorage 실행");
+            var i = 0;
+            //console.log("len : " + len);
+            // 값이 있는 주소만 가져오기
+
+
+            //console.log(arrValue);
+            // console.log(arrValue[0]);
+            /*for (var i = 0; i < sessionStorage.length; i++) {
+                var keyTest = window.sessionStorage;
+                arrValue[i] = JSON.stringify(sessionStorage.getItem(keyTest));
+                //    console.log(keyTest);
+                //   console.log(window.sessionStorage.length);        }
+                //console.log("keyTest : " + keyTest);
+                //console.log("Json:"+JSON.stringify(sessionStorage.getItem(keyTest)));
+
+            }*/
+            /*var form = {
+                value : 1,
+                hoho : arrValue
+            }*/
+            //console.log(" hoho 0: " +form.hoho[0]);
+            //console.log(" hoho 1 : " +form.hoho[1]);
+            //console.log("form : " +form.hoho[2]);
+            //jQuery.ajaxSettings.traditional = true;
+            goSession = sessionStorage.getItem("ProductNameSession")
+            console.log("goSession" + goSession);
+            $.ajax({ // 세션 보내기 ajax
+                //console.log("hi");
+                url: "/basketSession",
+                type: "POST",
+                traditional: true,
+                data: {'hoho': goSession}
+                ,
+                success: function (e) {
+                    var result = e.result
+                    console.log("success");
+                    //console.log(hoho3);
+                    console.log(e);
+                    alert("ajax완료")
+
+                },
+                error: function () {
+                    alert("test err");
+                }
+            });
+
+
+        }
+    </script>
 </div>
-
 </body>
 </html>

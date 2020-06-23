@@ -4,6 +4,8 @@ import com.bit.house.domain.*;
 import com.bit.house.mapper.ProductMapper;
 import com.bit.house.mapper.RecommenderMapper;
 import com.bit.house.service.RecommenderService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,19 +56,31 @@ public class ProductController {
 
     @GetMapping("/productDetails")
     public String getProductVODetails(@ModelAttribute("basketVO") BasketVO basketVO , String productNo, Model model, HttpSession session){
-        ProductVO productVO = productMapper.getProductVOByProductNo(productNo);
+        ProductVO product = productMapper.getProductVOByProductNo(productNo);
         List<String> colorCodeVOList = productMapper.getProductVOByProductColorCode(productNo);
-        productVO.setColorCodeVOList(colorCodeVOList);
-
-        model.addAttribute("product", productVO);
+        product.setColorCodeVOList(colorCodeVOList);
 
 
+        SellerVO seller = productMapper.getProductVOBySellerName(productNo);
 
-
+        model.addAttribute("product", product);
+        model.addAttribute("seller",seller);
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+
         if(memberVO!=null){
             String memberId = memberVO.getMemberId();
+            log.info(memberId);
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonText;
+            try {
+                jsonText = mapper.writeValueAsString(memberId);
+                model.addAttribute("jsonText", jsonText);
+                System.out.println(jsonText);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             //상품페이지 들어갈때 clickproduct테이블에 insert or update 조건1. 회원이 같은 상품을 조회한 이력이 있으면 날짜는 오늘날짜로, clickCount +1 update 없으면 insert
             recommenderService.checkClickHistory(memberId, productNo);
         }

@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.apache.ibatis.type.Alias;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 import java.util.List;
@@ -13,7 +14,6 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 @ToString
-@Alias("productVO")
 public class ProductVO {
     private String productNo;
     private String sellerName;
@@ -41,5 +41,4 @@ public class ProductVO {
 
     private List<String> colorCodeVOList;
 
-//    private SellerVO sellerVO;
 }
