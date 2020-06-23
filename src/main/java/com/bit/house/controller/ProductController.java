@@ -37,8 +37,6 @@ public class ProductController {
 
         if (index != null && !index.isEmpty()) {
             productList = productMapper.selectProduct(index);
-        } else {
-            productList = productMapper.selectAllProduct();
         }
 
         model.addAttribute("productList", productList);
@@ -50,7 +48,8 @@ public class ProductController {
     @GetMapping("/category")
     public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {
         List<ProductVO> categoryList = productMapper.selectProductByCategory(category);
-        model.addAttribute("productList", categoryList);
+            model.addAttribute("productList", categoryList);
+
         return "th/main/categoryList";
     }
 

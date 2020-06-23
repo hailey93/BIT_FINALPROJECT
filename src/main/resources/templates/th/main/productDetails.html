@@ -3,18 +3,49 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorator="th/layout/defaultLayout">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>메인</title>
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
     <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" th:href="@{https://www.w3schools.com/w3css/4/w3.css}">
+
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+
+
 </head>
 <body>
 <div layout:fragment="content">
     <div th:class="container">
         <div th:class="row">
+            <!--            <div class="w3-content" style="max-width:400px">-->
+            <!--                <img class="mySlides" th:src="@{'/uploadImg/'+${product.productMainImg}}"-->
+            <!--                     style="width:100%;display:none">-->
+            <!--                <img class="mySlides" th:src="@{'/uploadImg/'+${product.productSubImg1}}" style="width:100%">-->
+            <!--                <img class="mySlides" th:src="@{'/uploadImg/'+${product.productSubImg2}}"-->
+            <!--                     style="width:100%;display:none">-->
+
+            <!--                <div class="w3-row-padding w3-section">-->
+            <!--                    <div class="w3-col s4">-->
+            <!--                        <img class="demo w3-opacity w3-hover-opacity-off"-->
+            <!--                             th:src="@{'/uploadImg/'+${product.productMainImg}}" style="width:100%;cursor:pointer"-->
+            <!--                             onclick="currentDiv(1)">-->
+            <!--                    </div>-->
+            <!--                    <div class="w3-col s4">-->
+            <!--                        <img class="demo w3-opacity w3-hover-opacity-off"-->
+            <!--                             th:src="@{'/uploadImg/'+${product.productSubImg1}}" style="width:100%;cursor:pointer"-->
+            <!--                             onclick="currentDiv(2)">-->
+            <!--                    </div>-->
+            <!--                    <div class="w3-col s4">-->
+            <!--                        <img class="demo w3-opacity w3-hover-opacity-off"-->
+            <!--                             th:src="@{'/uploadImg/'+${product.productSubImg2}}" style="width:100%;cursor:pointer"-->
+            <!--                             onclick="currentDiv(3)">-->
+            <!--                    </div>-->
+            <!--                </div>-->
+
+
             <div th:class="col-md-4">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
@@ -75,7 +106,9 @@
                         <label>수량</label><input th:type="text" th:class="input-qty"/>
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
-                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구니</button>
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">
+                        장바구니
+                    </button>
                     <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank',
                      'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
                     <button type="submit" class="btn-buy-now">바로구매</button>
@@ -84,7 +117,7 @@
         </div>
 
 
-        <div th:class="container-product_2">
+        <div th:class="container">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
@@ -128,172 +161,196 @@
             </div>
         </div>
     </div>
-    <script th:inline="javascript">
-
-        var memId = [[${jsonText}]];
-        console.log("memId : " + memId);
-
-        // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
-        // var memberId = sessionStorage.getSession(memberId);
-        // if(memberId != null){
-        // }
-
-        var i = 0;
-        //var arrValue = new Array();
-        var goSession;
-        var sessionCheck = sessionStorage.getItem("ProductNameSession");
-        if (sessionCheck != null) {
-            var stored = JSON.parse(sessionCheck);
-            console.log("stroed : " + stored + "stored[1] = " + stored[1]);
-        } else {
-            console.log("stored 없음");
-        }
-        console.log("sessionCheck : " + sessionCheck + "getItem" + sessionStorage.getItem(sessionStorage.key(1)));
-        /*if (sessionCheck == null) {
-            console.log("sessionCheck is null");
-        } else {
-            console.log(" 길이 : " + sessionStorage.getItem(sessionStorage.key(1)).length);
-        }*/
-        //sessionStorage.key(1)
-        var a;
-
-        //이건 인덱스로 가져와야 되는데 key 값을 어떻게 가져올까
-        //console.log("키 확인 : "+ sessionStorage.key(1));
-        //console.log("값 확인 : "+ sessionCheck[2]);
-        //console.log("값 길이 확인 : " + sessionCheck.length);
-
-        //세션 값의 빈자리에 저장시켜야되는데 길이가 다른값 포함된 길이로 잡힘
-        //값이 있는 자리만 추출하려 했는데 함수가 없는듯
-
-        // 세션 받아와서  값 추가한 뒤  다시 세션에 저장
-        var valList;
-        var getHoho;
-        if (sessionCheck == null) {
-            valList = new Array();
-            a = 0;
-        } else {
-            a = stored.length;
-            console.log("stored Len : " + a);
-            /* valList = sessionCheck;
-             a=valList.length;
-             console.log("a : " + a);*/
-        }
-        var key;
-
-        function saveSessionStorage() {
-            console.log("saveSessionStorage 실행");
-            // 변수를 선언한다.
-            var key = document.getElementById("productName").value;
-            var value = document.getElementById("productNo").value;
-            console.log("value  :  "+value);
-            if (sessionCheck == null) {
-                console.log("sessionCheck is null");
-                while (true) {
-                    console.log(a + "번째");
-                    if (valList[a] == null) {
-                        console.log("확인 : " + valList);
-                        valList[a] = value;
-                        console.log("varList" + a + "번째 : " + valList[a]);
-                        break;
-                    }
-                    a++;
-                }
-                sessionStorage.setItem("ProductNameSession", JSON.stringify(valList));
-            } else {
-                a=0;
-                console.log("sessionCheck is  not null");
-                while (true) {
-                    console.log("stored[a] : " + stored[a]);
-                    console.log("value : " + value);
-                    if(stored[a] == value){
-                        alert("이미 저장돼있습니다");
-                        break;
-                    }
-                    if (stored[a] == null) {
-                        console.log("stored" + a + " is Null");
-                        stored[a] = value;
-                        console.log("append 한 값은 : " + stored);
-                        break;
-                    } else {
-                        console.log("stored" + a + " is Not Null");
-                    }
-                    a++;
-                }
-                sessionStorage.setItem("ProductNameSession", JSON.stringify(stored));
-            }
-
-
-            // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
-            // sessionStorage.setItem(key, value);
-            //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
-            printSessionStorage();
-
-        }
-
-        //고쳐야함
-
-
-        document.addEventListener("DOMContentLoaded", function () {
-            if (window.sessionStorage.length != 0) {
-
-                console.log("sessionStorage가 있음");
-                //sessionStorage.clear();
-            } else {
-                alert("담긴 장바구니 0.");
-            }
-
-        });
-
-        function printSessionStorage() {
-            console.log("printSessionStorage 실행");
-            var i = 0;
-            //console.log("len : " + len);
-            // 값이 있는 주소만 가져오기
-
-
-            //console.log(arrValue);
-            // console.log(arrValue[0]);
-            /*for (var i = 0; i < sessionStorage.length; i++) {
-                var keyTest = window.sessionStorage;
-                arrValue[i] = JSON.stringify(sessionStorage.getItem(keyTest));
-                //    console.log(keyTest);
-                //   console.log(window.sessionStorage.length);        }
-                //console.log("keyTest : " + keyTest);
-                //console.log("Json:"+JSON.stringify(sessionStorage.getItem(keyTest)));
-
-            }*/
-            /*var form = {
-                value : 1,
-                hoho : arrValue
-            }*/
-            //console.log(" hoho 0: " +form.hoho[0]);
-            //console.log(" hoho 1 : " +form.hoho[1]);
-            //console.log("form : " +form.hoho[2]);
-            //jQuery.ajaxSettings.traditional = true;
-            goSession = sessionStorage.getItem("ProductNameSession")
-            console.log("goSession" + goSession);
-            $.ajax({ // 세션 보내기 ajax
-                //console.log("hi");
-                url: "/basketSession",
-                type: "POST",
-                traditional: true,
-                data: {'hoho': goSession}
-                ,
-                success: function (e) {
-                    var result = e.result
-                    console.log("success");
-                    //console.log(hoho3);
-                    console.log(e);
-                    alert("ajax완료")
-
-                },
-                error: function () {
-                    alert("test err");
-                }
-            });
-        }
-
-    </script>
 </div>
+<script th:inline="javascript">
+
+    var memId = [[${jsonText}]];
+    console.log("memId : " + memId);
+
+    // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
+    // var memberId = sessionStorage.getSession(memberId);
+    // if(memberId != null){
+    // }
+
+    var i = 0;
+    //var arrValue = new Array();
+    var goSession;
+    var sessionCheck = sessionStorage.getItem("ProductNameSession");
+    if (sessionCheck != null) {
+        var stored = JSON.parse(sessionCheck);
+        console.log("stroed : " + stored + "stored[1] = " + stored[1]);
+    } else {
+        console.log("stored 없음");
+    }
+    console.log("sessionCheck : " + sessionCheck + "getItem" + sessionStorage.getItem(sessionStorage.key(1)));
+    /*if (sessionCheck == null) {
+        console.log("sessionCheck is null");
+    } else {
+        console.log(" 길이 : " + sessionStorage.getItem(sessionStorage.key(1)).length);
+    }*/
+    //sessionStorage.key(1)
+    var a;
+
+    //이건 인덱스로 가져와야 되는데 key 값을 어떻게 가져올까
+    //console.log("키 확인 : "+ sessionStorage.key(1));
+    //console.log("값 확인 : "+ sessionCheck[2]);
+    //console.log("값 길이 확인 : " + sessionCheck.length);
+
+    //세션 값의 빈자리에 저장시켜야되는데 길이가 다른값 포함된 길이로 잡힘
+    //값이 있는 자리만 추출하려 했는데 함수가 없는듯
+
+    // 세션 받아와서  값 추가한 뒤  다시 세션에 저장
+    var valList;
+    var getHoho;
+    if (sessionCheck == null) {
+        valList = new Array();
+        a = 0;
+    } else {
+        a = stored.length;
+        console.log("stored Len : " + a);
+        /* valList = sessionCheck;
+         a=valList.length;
+         console.log("a : " + a);*/
+    }
+    var key;
+
+    function saveSessionStorage() {
+        console.log("saveSessionStorage 실행");
+        // 변수를 선언한다.
+        var key = document.getElementById("productName").value;
+        var value = document.getElementById("productNo").value;
+        console.log("value  :  " + value);
+        if (sessionCheck == null) {
+            console.log("sessionCheck is null");
+            while (true) {
+                console.log(a + "번째");
+                if (valList[a] == null) {
+                    console.log("확인 : " + valList);
+                    valList[a] = value;
+                    console.log("varList" + a + "번째 : " + valList[a]);
+                    break;
+                }
+                a++;
+            }
+            sessionStorage.setItem("ProductNameSession", JSON.stringify(valList));
+        } else {
+            a = 0;
+            console.log("sessionCheck is  not null");
+            while (true) {
+                console.log("stored[a] : " + stored[a]);
+                console.log("value : " + value);
+                if (stored[a] == value) {
+                    alert("이미 저장돼있습니다");
+                    break;
+                }
+                if (stored[a] == null) {
+                    console.log("stored" + a + " is Null");
+                    stored[a] = value;
+                    console.log("append 한 값은 : " + stored);
+                    break;
+                } else {
+                    console.log("stored" + a + " is Not Null");
+                }
+                a++;
+            }
+            sessionStorage.setItem("ProductNameSession", JSON.stringify(stored));
+        }
+
+
+        // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
+        // sessionStorage.setItem(key, value);
+        //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
+        printSessionStorage();
+
+    }
+
+    //고쳐야함
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        if (window.sessionStorage.length != 0) {
+
+            console.log("sessionStorage가 있음");
+            //sessionStorage.clear();
+        } else {
+            alert("담긴 장바구니 0.");
+        }
+
+    });
+
+    function printSessionStorage() {
+        console.log("printSessionStorage 실행");
+        var i = 0;
+        //console.log("len : " + len);
+        // 값이 있는 주소만 가져오기
+
+
+        //console.log(arrValue);
+        // console.log(arrValue[0]);
+        /*for (var i = 0; i < sessionStorage.length; i++) {
+            var keyTest = window.sessionStorage;
+            arrValue[i] = JSON.stringify(sessionStorage.getItem(keyTest));
+            //    console.log(keyTest);
+            //   console.log(window.sessionStorage.length);        }
+            //console.log("keyTest : " + keyTest);
+            //console.log("Json:"+JSON.stringify(sessionStorage.getItem(keyTest)));
+
+        }*/
+        /*var form = {
+            value : 1,
+            hoho : arrValue
+        }*/
+        //console.log(" hoho 0: " +form.hoho[0]);
+        //console.log(" hoho 1 : " +form.hoho[1]);
+        //console.log("form : " +form.hoho[2]);
+        //jQuery.ajaxSettings.traditional = true;
+        goSession = sessionStorage.getItem("ProductNameSession")
+        console.log("goSession" + goSession);
+        $.ajax({ // 세션 보내기 ajax
+            //console.log("hi");
+            url: "/basketSession",
+            type: "POST",
+            traditional: true,
+            data: {'hoho': goSession}
+            ,
+            success: function (e) {
+                var result = e.result
+                console.log("success");
+                //console.log(hoho3);
+                console.log(e);
+                alert("ajax완료")
+
+            },
+            error: function () {
+                alert("test err");
+            }
+        });
+    }
+
+
+    function currentDiv(n) {
+        showDivs(slideIndex = n);
+    }
+
+    function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("demo");
+        if (n > x.length) {
+            slideIndex = 1
+        }
+        if (n < 1) {
+            slideIndex = x.length
+        }
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace("w3-opacity-off", "");
+        }
+        x[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += "w3-opacity-off";
+    }
+</script>
 </body>
 </html>

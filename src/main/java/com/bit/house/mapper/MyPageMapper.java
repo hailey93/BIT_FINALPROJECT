@@ -49,21 +49,21 @@ public interface MyPageMapper {
     public String noteSending(MsgVO msgVO) throws Exception;
 
     //쪽지 삭제
-    public void deleteNote(int msgNo) throws Exception;
+    public int deleteNote(int msgNo) throws Exception;
 
     //팔로워 카운트
     int followCount(String memberId) throws Exception;
 
     //팔로잉 카운트
     int followingCount(String memberId) throws Exception;
-    
+
     //사진 게시글 카운트
     int photoCount(String memberId) throws Exception;
-    
+
     //스크랩 카운트
     int scrapCount(String memberId) throws Exception;
 
     //팔로우한 상태인지 확인을 위한 count
     int followerCount(String memberId, String followId) throws Exception;
-    
+
 }

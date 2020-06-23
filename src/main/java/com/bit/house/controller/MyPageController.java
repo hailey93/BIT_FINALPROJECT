@@ -3,10 +3,10 @@ package com.bit.house.controller;
 import com.bit.house.domain.*;
 import com.bit.house.mapper.MemberInfoMapper;
 import com.bit.house.mapper.MyPageMapper;
+import com.bit.house.service.MemberService;
 import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +32,9 @@ public class MyPageController {
 
     @Autowired(required = false)
     MyPageService myPageService;
+
+    @Autowired
+    private MemberService memberService;
 
 
     //프로필설정
@@ -235,21 +238,28 @@ public class MyPageController {
         return "redirect:/sendNote";
     }
 
-    @GetMapping("/user/{memberId}")
-    public String getProfileInfo(@PathVariable String memberId, Model model){
 
-        model.addAttribute("member", memberInfoMapper.getInfoMemberById(memberId));
+    @GetMapping("/profile")
+    public String getProfileInfo(HttpSession session, Model model) {
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        System.out.println(member);
+        model.addAttribute("member", member);
         return "th/member/mypage/info/myInfoSetup";
     }
 
-    @PostMapping("/user")
-    public String updateMemberInfo(@AuthenticationPrincipal MemberVO memberVO, Model model){
-
-
-
-        return "redirect:/user";
+    @PostMapping("update")
+    public String updateProfileInfo(HttpSession session,MemberVO memberVO,Model model) {
+        memberInfoMapper.updateInfoMemberById(memberVO);
+       session.setAttribute("memberVO", memberVO);
+        return "redirect:/user/profile";
     }
 
+//    @PostMapping("updatePassword")
+//    public String updateProfilePassword(MemberVO memberVO){
+//        memberService.insertMemberToUser(memberVO);
+//        memberInfoMapper.updateInfoMemberById(memberVO);
+//        return "redirect:/user/profile";
+//    }
 
 
 }

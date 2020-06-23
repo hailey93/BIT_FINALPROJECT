@@ -13,7 +13,6 @@
 <div layout:fragment="content">
     <div id="store-index">
         <section class="container store-index-section store-index-product-list">
-            <h1 th:text="${index}"></h1>
             <div class="virtualized-list row"
                  style="padding-top: 0px; padding-bottom: 3888px; transform: translateY(0px);">
                 <tr th:each="products : ${productList}">
