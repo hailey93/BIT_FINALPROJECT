@@ -8,9 +8,14 @@
 </head>
 <body>
 <div class="wrapper">
+
+
+
+
+
     <form th:action="@{/orderListChange}" method="post">
     <div class="row">
-        <div class="col-12">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">주문현황</h3>
@@ -36,7 +41,7 @@
                         </thead>
                         <tbody>
                         <tr th:each="item : ${orderListPro}">
-                            <td th:value="${item.orderNo}" th:text="${item.orderNo}" name="orderNo" id="orderNo"></td>
+                            <td><input type="hidden" th:value="${item.orderNo}" th:text="${item.orderNo}" name="orderNo"></td>
                             <td th:value="${item.productName}" th:text="${item.productName}" ></td>
                             <td th:value="${item.sellerName}" th:text="${item.sellerName}"></td>
                             <td th:value="${item.memberId}" th:text="${item.memberId}"></td>
@@ -46,8 +51,8 @@
                             <td th:value="${item.recipient}" th:text="${item.recipient}"></td>
                             <td th:value="${item.orderAddr}" th:text="${item.orderAddr}"></td>
                             <td>
-                                <select class="orderType" name="orderStatus">
-                                    <option th:text="${item.orderType}" disabled></option>
+                                <select class="orderType" name="orderCode">
+                                    <option th:value="${item.orderCode}" th:text="${item.orderType}"></option>
                                 </select>
                             </td>
                             <td th:text="${item.payType}"></td>
