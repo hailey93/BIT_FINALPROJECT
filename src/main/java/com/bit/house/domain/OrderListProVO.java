@@ -20,7 +20,7 @@ public class OrderListProVO {
     private String orderDate;
     private String payCode;
     private String payType;
-    private String ordercode;
+    private String orderCode;
     private String orderType;
 
 }

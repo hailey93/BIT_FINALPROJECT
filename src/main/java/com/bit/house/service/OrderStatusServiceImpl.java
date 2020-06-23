@@ -19,4 +19,10 @@ public class OrderStatusServiceImpl implements OrderStatusService{
 
         return orderStatusMapper.searchOrderStatus();
     }
+
+    @Override
+    public void changeOrderStatus(String orderCode, String orderNo) {
+
+        orderStatusMapper.changeOrderStatus(orderCode, orderNo);
+    }
 }
