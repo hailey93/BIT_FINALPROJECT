@@ -3,6 +3,7 @@ package com.bit.house.controller;
 import com.bit.house.domain.OrderListProVO;
 import com.bit.house.domain.OrderStatusVO;
 import com.bit.house.service.OrderListProService;
+import com.bit.house.service.OrderListService;
 import com.bit.house.service.OrderStatusService;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,6 +29,9 @@ public class OrderListController {
 
     @Autowired
     OrderStatusService orderStatusService;
+
+    @Autowired
+    OrderListService orderListService;
 
     @GetMapping("/orderList")
     public String orderList() {
@@ -63,10 +67,12 @@ public class OrderListController {
     }
 
     @PostMapping("/orderListChange")
-    public String orderListChange(String orderStatus, String orderNo){
+    public String orderListChange(String[] orderCode, String[] orderNo){
 
-        log.info(orderNo);
-        log.info(orderStatus);
+
+        for(int i=0; i<orderCode.length; i++){
+            orderListService.changeOrderStatus(orderCode[i], orderNo[i]);
+        }
 
 
         return "redirect:/orderListTest";
