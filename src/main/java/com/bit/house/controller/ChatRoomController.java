@@ -1,10 +1,13 @@
 package com.bit.house.controller;
 
 import com.bit.house.chattingProcess.ChatRepository;
+import com.bit.house.chattingProcess.RedisPublisher;
 import com.bit.house.domain.ChatRoomVO;
+import com.bit.house.domain.ChatVO;
 import com.bit.house.domain.MemberVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -20,8 +23,18 @@ import javax.servlet.http.HttpSession;
 @RequiredArgsConstructor
 @Controller
 public class ChatRoomController {
-
+    private final RedisPublisher redisPublisher;
     private final ChatRepository chatRepository;
+
+    @MessageMapping("/message")
+    public void message(ChatVO message){
+        if(ChatVO.MessageType.ENTER.equals(message.getType())){
+            chatRepository.enterChatRoom(message.getChatId());
+            message.setMsg(message.getSender()+"님이 입장하셨습니다.");
+
+        }
+        redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+    }
 
     @GetMapping("/chatList")
     public String startChat(Model model, HttpSession session){
@@ -42,16 +55,13 @@ public class ChatRoomController {
         //채팅방 생성
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         String memberId = memberVO.getMemberId();
-        //model.addAttribute("chatInfo", chatRepository.createRoom(memberId));
-        //return "th/main/chattingDetail";
         ChatRoomVO vo=chatRepository.createRoom(memberId);
         String chatId=vo.getChatId();
-        log.info(chatId);
-        //redirect.addFlashAttribute("chatInfo", vo);
-        return "redirect:/chat/enter/"+chatId;
+
+        return "redirect:/enter/"+chatId;
     }
 
-    @GetMapping("/chat/enter/{chatId}")
+    @GetMapping("/enter/{chatId}")
     public String enterChat(Model model, @PathVariable String chatId, HttpSession session){
         //채팅방 입장
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -63,11 +73,6 @@ public class ChatRoomController {
             vo.setAdminId(authentication.getName());
             log.info(vo.getAdminId());
         }
-        //sessionId set
-        /*ServletServerHttpRequest servletRequest = (ServletServerHttpRequest) request;
-        HttpSession session = servletRequest.getServletRequest().getSession();*/
-        //log.info(session.getId());
-
         model.addAttribute("chatInfo", vo);
 
         return "th/main/chattingDetail";

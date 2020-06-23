@@ -121,8 +121,7 @@
     <script th:inline="javascript" type="text/javascript">
         var chatId=$('#createRoom').attr('data-id');
         function enterRoom() {
-            console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'+chatId);
-            location.href="/chat/enter/"+chatId;
+            location.href="/enter/"+chatId;
         }
         /*var ws;
         window.onload=function () {

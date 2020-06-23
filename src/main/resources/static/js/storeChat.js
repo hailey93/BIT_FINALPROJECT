@@ -9,12 +9,11 @@ console.log(msg);
 var messages=new Array();
 
 function sendMsg() {
-    ws.send("/pub/chat/message", {}, JSON.stringify({
+    ws.send("/pub/message", {}, JSON.stringify({
         type:'TALK',
         chatId: chatId,
         sender: sender,
-        msg: $('#message').val(),
-        sessionId:/\/([^\/]+)\/websocket/.exec(sock._transport.url)[1]
+        msg: $('#message').val()
     }));
     $('#message').val("");
 }
@@ -22,14 +21,15 @@ function recvMessage(recv){
     messages.unshift({
         "type" : recv.type,
         "sender" : recv.type=='ENTER'?'[알림]':recv.sender,
-        "msg" : recv.msg,
-        "sessionId": recv.sessionId
+        "msg" : recv.msg
     });
-    console.log(recv.sessionId);
 
-    //if(sessionId)
-    $('#chatting').append("<p class='me'>"+ recv.sender+ ":" +recv.msg+"</p>");
-    //$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
+    if(sender==recv.sender){
+        $('#chatting').append("<p class='me'>나: "+ recv.msg+ "</p>");
+    } else {
+        $("#chatting").append("<p class='others'>" + recv.sender + " :" + recv.msg + "</p>");
+    }
+
 }
 function connect() {
     // pub/sub event
@@ -38,11 +38,10 @@ function connect() {
             var recv = JSON.parse(msg.body);
             recvMessage(recv);
         });
-        ws.send("/pub/chat/message", {}, JSON.stringify({
+        ws.send("/pub/message", {}, JSON.stringify({
             type:'ENTER',
             chatId:chatId,
             sender:sender,
-            sessionId: /\/([^\/]+)\/websocket/.exec(sock._transport.url)[1]
         }));
 
     }, function(error) {
