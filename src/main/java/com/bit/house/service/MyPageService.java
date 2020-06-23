@@ -6,6 +6,5 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
 public interface MyPageService {
-
     void deleteNote(List<String> msgNum) throws Exception;
 }

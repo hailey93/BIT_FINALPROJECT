@@ -1,5 +1,7 @@
 package com.bit.house.service;
 
-public class ProductServiceImpl {
+import com.bit.house.domain.MemberVO;
+
+public class ProductServiceImpl{
 
 }
