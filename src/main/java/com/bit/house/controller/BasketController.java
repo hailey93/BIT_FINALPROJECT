@@ -6,20 +6,13 @@ import com.bit.house.domain.MemberVO;
 import com.bit.house.domain.ProductVO;
 import com.bit.house.mapper.AdminMapper;
 import com.bit.house.mapper.BasketMapper;
-import com.fasterxml.jackson.databind.JsonSerializable;
-import com.fasterxml.jackson.databind.JsonSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.ServletRequestBindingException;
-import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
@@ -42,7 +35,7 @@ public class BasketController {
         //System.out.println(allMemberVO.getUserid());
         System.out.println(allMemberVOList);
         model.addAttribute("allMemberVOList", allMemberVOList);
-        return "th/member/basket/basket";
+        return "nonMemberBasket";
     }
 
 
@@ -95,6 +88,20 @@ public class BasketController {
         */
 
         return "th/member/basket/basketPop";
+    }
+    @RequestMapping(value = "/basketMember", method = RequestMethod.POST)
+    public @ResponseBody void basketMem(BasketVO basketVO, String memberId,String productNo, String productColor, String qty){
+        System.out.println("id : " + memberId + "pNo : "+productNo + "productColor : " + productColor
+        + "Qty : " + qty);
+        System.out.println("parse" +
+                Integer.parseInt(qty)
+        );
+        basketVO.setMemberId(memberId);
+        basketVO.setProductNo(productNo);
+        basketVO.setProductColor(productColor);
+        basketVO.setQty(Integer.parseInt(qty));
+        basketMapper.insertBasketMember(basketVO);
+
     }
 
     @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
@@ -217,45 +224,44 @@ public class BasketController {
 
     @GetMapping("/basket")
     public String gobasket(HttpSession session,ProductVO productVO,BasketVO basketVO,Model model){
-        //if{userId != null
-        List<String> hohoSession2 = new ArrayList<>();
-        System.out.println("getAttribute");
-        hohoSession2 = (List<String>) session.getAttribute("hoho3");
-        //System.out.println("호호세션 : "+hohoSession2);
-        //List로 쓰자
 
-        System.out.println("Mapper 실행 ");
-
-        //System.out.println("리스트 : "+ basketVOList.get(0).getProductNo());
-
-        // 여기까지 비회원 장바구니 
-
-        // 회원 장바구니 시작  Mapper 만들고 실행해야 오류 안남
-        //String userId = (String) session.getAttribute("userId");
-        //List<BasketVO> basketVOListMember = (List<BasketVO>) basketMapper.getBasket(userId);
-
-        //model.addAttribute("memberBasket", basketVOListMember);
-        if(hohoSession2 == null){
-            System.out.println("값이 없다");
-
-            return "th/member/basket/basketNull";
-        }else {
-             //if(userId == null){
-            System.out.println("값이 있다");
-            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
-            model.addAttribute("basketList", basketVOList);
-            return "th/member/basket/basket";
-             //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}
-            // 여기까지 비회원
-            //}
-            //else{
-            //이제 회원
-            //
-            // model.addAttribute("memberBasket", basketMapper.getMemberBasket());
-
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        String memberId = "";
+        if(memberVO != null) {
+            memberId = memberVO.getMemberId();
+            System.out.println("memID : " + memberId);
         }
+        if(memberId == "") { // 장바구니 클릭시 세션에 저장하고 클라이언트에 저장하기 때문에 그 외의 값은 들어가지 않는다
+            List<String> hohoSession2 = new ArrayList<>();
 
+            hohoSession2 = (List<String>) session.getAttribute("hoho3");
+
+            if (hohoSession2 == null) {
+                System.out.println("값이 없다");
+
+                return "th/member/basket/basketNull";
+            } else {
+                //if(userId == null){
+                System.out.println("값이 있다");
+                List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
+                model.addAttribute("basketList", basketVOList);
+                return "th/member/basket/nonMemberBasket";
+                //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}
+            }
+        }else{ // 회원
+            System.out.println("회원입니다");
+            List<BasketVO> basketMember = basketMapper.getMemberBasketList(memberId);
+            if(basketMember != null) {
+                System.out.println("basketMem : " + basketMember);
+                model.addAttribute("basketList2", basketMember);
+                return "th/member/basket/memberBasket";
+            }else{
+                return "th/member/basket/basketNull";
+            }
+        }
     }
+
+
 
     @GetMapping("/btest")
     public String btest(){

@@ -33,7 +33,6 @@ public class ChatRepository {
     }
 
     public List<ChatRoomVO> findAllRoom() {
-        log.info("채팅방 values_repository"+opsHashChatRoom.values(CHAT_ROOMS));
         return opsHashChatRoom.values(CHAT_ROOMS);
     }
 
@@ -41,12 +40,11 @@ public class ChatRepository {
         return opsHashChatRoom.get(CHAT_ROOMS, chatId);
     }
 
-    public ChatRoomVO createRoom(String roomName) {
+    public ChatRoomVO createRoom(String memberId) {
         //채팅방생성-채팅방공유를 위해 redis hash에 저장
-        log.info("채팅방 이름은?_ChatRepository"+roomName);
-        ChatRoomVO chatRoomVO=ChatRoomVO.create(roomName);
+        ChatRoomVO chatRoomVO=ChatRoomVO.create(memberId);
         opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
-        log.info("ChatId는?_ChatRepository"+chatRoomVO.getChatId());
+
         return chatRoomVO;
     }
 

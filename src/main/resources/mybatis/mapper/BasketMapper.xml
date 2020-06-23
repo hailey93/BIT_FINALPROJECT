@@ -9,13 +9,21 @@
         <result column="productName" property="productName"/>
         <result column="productMainImg" property="productMainImg"/>
         <result column="modelName" property="modelName"/>
+        <result column="memberId" property="memberId"/>
+        <result column="qty" property="qty"/>
 
         <association property="productVO" javaType="productVO">
             <result column="sellerName" property="sellerName"/>
+            <result column="purchasePrice" property="purchasePrice"/>
+            <result column="productMainImg" property="productMainImg"/>
         </association>
 
         <association property="productOptionVO" javaType="productOptionVO">
             <result column="colorCode" property="colorCode"/>
+        </association>
+
+        <association property="colorVO" javaType="colorVO">
+            <result column="colorType" property="colorType"/>
         </association>
     </resultMap>
     <!--
@@ -76,13 +84,19 @@
 
     <select id="getNonMemberBasketList"  resultMap="bskInfo" parameterType="java.util.List">
         select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, o.colorCode, o.productOptionNo from product p,
-        productoption o where p.productNo = o.productNo) as a
+        p.productMainImg, p.purchasePrice, c.colorType from product p, color c,
+        productoption o where p.productNo = o.productNo and o.colorCode=c.colorCode ) as a
         WHERE productNo IN
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
 
+    </select>
+
+    <select id="getMemberBasketList"  resultMap="bskInfo" parameterType="String">
+        select p.productNo, p.productName, p.sellerName, p.modelName,
+        p.productMainImg, p.purchasePrice,  b.* from  product p,
+        basket b where b.memberId = #{memberId} and b.productNo = p.productNo;
     </select>
 <!--
     <select id="getArray" parameterType="java.util.ArrayList" resultType="basketVO">
@@ -92,11 +106,13 @@
         </foreach>
     </select>-->
 
-    <insert id="insertMemberBasket">
 
-    </insert>
 
     <select id="getBasket" resultType="basketVO">
         select * from basket;
     </select>
+
+    <insert id="insertBasketMember" >
+        insert into basket(memberId, productNo, productColor, qty) values(#{memberId}, #{productNo}, #{productColor}, #{qty});
+    </insert>
 </mapper>

@@ -13,14 +13,15 @@ import java.sql.Timestamp;
 public class ChatVO {
 
     public enum MessageType {
-        ENTER, TALK
+        ENTER, QUIT, TALK
     }
 
     private MessageType type;
     private String chatId;
     private String sender;
     private String msg;
-
+    private String sessionId;
+    private long count;
     private String memberId;
     private String adminId;
     private Timestamp time;

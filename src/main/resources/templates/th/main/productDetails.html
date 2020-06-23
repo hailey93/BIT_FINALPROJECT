@@ -9,17 +9,43 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
     <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" th:href="@{https://www.w3schools.com/w3css/4/w3.css}">
+
+    <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
+
+
 
 </head>
 <body>
 <div layout:fragment="content">
     <div th:class="container">
         <div th:class="row">
+            <!--            <div class="w3-content" style="max-width:400px">-->
+            <!--                <img class="mySlides" th:src="@{'/uploadImg/'+${product.productMainImg}}"-->
+            <!--                     style="width:100%;display:none">-->
+            <!--                <img class="mySlides" th:src="@{'/uploadImg/'+${product.productSubImg1}}" style="width:100%">-->
+            <!--                <img class="mySlides" th:src="@{'/uploadImg/'+${product.productSubImg2}}"-->
+            <!--                     style="width:100%;display:none">-->
+
+            <!--                <div class="w3-row-padding w3-section">-->
+            <!--                    <div class="w3-col s4">-->
+            <!--                        <img class="demo w3-opacity w3-hover-opacity-off"-->
+            <!--                             th:src="@{'/uploadImg/'+${product.productMainImg}}" style="width:100%;cursor:pointer"-->
+            <!--                             onclick="currentDiv(1)">-->
+            <!--                    </div>-->
+            <!--                    <div class="w3-col s4">-->
+            <!--                        <img class="demo w3-opacity w3-hover-opacity-off"-->
+            <!--                             th:src="@{'/uploadImg/'+${product.productSubImg1}}" style="width:100%;cursor:pointer"-->
+            <!--                             onclick="currentDiv(2)">-->
+            <!--                    </div>-->
+            <!--                    <div class="w3-col s4">-->
+            <!--                        <img class="demo w3-opacity w3-hover-opacity-off"-->
+            <!--                             th:src="@{'/uploadImg/'+${product.productSubImg2}}" style="width:100%;cursor:pointer"-->
+            <!--                             onclick="currentDiv(3)">-->
+            <!--                    </div>-->
+            <!--                </div>-->
+
+
             <div th:class="col-md-4">
                 <div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel">
                     <div class="carousel-inner">
@@ -58,7 +84,7 @@
                             class="production-selling-header__title__brand"
                             href="" th:value="${product.productNo}" th:text="${product.sellerName}"></a>
                     </p><span class="production-selling-header__title__name" th:value="${product.productName}"
-                              th:text="${product.productName}"></span>
+                              th:text="${product.productName}" th:id="pName" ></span>
                     </h1>
                     <h4><span class="production-selling-header__price__original"
                               th:text="${product.sellPrice}"></span></h4>
@@ -77,10 +103,12 @@
                         </select>
                     </div>
                     <div>
-                        <label>수량</label><input th:type="text" th:class="input-qty"/>
+                        <label>수량</label><input th:type="text" th:class="input-qty" th:id="qty"/>
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
-                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구니</button>
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">
+                        장바구니
+                    </button>
                     <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank',
                      'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
                     <button type="submit" class="btn-buy-now">바로구매</button>
@@ -89,7 +117,7 @@
         </div>
 
 
-        <div th:class="container-product_2">
+        <div th:class="container">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
@@ -133,10 +161,13 @@
             </div>
         </div>
     </div>
-    <script th:inline="javascript">
+</div>
+<script th:inline="javascript">
+            var memId2 = [[${jsonText}]];
+            var memId = JSON.parse(memId2);
+            console.log("memId : " + memId);
 
-        var memId = [[${jsonText}]];
-        console.log("memId : " + memId);
+
 
         // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
         // var memberId = sessionStorage.getSession(memberId);
@@ -186,6 +217,8 @@
         var key;
 
         function saveSessionStorage() {
+            if(memId == null){
+
             console.log("saveSessionStorage 실행");
             // 변수를 선언한다.
             var key = document.getElementById("productName").value;
@@ -234,7 +267,48 @@
             printSessionStorage();
 
         }
+        else{
+            console.log("memId : ~ajax " + memId);
 
+            var selectOption = document.getElementById("inputGroupSelect01");
+            console.log(selectOption);
+            selectOption = selectOption.options[selectOption.selectedIndex].value;
+            console.log("옵션 : "+selectOption);
+            var qty = document.getElementById("qty").value;
+            console.log("qty : "+qty|0);
+            //var pName = document.getElementById("pName").value;
+            //console.log("pName" + pName);
+            var pNo = document.getElementById("productNo").value;
+            console.log("pNo" + pNo);
+
+            if(qty == ""){
+                    alert("숫자 입력하세요");
+
+                }else{
+                    alert("qty 0 아님");
+                $.ajax({ // 세션 보내기 ajax
+                    //console.log("hi");
+                    url: "/basketMember",
+                    type: "POST",
+                    data: {
+                        memberId : memId,
+                        productNo : pNo,
+                        productColor : selectOption,
+                        qty : qty
+                    }
+                    ,
+                    success: function (e) {
+                        alert("basketMem 완료")
+
+                    },
+                    error: function () {
+                        alert("test err");
+                    }
+                });
+            }
+
+        }
+        }
         //고쳐야함
 
 
@@ -296,8 +370,9 @@
                     alert("test err");
                 }
             });
-        }
 
+
+        }
     </script>
 </div>
 </body>
