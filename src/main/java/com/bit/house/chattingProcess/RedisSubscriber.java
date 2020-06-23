@@ -19,7 +19,7 @@ public class RedisSubscriber implements MessageListener {
     private final RedisTemplate redisTemplate;
     @Autowired(required = false)
     SimpMessageSendingOperations messagingTemplate;
-    //redis에서 메시지가 pub되면 대기하고 있던 onmessgae가 해당 메시지 처리
+    //redis에서 메시지가 pub되면 대기하고 있던 onmessage가 해당 메시지 처리
     @Override
     public void onMessage(Message message, byte[] pattern) {
         try{

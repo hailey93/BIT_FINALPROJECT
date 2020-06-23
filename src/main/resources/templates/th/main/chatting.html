@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <meta charset="UTF-8">
-    <title>채팅</title>
-    <style>
+    <title>채팅리스트</title>
+    <!--<style>
         *{
             margin:0;
             padding:0;
@@ -68,7 +70,7 @@
             width: 330px;
             height: 25px;
         }
-    </style>
+    </style>-->
 </head>
 <body>
 <div class="container">
@@ -94,18 +96,35 @@
             <td class="enterRoom"><button type="button" th:onclick="|enterRoom${roomList.chatId}|">상담시작</button></td>
         </tr>
     </div>-->
-    <div class="input-group">
-        <table class="inputTable">
-        <tr>
-            <th>방이름</th>
-            <th><input type="text" th:name="roomName" th:id="roomName"></th>
-            <th><button th:id="createRoom">방개설</button></th>
-        </tr>
-        </table>
-    </div>
 
-    <script type="text/javascript">
-        var ws;
+        <!--<table class="inputTable">
+            <tr>
+                <th class="input-group-prepend"><label class="input-group-text">방이름</label></th>
+                <th><input class="form-control" type="text" th:name="roomName" th:id="roomName"></th>
+                <th class="input-group-append"><button class="btn btn-primary" th:id="createRoom">방개설</button></th>
+            </tr>
+        </table>-->
+        <table class="table">
+            <thead>
+            <tr class="list-group list-group-horizontal">
+                <th>회원아이디</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody th:each="roomList: ${roomLists}">
+            <tr class="list-group list-group-horizontal">
+                <td th:text="${roomList.memberId}"></td>
+                <td><button class="btn btn-primary" th:data-id="${roomList.chatId}" id="createRoom" onclick="enterRoom()">상담시작</button></td>
+            </tr>
+            </tbody>
+        </table>
+    <script th:inline="javascript" type="text/javascript">
+        var chatId=$('#createRoom').attr('data-id');
+        function enterRoom() {
+            console.log('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%'+chatId);
+            location.href="/chat/enter/"+chatId;
+        }
+        /*var ws;
         window.onload=function () {
             getRoom();
             createRoom();
@@ -114,7 +133,7 @@
             commonAjax('/chatroom',"", 'get', function (result) {
                 createChatRoom(result);
             });
-        }
+        }roomName
         function createRoom(){
             $('#createRoom').click(function () {
                 var msg={ roomName : $('#roomName').val() };
@@ -124,20 +143,26 @@
                 $('#roomName').val("");
                 location.reload();
             });
-        }
-        function enterRoom(chatId) {
-            location.href="/chat/enter/"+chatId;
-        }
-        function createChatRoom(res) {
+        }*/
+
+        /*function createChatRoom(res) {
             if(res!=null){
-                var tag="<tr><th class=\"num\">순서</th><th class=\"roomName\">방이름</th><th class=\"enterRoom\"></th></tr>";
+                var tag="<tr class=\"list-group list-group-horizontal\"><th class=\"list-group-item\">방이름</th><th class=\"list-group-item\"></th></tr>";
+                [].forEach.call(res, function (d) {
+                    var roomName=d.roomName.trim();
+                    var chatId=d.chatId;
+                    tag+="<tr class='list-group list-group-horizontal'><td class='list-group-item'>"+roomName+"</td>"+
+                              "<td class='list-group-item'><button class='btn btn-primary' type='button' onclick='enterRoom(\""+chatId+"\")'>상담시작</button></td></tr>";
+                });
+                /!*var tag="<tr><th class=\"num\">순서</th><th class=\"roomName\">방이름</th><th class=\"enterRoom\"></th></tr>";
                 [].forEach.call(res, function (d, index) {
                     var roomName=d.roomName.trim();
                     var chatId=d.chatId;
                     tag+="<tr><td class='num'>"+(index+1)+"</td>"+
-                              "<td class='roomName'>"+roomName+"</td>"+
-                              "<td class='enterRoom'><button type='button' onclick='enterRoom(\""+chatId+"\")'>상담시작</button></td></tr>";
-                });
+                        "<td class='roomName'>"+roomName+"</td>"+
+                        "<td class='enterRoom'><button type='button' onclick='enterRoom(\""+chatId+"\")'>상담시작</button></td></tr>";
+                });*!/
+
                 $('#roomList').empty().append(tag);
             }
         }
@@ -155,7 +180,7 @@
                     callback(err);
                 }
             });
-        }
+        }*/
     </script>
 </div>
 </body>
