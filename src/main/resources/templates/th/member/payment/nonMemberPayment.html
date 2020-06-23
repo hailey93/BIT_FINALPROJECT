@@ -93,7 +93,7 @@
                             <div class="label">우편번호</div>
                             <div class="input">
                                 <input class="non_edit quarter" presence="true" readonly="readonly" value="" data-hj-suppress="" type="text" name="zipCode" id="order_received_zip_code">
-                                <span id="find_address" onclick="execPostCode();">우편번호</span>
+                                <button id="find_address" onclick="execPostCode()">우편번호</button>
                             </div>
                         </div>
                         <div class="field">
@@ -289,8 +289,8 @@
 
 
     <!-- iamport.payment.js -->
-    <script th:inline="javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    <script th:inline="javascript">
+    <script  src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script >
         var IMP = window.IMP;
         function requestPay(){
             IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
