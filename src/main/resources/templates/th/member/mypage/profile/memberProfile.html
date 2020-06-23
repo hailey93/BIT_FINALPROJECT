@@ -13,9 +13,7 @@
         <img th:src="@{'/uploadImg'+${memprofile.memberImg}}" style="width: 300px; height: 300px;"/>
     </div>
     <div class="form-group">
-        <form id="fol" name="fol">
-        <th:block th:text="${memprofile.memberId}" id="foll" name="foll"/>
-        </form>
+        <p><h3><th:block th:text="${memprofile.memberId}" id="foll" name="foll"/></h3></p>
     </div>
     <div class="form-group">
         <p>팔로워<th:block th:text="${followCount}"></th:block>

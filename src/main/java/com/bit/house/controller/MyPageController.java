@@ -109,6 +109,9 @@ public class MyPageController {
         followVO.setMemberId(memberId);
         followVO.setFollowId(request.getParameter(followId));
 
+        String followNo = memberId+followId;
+
+        System.out.println("followNo : "+followNo);
         System.out.println("followId : "+followId);
 
         myPageMapper.follow(memberId, followId);

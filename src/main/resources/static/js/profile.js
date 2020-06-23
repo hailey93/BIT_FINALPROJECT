@@ -10,14 +10,16 @@ $(function(){
 //팔로우버튼
 $(function () {
     $("#follow").click(function(){
-        var follow;
-        follow = $("form[name=foll]").serialize();
+
+        var followId;
+        followId = $(this).find("#p[name=foll]");
 
         $.ajaxSettings.traditional=true;
         $.ajax({
             type : "post",
             url : "/follow",
-            data : {followId : follow},
+            data : followId,
+
             success : function(data){
                 location.reload();
             },
