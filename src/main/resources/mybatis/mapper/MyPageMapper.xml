@@ -45,12 +45,12 @@
     </select>
 
     <select id="myProfile" resultType="MemberVO">
-        SELECT nickName, memberImg, memberIntro
+        SELECT nickName, memberImg, memberIntro, memberId
         FROM member
         WHERE memberId = #{memberId}
     </select>
 
-    <select id="ProfilePhoto" resultType="PhotoBoardVO">
+    <select id="profilePhoto" resultType="PhotoBoardVO">
         SELECT photoBoardNo, PhotoImg1
         FROM photoboard
         WHERE memberId = #{memberId}
@@ -64,7 +64,7 @@
         WHERE memberId = #{memberId}
     </select>
 
-    <select id="ProfileScrap" resultType="String">
+    <select id="profileScrap" resultType="String">
         SELECT s.scrapNo, p.photoBoardNo, p.photoImg1
         FROM scrap s INNER JOIN photoboard p
         ON s.photoBoardNo = p.photoBoardNo
@@ -114,4 +114,9 @@
         DELETE FROM msg WHERE msgNo = #{msgNo}
     </delete>
 
+    <select id="followerCount" resultType="int">
+        SELECT count(*)
+        FROM follow
+        WHERE memberId = #{memberId} AND followId = #{followId}
+    </select>
 </mapper>

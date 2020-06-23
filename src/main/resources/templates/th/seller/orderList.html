@@ -1,0 +1,101 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css}">
+    <title>Title</title>
+</head>
+<body>
+<div class="wrapper">
+
+
+
+
+
+    <form th:action="@{/orderListChange}" method="post">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">주문현황</h3>
+                </div>
+                <!-- /.card-header -->
+
+                <div class="card-body table-responsive p-0" style="height: 300px;">
+                    <table class="table table-head-fixed text-nowrap">
+                        <thead>
+                        <tr>
+                            <th>주문번호</th>
+                            <th>상품이름</th>
+                            <th>판매자</th>
+                            <th>구매자아이디</th>
+                            <th>상품색상</th>
+                            <th>상품수량</th>
+                            <th>상품총액</th>
+                            <th>수령인</th>
+                            <th>주소</th>
+                            <th>결제상태</th>
+                            <th>결제타입</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="item : ${orderListPro}">
+                            <td><input type="hidden" th:value="${item.orderNo}" th:text="${item.orderNo}" name="orderNo"></td>
+                            <td th:value="${item.productName}" th:text="${item.productName}" ></td>
+                            <td th:value="${item.sellerName}" th:text="${item.sellerName}"></td>
+                            <td th:value="${item.memberId}" th:text="${item.memberId}"></td>
+                            <td th:value="${item.colorName}" th:text="${item.colorName}"></td>
+                            <td th:value="${item.orderQty}" th:text="${item.orderQty}"></td>
+                            <td th:value="${item.totalPrice}" th:text="${item.totalPrice}"></td>
+                            <td th:value="${item.recipient}" th:text="${item.recipient}"></td>
+                            <td th:value="${item.orderAddr}" th:text="${item.orderAddr}"></td>
+                            <td>
+                                <select class="orderType" name="orderCode">
+                                    <option th:value="${item.orderCode}" th:text="${item.orderType}"></option>
+                                </select>
+                            </td>
+                            <td th:text="${item.payType}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button type="submit">버튼</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+<script th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+
+<script th:inline="javascript">
+    $(document).ready(function () {
+        $('.orderType').on('click', function (event) {
+            console.log($(event.target).val());
+        });
+        var jsonOrderStatus = [[${jsonOrderStatus}]];
+        var jsonData = JSON.parse(jsonOrderStatus);
+
+        console.log(jsonOrderStatus);
+
+        var orderStatusArr = new Array();
+        var orderStatusObj = new Object();
+        var orderStatusSelect = $(".orderType");
+
+        for (var i = 0; i < jsonData.length; i++) {
+
+            orderStatusObj = new Object();
+            orderStatusObj.orderCode = jsonData[i].orderCode;
+            orderStatusObj.orderType = jsonData[i].orderType;
+            orderStatusArr.push(orderStatusObj);
+        }
+
+        for (var j = 0; j < orderStatusArr.length; j++) {
+
+            orderStatusSelect.append("<option value='" + orderStatusArr[j].orderCode + "'>" + orderStatusArr[j].orderType + "</option>");
+        }
+
+    });
+</script>
+</body>
+</html>

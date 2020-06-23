@@ -50,7 +50,8 @@ public class ProductController {
     @GetMapping("/category")
     public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {
         List<ProductVO> categoryList = productMapper.selectProductByCategory(category);
-        model.addAttribute("productList", categoryList);
+            model.addAttribute("productList", categoryList);
+
         return "th/main/categoryList";
     }
 
@@ -67,9 +68,10 @@ public class ProductController {
         model.addAttribute("seller",seller);
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
         if(memberVO!=null){
             String memberId = memberVO.getMemberId();
-
+            log.info(memberId);
             ObjectMapper mapper = new ObjectMapper();
             String jsonText;
             try {

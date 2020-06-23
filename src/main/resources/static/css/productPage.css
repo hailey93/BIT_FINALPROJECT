@@ -1,4 +1,4 @@
-.container-product {
+.container{
     width: 100%;
     max-width: 950px;
     margin: 0 auto;
@@ -43,13 +43,6 @@
     width: 50px;
     margin-top: 20px;
     margin-left: 10px;
-}
-
-.container-product_2{
-    width: 100%;
-    max-width: 950px;
-    margin: 0 auto;
-
 }
 
 .production-selling-header__price__original{

@@ -14,7 +14,10 @@ public interface BasketMapper {
 
     public BasketVO getBasket(String userId);
 
-    public void insertMemberBasket(BasketVO basketVO);
+    public void insertBasketMember(BasketVO basketVO);
+
+    public List<BasketVO> getMemberBasketList(String memberId);
+
 
 
 

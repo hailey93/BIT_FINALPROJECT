@@ -17,6 +17,9 @@ public class BasketVO {
     private String productName;
     private String productMainImg;
     private String modelName;
+    private int qty;
+    private int count;
+    private int totalPrice;
 
     @Autowired(required = false)
     private ProductVO productVO;
@@ -24,17 +27,7 @@ public class BasketVO {
     @Autowired(required = false)
     private ProductOptionVO productOptionVO;
 
-    public BasketVO(int basketNo, String memberId, String productNo, String productColor, int sellPrice,
-                    String productName, String productMainImg, String modelName, ProductVO productVO) {
-        this.basketNo = basketNo;
-        this.memberId = memberId;
-        this.productColor = productColor;
-        this.productNo = productNo;
-        this.sellPrice = sellPrice;
-        this.productName = productName;
-        this.productMainImg = productMainImg;
-        this.modelName = modelName;
-        this.productVO = productVO;
+    @Autowired(required = false)
+    private ColorVO colorVO;
 
-    }
 }

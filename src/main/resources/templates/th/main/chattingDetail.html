@@ -1,78 +1,64 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/storeChat.js}"></script>
     <meta charset="UTF-8">
     <title>채팅방</title>
     <style>
-        *{
-            margin:0;
-            padding:0;
-        }
-        .container{
-            width: 500px;
-            margin: 0 auto;
-            padding: 25px
-        }
-        .container h1{
-            text-align: left;
-            padding: 5px 5px 5px 15px;
-            color: #FFBB00;
-            border-left: 3px solid #FFBB00;
-            margin-bottom: 20px;
-        }
-        .message{
-            background-color: #000;
+        .chatting{
+            background-color: #2e97f4;
             width: 500px;
             height: 500px;
             overflow: auto;
         }
-        .message .me{
+        .chatting .me{
             color: #F6F6F6;
             text-align: right;
         }
-        .message .others{
+        .chatting .others{
             color: #FFE400;
             text-align: left;
         }
-        input{
-            width: 330px;
-            height: 25px;
-        }
-
     </style>
 </head>
 <body>
 <div id="container" class="container">
-<h1>채팅방 입장!</h1>
+    <h1>채팅방 입장!</h1>
+    <!--<div th:id="chatId" type="hidden" th:text="${chatInfo.chatId}"/>
+    <div th:id="memberId" type="hidden" th:text="${chatInfo.memberId}"/>-->
+    <!--<sec:authorize access="hasRole('ROLE_MEMBER')" var="member"></sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')" var="admin"></sec:authorize>-->
+    <!--<input type="hidden" th:id="sessionId" th:value="">-->
+    <div id="chatting" class="chatting">
+
+    </div>
 <div id="sendMsg">
     <table class="inputTable">
         <tr>
-            <th>메시지</th>
-            <th><input id="message" placeholder="보내실 메시지를 입력하세요."></th>
-            <th><button onclick="send()" id="sendBtn">보내기</button></th>
+            <th class="input-group-prepend"><label class="input-group-text">메시지</label></th>
+            <th><input class="form-control" type="text" id="message" placeholder="보내실 메시지를 입력하세요."></th>
+            <th class="input-group-append"><button class="btn btn-primary" onclick="sendMsg()" th:id="sendBtn">보내기</button></th>
         </tr>
     </table>
 </div>
-<script type="text/javascript">
-    var ws;
-    function send() {
-        ws.send("/pub/chat/message", {}, JSON.stringify({
-            type:'TALK',
-            chatId:this.chatId,
-            sender:this.sender,
-            message:this.message
-        }));
-        $('#message').val();
-        /*var option={
-            type:'TALK',
-            chatId:this.chatId,
-            sender:this.sender,
-            message:this.message
+    <script th:inline="javascript">
+        var chatId=[[${chatInfo.chatId}]];
+        console.log(chatId);
+        var admin=[[${chatInfo.adminId}]];
+        console.log(admin);
+        if(admin==null){
+            var sender=[[${chatInfo.memberId}]];
+        } else{
+            var sender=[[${chatInfo.adminId}]];
         }
-        ws.send(JSON.stringify(option))*/
-    }
-</script>
+        console.log(sender);
+
+    </script>
 </div>
 </body>
 </html>

@@ -18,7 +18,6 @@ public class ChatController {
     @MessageMapping("/chat/message")
     public void message(ChatVO message){
         if(ChatVO.MessageType.ENTER.equals(message.getType())){
-
             chatRepository.enterChatRoom(message.getChatId());
             message.setMsg(message.getSender()+"님이 입장하셨습니다.");
         }

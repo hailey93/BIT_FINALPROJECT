@@ -21,23 +21,23 @@ public interface MyPageMapper {
     public List<FollowVO> following() throws Exception;
 
     //팔로우
-    public String follow(String memberId) throws Exception;
+    public String follow(String memberId, String followId) throws Exception;
 
     //팔로우 취소
     public String cancelFollow(String memberId) throws Exception;
 
     //내 프로필
-    public MemberVO myProfile() throws Exception;
+    public MemberVO myProfile(String memberId) throws Exception;
 
-    public List<PhotoBoardVO> profilePhoto() throws Exception;
+    public List<PhotoBoardVO> profilePhoto(String memberId) throws Exception;
 
-    public List<ScrapVO> profileScrap() throws Exception;
+    public List<ScrapVO> profileScrap(String memberId) throws Exception;
 
     //사진 게시글 전체보기
-    public List<PhotoBoardVO> allPhoto() throws Exception;
+    public List<PhotoBoardVO> allPhoto(String memberId) throws Exception;
 
     //스크랩 전체보기
-    public List<ScrapVO> allScrap() throws Exception;
+    public List<ScrapVO> allScrap(String memberId) throws Exception;
 
     //보낸쪽지함
     public List<MsgVO> sendNote(String memberId) throws Exception;
@@ -49,18 +49,21 @@ public interface MyPageMapper {
     public String noteSending(MsgVO msgVO) throws Exception;
 
     //쪽지 삭제
-    public void deleteNote(int msgNo) throws Exception;
+    public int deleteNote(int msgNo) throws Exception;
 
     //팔로워 카운트
-    int followCount() throws Exception;
+    int followCount(String memberId) throws Exception;
 
     //팔로잉 카운트
-    int followingCount() throws Exception;
-    
+    int followingCount(String memberId) throws Exception;
+
     //사진 게시글 카운트
-    int photoCount() throws Exception;
-    
+    int photoCount(String memberId) throws Exception;
+
     //스크랩 카운트
-    int scrapCount() throws Exception;
-    
+    int scrapCount(String memberId) throws Exception;
+
+    //팔로우한 상태인지 확인을 위한 count
+    int followerCount(String memberId, String followId) throws Exception;
+
 }

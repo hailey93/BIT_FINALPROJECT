@@ -9,16 +9,17 @@
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
-    <script type="text/javascript" th:inline="javascript">history.scrollRestoration = "auto"</script>
 
+    <script type="text/javascript" th:inline="javascript">history.scrollRestoration = "auto"</script>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="fixed-btn-area" >
-        <div class="fixed-wrap"><!-- [D] btn-tit 클릭시 open 클래스 추가 -->
-            <a th:href="@{/chat}" class="btn-tit">
+    <div class="fixed-btn-area" sec:authorize="hasRole('ROLE_MEMBER')">
+        <div class="fixed-wrap">
+            <form name="createRoom" th:action="@{/chat}" th:method="post"/>
+            <a href="#" onclick="javascript:document.createRoom.submit();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                    <path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/>
+                <path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/>
                 </svg>
             </a>
         </div>

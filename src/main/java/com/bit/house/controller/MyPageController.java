@@ -3,10 +3,10 @@ package com.bit.house.controller;
 import com.bit.house.domain.*;
 import com.bit.house.mapper.MemberInfoMapper;
 import com.bit.house.mapper.MyPageMapper;
+import com.bit.house.service.MemberService;
 import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -31,6 +32,9 @@ public class MyPageController {
 
     @Autowired(required = false)
     MyPageService myPageService;
+
+    @Autowired
+    private MemberService memberService;
 
 
     //프로필설정
@@ -101,12 +105,20 @@ public class MyPageController {
     }
     //팔로우
     @RequestMapping("/follow")
-    private String follow(HttpServletRequest request, FollowVO followVO, @PathVariable String memberId) throws Exception{
+    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session) throws Exception{
 
-        followVO.setFollowId(request.getParameter(memberId));
+        memberId = "oleg123";
 
-        myPageMapper.follow(memberId);
-        return "";  //어느페이지에서 하던 페이지 변경없이 되도록 설정해야함.
+        followVO.setMemberId(memberId);
+        followVO.setFollowId(request.getParameter(followId));
+
+        String followNo = memberId+followId;
+
+        System.out.println("followNo : "+followNo);
+        System.out.println("followId : "+followId);
+
+        myPageMapper.follow(memberId, followId);
+
     }
 
     //팔로우취소
@@ -119,39 +131,47 @@ public class MyPageController {
     }
     //내 프로필
     @RequestMapping("/myBoard")
-    private String myProfile(Model model) throws Exception{
+    private String myProfile(Model model, HttpSession session, String memberId) throws Exception{
 
-        model.addAttribute("profile", myPageMapper.myProfile());
-        model.addAttribute("mphoto", myPageMapper.profilePhoto());
-        model.addAttribute("mscrap", myPageMapper.profileScrap());
-        model.addAttribute("followCount", myPageMapper.followCount());
-        model.addAttribute("followingCount", myPageMapper.followingCount());
-        model.addAttribute("photoCount", myPageMapper.photoCount());
-        model.addAttribute("scrapCount", myPageMapper.scrapCount());
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+
+        model.addAttribute("myphoto", myPageMapper.profilePhoto(memberId));
+        model.addAttribute("mprofile", myPageMapper.myProfile("youn123"));
+        model.addAttribute("myscrap", myPageMapper.profileScrap(memberId));
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("photoCount", myPageMapper.photoCount(memberId));
+        model.addAttribute("scrapCount", myPageMapper.scrapCount(memberId));
+
 
         return "th/member/mypage/profile/myBoard";
     }
-    //이것도 내 프로필이랑 같은 페이지에서 처리 가능할지 확인
+
+    //사용자 프로필
     @RequestMapping("/memberProfile")
-    private String memberProfile(Model model, @PathVariable String memberId) throws Exception{
+    private String memberProfile(Model model, /*@PathVariable*/ String userId, String memberId) throws Exception{
 
+        userId = "youn123";
+        memberId = "oleg123";
 
-        model.addAttribute("memprofile", myPageMapper.myProfile());
-        model.addAttribute("mphoto", myPageMapper.profilePhoto());
-        model.addAttribute("mscrap", myPageMapper.profileScrap());
-        model.addAttribute("followCount", myPageMapper.followCount());
-        model.addAttribute("followingCount", myPageMapper.followingCount());
-        model.addAttribute("photoCount", myPageMapper.photoCount());
-        model.addAttribute("scrapCount", myPageMapper.scrapCount());
+        model.addAttribute("memprofile", myPageMapper.myProfile(userId));
+        model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
+        model.addAttribute("memscrap", myPageMapper.profileScrap(userId));
+        model.addAttribute("followCount", myPageMapper.followCount(userId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(userId));
+        model.addAttribute("photoCount", myPageMapper.photoCount(userId));
+        model.addAttribute("scrapCount", myPageMapper.scrapCount(userId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberId, userId));
 
         return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
     @RequestMapping("/allPhoto")
-    private String allPhoto(Model model, @PathVariable String memberId) throws Exception{
+    private String allPhoto(Model model, @PathVariable(required = false) String memberId) throws Exception{
         //이거는 세션 받지 말고 프로필창에서 아이디 넘겨받아서 처리하는쪽으로
 
-        model.addAttribute("photo", myPageMapper.allPhoto());
+        model.addAttribute("photo", myPageMapper.allPhoto(memberId));
 
         return "th/member/mypage/profile/allPhoto";
     }
@@ -161,7 +181,7 @@ public class MyPageController {
     private String allScrap(Model model, @PathVariable String memberId) throws Exception{
         //이것도 세션안받음
 
-        model.addAttribute("scrap", myPageMapper.allScrap());
+        model.addAttribute("scrap", myPageMapper.allScrap(memberId));
 
         return "th/member/mypage/profile/allScrap";
     }
@@ -221,21 +241,28 @@ public class MyPageController {
         return "redirect:/sendNote";
     }
 
-    @GetMapping("/user/{memberId}")
-    public String getProfileInfo(@PathVariable String memberId, Model model){
 
-        model.addAttribute("member", memberInfoMapper.getInfoMemberById(memberId));
+    @GetMapping("/profile")
+    public String getProfileInfo(HttpSession session, Model model) {
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        System.out.println(member);
+        model.addAttribute("member", member);
         return "th/member/mypage/info/myInfoSetup";
     }
 
-    @PostMapping("/user")
-    public String updateMemberInfo(@AuthenticationPrincipal MemberVO memberVO, Model model){
-
-
-
-        return "redirect:/user";
+    @PostMapping("update")
+    public String updateProfileInfo(HttpSession session,MemberVO memberVO,Model model) {
+        memberInfoMapper.updateInfoMemberById(memberVO);
+       session.setAttribute("memberVO", memberVO);
+        return "redirect:/user/profile";
     }
 
+//    @PostMapping("updatePassword")
+//    public String updateProfilePassword(MemberVO memberVO){
+//        memberService.insertMemberToUser(memberVO);
+//        memberInfoMapper.updateInfoMemberById(memberVO);
+//        return "redirect:/user/profile";
+//    }
 
 
 }

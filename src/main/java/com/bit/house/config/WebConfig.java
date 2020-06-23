@@ -33,5 +33,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/editor/**")
                 .addResourceLocations("classpath:/editor/");
 
+        registry.addResourceHandler("/plugins/**")
+                .addResourceLocations("classpath:/static/plugins/");
+
     }
 }
