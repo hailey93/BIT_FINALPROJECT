@@ -105,7 +105,7 @@ public class MyPageController {
     }
     //팔로우
     @RequestMapping("/follow")
-    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam(required = false) String followId, HttpSession session) throws Exception{
+    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session) throws Exception{
 
         memberId = "oleg123";
 

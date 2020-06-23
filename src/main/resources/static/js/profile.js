@@ -11,15 +11,18 @@ $(function(){
 $(function () {
     $("#follow").click(function(){
 
-        var followId;
-        followId = $(this).find("#p[name=foll]");
+        var followVO = {
+            followId: $("#fol").val(),
+        };
+        console.log(followVO);
+
 
         $.ajaxSettings.traditional=true;
         $.ajax({
             type : "post",
             url : "/follow",
-            data : followId,
-
+            data : followVO,
+            dataType : "json",
             success : function(data){
                 location.reload();
             },
