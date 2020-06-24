@@ -1,14 +1,12 @@
 package com.bit.house.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.sql.Date;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
+@ToString
 public class PhotoBoardVO {
     private int photoBoardNo;
     private String memberId;
@@ -18,7 +16,7 @@ public class PhotoBoardVO {
     private int scrapCount;
     private Date photoDate;
     private String photothumb;
-    private String photoImg1;
+    protected String photoImg1;
     private String photoImg2;
     private String photoImg3;
     private String photoImg4;

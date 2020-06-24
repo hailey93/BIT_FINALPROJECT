@@ -1,7 +1,6 @@
 package com.bit.house.domain;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 
@@ -28,6 +27,6 @@ public class MemberVO {
     private String userTel;
     private String userEmail;
 
-    @Autowired(required = false)
-    OrderListVO orderListVO;
+    /*@Autowired(required = false)
+    OrderListVO orderListVO;*/
 }

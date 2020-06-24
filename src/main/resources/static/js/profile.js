@@ -22,7 +22,6 @@ $(function () {
             type : "post",
             url : "/follow",
             data : follow,
-            dataType : "json",
             success : function(data){
 
                 location.reload();
@@ -45,15 +44,55 @@ $(function(){
             type : "post",
             url : "/cancelFollow",
             data : follow,
-            dataType : "json",
             success : function(data){
-                location.reload();
-            }
-        })
-    })
-})
 
-//쪽지 보내기버튼
+                location.reload();
+            },
+        });
+    });
+});
+
+
+//프로필페이지에서 쪽지보내기 버튼
+$(function(){
+    $("#notesend").click(function(){
+        var receive = $("#fol").val();
+        document.sending.receiveId.value = receive;
+        console.log(receive);
+        alert('console');
+
+        $("#sending").submit();
+    });
+});
+
+//프로필페이지 사진 전체보기
+$(function(){
+    $("#allphoto").click(function(){
+        var member = $("#fol").val();
+        document.photo.memberId.value = member;
+        console.log(member);
+        alert('console');
+
+        $("#photo").submit();
+    });
+});
+
+
+//프로필페이지 스크랩 전체보기
+$(function(){
+    $("#allscrap").click(function(){
+        var member = $("#fol").val();
+        document.scrap.memberId.value = member;
+        console.log(member);
+        alert('console');
+
+        $("#scrap").submit();
+    });
+});
+
+
+
+//쪽지페이지에서 보내기버튼
 $(function() {
     $("#send").click(function () {
         var count = $(".select_note input:checked").length;
