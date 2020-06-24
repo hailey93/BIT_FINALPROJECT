@@ -8,4 +8,10 @@
         WHERE sellerId=#{sellerId}
     </select>
 
+    <select id="searchOrderStatus" resultType="com.bit.house.domain.OrderListProVO">
+        SELECT *
+        FROM orderlistpro
+        WHERE orderCode=#{orderCode} AND sellerId=#{sellerId}
+    </select>
+
 </mapper>
