@@ -17,26 +17,38 @@ function sendMsg() {
     }));
     $('#message').val("");
 }
-function recvMessage(recv){
-    messages.unshift({
+/*function recvMessage(recv){
+   /!* messages.unshift({
         "type" : recv.type,
-        "sender" : recv.type=='ENTER'?'[알림]':recv.sender,
+        "sender" : recv.type=="ENTER"?'[알림]':recv.sender,
         "msg" : recv.msg
     });
-
+*!/
     if(sender==recv.sender){
         $('#chatting').append("<p class='me'>나: "+ recv.msg+ "</p>");
     } else {
         $("#chatting").append("<p class='others'>" + recv.sender + " :" + recv.msg + "</p>");
     }
 
-}
+}*/
 function connect() {
     // pub/sub event
     ws.connect({}, function(frame) {
         ws.subscribe("/sub/chat/"+chatId, function(msg) {
-            var recv = JSON.parse(msg.body);
-            recvMessage(recv);
+            var receive = JSON.parse(msg.body);
+            /*recvMessage(recv);*/
+            if(receive.type=='TALK'){
+                if(sender==receive.sender){
+                    $('#chatting').append("<p class='me'>나: "+ receive.msg+ "</p>");
+                } else {
+                    $("#chatting").append("<p class='others'>" + receive.sender + " :" + receive.msg + "</p>");
+                }
+            } else if(receive.type=='ENTER'){
+                $("#chatting").append("<p class='others'>" + receive.msg + "</p>");
+            } else {
+                $("#chatting").append("<p class='others'>" + receive.msg + "</p>");
+            }
+
         });
         ws.send("/pub/message", {}, JSON.stringify({
             type:'ENTER',
@@ -56,3 +68,11 @@ function connect() {
     });
 }
 connect();
+function disconnect(){
+    ws.send("/pub/message", {}, JSON.stringify({
+            type:'LEAVE',
+            chatId:chatId,
+            sender:sender
+    }));
+    ws.disconnect();
+}

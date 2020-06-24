@@ -11,7 +11,7 @@ import lombok.ToString;
 public class ChatVO {
 
     public enum MessageType {
-        ENTER, QUIT, TALK
+        ENTER, LEAVE, TALK
     }
 
     private MessageType type;

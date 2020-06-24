@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,6 +24,8 @@ import javax.servlet.http.HttpSession;
 public class ChatController {
     private final RedisPublisher redisPublisher;
     private final ChatRepository chatRepository;
+    /*@Autowired(required = false)
+    ChatRoomVO vo;*/
 
     @MessageMapping("/message")
     public void message(ChatVO message){
@@ -32,15 +33,32 @@ public class ChatController {
             chatRepository.enterChatRoom(message.getChatId());
             message.setMsg(message.getSender()+"님이 입장하셨습니다.");
 
+        } else if(ChatVO.MessageType.LEAVE.equals(message.getType())){
+            ChatRoomVO vo=chatRepository.findRoombyId(message.getChatId());
+            /*if(message.getSender()==vo.getMemberId()){
+                //hash or vo에서 null로 만들기
+            } else {
+                //hash or vo에서 null로 만들기
+            }
+
+            log.info(vo.getAdminId());
+            log.info(vo.getMemberId());*/
+            if((vo.getAdminId()==null)&&(vo.getMemberId()==null)){
+                //회원과 관리자 모두 채팅방을 나갔을때 topic삭제
+                chatRepository.deleteChatRoom(message.getChatId());
+            }
+            //한명만 나갔을때
+            message.setMsg(message.getSender()+"님이 퇴장하셨습니다.");
+
         }
         redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
     }
 
-    @GetMapping("/chatList")
+    @GetMapping("/admin/chatList")
     public String startChat(Model model, HttpSession session){
         //채팅리스트
         model.addAttribute("roomLists", chatRepository.findAllRoom());
-        return "th/main/chatList";
+        return "th/admin/chat/chatList";
     }
     /*@GetMapping("/chatroom")
     @ResponseBody
@@ -51,7 +69,7 @@ public class ChatController {
     }*/
 
     @PostMapping("/chat")
-    public String createChat(RedirectAttributes redirect, Model model, HttpSession session){
+    public String createChat(Model model, HttpSession session){
         //채팅방 생성
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         String memberId = memberVO.getMemberId();
@@ -70,10 +88,18 @@ public class ChatController {
 
         if(String.valueOf(authentication.getAuthorities()).equals("[ROLE_ADMIN]")) {
             //관리자가 입장할때, 관리자 아이디 set
+            //ChatRoomVO chatRoomVO=new ChatRoomVO();
             vo.setAdminId(authentication.getName());
-            log.info(vo.getAdminId());
+            /*vo.setChatId(chatId);
+            vo.setMemberId(vo.getMemberId());*/
+            chatRepository.setAdmin(vo);
+            //ChatRoomVO vo=chatRepository.setAdmin(chatId, authentication.getName());
+            log.info(authentication.getName());
+            model.addAttribute("chatInfo", vo);
+        }else{
+            model.addAttribute("chatInfo", vo);
         }
-        model.addAttribute("chatInfo", vo);
+        //model.addAttribute("chatInfo", vo);
 
         return "th/main/chatting";
     }

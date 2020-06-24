@@ -6,7 +6,7 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-    <script type="text/javascript" th:src="@{/js/storeChat.js}"></script>
+    <script type="text/javascript" th:src="@{/js/chatting.js}"></script>
     <meta charset="UTF-8">
     <title>채팅방</title>
     <style>
@@ -29,13 +29,8 @@
 <body>
 <div id="container" class="container">
     <h1>채팅방 입장!</h1>
-    <!--<div th:id="chatId" type="hidden" th:text="${chatInfo.chatId}"/>
-    <div th:id="memberId" type="hidden" th:text="${chatInfo.memberId}"/>-->
-    <!--<sec:authorize access="hasRole('ROLE_MEMBER')" var="member"></sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')" var="admin"></sec:authorize>-->
-    <!--<input type="hidden" th:id="sessionId" th:value="">-->
+    <button class="btn btn-primary" onclick="disconnect()" th:id="outBtn">나가기</button>
     <div id="chatting" class="chatting">
-
     </div>
 <div id="sendMsg">
     <table class="inputTable">
@@ -50,14 +45,14 @@
         var chatId=[[${chatInfo.chatId}]];
         console.log(chatId);
         var admin=[[${chatInfo.adminId}]];
-        console.log(admin);
+        console.log("이건 관리자아이디!!!!!!"+admin);
         if(admin==null){
             var sender=[[${chatInfo.memberId}]];
+            console.log("이건 멤버아이디!!!!!!"+sender);
         } else{
             var sender=[[${chatInfo.adminId}]];
+            console.log("이건 관리자아이디!!!!!!"+sender);
         }
-        console.log(sender);
-
     </script>
 </div>
 </body>

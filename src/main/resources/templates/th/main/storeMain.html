@@ -9,17 +9,24 @@
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
     <script type="text/javascript" th:inline="javascript">history.scrollRestoration = "auto"</script>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="fixed-btn-area" sec:authorize="hasRole('ROLE_MEMBER')">
+    <div class="fixed-btn-area" sec:authorize="hasAnyRole('ROLE_MEMBER', 'ROLE_USER')">
         <div class="fixed-wrap">
-            <form name="createRoom" th:action="@{/chat}" th:method="post"/>
+            <!--<form name="createRoom" th:action="@{/chat}" th:method="post"/>
             <a href="#" onclick="javascript:document.createRoom.submit();">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                 <path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/>
+                </svg>
+            </a>-->
+            <form name="createRoom"/>
+            <a href="#" onclick="enterChat(createRoom)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M12 1c-6.628 0-12 4.573-12 10.213 0 2.39.932 4.591 2.427 6.164l-2.427 5.623 7.563-2.26c9.495 2.598 16.437-3.251 16.437-9.527 0-5.64-5.372-10.213-12-10.213z"/>
                 </svg>
             </a>
         </div>
@@ -77,6 +84,32 @@
 
         </section>
     </div>
+
+    <script type="text/javascript">
+        /*$(document).ready(function() {
+            $('#modaltest').click(function () {
+                $.ajax({
+                    type: 'POST',
+                    url: "/chat",
+                    success: function (data) {
+                        console.log('success', data);
+                    },
+                    error: function (exception) {
+                        alert('Exeption:' + exception);
+                    }
+                });
+                e.preventDefault();
+            });
+        });*/
+
+        function enterChat(formName){
+            window.open("","new_popup","");
+            formName.target="new_popup";
+            formName.action="/chat";
+            formName.method="post";
+            formName.submit();
+        }
+    </script>
     <!--<script type="text/javascript">
         var lastScrollTop=0;
         $(window).scroll(function(){

@@ -22,4 +22,10 @@ public class ChatRoomVO implements Serializable {
         chatRoomVO.memberId=memberId;
         return chatRoomVO;
     }
+    public static ChatRoomVO addAdmin(String memberId){
+        ChatRoomVO chatRoomVO=new ChatRoomVO();
+        chatRoomVO.chatId= UUID.randomUUID().toString();
+        chatRoomVO.memberId=memberId;
+        return chatRoomVO;
+    }
 }
