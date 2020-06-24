@@ -17,7 +17,7 @@
 
 </head>
 <body>
-<div layout:fragment="content">
+<div layout:fragment="content" class="mt-5">
     <div class="container">
         <div class="row">
             <!--            <div class="w3-content" style="max-width:400px">-->
@@ -161,11 +161,11 @@
             </div>
         </div>
     </div>
-</div>
-<script th:inline="javascript">
-            var memId2 = [[${jsonText}]];
-            var memId = JSON.parse(memId2);
-            console.log("memId : " + memId);
+    <script th:inline="javascript">
+
+        var memId2 = [[${jsonText}]];
+        var memId = JSON.parse(memId2);
+        console.log("memId : " + memId);
 
 
 
