@@ -13,7 +13,6 @@ public class MemberVO {
     private String memberTel;
     private String memberAddr;
     private String memberEmail;
-//    private String memberpw;
     private String deliveryAddr1;
     private String deliveryAddr2;
     private String nickName;
@@ -22,6 +21,7 @@ public class MemberVO {
     private Date memberUpdateDate;
     private int point;
     private String memberIntro;
+    private String userpw;
 
     private String userid;
     private String userName;

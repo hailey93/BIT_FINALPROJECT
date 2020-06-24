@@ -21,8 +21,8 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     MemberInfoMapper memberInfoMapper;
 
-//    @Autowired
-//    PasswordEncoder passwordEncoder;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public void insertMember(MemberVO memberVO) {
@@ -42,10 +42,12 @@ public class MemberServiceImpl implements MemberService {
         return memberMapper.searchMember(id);
     }
 
-//    @Override
-//    public void insertMemberToUser(MemberVO memberVO) {
-//
-//    }
+    @Override
+    public void updateMember(MemberVO memberVO, String userpw) {
+
+
+
+    }
 
 
 }

@@ -10,6 +10,6 @@ public interface MemberService {
 
     public MemberVO searchMember(String id);
 
-//    public void insertMemberToUser(MemberVO memberVO);
+    public void updateMember(MemberVO memberVO, String userpw);
 
 }

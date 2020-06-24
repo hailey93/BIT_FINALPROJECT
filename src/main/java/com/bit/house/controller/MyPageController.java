@@ -7,6 +7,7 @@ import com.bit.house.service.MemberService;
 import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -242,7 +243,6 @@ public class MyPageController {
     @GetMapping("/profile")
     public String getProfileInfo(HttpSession session, Model model) {
         MemberVO member = (MemberVO) session.getAttribute("memberVO");
-        System.out.println(member);
         model.addAttribute("member", member);
         return "th/member/mypage/info/myInfoSetup";
     }
@@ -251,14 +251,13 @@ public class MyPageController {
     public String updateProfileInfo(HttpSession session,MemberVO memberVO,Model model) {
         memberInfoMapper.updateInfoMemberById(memberVO);
        session.setAttribute("memberVO", memberVO);
-        return "redirect:/user/profile";
+        return "redirect:/profile";
     }
 
 //    @PostMapping("updatePassword")
 //    public String updateProfilePassword(MemberVO memberVO){
-//        memberService.insertMemberToUser(memberVO);
-//        memberInfoMapper.updateInfoMemberById(memberVO);
-//        return "redirect:/user/profile";
+//       System.out.println("id ===" + memberVO.set);
+//        return "redirect:/profile";
 //    }
 
 

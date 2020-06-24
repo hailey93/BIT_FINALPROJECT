@@ -1,8 +1,3 @@
-.container{
-    width: 100%;
-    max-width: 950px;
-    margin: 0 auto;
-}
 
 .btn-basket, .btn-buy-now {
     border-radius: 8px;
@@ -28,10 +23,6 @@
 
 }
 
-.input-group{
-
-    margin-top: 20px;
-}
 
 .production-selling-header__title__brand{
     font-size: 20px;
