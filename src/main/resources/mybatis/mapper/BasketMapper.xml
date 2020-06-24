@@ -11,6 +11,8 @@
         <result column="modelName" property="modelName"/>
         <result column="memberId" property="memberId"/>
         <result column="qty" property="qty"/>
+        <result column="productNo" property="productNo"/>
+        <result column="recipient" property="recipient"/>
 
         <association property="productVO" javaType="productVO">
             <result column="sellerName" property="sellerName"/>
@@ -94,7 +96,7 @@
     </select>
 
     <select id="getMemberBasketList"  resultMap="bskInfo" parameterType="String">
-        select p.productNo, p.productName, p.sellerName, p.modelName,
+        select p.productName, p.sellerName, p.modelName,
         p.productMainImg, p.purchasePrice,  b.* from  product p,
         basket b where b.memberId = #{memberId} and b.productNo = p.productNo;
     </select>

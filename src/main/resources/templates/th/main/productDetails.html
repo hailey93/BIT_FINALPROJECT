@@ -12,7 +12,8 @@
 <!--    <link rel="stylesheet" th:href="@{https://www.w3schools.com/w3css/4/w3.css}">-->
 
     <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
 
 
 </head>
@@ -97,18 +98,18 @@
                     <div class="input-group">
                         <select th:field="*{productColor}" class="custom-select col-md-7" th:id="inputGroupSelect01">
                             <option th:value selected disabled>색상</option>
-                            <option th:each="color : ${product.colorCodeVOList}"
+                            <option id="colorSelect" th:each="color : ${product.colorCodeVOList}"
                                     th:value="${color}"
                                     th:utext="${color}"/>
                         </select>
                     </div>
                     <div>
-                        <label>수량</label><input th:type="text" th:class="input-qty" th:id="qty"/>
+                        <label>수량</label><input th:type="text" th:class="input-qty" th:id="qtyValue" value="1"/>
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
                     window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구니</button>
-                    <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank',
-                     'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
+                        <a href="/basketPop" value="저장" onClick="saveSessionStorage(); return false;">저장</a>
+                    <a href="/basketPop" rel="modal:open" onclick="saveSessionStorage();">모달창띄우기</a>
                     <button type="submit" class="btn-buy-now">바로구매</button>
                 </form>
             </div>
@@ -221,7 +222,15 @@
             // 변수를 선언한다.
             var key = document.getElementById("productName").value;
             var value = document.getElementById("productNo").value;
-            console.log("value  :  "+value);
+            var colorValue = $('#colorSelect').text();
+            var qtyValue = $('#qtyValue').val();
+            console.log("colorValue : "+ colorValue);
+            //var colValue = document.getElementById("").value;
+            //var qtyValue = document.getElementById("").value;
+            console.log("productNoValue  :  "+value);
+            console.log("qtyValue  :  "+qtyValue);
+
+            var sasdf = ${"#qtyVla
             if (sessionCheck == null) {
                 console.log("sessionCheck is null");
                 while (true) {
@@ -347,7 +356,9 @@
             //console.log("form : " +form.hoho[2]);
             //jQuery.ajaxSettings.traditional = true;
             goSession = sessionStorage.getItem("ProductNameSession")
-            console.log("goSession" + goSession);
+            console.log("exgoSession" + goSession);
+            JSON.parse(goSession);
+            console.log("afgoSession" + goSession);
             $.ajax({ // 세션 보내기 ajax
                 //console.log("hi");
                 url: "/basketSession",

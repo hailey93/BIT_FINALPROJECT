@@ -2,12 +2,13 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.BasketVO;
 import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.OrderListVO;
 import com.bit.house.mapper.BasketMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -66,5 +67,10 @@ public class PaymentController {
     @GetMapping("/paymentSuccess")
     public String paymentSuccess(){
         return "th/member/payment/paymentSuccess";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/paymentCom")
+    public @ResponseBody void paymentComplete(OrderListVO orderListVO){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@ orderListVO  :: "+orderListVO);
     }
 }

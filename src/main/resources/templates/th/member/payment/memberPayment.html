@@ -8,10 +8,12 @@
      <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
         <link rel="stylesheet" th:href="@{/css/basket.css}">
-
     </th:block>
+    <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script></div>
+    <script  src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 </head>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
 
 <body>
 
@@ -27,16 +29,7 @@
         <div id="pre_order" class=" bucket" data-id="23159872" data-is-overseas-purchase="false">
 
 <!-- form --><form id="edit_order" class="edit_order" action="/kakaoPay" accept-charset="UTF-8" method="post">
-            <input type="hidden" name="memberId" value="${basket.memberId}"><br>
-            <input type="hidden" name="productNo" value="${basket.productNo}"><br>
-            <input type="hidden" name="colorName" value="${basket.productColor}"><br>
-            <input type="hidden" name="orderQty" value="1"><br>
-            <input type="hidden" name="totalPrice" value="2"><br>
-            <input type="hidden" name="usedPoint" value="3"><br>
-            <input type="hidden" name="orderAddr "value="4"><br>
-            <input type="hidden" name="orderDate "value="5"><br>
-            <input type="hidden" name="payCode" value="6"><br>
-            <input type="hidden" name="orderCode" value="7"><br>
+
 
 
                 <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
@@ -58,14 +51,29 @@
                     <table cellspacing="0" id="order_productions">
                         <tbody data-hj-suppress="" data-hj-ignore-attribute="">
                         <tr class="production" data-id="41033" data-cost="55900" data-count="1" data-name="[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors">
-                            <td>
+                            <td><input type="text" name="productName" th:value="${memberBasketList.get(0).productName}">
+
                                 <div class="information" th:each="list, listStat : ${memberBasketList}">
+
+
+                                    <input type="hidden" name="orderQty" th:value="${list.qty}"><br>
+                                    <input type="hidden" name="productNo" th:value="${list.productNo}"><br>
+                                    <input type="hidden" name="colorName" th:value="${list.productColor}"><br>
+                                    <input type="hidden" name="memberId" th:value="ha123"><br>
+                                    <input type="hidden" name="totalPrice" th:value=2><br>
+                                    <input type="hidden" name="usedPoint" th:value=3><br>
+                                    <input type="hidden" name="orderAddr" th:value="addr"><br>
+                                    <input type="hidden" name="orderDate" th:value="2020-06-05"><br>
+                                    <input type="hidden" name="payCode" th:value="1"><br>
+                                    <input type="hidden" name="orderCode" th:value="10"><br>
+
+
                                     <img th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}" alt="320">
                                     <div>
-                                        <div class="name" th:text="${list.productName}"></div>
+                                        <div class="name" id="productNameTest" th:text="${list.productName}"></div>
                                         <div class="option" th:text="${list.productColor}"></div>
                                         <div class="cost_count">
-                                            <div class="cost" th:text="${list.getProductVO().getPurchasePrice()}"></div>
+                                            <div class="totalCost" th:price-total="${list.getProductVO().getPurchasePrice()}" th:text="${list.getProductVO().getPurchasePrice()}"></div>
                                             <div class="divider">|</div>
                                             <div class="count" th:text="${list.qty}+개"></div>
                                         </div>
@@ -86,7 +94,7 @@
                         <div class="field">
                             <div class="label">받는분</div>
                             <div class="input">
-                                <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="order_recipient" id="order_recipient">
+                                <input presence="true" autocomplete="off" class="can_copy half" data-hj-suppress="" type="text" name="recipient" id="order_recipient">
                                 <input type="hidden" name="order[received_name]" id="order_received_name" value="">
                             </div>
                         </div>
@@ -209,7 +217,9 @@
                     <div class="cost">
                         <div class="cost_panel">
                             <div class="title">총 상품 금액</div>
-                            <div class="amount" id="preview_product_cost" data-hj-suppress="">55,900</div>
+                            <div class="amount" id="preview_product_cost" data-hj-suppress="" >
+                                <span class="number" th:id="paymentTP"></span>원
+                            </div>
                         </div>
 
                         <div class="cost_panel">
@@ -223,12 +233,13 @@
                         </div>
 
                         <div class="total cost_panel">
-                            <div class="amount" id="preview_selling_cost" data-hj-suppress="">55,900원</div>
+                            <div class="amount" id="preview_selling_cost" data-hj-suppress="" >
+                                <span class="number" th:id="paymentTP"></span>
+                            </div>
                         </div>
                     </div>
 
                 </div>
-                <button onClick="requestPay()">이니시스 결제</button>
                 <div class="panel">
                     <div class="title light">결제 수단</div>
                     <div class="pay_method">
@@ -272,60 +283,95 @@
                         </label>
                     </div>
 
-                    <div class="all_policy">
-                        <div class="title">개인정보 제 3자 제공 및 결제대행 서비스 표준 이용약관</div>
-                        <div class="opener">보기</div>
-                    </div>
                 </div>
-                <a  class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
-                    onsubmit="true" >결제하기</a>
-                <input id="do2_payment" type="submit" value="결제하기">
-                <div id="do_payment" >
-                    결제하기</div>
             </form>
         </div>
     </div>
 
     <!-- iamport.payment.js -->
-    <script  src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+    <script>
+        $('#getTP').text( getTP());
+        $('#paymentTP').text(getTP());
+
+        function  getTP() {
+            console.log("getTP실행");
+            var tPrice=new Array();
+            var TP = 0;
+            $('.totalCost').each(function(){
+                tPrice.push($(this).attr('price-total'));
+            });
+            //console.log("tPrice :: "+tPrice);
+
+            for(var m = 0; m<tPrice.length; m++){
+                console.log(Number(tPrice[m]));
+                TP += Number(tPrice[m]);
+            }
+            console.log("결과 : "+ TP);
+            return TP;
+
+        }
+    </script>
     <script >
         var IMP = window.IMP;
         function requestPay(){
             IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
 
+            console.log("이름 테스트 : " + $('#productNameTest').text() + " 외");
+            console.log("이메일 테스트 : " + $('#order_payer_email').val() + " 이름 : " + $('#order_payer_name').val()
+                + " 집코드 : " + $('#order_received_zip_code').val() + " 번호 : " + $('#order_payer_phone_number').val());
+
             //IMP.request_pay(param, callback) 호출
             IMP.request_pay({ // param
                 pg: "inicis",
                 pay_method: "card",
-                merchant_uid: "ORD20180131-0000011",
-                name: "노르웨이 회전 의자",
-                amount: 64900,
-                buyer_email: "gildong@gmail.com",
-                buyer_name: "홍길동",
-                buyer_tel: "010-4242-4242",
-                buyer_addr: "서울특별시 강남구 신사동",
-                buyer_postcode: "01181"
+                merchant_uid: 'merchant_' + new Date().getTime(),
+                name: $('#productNameTest').text() + " 외",
+                amount: 1,
+                buyer_email: $('#order_payer_email').val(),
+                buyer_name: $('#order_payer_name').val(),
+                buyer_tel: $('#order_payer_phone_number').val(),
+                buyer_addr: $('#order_received_at').val(),
+                buyer_postcode: $('#order_received_zip_code').val()
             }, function (rsp) { // callback
                 if (rsp.success) {
+                    var now = new Date();
+                    var nowTime = now.getFullYear();
+                    nowTime += '-' + (now.getMonth() + 1);
+                    nowTime += '-' + now.getDate();
+                    var source = {
+                        orderNo : nowTime+"-0001",
+                        productNo : "a",
+                        memberId : "b",
+                        colorName : "c",
+                        orderQty : "d",
+                        totalPrice : "e" ,
+                        recipient : "f",
+                        orderAddr : "g",
+                        orderDate : "h",
+                        payCode : "q",
+                        orderCode : "w"
+                    };
+                    console.log("source : : "+source.orderNo);
                     $.ajax({
-                        url : '/paymentComplete',
-                        method : 'POST',
-                        dataType : 'JSON',
+                        url : '/paymentCom',
+                        type : "POST",
+
                         data : {
-                            'customer.customerID' : '3',
-                            'paymentMethod' : '3',
-                            'reservationStartDate' : '3',
-                            'reservationFinishDate' : '3',
-                            'reservationDate' : '3',
-                            'imp_uid' : '3',
-                            'merchant_uid' : '3',
-                            'totalAmount' : '3',
-                            'room.roomTypeTable.roomType' : '3',
-                            'room.roomPerson' :'3'
+                            orderNo : nowTime+"-0001",
+                            productNo : "a",
+                            memberId : "b",
+                            colorName : "c",
+                            orderQty : 1,
+                            totalPrice : 1 ,
+                            recipient : "f",
+                            orderAddr : "g",
+                            orderDate : '2020-06-04',
+                            payCode :  1,
+                            orderCode : 10
                         },
                         success : function() {
                             alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                            location.href = "/index";
+                            //location.href = "/index";
                         },
                         error : function() {
                             alert('ajax 실패')
@@ -374,12 +420,13 @@
                     console.log(fullRoadAddr);
 
 
-                    $("[name=addr1]").val(data.zonecode);
-                    $("[name=addr2]").val(fullRoadAddr);
+                    $("[name=zipCode]").val(data.zonecode);
+                    $("[name=receivedAt]").val(fullRoadAddr);
 
-                    document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-                    document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-                    document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress;
+                    //document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
+                    //document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
+                    //document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress;
+                    window.close();
                 }
             }).open();
         });

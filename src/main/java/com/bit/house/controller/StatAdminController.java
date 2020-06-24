@@ -21,6 +21,7 @@ import java.util.*;
 
 @Controller
 @Log4j2
+@RequestMapping("/admin")
 public class StatAdminController {
 
     @Autowired

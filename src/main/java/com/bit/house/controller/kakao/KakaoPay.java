@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.bit.house.domain.OrderListVO;
 import com.bit.house.domain.kakao.KakaoPayApprovalVO;
 import com.bit.house.domain.kakao.KakaoPayReadyVO;
 import org.springframework.http.HttpEntity;
@@ -29,7 +30,7 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-	public String kakaoPayReady( /*HouseUser houseUser, HousePayment housePayment, HouseProduct houseProduct*/) {
+	public String kakaoPayReady(OrderListVO orderListVO, String productName) {
 		log.info("KakaoPayReady 호출............................................");
         RestTemplate restTemplate = new RestTemplate();
         
@@ -42,7 +43,9 @@ public class KakaoPay {
         headers.add("Authorization", "KakaoAK " + "06ed53af97ab0fb649be890ab5cc6c5d");
         headers.add("Accept", MediaType.APPLICATION_JSON_UTF8_VALUE);
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
-        
+
+
+
         //        HouseUser houseUser = null;
        // HouseUser houseUser = session.getAttribute("user")
        // System.out.println(houseUser.getUserId());
@@ -51,8 +54,8 @@ public class KakaoPay {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "001");
-        params.add("partner_user_id", "123");
-        params.add("item_name", "noo");
+        params.add("partner_user_id", orderListVO.getMemberId());
+        params.add("item_name",productName);
         params.add("quantity", "3");
         params.add("total_amount", "1200");
         params.add("tax_free_amount", "100");
