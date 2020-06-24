@@ -24,7 +24,8 @@ $(function () {
             data : follow,
             dataType : "json",
             success : function(data){
-                location.reload(true);
+
+                location.reload();
             },
         });
     });
@@ -46,7 +47,7 @@ $(function(){
             data : follow,
             dataType : "json",
             success : function(data){
-                location.reload(true);
+                location.reload();
             }
         })
     })

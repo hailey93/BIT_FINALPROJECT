@@ -105,6 +105,7 @@ public class MyPageController {
     }
     //팔로우
     @RequestMapping("/follow")
+    @ResponseBody
     private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session, String followNo) throws Exception{
 
         memberId = "jung123";
@@ -125,6 +126,7 @@ public class MyPageController {
 
     //팔로우취소
     @RequestMapping("/cancelFollow")
+    @ResponseBody
     private void cancelFollow(@RequestParam("followId") String followId, String memberId, FollowVO followVO) throws Exception{
 
         memberId="jung123";
