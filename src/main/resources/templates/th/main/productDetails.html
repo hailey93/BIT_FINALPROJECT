@@ -95,7 +95,7 @@
                 </div>
                 <form action="" method="post" th:object="${basketVO}">
                     <div class="input-group">
-                        <select th:field="*{productColor}" class="custom-select col-md-7" id="inputGroupSelect01">
+                        <select th:field="*{productColor}" class="custom-select col-md-7" th:id="inputGroupSelect01">
                             <option th:value selected disabled>색상</option>
                             <option th:each="color : ${product.colorCodeVOList}"
                                     th:value="${color}"
@@ -106,9 +106,7 @@
                         <label>수량</label><input th:type="text" th:class="input-qty" th:id="qty"/>
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
-                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">
-                        장바구니
-                    </button>
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구니</button>
                     <a href="/basketPop" value="저장" onClick="saveSessionStorage(); window.open(this.href, '_blank',
                      'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">저장</a>
                     <button type="submit" class="btn-buy-now">바로구매</button>
@@ -161,11 +159,11 @@
             </div>
         </div>
     </div>
-</div>
-<script th:inline="javascript">
-            var memId2 = [[${jsonText}]];
-            var memId = JSON.parse(memId2);
-            console.log("memId : " + memId);
+    <script th:inline="javascript">
+
+        var memId2 = [[${jsonText}]];
+        var memId = JSON.parse(memId2);
+        console.log("memId : " + memId);
 
 
 
