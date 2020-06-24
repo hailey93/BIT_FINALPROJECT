@@ -283,7 +283,6 @@
                     alert("숫자 입력하세요");
 
                 }else{
-                    alert("qty 0 아님");
                 $.ajax({ // 세션 보내기 ajax
                     //console.log("hi");
                     url: "/basketMember",
@@ -316,7 +315,7 @@
                 console.log("sessionStorage가 있음");
                 //sessionStorage.clear();
             } else {
-                alert("담긴 장바구니 0.");
+                console.log("담긴 장바구니 0.");
             }
 
         });

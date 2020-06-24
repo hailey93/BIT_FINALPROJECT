@@ -123,8 +123,7 @@
                                                                 <ul class="carted-product__option-list">
                                                                     <li class="carted-product__option-list__item">
                                                                         <article class="selling-option-item"><h2
-                                                                                class="selling-option-item__name" th:text="${list.getProductColor()}">컬러 :
-                                                                            그린</h2>
+                                                                                class="selling-option-item__name" th:text="${list.getProductColor()}"></h2>
 
                                                                             <div class="selling-option-item__controls">
                                                                                 <div class="selling-option-item__quantity">
@@ -142,7 +141,7 @@
                                                                                             <option value="8">9</option>
                                                                                             <option value="9">10
 
-                                                                                            <option value="11" selected="">1</option>
+                                                                                            <option value="11" th:selected="${list.qty}"></option>
                                                                                             </option>
                                                                                         </select><span
                                                                                             class="select-input__icon"><svg

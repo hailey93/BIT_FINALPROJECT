@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+        <link rel="stylesheet" th:href="@{/css/basket.css}">
+    </th:block>
 </head>
 <body>
+<div layout:fragment="content">
 <div class="commerce-cart-empty" id="SNExist" style="display: block">
     <div class="commerce-cart-empty__content"><img class="commerce-cart-empty__content__image"
                                                    src="/img/basketNull.png"
@@ -13,48 +20,11 @@
             href="/store">상품 담으러 가기</a>
 
 
-        <a href="/goPayment">payment래</a>
-        상품 페이지에서 장바구니 클릭 -> script ~ userId ? null : @
-        (userId==null) {
-        sessionStorage.setItem(key, value);
-        }else{
-        $ajax.
-        : /basketProcess.do ~~~~~
-        <basketMapper class="insert"></basketMapper>
-        }
-        (회원) 장바구니 아이콘 누르면 popup (db에 품목 저장) ||장바구니로||계속쇼핑|| -->>> Product Mapperㅔㅇㅇ ㅣㅆ음
-        (비회원) 장바구니 아이콘 누르면 popup (세션에 품목 저장) ||장바구니로||계속쇼핑||
+        <a href="/goPayment">payment</a>
 
-
-        if(memberId == null){
-        for(var key in window.sessionStorage) {
-        sessionStorage.getItem(key) }
-        ~~~ data : list ~~
-        }
-        ProductDetail ---> (세션 있다 없다, 유저Id 있다 없다)
-        1. 유저 ID 있다 --> COntroller에서 장바구니 정보 가져옴
-        Session에서 MemId 가져와서 Controoller에 보낸 뒤 정보 가져옴
-        2. 유저 ID 없다 SEssion에서 장바구니 정보 가져옴 popup -- BasketController --> basket
-        Session에서 장바구니 리스트 뽑아와서 가져옴
-        @@Controller@@
-
-        if(memberId == null{
-        service.~ ??? --> 어덯게 가져올ㄹ지 session key값은 1개에 1개 저장됨 mapper에서 key값 여러개 어떻게 가져오는지
-        ==>> select ~ from ~ where ~ name = haha || name =asd || name = asd
-        }
-        else{
-        getAllProduct(name)
-        }
-
-        장바구니 페이지
-        실험용 -- db
-        <!--<tr th:each="val, valStat : ${allMemberVOList} ">
-            <td th:text="${valStat.count}">1</td>
-            <td th:text="${val.userid}"></td>
-            <td th:text="${val.userpw}"></td>
-        </tr>-->
     </div>
 
+</div>
 </div>
 </body>
 </html>
