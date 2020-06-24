@@ -1,5 +1,6 @@
 package com.bit.house.mapper;
 
+import com.bit.house.domain.AllMemberVO;
 import com.bit.house.domain.MemberVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Update;

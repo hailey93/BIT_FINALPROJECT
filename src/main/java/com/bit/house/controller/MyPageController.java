@@ -240,25 +240,25 @@ public class MyPageController {
     }
 
 
-    @GetMapping("/profile")
+    @GetMapping("/settings")
     public String getProfileInfo(HttpSession session, Model model) {
         MemberVO member = (MemberVO) session.getAttribute("memberVO");
         model.addAttribute("member", member);
-        return "th/member/mypage/info/myInfoSetup";
+        return "th/member/mypage/info/myAllInfoSettings";
     }
 
-    @PostMapping("update")
-    public String updateProfileInfo(HttpSession session,MemberVO memberVO,Model model) {
+    @PostMapping("updateInfo")
+    public String updateProfileInfo(HttpSession session,MemberVO memberVO) {
         memberInfoMapper.updateInfoMemberById(memberVO);
        session.setAttribute("memberVO", memberVO);
-        return "redirect:/profile";
+        return "redirect:/settings";
     }
 
-//    @PostMapping("updatePassword")
-//    public String updateProfilePassword(MemberVO memberVO){
-//       System.out.println("id ===" + memberVO.set);
-//        return "redirect:/profile";
-//    }
+    @PostMapping("updatePassword")
+    public String updateProfilePassword(MemberVO memberVO){
+       memberService.updatePW(memberVO);
+        return "redirect:/settings";
+    }
 
 
 }
