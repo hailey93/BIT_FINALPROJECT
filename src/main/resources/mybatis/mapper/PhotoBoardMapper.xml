@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.house.mapper.PhotoBoardMapper">
 
-   <select id="photoBoardList" resultType="com.bit.house.domain.PhotoBoardVO">
+   <select id="photoBoardList" resultType="PhotoBoardVO">
        SELECT * FROM photoboard
 
    </select>
@@ -12,5 +12,19 @@
         photoboard(memberId, photoTitle, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5 )
         VALUE(#{memberId}, #{photoTitle}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5} )
     </insert>
+
+    <select id="photoDetail" parameterType="int" resultType="PhotoBoardVO">
+        SELECT * FROM photoboard WHERE photoBoardNo=#{photoBoardNo}
+    </select>
+
+    <select id="userPhoto" resultType="PhotoBoardVO">
+        SELECT p.photoBoardNo, p.photoImg1, m.memberImg
+        FROM photoboard p INNER JOIN member m
+        ON p.memberId = m.memberId
+        WHERE p.memberId = #{memberId}
+        ORDER BY p.photoBoardNO desc
+        LIMIT 4;
+    </select>
+
 
 </mapper>

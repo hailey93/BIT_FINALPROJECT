@@ -25,6 +25,8 @@ public interface PhotoBoardMapper {
     //사진게시판 상세
     public PhotoBoardVO photoDetail(int photoBoardNo) throws Exception;
 
+    //사진게시판 사용자 게시글
+    public List<PhotoBoardVO> userPhoto (String memberId) throws Exception;
     //좋아요, 스크랩은 고민
 
 }

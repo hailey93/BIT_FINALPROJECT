@@ -37,7 +37,8 @@ public class PhotoBoardController {
     @RequestMapping("/photoBoardList")
     private String photoBoardList(Model model, PhotoBoardVO photoBoardVO) throws Exception{
 
-        model.addAttribute("photolist", photoBoardMapper.photoBoardList());
+        model.addAttribute("photoList", photoBoardMapper.photoBoardList());
+
         return "th/photoBoard/photoBoardList";
     }
     //사진 등록
@@ -117,8 +118,10 @@ public class PhotoBoardController {
     }
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
-    private String photoDetail(PhotoBoardVO photoBoardVO, CommentVO commentVO) throws Exception{
+    private String photoDetail(@PathVariable int photoBoardNo, Model model, String memberId) throws Exception{
 
+        model.addAttribute("photodetail", photoBoardMapper.photoDetail(photoBoardNo));
+        model.addAttribute("userphoto", photoBoardMapper.userPhoto(memberId));
         return "/th/photoBoard/photoBoardDetail";
     }
     //사진 수정
