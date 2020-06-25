@@ -73,11 +73,7 @@ public class MyPageController {
 
         String filePath = request.getSession().getServletContext().getRealPath("image/profileImg/");
         File dest = new File(filePath+saveName);
-
-        int Img_WIDTH = 300;
-        int Img_HEIGHT = 300;
-
-        //이미지 리사이즈
+        mf.transferTo(dest);
 
         String img = dest.toString();
 
