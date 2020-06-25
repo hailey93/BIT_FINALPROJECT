@@ -11,10 +11,10 @@
 <div class="container">
     <form action="/noteSendingProc" method="post" id="send" name="send">
     <div class="form-group">
-    <input type="hidden" th:value="${sending}"/>
+    <th:block th:text="${sending}"/>
     </div>
     <div class="form-group">
-        <textarea id="msgContent" name="msgContent" style="width: 700px"></textarea>
+        <textarea id="msgContents" name="msgContents" style="width: 700px"></textarea>
     </div>
 
     <input type="button" id="sending" name="sending" value="보내기"/>

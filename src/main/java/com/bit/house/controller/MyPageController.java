@@ -7,6 +7,7 @@ import com.bit.house.service.MemberService;
 import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,7 +42,7 @@ public class MyPageController {
     @RequestMapping("/myProfile")
     private String viewProfile(Model model) throws Exception{
 
-
+        //MemberVO memberVO = myPageMapper.selectProfile("youn123");
         model.addAttribute("profile", myPageMapper.selectProfile("youn123"));
 
         return "th/member/mypage/profile/profileInfo";
@@ -105,37 +106,26 @@ public class MyPageController {
     }
     //팔로우
     @RequestMapping("/follow")
-    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session, String followNo) throws Exception{
+    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam(required = false) String followId, HttpSession session) throws Exception{
 
-        memberId = "jung123";
-        followNo = memberId+followId;
-
+        memberId = "oleg123";
 
         followVO.setMemberId(memberId);
-        followVO.setFollowId(followId);
-        followVO.setFollowNo(followNo);
+        followVO.setFollowId(request.getParameter(followId));
 
-
-        System.out.println("followNo : "+followNo);
         System.out.println("followId : "+followId);
 
-        myPageMapper.follow(followVO);
+        myPageMapper.follow(memberId, followId);
 
     }
 
     //팔로우취소
     @RequestMapping("/cancelFollow")
-    private void cancelFollow(@RequestParam("followId") String followId, String memberId, FollowVO followVO) throws Exception{
+    private String cancelFollow(@PathVariable String memberId) throws Exception{
 
-        memberId="jung123";
-        followVO.setMemberId(memberId);
-        followVO.setFollowId(followId);
+        myPageMapper.cancelFollow(memberId);
 
-        System.out.println("followId : "+followId);
-
-        myPageMapper.cancelFollow(followVO);
-
-
+        return "";
     }
     //내 프로필
     @RequestMapping("/myBoard")
@@ -161,7 +151,7 @@ public class MyPageController {
     private String memberProfile(Model model, /*@PathVariable*/ String userId, String memberId) throws Exception{
 
         userId = "youn123";
-        memberId = "jung123";
+        memberId = "oleg123";
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
@@ -229,7 +219,7 @@ public class MyPageController {
     private String noteSendingProc(MsgVO msgVO, HttpServletRequest request) throws Exception{
 
         msgVO.setMemberId(request.getParameter("memberId")); //내 아이디 = 세션처리
-        msgVO.setMsgContent(request.getParameter("msgContent"));
+        msgVO.setMsgContents(request.getParameter("msgContent"));
         msgVO.setReceiveId(request.getParameter("memberId"));
 
         myPageMapper.noteSending(msgVO);
@@ -250,27 +240,25 @@ public class MyPageController {
     }
 
 
-    @GetMapping("/profile")
+    @GetMapping("/settings")
     public String getProfileInfo(HttpSession session, Model model) {
         MemberVO member = (MemberVO) session.getAttribute("memberVO");
-        System.out.println(member);
         model.addAttribute("member", member);
-        return "th/member/mypage/info/myInfoSetup";
+        return "th/member/mypage/info/myAllInfoSettings";
     }
 
-    @PostMapping("update")
-    public String updateProfileInfo(HttpSession session,MemberVO memberVO,Model model) {
+    @PostMapping("updateInfo")
+    public String updateProfileInfo(HttpSession session,MemberVO memberVO) {
         memberInfoMapper.updateInfoMemberById(memberVO);
        session.setAttribute("memberVO", memberVO);
-        return "redirect:/user/profile";
+        return "redirect:/settings";
     }
 
-//    @PostMapping("updatePassword")
-//    public String updateProfilePassword(MemberVO memberVO){
-//        memberService.insertMemberToUser(memberVO);
-//        memberInfoMapper.updateInfoMemberById(memberVO);
-//        return "redirect:/user/profile";
-//    }
+    @PostMapping("updatePassword")
+    public String updateProfilePassword(MemberVO memberVO){
+       memberService.updatePW(memberVO);
+        return "redirect:/settings";
+    }
 
 
 }

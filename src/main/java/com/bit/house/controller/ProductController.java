@@ -3,6 +3,7 @@ package com.bit.house.controller;
 import com.bit.house.domain.*;
 import com.bit.house.mapper.ProductMapper;
 import com.bit.house.mapper.RecommenderMapper;
+import com.bit.house.service.MemberService;
 import com.bit.house.service.RecommenderService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -10,5 +10,4 @@ import lombok.Setter;
 public class FollowVO {
     private String memberId;
     private String followId;
-    private String followNo;
 }

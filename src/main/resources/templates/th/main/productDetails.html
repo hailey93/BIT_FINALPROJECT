@@ -104,7 +104,19 @@
                         </select>
                     </div>
                     <div>
-                        <label>수량</label><input th:type="text" th:class="input-qty" th:id="qtyValue" value="1"/>
+                        <select class="custom-select col-md-1">
+                            <option th:value="0">1</option>
+                            <option th:value="1">2</option>
+                            <option th:value="2">3</option>
+                            <option th:value="3">4</option>
+                            <option th:value="4">5</option>
+                            <option th:value="5">6</option>
+                            <option th:value="6">7</option>
+                            <option th:value="7">8</option>
+                            <option th:value="8">9</option>
+                            <option th:value="9">10</option>
+                        </select>
+
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
                     window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">장바구니</button>
