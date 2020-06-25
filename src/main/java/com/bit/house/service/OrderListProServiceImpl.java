@@ -18,4 +18,10 @@ public class OrderListProServiceImpl implements OrderListProService {
 
         return orderListProMapper.searchOrderList(sellerId);
     }
+
+    @Override
+    public List<OrderListProVO> searchOrderStatus(String orderCode, String sellerId) {
+
+        return orderListProMapper.searchOrderStatus(orderCode, sellerId);
+    }
 }

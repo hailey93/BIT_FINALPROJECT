@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -89,12 +90,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true) // 로그아웃시 세션제거
                     .deleteCookies("JSESSION_ID") // 쿠키제거
                     .clearAuthentication(true) // 권한정보제거
-//                .and()
-//                    .exceptionHandling()
-//                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/storeMain"))
+
+                .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/customLogin"))
                 .and()
                     .addFilterBefore(filter, CsrfFilter.class)
                     .csrf().disable();
+
     }
 
     @Bean
