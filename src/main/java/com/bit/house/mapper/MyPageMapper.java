@@ -21,10 +21,10 @@ public interface MyPageMapper {
     public List<FollowVO> following() throws Exception;
 
     //팔로우
-    public String follow(String memberId, String followId) throws Exception;
+    public String follow(FollowVO followVO) throws Exception;
 
     //팔로우 취소
-    public String cancelFollow(String memberId) throws Exception;
+    public String cancelFollow(FollowVO followVO) throws Exception;
 
     //내 프로필
     public MemberVO myProfile(String memberId) throws Exception;

@@ -1,13 +1,14 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.*;
+import com.bit.house.domain.FollowVO;
+import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.MsgVO;
 import com.bit.house.mapper.MemberInfoMapper;
 import com.bit.house.mapper.MyPageMapper;
 import com.bit.house.service.MemberService;
 import com.bit.house.service.MyPageService;
 import groovy.util.logging.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -244,7 +245,7 @@ public class MyPageController {
     private String noteSendingProc(MsgVO msgVO, HttpServletRequest request) throws Exception{
 
         msgVO.setMemberId(request.getParameter("memberId")); //내 아이디 = 세션처리
-        msgVO.setMsgContent(request.getParameter("msgContent"));
+        msgVO.setMsgContents(request.getParameter("msgContent"));
         msgVO.setReceiveId(request.getParameter("memberId"));
 
         myPageMapper.noteSending(msgVO);
@@ -282,7 +283,7 @@ public class MyPageController {
 
     @PostMapping("updatePassword")
     public String updateProfilePassword(MemberVO memberVO){
-       memberService.updatePW(memberVO);
+       //memberService.updatePW(memberVO);
         return "redirect:/settings";
     }
 
