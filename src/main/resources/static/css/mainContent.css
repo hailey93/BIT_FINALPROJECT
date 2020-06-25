@@ -1,3 +1,16 @@
+.fixed-btn-area{
+    position: fixed;
+    top: 90%;
+    float: left;
+    width: 50px;
+    background: #35c5f0;
+    height: 50px;
+    left: 430px;
+    z-index: 99999;
+    padding: 13px;
+    border-radius: 100px;
+}
+
 .store-index-popular-items__header {
     margin-bottom: 20px;
     display: flex

@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 @ToString
 @Setter
@@ -15,17 +16,16 @@ public class ChatRoomVO implements Serializable {
     private String chatId;
     private String memberId;
     private String adminId;
+    private String time;
 
     public static ChatRoomVO create(String memberId){
+        SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+        String time=currentTime.format(System.currentTimeMillis());
+
         ChatRoomVO chatRoomVO=new ChatRoomVO();
         chatRoomVO.chatId= UUID.randomUUID().toString();
         chatRoomVO.memberId=memberId;
-        return chatRoomVO;
-    }
-    public static ChatRoomVO addAdmin(String memberId){
-        ChatRoomVO chatRoomVO=new ChatRoomVO();
-        chatRoomVO.chatId= UUID.randomUUID().toString();
-        chatRoomVO.memberId=memberId;
+        chatRoomVO.time=time;
         return chatRoomVO;
     }
 }
