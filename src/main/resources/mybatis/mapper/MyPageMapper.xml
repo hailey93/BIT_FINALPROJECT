@@ -3,7 +3,7 @@
 <mapper namespace="com.bit.house.mapper.MyPageMapper">
 
 
-    <select id="selectProfile" resultType="com.bit.house.domain.MemberVO">
+    <select id="selectProfile" resultType="MemberVO">
         SELECT nickName, memberImg, memberIntro
         FROM member
         WHERE memberId = #{memberId}
@@ -64,11 +64,11 @@
         WHERE memberId = #{memberId}
     </select>
 
-    <select id="profileScrap" resultType="String">
-        SELECT s.scrapNo, p.photoBoardNo, p.photoImg1
+    <select id="profileScrap" resultType="ScrapVO">
+        SELECT s.scrapNo, p.memberId, p.photoBoardNo, p.photoImg1
         FROM scrap s INNER JOIN photoboard p
         ON s.photoBoardNo = p.photoBoardNo
-        WHERE s.memberId = #{memberId}
+        WHERE s.memberId = 'youn123'
         ORDER BY s.scrapNo desc
         LIMIT 4;
     </select>

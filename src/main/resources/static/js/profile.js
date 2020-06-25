@@ -10,15 +10,42 @@ $(function(){
 //팔로우버튼
 $(function () {
     $("#follow").click(function(){
-        var follow;
-        follow = $("form[name=foll]").serialize();
+
+        var follow = {
+            followId: $("#fol").val(),
+        };
+        console.log(follow);
+
 
         $.ajaxSettings.traditional=true;
         $.ajax({
             type : "post",
             url : "/follow",
-            data : {followId : follow},
+            data : follow,
             success : function(data){
+
+                location.reload();
+            },
+        });
+    });
+});
+
+//팔로우취소버튼
+$(function(){
+    $("#followcancel").click(function(){
+
+        var follow = {
+            followId: $("#fol").val(),
+        };
+        console.log(follow);
+
+        $.ajaxSettings.traditional=true;
+        $.ajax({
+            type : "post",
+            url : "/cancelFollow",
+            data : follow,
+            success : function(data){
+
                 location.reload();
             },
         });
@@ -26,7 +53,46 @@ $(function () {
 });
 
 
-//쪽지 보내기버튼
+//프로필페이지에서 쪽지보내기 버튼
+$(function(){
+    $("#notesend").click(function(){
+        var receive = $("#fol").val();
+        document.sending.receiveId.value = receive;
+        console.log(receive);
+        alert('console');
+
+        $("#sending").submit();
+    });
+});
+
+//프로필페이지 사진 전체보기
+$(function(){
+    $("#allphoto").click(function(){
+        var member = $("#fol").val();
+        document.photo.memberId.value = member;
+        console.log(member);
+        alert('console');
+
+        $("#photo").submit();
+    });
+});
+
+
+//프로필페이지 스크랩 전체보기
+$(function(){
+    $("#allscrap").click(function(){
+        var member = $("#fol").val();
+        document.scrap.memberId.value = member;
+        console.log(member);
+        alert('console');
+
+        $("#scrap").submit();
+    });
+});
+
+
+
+//쪽지페이지에서 보내기버튼
 $(function() {
     $("#send").click(function () {
         var count = $(".select_note input:checked").length;

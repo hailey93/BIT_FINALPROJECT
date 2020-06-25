@@ -1,58 +1,70 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
+
     <meta charset="UTF-8">
     <title>사용자 프로필</title>
-    <script src="https://code.jquery.com/jquery-latest.js"></script>
+
     <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </head>
 
 <body>
+<div layout:fragment="content">
 <div class="container">
     <div class="form-group">
         <img th:src="@{'/uploadImg'+${memprofile.memberImg}}" style="width: 300px; height: 300px;"/>
     </div>
     <div class="form-group">
-        <form id="fol" name="fol">
-        <th:block th:text="${memprofile.memberId}" id="foll" name="foll"/>
-        </form>
+            <p><h3><th:block th:text="${memprofile.memberId}"/></h3></p>
     </div>
     <div class="form-group">
         <p>팔로워<th:block th:text="${followCount}"></th:block>
             팔로잉<th:block th:text="${followingCount}"></th:block></p>
     </div>
     <div class="form-group">
-        <input type="button" th:if="${fcount == 0}" id="follow" name="follow" value="팔로우">
-        <input type="button" th:if="${fcount == 1}" id="followcancel" name="followcancel" value="팔로우취소">
+        <form action="/noteSending" method="post" id="sending" name="sending">
+        <input type="button" th:if="${fcount == 0}" id="follow" name="follow" value="팔로우"/>
+        <input type="button" th:if="${fcount == 1}" id="followcancel" name="followcancel" value="팔로우취소"/>
+        <input type="hidden" id="fol" name="fol" th:value="${memprofile.memberId}"/>
         <input type="button" id="notesend" name="notesend" value="쪽지보내기">
+            <input type="hidden" id="receiveId" name="receiveId" value=""/>
+        </form>
     </div>
     <div class="form-group">
         <th:block th:text="${memprofile.memberIntro}"/>
     </div>
 </div>
 
-<!--<div class="container">
+<div class="container">
     <div class="form-group">
-        <h3>사진<th:block th:text="${photoCount}"/></h3>
+        <form action="/allPhoto" method="post" id="photo" name="photo">
+        <h3>사진<th:block th:text="${photoCount}"/></h3><input type="button" id="allphoto" name="allphoto" value="전체보기"/>
+            <input type="hidden" name="memberId" value=""/>
+        </form>
     </div>
     <div class="form-group">
         <th:block th:each="userphoto : ${memphoto}">
-            <tr th:onclick="" >&lt;!&ndash; photodetail로 이동&ndash;&gt;
-                <td th:text="${userphoto.photoImg1}"/>
+            <tr th:onclick="" ><!-- photodetail로 이동-->
+                <td><img th:src="@{'/uploadImg'+${userphoto.photoImg1}}" style="width: 200px; height: 200px;" /></td>
             </tr>
         </th:block>
     </div>
     <div class="form-group">
-        <h3>스크랩<th:block th:text="${scrapCount}"/></h3>
+        <form action="/allScrap" method="post" id="scrap" name="scrap">
+        <h3>스크랩<th:block th:text="${scrapCount}"/></h3><input type="button" id="allscrap" name="allscrap" value="전체보기"/>
+        <input type="hidden" name="memberId" value=""/>
+        </form>
     </div>
-    <div class="form-group">
-        <th:block th:each="userscrap : ${memscrap}">
-            <tr th:onclick="">&lt;!&ndash; photodetail로 이동&ndash;&gt;
-                <td th:text="${userscrap.photoImg1}"/>
+    <div>
+        <th:block th:each="userscrap : ${memberscrap}">
+            <tr th:onclick="" ><!-- photodetail로 이동-->
+                <td><img th:src="@{'/uploadImg'+${userscrap.photoImg1}}" style="width: 200px; height: 200px;" /></td>
             </tr>
         </th:block>
-    </div>-->
+    </div>
 </div>
-
+</div>
 </body>
 </html>

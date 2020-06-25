@@ -23,6 +23,7 @@ import java.util.UUID;
 
 @Slf4j
 @Controller
+//@RequestMapping("member")
 public class MyPageController {
 
     @Autowired(required = false)
@@ -40,10 +41,13 @@ public class MyPageController {
 
     //프로필설정
     @RequestMapping("/myProfile")
-    private String viewProfile(Model model) throws Exception{
+    private String viewProfile(Model model, String memberId) throws Exception{
 
-        //MemberVO memberVO = myPageMapper.selectProfile("youn123");
-        model.addAttribute("profile", myPageMapper.selectProfile("youn123"));
+        memberId = "youn123";
+
+        model.addAttribute("myprofile", myPageMapper.selectProfile(memberId));
+
+        System.out.println(myPageMapper.selectProfile(memberId));
 
         return "th/member/mypage/profile/profileInfo";
     }
@@ -68,7 +72,11 @@ public class MyPageController {
 
         String filePath = request.getSession().getServletContext().getRealPath("image/profileImg/");
         File dest = new File(filePath+saveName);
-        mf.transferTo(dest);
+
+        int Img_WIDTH = 300;
+        int Img_HEIGHT = 300;
+
+        //이미지 리사이즈
 
         String img = dest.toString();
 
@@ -106,26 +114,40 @@ public class MyPageController {
     }
     //팔로우
     @RequestMapping("/follow")
-    private void follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam(required = false) String followId, HttpSession session) throws Exception{
+    @ResponseBody
+    private String follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session, String followNo) throws Exception{
 
-        memberId = "oleg123";
+        memberId = "jung123";
+        followNo = memberId+followId;
+
 
         followVO.setMemberId(memberId);
-        followVO.setFollowId(request.getParameter(followId));
+        followVO.setFollowId(followId);
+        followVO.setFollowNo(followNo);
 
+
+        System.out.println("followNo : "+followNo);
         System.out.println("followId : "+followId);
 
-        myPageMapper.follow(memberId, followId);
+        myPageMapper.follow(followVO);
 
+        return "redirect:/memberProfile";
     }
 
     //팔로우취소
     @RequestMapping("/cancelFollow")
-    private String cancelFollow(@PathVariable String memberId) throws Exception{
+    @ResponseBody
+    private void cancelFollow(@RequestParam("followId") String followId, String memberId, FollowVO followVO) throws Exception{
 
-        myPageMapper.cancelFollow(memberId);
+        memberId="jung123";
+        followVO.setMemberId(memberId);
+        followVO.setFollowId(followId);
 
-        return "";
+        System.out.println("followId : "+followId);
+
+        myPageMapper.cancelFollow(followVO);
+
+
     }
     //내 프로필
     @RequestMapping("/myBoard")
@@ -133,9 +155,10 @@ public class MyPageController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
+        memberId = "youn123";
 
         model.addAttribute("myphoto", myPageMapper.profilePhoto(memberId));
-        model.addAttribute("mprofile", myPageMapper.myProfile("youn123"));
+        model.addAttribute("mprofile", myPageMapper.myProfile(memberId));
         model.addAttribute("myscrap", myPageMapper.profileScrap(memberId));
         model.addAttribute("followCount", myPageMapper.followCount(memberId));
         model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
@@ -151,24 +174,26 @@ public class MyPageController {
     private String memberProfile(Model model, /*@PathVariable*/ String userId, String memberId) throws Exception{
 
         userId = "youn123";
-        memberId = "oleg123";
+        memberId = "jung123";
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
-        model.addAttribute("memscrap", myPageMapper.profileScrap(userId));
+        model.addAttribute("memberscrap", myPageMapper.profileScrap(userId));
         model.addAttribute("followCount", myPageMapper.followCount(userId));
         model.addAttribute("followingCount", myPageMapper.followingCount(userId));
         model.addAttribute("photoCount", myPageMapper.photoCount(userId));
         model.addAttribute("scrapCount", myPageMapper.scrapCount(userId));
         model.addAttribute("fcount", myPageMapper.followerCount(memberId, userId));
 
+        System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
         return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
     @RequestMapping("/allPhoto")
-    private String allPhoto(Model model, @PathVariable(required = false) String memberId) throws Exception{
+    private String allPhoto(Model model, @RequestParam(required = false) String memberId) throws Exception{
         //이거는 세션 받지 말고 프로필창에서 아이디 넘겨받아서 처리하는쪽으로
 
+        System.out.println(memberId);
         model.addAttribute("photo", myPageMapper.allPhoto(memberId));
 
         return "th/member/mypage/profile/allPhoto";
@@ -176,9 +201,9 @@ public class MyPageController {
 
     //스크랩 전체보기
     @RequestMapping("/allScrap")
-    private String allScrap(Model model, @PathVariable String memberId) throws Exception{
+    private String allScrap(Model model, @RequestParam(required = false) String memberId) throws Exception{
         //이것도 세션안받음
-
+        System.out.println(memberId);
         model.addAttribute("scrap", myPageMapper.allScrap(memberId));
 
         return "th/member/mypage/profile/allScrap";
@@ -219,7 +244,7 @@ public class MyPageController {
     private String noteSendingProc(MsgVO msgVO, HttpServletRequest request) throws Exception{
 
         msgVO.setMemberId(request.getParameter("memberId")); //내 아이디 = 세션처리
-        msgVO.setMsgContents(request.getParameter("msgContent"));
+        msgVO.setMsgContent(request.getParameter("msgContent"));
         msgVO.setReceiveId(request.getParameter("memberId"));
 
         myPageMapper.noteSending(msgVO);
@@ -230,6 +255,7 @@ public class MyPageController {
     //쪽지 삭제
 
     @RequestMapping("/deleteNote")
+    @ResponseBody
     private String deleteNote(@RequestParam(required = false) List<String> msgNum) throws Exception{
 
         System.out.println(msgNum);
