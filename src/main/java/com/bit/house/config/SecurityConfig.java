@@ -63,9 +63,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .antMatchers("/", "/oauth2/**", "/login/**", "/storeMain")
                     .permitAll()
-                    .antMatchers("/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
-                    .antMatchers("/member").hasAnyRole("MEMBER","USER")
-                    .antMatchers("/seller").hasAnyRole("SELLER")
+                    .antMatchers("/admin/**").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
+                    .antMatchers("/member/**").hasAnyRole("MEMBER","USER")
+                    .antMatchers("/seller/**").hasAnyRole("SELLER")
                     //.anyRequest().authenticated()
                 .and()
                     .oauth2Login()
