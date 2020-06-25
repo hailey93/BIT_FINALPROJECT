@@ -21,8 +21,8 @@ public class PhotoBoardVO {
     private String photoImg3;
     private String photoImg4;
     private String photoImg5;
-    private String houseType;
-    private String placeType;
-    private String areaType;
-    private String styleType;
+    private String houseCode;
+    private String placeCode;
+    private String areaCode;
+    private String styleCode;
 }

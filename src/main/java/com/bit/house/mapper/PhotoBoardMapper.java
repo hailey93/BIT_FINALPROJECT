@@ -14,7 +14,7 @@ public interface PhotoBoardMapper {
     public List<PhotoBoardVO> photoBoardList() throws Exception;
 
     //사진게시판 업로드
-    public String insertPhoto(PhotoBoardVO photoBoardVO) throws Exception;
+    public void insertPhoto(PhotoBoardVO photoBoardVO) throws Exception;
 
     //사진게시판 수정
     public String updatePhoto(PhotoBoardVO photoBoardVO) throws Exception;

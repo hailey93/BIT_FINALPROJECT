@@ -63,7 +63,7 @@ public class MyPageController {
 
         StringBuffer sb = new StringBuffer();
 
-        String src = mreq.getParameter("src");
+        //String src = mreq.getParameter("src");
         MultipartFile mf = mreq.getFile("uploadFile");
 
         String oldName = mf.getOriginalFilename();
