@@ -106,34 +106,57 @@ public class BasketController {
     }
 
     @RequestMapping(value = "/basketLocal", method = RequestMethod.POST)
-    public @ResponseBody void basketLocal(String[] hoho,HttpSession session) {
-        System.out.println("호호 출력 ArrayList");
+    public @ResponseBody void basketLocal(String[] hoho,HttpSession session, String first) {
+        System.out.println("호호 출력"+hoho.getClass());
         String[] ab = new String[100];
         int i=0;
-        for(String a : hoho){
+        String check = "첫번째";
+        System.out.println(hoho.length+"&&");
+        System.out.println(first+"입니다"+check+"?"+first.equals(check));
 
-            ab[i] = a;
-            i++;
-            System.out.println(a);
+        if(first.equals(check)==true){
+            System.out.println("firest는 참입니다");
+            List<String> proNo = new ArrayList<>();
+            List<String> proColor = new ArrayList<>();
+            List<Integer> proQty = new ArrayList<>();
+            for (String a : hoho) {
+
+                ab[i] = a;
+                i++;
+                System.out.println(a);
+            }
+            proNo.add(ab[0]);
+            proColor.add(ab[1]);
+            proQty.add(Integer.parseInt(ab[2]));
+            session.setAttribute("proNo", proNo);
+            session.setAttribute("proColor", proColor);
+            session.setAttribute("proQty", proQty);
+        }else {
+            for (String a : hoho) {
+
+                ab[i] = a;
+                i++;
+                System.out.println(a);
+            }
+            List<String> proNo = new ArrayList<>();
+            List<String> proColor = new ArrayList<>();
+            List<Integer> proQty = new ArrayList<>();
+            int j;
+            for (j = 0; j < i; j++) {
+                System.out.println("ab?:" + ab[j]);
+                proNo.add(ab[j].split(",")[0]);
+                proColor.add(ab[j].split(",")[1]);
+                proQty.add(Integer.parseInt(ab[j].split(",")[2]));
+            }
+            for (int b = 0; b < j; b++) {
+                System.out.println(proNo.get(b));
+                System.out.println(proColor.get(b));
+                System.out.println(proQty.get(b));
+            }
+            session.setAttribute("proNo", proNo);
+            session.setAttribute("proColor", proColor);
+            session.setAttribute("proQty", proQty);
         }
-        List<String> proNo = new ArrayList<>();
-        List<String> proColor = new ArrayList<>();
-        List<Integer> proQty = new ArrayList<>();
-        int j;
-        for(j=0; j<i; j++){
-            System.out.println("ab?:" + ab[j]);
-            proNo.add(ab[j].split(",")[0]);
-            proColor.add(ab[j].split(",")[1]);
-            proQty.add(Integer.parseInt(ab[j].split(",")[2]));
-        }
-        for(int b=0; b<j ; b++){
-            System.out.println(proNo.get(b));
-            System.out.println(proColor.get(b));
-            System.out.println(proQty.get(b));
-        }
-        session.setAttribute("proNo", proNo);
-        session.setAttribute("proColor", proColor);
-        session.setAttribute("proQty", proQty);
 
     }
 
@@ -267,11 +290,11 @@ public class BasketController {
         if(memberId == "") { // 장바구니 클릭시 세션에 저장하고 클라이언트에 저장하기 때문에 그 외의 값은 들어가지 않는다
             List<String> hohoSession1 = new ArrayList<>();
             List<String> hohoSession2 = new ArrayList<>();
-            List<String> hohoSession3 = new ArrayList<>();
+            List<Integer> hohoSession3 = new ArrayList<>();
 
             hohoSession1 = (List<String>) session.getAttribute("proNo");
             hohoSession2 = (List<String>) session.getAttribute("proColor");
-            hohoSession3 = (List<String>) session.getAttribute("proQty");
+            hohoSession3 = (List<Integer>) session.getAttribute("proQty");
 
             if (hohoSession2 == null) {
                 System.out.println("값이 없다");
@@ -281,6 +304,11 @@ public class BasketController {
                 //if(userId == null){
                 System.out.println("값이 있다");
                 List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession1,hohoSession2);
+                for(int i=0; i<basketVOList.size(); i++) {
+                    basketVOList.get(i).setQty(hohoSession3.get(i));
+                    System.out.println("리스트 i 의 qty입니다"+basketVOList.get(i).getQty());
+                }
+                System.out.println("리스트:"+basketVOList);
                 model.addAttribute("basketList", basketVOList);
                 return "th/member/basket/nonMemberBasket";
                 //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}

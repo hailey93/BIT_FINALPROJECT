@@ -178,6 +178,7 @@
         var memId = JSON.parse(memId2);
         console.log("memId : " + memId);
 
+        var first;
 
 
         // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
@@ -266,35 +267,41 @@
                         localStored[0] = 1;
                     }*/
                     console.log(localStored[0]);
-                    console.log("after arr : " + localStored);
+                    console.log("생 arr : " + localStored);
                     //localStorage.setItem("saveL", localStored);
                     //localStored[b] = JSON.stringify(arr);
                     //console.log(localStored[b]);
+                    first = "첫번째";
                     localStorage.setItem("saveL", JSON.stringify(localStored));
                 } else {
+                    first = "두번째";
                     b = 0;
                     console.log("localSession is not Null : ");
-                    for(var i = 0; i<localStored.length; i++) {
+                    for (var i = 0; i < localStored.length; i++) {
                         console.log("localStored : " + localStored);
                         if (localStored[b][0] == value && localStored[b][1] == colorValue) {
                             console.log("로컬 이미 저장돼있습니다");
                             break;
                         }
-                        if(localStored[b+1] == undefined){
+                        if (localStored[b + 1] == undefined) {
                             console.log("흠 Null");
                             console.log(b);
-                            localStored[b+1]=arr;
-                            console.log("bf"+arr);
-                            console.log("af"+JSON.stringify(arr));
-                            console.log("b+1은? "+localStored[b+1]+" & localStored : "+localStored);
+                            localStored[b + 1] = arr;
+                            console.log("bf" + arr);
+                            console.log("af" + JSON.stringify(arr));
+                            console.log("b+1은? " + localStored[b + 1] + " & localStored : " + localStored);
                             localStorage.setItem("saveL", JSON.stringify(localStored));
                             break;
-                            }
-                            b++;
                         }
+                        b++;
                     }
+
+                }
+                ajaxSessionStorage();
+            }
+        }
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 로컬끝
-                    if (sessionCheck == null) {
+                    /*if (sessionCheck == null) {
                         console.log("sessionCheck is null");
                         while (true) {
                             console.log(a + "번째");
@@ -327,7 +334,7 @@
                     // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
                     // sessionStorage.setItem(key, value);
                     //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
-                ajaxSessionStorage();
+
                 }
             else
                 {
@@ -371,7 +378,7 @@
 
                 }
             }
-
+*/
             function ajaxSessionStorage() {
 
             console.log("ajaxSessionStorage 실행");
@@ -390,7 +397,8 @@
                     type: "POST",
                     dataType : 'json',
                     traditional: true,
-                    data: {'hoho': hoSession}
+                    data: {'hoho': hoSession,
+                    'first' : first}
                     ,
                     success: function (e) {
                         alert("ajax완료")
