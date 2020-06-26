@@ -105,7 +105,7 @@
                         </select>
                     </div>
                     <div>
-                        <select class="custom-select col-md-1" name="hohoBox">
+                        <select class="custom-select col-md-1" name="hohoBox" id="hohoBox">
                             <option th:value="1">1</option>
                             <option th:value="2">2</option>
                             <option th:value="3">3</option>
@@ -301,6 +301,44 @@
 
                 }
                 ajaxSessionStorage();
+            }else{
+                console.log("memId : ~ajax " + memId);
+
+                var selectOption = document.getElementById("inputGroupSelect01");
+                console.log(selectOption);
+                selectOption = selectOption.options[selectOption.selectedIndex].value;
+                console.log("옵션 : " + selectOption);
+                var qty = document.getElementById("hohoBox").value;
+                console.log("qty : " + qty | 0);
+                //var pName = document.getElementById("pName").value;
+                //console.log("pName" + pName);
+                var pNo = document.getElementById("productNo").value;
+                console.log("pNo" + pNo);
+
+                if (qty == "") {
+                    alert("숫자 입력하세요");
+
+                } else {
+                    $.ajax({ // 세션 보내기 ajax
+                        //console.log("hi");
+                        url: "/basketMember",
+                        type: "POST",
+                        data: {
+                            memberId: memId,
+                            productNo: pNo,
+                            productColor: selectOption,
+                            qty: qty
+                        }
+                        ,
+                        success: function (e) {
+                            alert("basketMem 완료")
+
+                        },
+                        error: function () {
+                            alert("test err");
+                        }
+                    });
+                }
             }
         }
 // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 로컬끝

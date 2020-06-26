@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import com.bit.house.domain.BasketVO;
 import com.bit.house.domain.OrderListVO;
 import com.bit.house.domain.kakao.KakaoPayApprovalVO;
 import com.bit.house.domain.kakao.KakaoPayReadyVO;
@@ -30,10 +31,10 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-	public String kakaoPayReady(OrderListVO orderListVO, String productName) {
+	public String kakaoPayReady(List<BasketVO> basketVOS, String productName, int[] orderQty, int totalP) {
 		log.info("KakaoPayReady 호출............................................");
         RestTemplate restTemplate = new RestTemplate();
-        
+        log.info("orderQty :?" + orderQty + "basketVOS" + basketVOS);
         /*log.info("userId :: " + houseUser.getUserId());
         log.info("payment : 흐" + housePayment);
         log.info("houseProduct : 흐" + houseProduct);*/
@@ -45,6 +46,8 @@ public class KakaoPay {
         headers.add("Content-Type", MediaType.APPLICATION_FORM_URLENCODED_VALUE + ";charset=UTF-8");
 
 
+        int totalQty = 0;
+
 
         //        HouseUser houseUser = null;
        // HouseUser houseUser = session.getAttribute("user")
@@ -54,10 +57,10 @@ public class KakaoPay {
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "001");
-        params.add("partner_user_id", orderListVO.getMemberId());
+        params.add("partner_user_id", "s");
         params.add("item_name",productName+"외");
-        params.add("quantity", "3");
-        params.add("total_amount", "1200");
+        params.add("quantity", ""+totalQty);
+        params.add("total_amount", ""+totalP);
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8080/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");
@@ -83,13 +86,13 @@ public class KakaoPay {
         return "/pay";
         
     }
-    public KakaoPayApprovalVO kakaoPayInfo(String pg_token,String userId) {
+    public KakaoPayApprovalVO kakaoPayInfo(String pg_token,String memberId) {
     	log.info("KakaoPayInfo 메소드 호출 ............................................");
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
        // System.out.println(userId);
         RestTemplate restTemplate = new RestTemplate();
-        log.info("userId : : " + userId);
+        log.info("userId : : " + memberId);
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "cc5382cc45ef5108db524d112de5167c");
@@ -101,7 +104,7 @@ public class KakaoPay {
         params.add("cid", "TC0ONETIME");
         params.add("tid", kakaoPayReadyVO.getTid());
         params.add("partner_order_id", "001");
-        params.add("partner_user_id", "123");
+        params.add("partner_user_id", memberId);
         params.add("pg_token", pg_token);
         
         HttpEntity<MultiValueMap<String, String>> body = new HttpEntity<MultiValueMap<String, String>>(params, headers);

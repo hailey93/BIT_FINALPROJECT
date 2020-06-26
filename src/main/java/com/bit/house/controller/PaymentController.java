@@ -32,6 +32,7 @@ public class PaymentController {
             log.info(memberId);
             List<BasketVO> basketMember = basketMapper.getMemberBasketList(memberId);
             System.out.println("qty :: " + basketMember);
+            session.setAttribute("basketMember", basketMember);
             model.addAttribute("memberBasketList", basketMember);
             return "th/member/payment/memberPayment";
         }else{

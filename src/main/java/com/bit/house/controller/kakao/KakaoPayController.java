@@ -51,10 +51,11 @@ public class KakaoPayController {
     // form ~post 
     // <div> 안에 <a href> button false js에서 선택한게 있으면 submit 아니면 되돌아가기
     @PostMapping("/kakaoPay")
-    public String kakaoPay(HttpSession session,OrderListVO orderListVO, String[] productNo,
-                           int[] orderQty, String[] colorName,String productName) { // 리스트로?
+    public String kakaoPay(HttpSession session, String[] productNo,
+                           int[] orderQty, String[] colorName,String productName,int[] totalPrice) { // 리스트로?
         log.info("kakaoPay post 호출............................................");
-        log.info("orderlist? : " + orderListVO);
+        List<BasketVO> basketMember = (List<BasketVO>) session.getAttribute("basketMember");
+        log.info("orderlist? : " + basketMember + "totalPrice : ?" + totalPrice);
         for(int i=0; i < productNo.length; i++){
             System.out.println(i+"번쨰 : " +productNo[i]);
         }
@@ -62,16 +63,24 @@ public class KakaoPayController {
         for(int i=0; i < colorName.length; i++){
             System.out.println(i+"번째 : "+colorName[i]);
         }
-
+        int totalP = 0;
         for(int i=0; i < orderQty.length; i++){
             System.out.println(i+"번째 : "+orderQty[i]);
         }
+        for(int i=0; i < totalPrice.length; i++){
+            System.out.println(i+"번째 : "+totalPrice[i]);
+            totalP += totalPrice[i];
+        }
+
         System.out.println("VO :: "+ productName);
+        //배열이라
         session.setAttribute("productNo", productNo);
         session.setAttribute("colorName", colorName);
         session.setAttribute("orderQty", orderQty);
+        session.setAttribute("orderListVO", orderListVO);
 
-        return "redirect:" + kakaopay.kakaoPayReady(orderListVO,productName);
+        System.out.println("수량 입력"+session.getAttribute("orderQty"));
+        return "redirect:" + kakaopay.kakaoPayReady(basketMember,productName,orderQty,totalP);
  
     }
     List<OrderListVO> orderListVO = new ArrayList<OrderListVO>();
@@ -86,19 +95,17 @@ public class KakaoPayController {
        // System.out.println(houseUser);
         //houseUser = userDAO.getHouseUser(houseUser);
         //System.out.println(houseUser);
-        kakaoInfo = kakaopay.kakaoPayInfo(pg_token, /*((HouseUser) session.getAttribute("houseUser")).getUserId()*/"hihi");
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        String memberId = memberVO.getMemberId();
+        kakaoInfo = kakaopay.kakaoPayInfo(pg_token, memberId);
+
         //이렇게 하는 이유
         log.info("kakaoInfo : " + kakaoInfo);
         System.out.println("//////////");
         System.out.println("kakaoInfo : " + kakaoInfo);
-        //System.out.println("houseUser : " + houseUser);
-        //houseUser = userDAO.getUser();
         model.addAttribute("kakaoInfo", kakaoInfo);
-       // model.addAttribute("house",houseUser);
         session.getAttribute(pg_token);
-        // 추가 해야할 것  insert ~info
-        // update ~~info
-        
+
         // 원래 있던거 model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, pg_token));
         
         //수정 return "redirect:/myPage";

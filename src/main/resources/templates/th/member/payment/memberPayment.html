@@ -60,13 +60,13 @@
                                     <input type="hidden" name="productNo" th:value="${list.productNo}"><br>
                                     <input type="hidden" name="colorName" th:value="${list.productColor}"><br>
                                     <input type="hidden" name="memberId" th:value="ha123"><br>
-                                    <input type="hidden" name="totalPrice" th:value=2><br>
+                                    <input type="hidden" name="totalPrice" th:value="${list.getProductVO().getPurchasePrice()}"><br>
                                     <input type="hidden" name="usedPoint" th:value=3><br>
                                     <input type="hidden" name="orderAddr" th:value="addr"><br>
                                     <input type="hidden" name="orderDate" th:value="2020-06-05"><br>
                                     <input type="hidden" name="payCode" th:value="1"><br>
                                     <input type="hidden" name="orderCode" th:value="10"><br>
-
+                                <!--orderListVO에 저장안되나-->
 
                                     <img th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}" alt="320">
                                     <div>
@@ -249,7 +249,7 @@
                             <label class="first  top" for="order_payment_method_kcp_credit_card" onclick=""  > <!-- kakaoPay submit 어떻게? -->
                                 <img class="img" width="64" src="" alt="Card">
                                 <div class="title">카카오페이</div>
-                                    <button onsubmit="true">카카오페이로 결제하기</button>
+                                    <button>카카오페이로 결제하기</button>
                                 <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다" data-detail2="">
 
                                 </div>
