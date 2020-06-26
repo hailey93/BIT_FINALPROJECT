@@ -34,4 +34,12 @@ public class SellerServiceImpl implements SellerService {
 
         return sellerMapper.searchSeller(id);
     }
+
+    @Override
+    public SellerVO searchSellerInfo(String sellerId) {
+
+        return sellerMapper.searchSellerInfo(sellerId);
+    }
+
+
 }

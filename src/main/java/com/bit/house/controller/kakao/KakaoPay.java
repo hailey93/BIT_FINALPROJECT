@@ -55,7 +55,7 @@ public class KakaoPay {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "001");
         params.add("partner_user_id", orderListVO.getMemberId());
-        params.add("item_name",productName);
+        params.add("item_name",productName+"외");
         params.add("quantity", "3");
         params.add("total_amount", "1200");
         params.add("tax_free_amount", "100");
