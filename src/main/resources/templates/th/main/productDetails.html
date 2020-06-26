@@ -9,12 +9,14 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
     <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
-<!--    <link rel="stylesheet" th:href="@{https://www.w3schools.com/w3css/4/w3.css}">-->
+    <!--    <link rel="stylesheet" th:href="@{https://www.w3schools.com/w3css/4/w3.css}">-->
 
     <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -85,7 +87,7 @@
                             class="production-selling-header__title__brand"
                             href="" th:value="${product.productNo}" th:text="${product.sellerName}"></a>
                     </p><span class="production-selling-header__title__name" th:value="${product.productName}"
-                              th:text="${product.productName}" th:id="pName" ></span>
+                              th:text="${product.productName}" th:id="pName"></span>
                     </h1>
                     <h4><span class="production-selling-header__price__original"
                               th:text="${product.sellPrice}"></span></h4>
@@ -97,7 +99,7 @@
                 <form action="" method="post" th:object="${basketVO}">
                     <div class="input-group">
                         <select th:field="*{productColor}" class="custom-select col-md-7" th:id="inputGroupSelect01">
-                            <option th:value selected disabled>색상</option>
+                            <option th:value selected>색상</option>
                             <option id="colorSelect" th:each="color : ${product.colorCodeVOList}"
                                     th:value="${color}"
                                     th:utext="${color}"/>
@@ -129,7 +131,7 @@
 
 
         <div class="container">
-            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+            <ul class="nav nav-pills mb-3 justify-content-center sticky-top bg-white" style="width: 120px; background-color: white" id="pills-tab" role="tablist">
                 <li class="nav-item" role="presentation">
                     <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
                        aria-controls="pills-home" aria-selected="true">상품정보</a>
@@ -144,9 +146,11 @@
                 </li>
             </ul>
             <div class="tab-content" id="pills-tabContent">
-                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                     aria-labelledby="pills-home-tab">
                     <img th:src="@{'/uploadImg/'+${product.productExpImg}}" class="d-block w-100" alt="..."></div>
-                <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"></div>
+                <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                     aria-labelledby="pills-profile-tab"></div>
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
                     <table class="table table-sm">
                         <tbody>
