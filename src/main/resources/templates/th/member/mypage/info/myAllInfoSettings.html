@@ -42,23 +42,23 @@
             <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
                 <a class="nav-item nav-link active" id="nav-myProfile-tab" data-toggle="tab"
                    href="#nav-myProfile" role="tab"
-                   aria-controls="nav-myInfoSettings" aria-selected="true">마이프로필</a>
-                <a class="nav-item nav-link active" id="nav-myInfoSettings-tab" data-toggle="tab"
+                   aria-controls="nav-myProfile" aria-selected="true">마이프로필</a>
+                <a class="nav-item nav-link" id="nav-myInfoSettings-tab" data-toggle="tab"
                    href="#nav-myInfoSettings" role="tab"
-                   aria-controls="nav-myInfoSettings" aria-selected="true">회원정보수정</a>
+                   aria-controls="nav-myInfoSettings" aria-selected="false">회원정보수정</a>
                 <a class="nav-item nav-link" id="nav-myPasswordSettings-tab" data-toggle="tab"
                    href="#nav-myPasswordSettings" role="tab"
                    aria-controls="nav-myPasswordSettings" aria-selected="false">비밀번호변경</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade" id="nav-myProfile" role="tabpanel"
+            <div class="tab-pane fade show active" id="nav-myProfile" role="tabpanel"
                  aria-labelledby="nav-myProfile-tab">
                 <div class="container">
                     <th:block th:replace="th/member/mypage/profile/noteSending"></th:block>
                 </div>
             </div>
-            <div class="tab-pane fade show active" id="nav-myInfoSettings" role="tabpanel"
+            <div class="tab-pane fade" id="nav-myInfoSettings" role="tabpanel"
                  aria-labelledby="nav-myInfoSettings-tab">
                 <div class="container">
                     <form class="form-group-all col-md-4" th:method="post" th:action="updateInfo">
