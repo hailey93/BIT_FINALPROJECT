@@ -9,8 +9,8 @@
 
     <insert id="insertPhoto" parameterType="PhotoBoardVO">
         INSERT INTO
-        photoboard(memberId, photoTitle, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5 )
-        VALUE(#{memberId}, #{photoTitle}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5} )
+        photoboard(memberId, photoTitle, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, areaCode, styleCode, houseCode, placeCode )
+        VALUE(#{memberId}, #{photoTitle}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5}, #{areaCode}, #{styleCode}, #{houseCode}, #{placeCode} )
     </insert>
 
     <select id="photoDetail" parameterType="int" resultType="PhotoBoardVO">

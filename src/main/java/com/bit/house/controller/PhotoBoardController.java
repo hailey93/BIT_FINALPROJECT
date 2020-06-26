@@ -116,6 +116,16 @@ public class PhotoBoardController {
         photoBoardVO.setMemberId(memberId);
         photoBoardVO.setPhotoTitle(request.getParameter("photoTitle"));
         photoBoardVO.setPhotoContent(request.getParameter("photoContent"));
+        photoBoardVO.setAreaCode(request.getParameter("areaCode"));
+        photoBoardVO.setHouseCode(request.getParameter("houseCode"));
+        photoBoardVO.setStyleCode(request.getParameter("styleCode"));
+        photoBoardVO.setPlaceCode(request.getParameter("placeCode"));
+
+
+        System.out.println("areaCode : " + photoBoardVO.getAreaCode());
+        System.out.println("houseCode : " + photoBoardVO.getHouseCode());
+        System.out.println("styleCode : " + photoBoardVO.getStyleCode());
+        System.out.println("placeCode : " + photoBoardVO.getPlaceCode());
 
         photoBoardMapper.insertPhoto(photoBoardVO);
 
