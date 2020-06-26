@@ -17,6 +17,22 @@
         SELECT * FROM photoboard WHERE photoBoardNo=#{photoBoardNo}
     </select>
 
+    <select id="area" resultType="PhotoBoardVO">
+        SELECT areaCode, areaType FROM area
+    </select>
+
+    <select id="house" resultType="PhotoBoardVO">
+        SELECT * FROM house
+    </select>
+
+    <select id="style" resultType="PhotoBoardVO">
+        SELECT * FROM style
+    </select>
+
+    <select id="place" resultType="PhotoBoardVO">
+        SELECT * FROM place
+    </select>
+
     <select id="userPhoto" resultType="PhotoBoardVO">
         SELECT p.photoBoardNo, p.photoImg1, m.memberImg
         FROM photoboard p INNER JOIN member m
