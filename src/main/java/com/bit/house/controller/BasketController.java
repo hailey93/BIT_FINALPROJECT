@@ -7,6 +7,7 @@ import com.bit.house.domain.ProductVO;
 import com.bit.house.mapper.AdminMapper;
 import com.bit.house.mapper.BasketMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -104,8 +105,40 @@ public class BasketController {
 
     }
 
+    @RequestMapping(value = "/basketLocal", method = RequestMethod.POST)
+    public @ResponseBody void basketLocal(String[] hoho,HttpSession session) {
+        System.out.println("호호 출력 ArrayList");
+        String[] ab = new String[100];
+        int i=0;
+        for(String a : hoho){
+
+            ab[i] = a;
+            i++;
+            System.out.println(a);
+        }
+        List<String> proNo = new ArrayList<>();
+        List<String> proColor = new ArrayList<>();
+        List<Integer> proQty = new ArrayList<>();
+        int j;
+        for(j=0; j<i; j++){
+            System.out.println("ab?:" + ab[j]);
+            proNo.add(ab[j].split(",")[0]);
+            proColor.add(ab[j].split(",")[1]);
+            proQty.add(Integer.parseInt(ab[j].split(",")[2]));
+        }
+        for(int b=0; b<j ; b++){
+            System.out.println(proNo.get(b));
+            System.out.println(proColor.get(b));
+            System.out.println(proQty.get(b));
+        }
+        session.setAttribute("proNo", proNo);
+        session.setAttribute("proColor", proColor);
+        session.setAttribute("proQty", proQty);
+
+    }
+
     @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
-    public @ResponseBody void basket(HttpSession session, String[] hoho) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
+    public @ResponseBody void basketSession(HttpSession session, String[] hoho) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
         System.out.println("ajax!");
         for(String a : hoho){
             System.out.println("호호 출력 ArrayList");
@@ -167,7 +200,7 @@ public class BasketController {
         //List로 쓰자
         System.out.println("Mapper 실행 ");
 
-        List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // product 테이블에서 상품정보 가져옴
+        //List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // product 테이블에서 상품정보 가져옴
         //System.out.println(basketVOList.get(0));
 
         // 여기까지 비회원 장바구니
@@ -232,9 +265,13 @@ public class BasketController {
             System.out.println("memID : " + memberId);
         }
         if(memberId == "") { // 장바구니 클릭시 세션에 저장하고 클라이언트에 저장하기 때문에 그 외의 값은 들어가지 않는다
+            List<String> hohoSession1 = new ArrayList<>();
             List<String> hohoSession2 = new ArrayList<>();
+            List<String> hohoSession3 = new ArrayList<>();
 
-            hohoSession2 = (List<String>) session.getAttribute("hoho3");
+            hohoSession1 = (List<String>) session.getAttribute("proNo");
+            hohoSession2 = (List<String>) session.getAttribute("proColor");
+            hohoSession3 = (List<String>) session.getAttribute("proQty");
 
             if (hohoSession2 == null) {
                 System.out.println("값이 없다");
@@ -243,7 +280,7 @@ public class BasketController {
             } else {
                 //if(userId == null){
                 System.out.println("값이 있다");
-                List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
+                List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession1,hohoSession2);
                 model.addAttribute("basketList", basketVOList);
                 return "th/member/basket/nonMemberBasket";
                 //}else{ model.add~ ~~ ~~  return "th/member/basket/basketMember";}

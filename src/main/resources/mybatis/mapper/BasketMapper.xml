@@ -26,6 +26,7 @@
 
         <association property="colorVO" javaType="colorVO">
             <result column="colorType" property="colorType"/>
+            <result column="colorCode" property="colorCode"/>
         </association>
     </resultMap>
     <!--
@@ -86,11 +87,15 @@
 
     <select id="getNonMemberBasketList"  resultMap="bskInfo" parameterType="java.util.List">
         select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, c.colorType from product p, color c,
+        p.productMainImg, p.purchasePrice, c.colorType, c.colorCode from product p, color c,
         productoption o where p.productNo = o.productNo and o.colorCode=c.colorCode ) as a
         WHERE productNo IN
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
+        </foreach>
+        and colorType IN
+        <foreach collection="list2" item="item2" separator="," open="(" close=")">
+            #{item2}
         </foreach>
 
     </select>

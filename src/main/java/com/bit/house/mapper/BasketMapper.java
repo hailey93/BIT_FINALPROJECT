@@ -8,7 +8,7 @@ import java.util.List;
 
 @Mapper
 public interface BasketMapper {
-    public List<BasketVO> getNonMemberBasketList(List<String> list);
+    public List<BasketVO> getNonMemberBasketList(List<String> list,List<String> list2);
 
     public List<BasketVO> getArray(String[] hoho2);
 

@@ -1,31 +1,38 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>사진 업로드</title>
+    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </head>
+
 <body>
 <h2>사진 글쓰기</h2><!-- 삭제 -->
-
+<div layout:fragment="content">
 <div class="container">
-    <form action="/photoinsertProc" method="post" enctype="multipart/form-data">
+    <form action="/photoInsertProc" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="photoTitle">제목</label>
             <input type="text" id="photoTitle" name="photoTitle" placeholder="제목을 입력하세요">
         </div>
-        <div class="form-group"><!-- 아이디 받아서 처리 -->
-            <label for="memberId">작성자</label>
-            <input type="text" id="memberId" name="mamberId" placeholder="자동으로 들어올것">
-        </div>
+
         <div class="form-group">
             <label for="photoContent">내용</label>
             <textarea id="photoContent" name="photoContent" style="width: 700px; height: 400px;"></textarea>
         </div>
-        <div>
-            <input type="file" name="files">
+        <div class="form-group">
+
+                <input type="file" id="files" name="files" multiple/>
+
+            <div id="preview" >
+            </div>
         </div>
         <input type="submit" value="등록"/>
+
     </form>
+</div>
 </div>
 </body>
 </html>

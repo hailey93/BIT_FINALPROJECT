@@ -42,11 +42,6 @@ public class ChatRepository {
         return opsHashChatRoom.get(CHAT_ROOMS, chatId);
     }
     public ChatRoomVO setAdmin(ChatRoomVO chatRoomVO) {
-        /*log.info("3"+opsHashChatRoom.get(CHAT_ROOMS, chatId).getAdminId());
-        log.info("4"+opsHashChatRoom.get(CHAT_ROOMS, chatId).getMemberId());*/
-        //opsHashChatRoom.get(CHAT_ROOMS, chatId).setAdminId(adminId);
-        //log.info(opsHashChatRoom.get(CHAT_ROOMS, chatId).setAdminId(adminId));
-        //ChatRoomVO chatRoomVO=new ChatRoomVO();
         opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
         log.info("3"+opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId()).getAdminId());
         log.info("4"+opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId()).getMemberId());
