@@ -228,6 +228,8 @@ public class MyPageController {
     @RequestMapping("/noteSending")
     private String noteSending(Model model, @RequestParam(required = false) String receiveId){
 
+        receiveId = "youn123";
+
         System.out.println("id : "+receiveId);
         model.addAttribute("sending", receiveId);
         System.out.println("model end");
