@@ -1,6 +1,8 @@
 package com.bit.house.service;
 
+import com.bit.house.domain.AllMemberVO;
 import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.OrderListVO;
 import com.bit.house.mapper.MemberInfoMapper;
 import com.bit.house.mapper.MemberMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -43,11 +45,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(MemberVO memberVO, String userpw) {
-
-
-
+    public void updatePW(MemberVO memberVO) {
+        memberVO.setUserpw(passwordEncoder.encode(memberVO.getUserpw()));
+        memberInfoMapper.updateMemberPassword(memberVO);
     }
+
 
 
 }

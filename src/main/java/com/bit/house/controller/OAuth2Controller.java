@@ -2,6 +2,7 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.AllMemberVO;
 import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.OrderListVO;
 import com.bit.house.security.SocialUser;
 import com.bit.house.service.AllMemberService;
 import com.bit.house.service.MemberService;

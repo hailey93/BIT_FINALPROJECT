@@ -32,6 +32,8 @@ public class ProductController {
     @Autowired(required =false)
     RecommenderMapper recommenderMapper;
 
+
+
     @GetMapping("/searchlist")
     public String findProduct(@RequestParam(required = false, defaultValue = "") String index, Model model) {
         List<ProductVO> productList = productMapper.selectAllProduct();

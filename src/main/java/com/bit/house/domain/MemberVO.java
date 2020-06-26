@@ -28,6 +28,8 @@ public class MemberVO {
     private String userTel;
     private String userEmail;
 
+
+
     @Autowired(required = false)
     OrderListVO orderListVO;
 }
