@@ -89,7 +89,7 @@ footer
 
 .layout-footer {
     display: block;
-    background-color: #fafafa
+    /*background-color: #fafafa*/
 }
 
 .layout-footer a::-moz-focus-inner {

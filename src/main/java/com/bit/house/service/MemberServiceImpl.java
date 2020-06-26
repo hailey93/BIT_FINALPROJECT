@@ -7,9 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-
-import java.util.UUID;
 
 @Service
 @Slf4j
@@ -43,11 +40,16 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void updateMember(MemberVO memberVO, String userpw) {
-
-
+    public void updatePW(MemberVO memberVO) {
 
     }
+
+    /*@Override
+    public void updateMember(MemberVO memberVO*//*, String userpw*//*) {
+
+
+
+    }*/
 
 
 }

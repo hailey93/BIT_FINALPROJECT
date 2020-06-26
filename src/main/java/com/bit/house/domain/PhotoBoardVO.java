@@ -7,7 +7,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @ToString
-public class PhotoBoardVO {
+public class PhotoBoardVO extends MemberVO{
     private int photoBoardNo;
     private String memberId;
     private String photoTitle;

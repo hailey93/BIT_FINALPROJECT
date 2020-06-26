@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/img/**", "/js/**", "/images/**");
+        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/img/**", "/js/**", "/images/**", "/plugins/**");
     }
 
     @Override
@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         httpSecurity
                     .authorizeRequests()
-                    .antMatchers("/", "/oauth2/**", "/login/**", "/storeMain")
+                    .antMatchers("/", "/oauth2/**", "/login/**", "/storeMain", "/resources/**", "/css/**", "/img/**", "/js/**", "/images/**", "/plugins/**")
                     .permitAll()
                     .antMatchers("/admin/**").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
                     .antMatchers("/member/**").hasAnyRole("MEMBER","USER")
