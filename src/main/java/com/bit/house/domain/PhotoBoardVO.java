@@ -7,7 +7,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @ToString
-public class PhotoBoardVO {
+public class PhotoBoardVO extends MemberVO{
     private int photoBoardNo;
     private String memberId;
     private String photoTitle;
@@ -15,14 +15,13 @@ public class PhotoBoardVO {
     private int likeCount;
     private int scrapCount;
     private Date photoDate;
-    private String photothumb;
     protected String photoImg1;
     private String photoImg2;
     private String photoImg3;
     private String photoImg4;
     private String photoImg5;
-    private String houseType;
-    private String placeType;
-    private String areaType;
-    private String styleType;
+    private String houseCode;
+    private String placeCode;
+    private String areaCode;
+    private String styleCode;
 }
