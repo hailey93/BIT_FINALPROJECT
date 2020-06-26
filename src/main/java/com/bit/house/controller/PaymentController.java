@@ -37,13 +37,18 @@ public class PaymentController {
         }else{
             List<String> hohoSession1 = new ArrayList<>();
             List<String> hohoSession2 = new ArrayList<>();
-            List<String> hohoSession3 = new ArrayList<>();
+            List<Integer> hohoSession3 = new ArrayList<>();
 
             hohoSession1 = (List<String>) session.getAttribute("proNo");
             hohoSession2 = (List<String>) session.getAttribute("proColor");
-            hohoSession3 = (List<String>) session.getAttribute("proQty");
+            hohoSession3 = (List<Integer>) session.getAttribute("proQty");
 
             List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession1,hohoSession2);
+            for(int i=0; i<basketVOList.size(); i++) {
+                basketVOList.get(i).setQty(hohoSession3.get(i));
+                System.out.println("리스트 i 의 qty입니다"+basketVOList.get(i).getQty());
+            }
+            System.out.println("리스트:"+basketVOList);
             model.addAttribute("nonMemberBasketList", basketVOList);
             return "th/member/payment/nonMemberPayment";
         }
