@@ -57,7 +57,7 @@
                             <!-- The Modal -->
                             <div class="modal fade" th:id="'return' + ${iter.count}">
                                 <div class="modal-dialog modal-dialog-centered">
-                                    <form>
+                                    <form th:action="returnReason" th:method="post">
                                         <div class="modal-content">
 
                                             <!-- Modal Header -->
@@ -83,9 +83,7 @@
                                                 </button>
                                                 <button type="button" class="btn btn-primary">저장</button>
                                             </div>
-
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
