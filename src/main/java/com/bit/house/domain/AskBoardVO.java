@@ -19,10 +19,4 @@ public class AskBoardVO {
     private int askIndent;
     private int askStep;
 
-    private String askImg1;
-    private String askImg2;
-    private String askImg3;
-    private String askImg4;
-    private String askImg5;
-
 }
