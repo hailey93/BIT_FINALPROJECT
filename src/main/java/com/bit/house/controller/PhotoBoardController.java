@@ -1,9 +1,6 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.CommentVO;
-import com.bit.house.domain.LikeVO;
-import com.bit.house.domain.PhotoBoardVO;
-import com.bit.house.domain.ScrapVO;
+import com.bit.house.domain.*;
 import com.bit.house.mapper.PhotoBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -30,6 +28,8 @@ public class PhotoBoardController {
     //사진 메인
     @RequestMapping("/communityMain")
     private String communityMain(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+
+        model.addAttribute("likerank", photoBoardMapper.communityMain());
 
         return "th/photoBoard/photoBoardMain";
     }
@@ -94,19 +94,19 @@ public class PhotoBoardController {
             int i=1;
             switch (filesSize ){
                 case 5 :
-                    photoBoardVO.setPhotoImg5( photoImgArray.get(filesSize-i)   );
+                    photoBoardVO.setPhotoImg5( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
                     i++;
                 case 4 :
-                    photoBoardVO.setPhotoImg4( photoImgArray.get(filesSize-i)   );
+                    photoBoardVO.setPhotoImg4( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
                     i++;
                 case 3 :
-                    photoBoardVO.setPhotoImg3( photoImgArray.get(filesSize-i)   );
+                    photoBoardVO.setPhotoImg3( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
                     i++;
                 case 2 :
-                    photoBoardVO.setPhotoImg2( photoImgArray.get(filesSize-i)   );
+                    photoBoardVO.setPhotoImg2( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
                     i++;
                 case 1 :
-                    photoBoardVO.setPhotoImg1( photoImgArray.get(filesSize-i)   );
+                    photoBoardVO.setPhotoImg1( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
             }
         }
         System.out.println("end");
@@ -134,16 +134,27 @@ public class PhotoBoardController {
     }
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
-    private String photoDetail(@PathVariable int photoBoardNo, Model model, String memberId) throws Exception{
+    private String photoDetail(@PathVariable int photoBoardNo, Model model, /*@RequestParam("memberId")*/ String memberId, HttpSession session) throws Exception{
+        //아이디값은 멤버아이디가 아닌 userId로 받아오고 세션에 내 아이디넣어서 넘겨주고 버튼 생성.
+        memberId = "youn123";
+
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        model.addAttribute("memberVO", memberVO);
+
+        System.out.println(memberId);
 
         model.addAttribute("photodetail", photoBoardMapper.photoDetail(photoBoardNo));
         model.addAttribute("userphoto", photoBoardMapper.userPhoto(memberId));
-        return "/th/photoBoard/photoBoardDetail";
+
+
+        return "th/photoBoard/photoBoardDetail";
     }
     //사진 수정
-    @RequestMapping("/photoupdate")
-    private String photoUpdate(PhotoBoardVO photoBoardVO) throws Exception{
+    @RequestMapping("/photoupdate/{photoBoardNo}")
+    private String photoUpdate(@PathVariable int photoBoardNo, Model model) throws Exception{
 
+        model.addAttribute("photodetail", photoBoardMapper.photoDetail(photoBoardNo));
 
         return "/th/photoBoard/photoBoardUpdate";
     }

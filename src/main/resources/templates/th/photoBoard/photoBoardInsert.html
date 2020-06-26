@@ -20,19 +20,19 @@
 <div class="container">
     <form action="/photoInsertProc" method="post" enctype="multipart/form-data">
         <div class="input-group">
-            <select class="custom-select col-md-2" th:id="inputGroupSelect01">
+            <select class="custom-select col-md-2" th:id="inputGroupSelect01" name="areaCode">
                 <option th:value selected disabled>평수</option>
                 <option id="areaSelect" th:each="area : ${areaCode}"
                         th:value="${area.areaCode}"
                         th:utext="${area.areaType}"/>
             </select>
-            <select class="custom-select col-md-2" id="houseGroup">
+            <select class="custom-select col-md-2" id="houseGroup" name="houseCode">
                 <option th:value selected disabled>주거형태</option>
                 <option id="houseSelect" th:each="house : ${houseCode}"
                         th:value="${house.houseCode}"
                         th:utext="${house.houseType}"/>
             </select>
-            <select class="custom-select col-md-2" id="styleGroup">
+            <select class="custom-select col-md-2" id="styleGroup" name="styleCode">
                 <option th:value selected disabled>스타일</option>
                 <option id="styleSelect" th:each="style : ${styleCode}"
                         th:value="${style.styleCode}"
@@ -40,7 +40,7 @@
             </select>
         </div><br>
         <div class="form-group">
-            <select class="custom-select col-md-3" id="placeGroup">
+            <select class="custom-select col-md-3" id="placeGroup" name="placeCode">
                 <option th:value selected disabled>공간</option>
                 <option id="placeSelect" th:each="place : ${placeCode}"
                         th:value="${place.placeCode}"

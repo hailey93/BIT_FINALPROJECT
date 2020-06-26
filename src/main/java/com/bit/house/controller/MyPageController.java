@@ -175,10 +175,11 @@ public class MyPageController {
     @RequestMapping("/memberProfile")
     private String memberProfile(Model model, /*@PathVariable*/ String userId, HttpSession session) throws Exception{
 
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
+        //MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        MemberVO memberVO = new MemberVO();
         userId = "youn123";
 
+        memberVO.setMemberId("oleg123");
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));

@@ -14,7 +14,7 @@
     </insert>
 
     <select id="photoDetail" parameterType="int" resultType="PhotoBoardVO">
-        SELECT * FROM photoboard WHERE photoBoardNo=#{photoBoardNo}
+        SELECT * FROM thehouse.photodetail WHERE photoBoardNo = #{photoBoardNo}
     </select>
 
     <select id="area" resultType="PhotoBoardVO">
@@ -40,6 +40,10 @@
         WHERE p.memberId = #{memberId}
         ORDER BY p.photoBoardNO desc
         LIMIT 4;
+    </select>
+
+    <select id="communityMain" resultType="PhotoBoardVO">
+        SELECT * FROM photodetail ORDER BY likeCount desc;
     </select>
 
 

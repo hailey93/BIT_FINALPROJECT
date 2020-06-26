@@ -10,21 +10,33 @@
 </head>
 <body>
 <div layout:fragment="content">
+
       <div class="form-group">
-        <th:block th:text="${photodetail.areaCode}, ${photodetail.styleCode}, ${photodetail.placeCode}, ${photodetail.houseCode}"/>
-      </div>
-      <div class="form-group">
-          <th:block th:src="'/uploadImg'+${photodetail.photoImg1}, '/uploadImg'+${photodetail.photoImg2}, '/uploadImg'+${photodetail.photoImg3}, '/uploadImg'+${photodetail.photoImg4}, '/uploadImg'+${photodetail.photoImg5}"/>
+          <img th:src="'/uploadImg'+${photodetail.photoImg1}" style="width: 500px; height: 500px;"/>
       </div>
       <div class="form-group">
           <th:block th:text="${photodetail.photoContent}"/>
       </div>
 
     <div class="form-group">
-        <input type="button" id="like" name="like" /> <!-- 버튼 이미지만들고, th:if로 좋아요, 취소 만들어야함. 스크랩도 마찬가지-->
-        <input type="button" id="scrap" name="scrap"/>
-        <th:block
+        <input type="hidden" name="memberId" value="memberId">
+        <th:block th:text="${photodetail.memberId}"/>
     </div>
+
+    <div class="form-group">
+        <input type="button" id="like" name="like" value="좋아요"/> <!-- 버튼 이미지만들고, th:if로 좋아요, 취소 만들어야함. 스크랩도 마찬가지-->
+        <input type="button" id="scrap" name="scrap" value="스크랩"/>
+    </div>
+    <div class="form-group">
+        <tr th:each="photo : ${userphoto}">
+        <img th:src="'/uploadImg'+${photo.photoImg1}" style="width:200px; height: 200px;"/>
+        </th:each>
+        </tr>
+    </div>
+    <div class="form-group">
+        <th:block th:text="${photodetail.areaType}" />
+    </div>
+
 
 </div>
 </body>

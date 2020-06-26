@@ -17,7 +17,8 @@
             <div class="col-6 col-md-3 product-item-wrap">
                 <article class="production-item"><a class="production-item__overlay" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}"></a>
                     <div class="production-item-image production-item__image">
-                        <img class="image" alt="" th:src="@{'/uploadImg/board'+${photo.photoImg1}}" srcset="">
+                        <img class="image" alt="" th:src="@{'/uploadImg'+${photo.photoImg1}}" srcset="">
+                        <input type="hidden" id="memberId" name="memberId" th:value="${photo.memberId}"/>
                     </div>
                     <div class="production-item__content">
                         <h1 class="production-item__header">

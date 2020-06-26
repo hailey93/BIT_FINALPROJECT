@@ -40,7 +40,7 @@
 <div class="container">
     <div class="form-group">
         <form action="/allPhoto" method="post" id="photo" name="photo">
-        <h3>사진<th:block th:text="${photoCount}"/></h3><input type="button" id="allphoto" name="allphoto" value="전체보기"/>
+        <h3>사진<th:block th:text="${photoCount}"/></h3><input type="button" id="allphoto" name="allphoto" value="전체보기" style="background-color: #ffffff; border: 0; outline: 0;"/>
             <input type="hidden" name="memberId" value=""/>
         </form>
     </div>
@@ -53,7 +53,7 @@
     </div>
     <div class="form-group">
         <form action="/allScrap" method="post" id="scrap" name="scrap">
-        <h3>스크랩<th:block th:text="${scrapCount}"/></h3><input type="button" id="allscrap" name="allscrap" value="전체보기"/>
+        <h3>스크랩<th:block th:text="${scrapCount}"/></h3><input type="button" id="allscrap" name="allscrap" value="전체보기" style="background-color: #ffffff; border: 0; outline: 0;"/>
         <input type="hidden" name="memberId" value=""/>
         </form>
     </div>
