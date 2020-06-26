@@ -12,7 +12,7 @@ body {
 .dropdown:hover .dropdown-menu {
     display: block;
     margin-top: 0;
-    width: 500px;
+    width: 200px;
 }
 
 .dropdown-item{
@@ -21,10 +21,8 @@ body {
 
 .navbar a {
     display:inline-block;
-    text-align: left;
     font-size: 15px;
     color: black;
-    text-align: left;
     padding: 10px 10px;
     text-decoration: none;
 }
