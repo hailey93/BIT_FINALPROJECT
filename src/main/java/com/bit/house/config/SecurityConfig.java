@@ -21,6 +21,7 @@ import org.springframework.security.oauth2.client.registration.ClientRegistratio
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
 import org.springframework.security.oauth2.client.registration.InMemoryClientRegistrationRepository;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
@@ -53,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
-        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/img/**", "/js/**", "/images/**");
+        webSecurity.ignoring().antMatchers("/resources/**", "/css/**", "/img/**", "/js/**", "/images/**", "/plugins/**");
     }
 
     @Override
@@ -61,11 +62,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         httpSecurity
                     .authorizeRequests()
-                    .antMatchers("/", "/oauth2/**", "/login/**", "/storeMain")
+                    .antMatchers("/", "/oauth2/**", "/login/**", "/storeMain", "/resources/**", "/css/**", "/img/**", "/js/**", "/images/**", "/plugins/**")
                     .permitAll()
-                    .antMatchers("/admin").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
-                    .antMatchers("/member").hasAnyRole("MEMBER","USER")
-                    .antMatchers("/seller").hasAnyRole("SELLER")
+                    .antMatchers("/admin/**").hasRole("ADMIN") // 괄호의 권한을 가진 유저만 접근가능, ROLE_가 붙어서 적용 됨. 즉, 테이블에 ROLE_권한명 으로 저장해야 함.
+                    .antMatchers("/member/**").hasAnyRole("MEMBER","USER")
+                    .antMatchers("/seller/**").hasAnyRole("SELLER")
                     //.anyRequest().authenticated()
                 .and()
                     .oauth2Login()
@@ -89,12 +90,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true) // 로그아웃시 세션제거
                     .deleteCookies("JSESSION_ID") // 쿠키제거
                     .clearAuthentication(true) // 권한정보제거
-//                .and()
-//                    .exceptionHandling()
-//                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/storeMain"))
+
+                .and()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/customLogin"))
                 .and()
                     .addFilterBefore(filter, CsrfFilter.class)
                     .csrf().disable();
+
     }
 
     @Bean

@@ -1,5 +1,7 @@
 package com.bit.house.controller.kakao;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -49,25 +51,32 @@ public class KakaoPayController {
     // form ~post 
     // <div> 안에 <a href> button false js에서 선택한게 있으면 submit 아니면 되돌아가기
     @PostMapping("/kakaoPay")
-    public String kakaoPay(@ModelAttribute("basketVO") BasketVO basketVO,String recipient
-            , HttpServletRequest request, MemberVO memberVO) {
+    public String kakaoPay(HttpSession session,OrderListVO orderListVO, String[] productNo,
+                           int[] orderQty, String[] colorName,String productName) { // 리스트로?
         log.info("kakaoPay post 호출............................................");
-        log.info("Recip" + recipient + "basketVO" + basketVO +"hidden input에서 basketVO 제외 String으로 가져오고" +
-                "kakaoPayReady에 보내서 결제 완료시 query 저장 끝" );
-        //orderListVO에 한번에 가져와서 쓰면 안될까?
-        // 아이디 세션 받는법
+        log.info("orderlist? : " + orderListVO);
+        for(int i=0; i < productNo.length; i++){
+            System.out.println(i+"번쨰 : " +productNo[i]);
+        }
 
+        for(int i=0; i < colorName.length; i++){
+            System.out.println(i+"번째 : "+colorName[i]);
+        }
 
-        /*houseUser = (HouseUser) request.getSession().getAttribute("houseUser");
-        log.info("@ModelAttribute 실행 되는지 ////////////////////" );
-        log.info("houseProduct  :: " + houseProduct);
-        log.info("housePayment  :: " + housePayment);*/
-        
-        /*log.info("userId :: " + houseUser.getUserId());*/
-        //houseUser = (HouseUser) userDAO.getHouseUser(houseUser);
-        return "redirect:" + kakaopay.kakaoPayReady(/*houseUser, housePayment, houseProduct*/);
+        for(int i=0; i < orderQty.length; i++){
+            System.out.println(i+"번째 : "+orderQty[i]);
+        }
+        System.out.println("VO :: "+ productName);
+        session.setAttribute("productNo", productNo);
+        session.setAttribute("colorName", colorName);
+        session.setAttribute("orderQty", orderQty);
+
+        return "redirect:" + kakaopay.kakaoPayReady(orderListVO,productName);
  
     }
+    List<OrderListVO> orderListVO = new ArrayList<OrderListVO>();
+
+
     /*, HouseProduct houseProduct, List<HouseUser> houseUser*/
     @GetMapping("/kakaoPaySuccess")
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,HttpSession session) {

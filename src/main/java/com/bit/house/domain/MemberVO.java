@@ -32,4 +32,6 @@ public class MemberVO {
 
     @Autowired(required = false)
     OrderListVO orderListVO;
+    /*@Autowired(required = false)
+    OrderListVO orderListVO;*/
 }

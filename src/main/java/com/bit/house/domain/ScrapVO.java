@@ -1,13 +1,17 @@
 package com.bit.house.domain;
 
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-@Setter
 @Getter
-@NoArgsConstructor
+@Setter
+@ToString
 public class ScrapVO extends PhotoBoardVO{
+    private int scrapNo;
     private String memberId;
     private int photoBoardNo;
+
+
 }

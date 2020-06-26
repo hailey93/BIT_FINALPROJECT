@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface OrderListProService {
 
-    List<OrderListProVO> searchOrderList(String sellerId);;
+    List<OrderListProVO> searchOrderList(String sellerId);
+    List<OrderListProVO> searchOrderStatus(String orderCode, String sellerId);
 }

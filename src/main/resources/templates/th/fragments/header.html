@@ -5,7 +5,7 @@
 <div th:fragment="headerFragment">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-12 xs-12 md-auto">
+            <div class="col-md-12 xs-12">
                 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-light" style="background-color: white;">
                     <a class="navbar-brand" th:href="@{/}"><img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width=50px
                                                           height=50px /> <b> TheHouse</b></a>
@@ -45,32 +45,46 @@
                             </li>
 
 
+                            <div sec:authorize="hasRole('ROLE_SELLER')">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" th:href="@{/seller/main}" id="navbarDropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">
 
-                            <li class="nav-item">
-                                <a class="nav-link disabled" href="#">
+                                        업체관리
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" th:href="@{/seller/category}">업체관리</a>
+                                        <a class="dropdown-item" th:href="@{/}">상품관리</a>
+                                        <a class="dropdown-item" th:href="@{/}">주문관리</a>
+                                        <a class="dropdown-item" th:href="@{/}">통계관리</a>
+                                    </div>
 
-                                    Disabled
-                                </a>
-                            </li>
+
+                                </li>
+                            </div>
 
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true"
-                                   aria-expanded="false">
+                            <div sec:authorize="!hasAnyRole('ROLE_ADMIN', 'ROLE_SELLER')">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link" href="#" id="navDropdown" role="button" aria-haspopup="true"
+                                       aria-expanded="false">
 
-                                    Dropdown
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Action</a>
-                                </div>
-                            </li>
+                                        Dropdown
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navDropdown">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Action</a>
+                                    </div>
+                                </li>
+                            </div>
+<!--                            </div>-->
+
 
                             <div class="nav-wrapper">
                                 <form class="form-inline ml-0 ml-md-3" action="/productions/searchlist" method="get">
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control form-control-sm ml-3 w-75" type="search" placeholder="Search" aria-label="Search"
+                                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" style="width:100px;"
                                                name="index" id="${index}" th:value="${index?:''}" onfocus="this.value=''">
 
                                         <div class="input-group-append">
@@ -84,6 +98,7 @@
                         </ul>
 
                         <ul class="navbar-nav">
+                            <div sec:authorize="!hasAnyRole('ROLE_ADMIN', 'ROLE_SELLER')">
                             <li class="nav-item">
                                 <a class="nav-link" th:href="@{/basket}">
                                     <span class="asdf" style="font-size: 16px; color: black;">
@@ -91,7 +106,7 @@
                                     </span>
                                 </a>
                             </li>
-
+                            </div>
 
                             <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/customLogin}">
                                 <button sec:authorize="isAnonymous()" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">로그인</button>
@@ -103,36 +118,15 @@
                                 <button sec:authorize="isAnonymous()" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">회원가입</button>
                             </form>
                             <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/user/profile}">
-                                <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">마이페이지</button>
+                                <button sec:authorize="hasAnyRole('ROLE_MEMBER', 'ROLE_USER')" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">마이페이지</button>
                             </form>
-<!--                            <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/customLogout}">-->
-<!--                                <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">로그아웃</button>-->
-<!--                                <button sec:authorize="isAnonymous()" th:href="@{/customLogin}" class="btn btn-outline-info my-2 my-sm-0 btn-sm" type="submit">로그인</button>-->
+                            <form class="form-inline my-2 my-lg-0" th:action="@{/admin/statAdmin}">
+                                <button sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-outline-danger my-2 my-sm-0 btn-sm">관리자홈</button>
+                            </form>
+                            <form class="form-inline my-2 my-lg-0" th:action="@{/seller}">
+                                <button sec:authorize="hasRole('ROLE_SELLER')" class="btn btn-outline-danger my-2 my-sm-0 btn-sm">업체홈</button>
+                            </form>
 
-<!--                            </form>-->
-
-
-
-
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" href="###">-->
-<!--                                    <span class="asdf" style="font-size: 16px; color: black;">-->
-<!--                                        <i class="fas fa-sign-in-alt"> 로그인</i>-->
-
-<!--                                    </span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" href="#####">-->
-<!--                                    <span style="font-size: 16px; color: black;">-->
-<!--                                        <i class="fas fa-user-circle"> 회원가입</i>-->
-
-<!--                                    </span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-
-                        </ul>
 
                     </div>
                 </nav>

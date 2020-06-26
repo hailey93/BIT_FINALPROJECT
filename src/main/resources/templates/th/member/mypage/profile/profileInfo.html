@@ -1,39 +1,46 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>프로필 수정</title>
-    <script src="https://code.jquery.com/jquery-latest.js"></script>
-    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/myPage.css}">
+    </th:block>
 
 </head>
 
 <body>
-
-<h2>프로필 수정</h2>
-
-
+<div layout:fragment="content">
 <div class="container">
-    <form action="/modifyProfile" method="post" enctype="multipart/form-data">
+    <h2>프로필 수정</h2>
+
+    <form action="/modifyProfile" method="post" enctype="multipart/form-data" class="frm">
         <div class="form-group">
-            <label for="nickName">닉네임</label>
+            닉네임
+            <input type="text" id="nickName" name="nickName" th:value="${myprofile?.nickName}" placeholder="입력하지 않을 시 아이디로 출력됩니다."/>
 
-            <input type="text" id="nickName" name="nickName" th:value="${profile.nickName}" placeholder="입력하지 않을 시 아이디로 출력됩니다."/>
         </div>
-        <div>
-            <label for="uploadFile">프로필사진</label>
-            <input type="file" id="uploadFile" name="uploadFile"/>
-            <div id="preview" ><img th:src="@{'/uploadImg'+${profile.memberImg}}" style="width: 300px; height: 300px;"/></div>
-
+        <div class="file_input_div">
+            프로필사진
+            <div id="preview" >
+            <img th:if="${myprofile?.memberImg != null}" th:src="@{'/uploadImg'+${myprofile.memberImg}}" class="file_input_button" alt="open" style="width:200px; height: 200px;"/>
+            <img th:if="${myprofile?.memberImg == null}" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width:200px; height: 200px;"/> </div>
+            <input type="file" id="uploadFile" name="uploadFile" class="file_input_hidden"/>
         </div>
 
         <div class="form-group">
-            <label for="memberIntro">한줄소개</label>
-            <input type="text" id="memberIntro" name="memberIntro" th:value="${profile.memberIntro}"/>
+            한줄소개
+            <input type="text" id="memberIntro" name="memberIntro" th:value="${myprofile?.memberIntro}"/></p>
+            <br>
         </div>
-
-        <input type="submit" value="등록"/>
+        <div class="form-group">
+            <input type="submit" value="등록"/>
+        </div>
     </form>
+
+</div>
 </div>
 </body>
 </html>

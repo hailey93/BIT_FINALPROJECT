@@ -9,4 +9,5 @@ import java.util.List;
 public interface OrderListProMapper {
 
     List<OrderListProVO> searchOrderList(String sellerId);
+    List<OrderListProVO> searchOrderStatus(String orderCode, String sellerId);
 }

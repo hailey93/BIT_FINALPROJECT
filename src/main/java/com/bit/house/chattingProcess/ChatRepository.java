@@ -37,7 +37,15 @@ public class ChatRepository {
     }
 
     public ChatRoomVO findRoombyId(String chatId) {
+        log.info("1"+opsHashChatRoom.get(CHAT_ROOMS, chatId).getAdminId());
+        log.info("2"+opsHashChatRoom.get(CHAT_ROOMS, chatId).getMemberId());
         return opsHashChatRoom.get(CHAT_ROOMS, chatId);
+    }
+    public ChatRoomVO setAdmin(ChatRoomVO chatRoomVO) {
+        opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
+        log.info("3"+opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId()).getAdminId());
+        log.info("4"+opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId()).getMemberId());
+        return opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId());
     }
 
     public ChatRoomVO createRoom(String memberId) {
@@ -60,5 +68,12 @@ public class ChatRepository {
 
     public ChannelTopic getTopic(String chatId) {
         return topics.get(chatId);
+    }
+
+    public void deleteChatRoom(String chatId){
+        ChannelTopic topic=topics.get(chatId);
+        redisMessageListener.removeMessageListener(redisSubscriber, topic);
+        topics.remove(chatId);
+        opsHashChatRoom.delete(CHAT_ROOMS, chatId);
     }
 }

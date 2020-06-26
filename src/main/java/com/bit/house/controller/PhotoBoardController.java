@@ -10,13 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Controller
@@ -33,10 +34,11 @@ public class PhotoBoardController {
         return "th/photoBoard/photoBoardMain";
     }
     //사진 목록
-    @RequestMapping("/photoboardlist")
+    @RequestMapping("/photoBoardList")
     private String photoBoardList(Model model, PhotoBoardVO photoBoardVO) throws Exception{
 
-        model.addAttribute("photolist", photoBoardMapper.photoBoardList());
+        model.addAttribute("photoList", photoBoardMapper.photoBoardList());
+
         return "th/photoBoard/photoBoardList";
     }
     //사진 등록
@@ -45,17 +47,81 @@ public class PhotoBoardController {
         return "th/photoBoard/photoBoardInsert";
     }
 
-    @RequestMapping("/photoinsertProc")
-    private String insertPhotoProc(PhotoBoardVO photoBoardVO, @RequestParam("photoTitle") String photoTitle,
-                                   @RequestParam(required=false) List<MultipartFile> files) throws Exception{
+    @RequestMapping("/photoInsertProc")
+    private String insertPhotoProc(PhotoBoardVO photoBoardVO,
+                                   MultipartHttpServletRequest mtf, String memberId, HttpServletRequest request) throws Exception{
+
+        List<String> photoImgArray = new ArrayList<String>();
+        List<MultipartFile> fileList = mtf.getFiles("files");
+
+        String filePath = request.getSession().getServletContext().getRealPath("image/board/photoboard/");
+
+        for(MultipartFile mf : fileList){
+
+            StringBuffer sb = new StringBuffer();
+            //이렇게 안에다 쓸거면 stringBuffer를 굳이 쓸 필요없이 string을 쓰면 된다.
+
+            System.out.println("파일리스트 : "+mf);
+
+            String originFileName = mf.getOriginalFilename();
+
+            String saveName =  sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
+                                .append(UUID.randomUUID().toString())
+                                .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
+
+            System.out.println("경로 : "+filePath);
+
+            System.out.println("저장명 : "+saveName);
 
 
+            String saveFile = filePath + saveName;
+
+            photoImgArray.add(saveName);
+
+            mf.transferTo(new File(saveFile));
+
+        }
+        System.out.println("리스트 : "+photoImgArray);
+
+        int filesSize=photoImgArray.size();
+        if( filesSize !=0){
+            int i=1;
+            switch (filesSize ){
+                case 5 :
+                    photoBoardVO.setPhotoImg5( photoImgArray.get(filesSize-i)   );
+                    i++;
+                case 4 :
+                    photoBoardVO.setPhotoImg4( photoImgArray.get(filesSize-i)   );
+                    i++;
+                case 3 :
+                    photoBoardVO.setPhotoImg3( photoImgArray.get(filesSize-i)   );
+                    i++;
+                case 2 :
+                    photoBoardVO.setPhotoImg2( photoImgArray.get(filesSize-i)   );
+                    i++;
+                case 1 :
+                    photoBoardVO.setPhotoImg1( photoImgArray.get(filesSize-i)   );
+            }
+        }
+        System.out.println("end");
+
+        memberId = "youn123";
+
+        photoBoardVO.setMemberId(memberId);
+        photoBoardVO.setPhotoTitle(request.getParameter("photoTitle"));
+        photoBoardVO.setPhotoContent(request.getParameter("photoContent"));
+
+        photoBoardMapper.insertPhoto(photoBoardVO);
+
+        System.out.println("OK");
         return "redirect:/photoBoardList";
     }
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
-    private String photoDetail(PhotoBoardVO photoBoardVO, CommentVO commentVO) throws Exception{
+    private String photoDetail(@PathVariable int photoBoardNo, Model model, String memberId) throws Exception{
 
+        model.addAttribute("photodetail", photoBoardMapper.photoDetail(photoBoardNo));
+        model.addAttribute("userphoto", photoBoardMapper.userPhoto(memberId));
         return "/th/photoBoard/photoBoardDetail";
     }
     //사진 수정

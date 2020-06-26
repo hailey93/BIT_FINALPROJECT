@@ -11,6 +11,8 @@
         <result column="modelName" property="modelName"/>
         <result column="memberId" property="memberId"/>
         <result column="qty" property="qty"/>
+        <result column="productNo" property="productNo"/>
+        <result column="recipient" property="recipient"/>
 
         <association property="productVO" javaType="productVO">
             <result column="sellerName" property="sellerName"/>
@@ -24,6 +26,7 @@
 
         <association property="colorVO" javaType="colorVO">
             <result column="colorType" property="colorType"/>
+            <result column="colorCode" property="colorCode"/>
         </association>
     </resultMap>
     <!--
@@ -84,17 +87,21 @@
 
     <select id="getNonMemberBasketList"  resultMap="bskInfo" parameterType="java.util.List">
         select * from (select p.productNo, p.productName, p.sellerName, p.modelName, p.productCreateDate,
-        p.productMainImg, p.purchasePrice, c.colorType from product p, color c,
+        p.productMainImg, p.purchasePrice, c.colorType, c.colorCode from product p, color c,
         productoption o where p.productNo = o.productNo and o.colorCode=c.colorCode ) as a
         WHERE productNo IN
         <foreach collection="list" item="item" separator="," open="(" close=")">
             #{item}
         </foreach>
+        and colorType IN
+        <foreach collection="list2" item="item2" separator="," open="(" close=")">
+            #{item2}
+        </foreach>
 
     </select>
 
     <select id="getMemberBasketList"  resultMap="bskInfo" parameterType="String">
-        select p.productNo, p.productName, p.sellerName, p.modelName,
+        select p.productName, p.sellerName, p.modelName,
         p.productMainImg, p.purchasePrice,  b.* from  product p,
         basket b where b.memberId = #{memberId} and b.productNo = p.productNo;
     </select>

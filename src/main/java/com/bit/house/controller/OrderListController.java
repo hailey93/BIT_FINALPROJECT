@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
 import java.security.Principal;
@@ -22,6 +23,7 @@ import java.util.List;
 
 @Slf4j
 @Controller
+@RequestMapping("/seller")
 public class OrderListController {
 
     @Autowired
@@ -39,19 +41,61 @@ public class OrderListController {
     }
 
 
+//    @GetMapping("/orderListTest")
+//    public String orderListTest(Model model) {
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        String jsonOrderStatus;
+//        List<OrderStatusVO> orderStatus = orderStatusService.searchOrderStatus();
+//        model.addAttribute("orderCheck", orderStatus);
+//
+//        try {
+//            jsonOrderStatus = mapper.writeValueAsString(orderStatus);
+//            model.addAttribute("jsonOrderStatus", jsonOrderStatus);
+//        } catch (JsonGenerationException e) {
+//            e.printStackTrace();
+//        } catch (JsonMappingException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return "th/seller/orderList";
+//    }
 
-    @GetMapping("/orderListTest")
-    public String orderListTest(@AuthenticationPrincipal Principal principal, Model model) {
+    @PostMapping("/orderListChange")
+    public String orderListChange(String[] orderCode, String[] orderNo) {
+
+
+        for (int i = 0; i < orderCode.length; i++) {
+            orderListService.changeOrderStatus(orderCode[i], orderNo[i]);
+        }
+
+
+        return "redirect:/seller/orderListTest";
+    }
+
+    @RequestMapping(value="/orderListTest")
+    public String orderCheck(@AuthenticationPrincipal Principal principal, Model model, String orderCode) {
 
         String id = principal.getName();
-        List<OrderListProVO> orderListProVO = orderListProService.searchOrderList(id);
 
-        model.addAttribute("orderListPro", orderListProVO);
+        if(orderCode==null) {
+            List<OrderListProVO> orderListProVO = orderListProService.searchOrderList(id);
+            model.addAttribute("orderListPro", orderListProVO);
+        }else if(Integer.parseInt(orderCode)==0){
+                List<OrderListProVO> orderListProVO = orderListProService.searchOrderList(id);
+                model.addAttribute("orderListPro", orderListProVO);
+        }else {
+                List<OrderListProVO> orderListProVO = orderListProService.searchOrderStatus(orderCode, id);
+                model.addAttribute("orderListPro", orderListProVO);
+                log.info(String.valueOf(orderListProVO));
+
+        }
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonOrderStatus;
         List<OrderStatusVO> orderStatus = orderStatusService.searchOrderStatus();
-
+        model.addAttribute("orderCheck", orderStatus);
 
         try {
             jsonOrderStatus = mapper.writeValueAsString(orderStatus);
@@ -63,18 +107,7 @@ public class OrderListController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return "th/seller/orderList";
-    }
-
-    @PostMapping("/orderListChange")
-    public String orderListChange(String[] orderCode, String[] orderNo){
-
-
-        for(int i=0; i<orderCode.length; i++){
-            orderListService.changeOrderStatus(orderCode[i], orderNo[i]);
-        }
-
-
-        return "redirect:/orderListTest";
     }
 }

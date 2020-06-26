@@ -3,27 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css}">
+
+    <link th:href="@{plugins/datatables/dataTables.bootstrap4.min.css}" rel="stylesheet">
     <title>Title</title>
 </head>
-<body>
-<div class="wrapper">
+<body id="page-top">
 
-
-
-
-
-    <form th:action="@{/orderListChange}" method="post">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">주문현황</h3>
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h6 class="m-0 font-weight-bold text-primary">검색</h6>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <form role="form">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <form th:action="@{/orderListTest}" method="post">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text mr-4">
+                                                                <input type="checkbox" name="orderCode" value="0">전체
+                                                            </span>
+                                                            <span class="input-group-text mr-4"
+                                                                  th:each="orderCheck : ${orderCheck}">
+                                                              <input type="checkbox" name="orderCode"
+                                                                     th:value="${orderCheck.orderCode}"
+                                                                     th:text="${orderCheck.orderType}">
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <button type="submit" class="btn btn-dark" style="float:right;">검색</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.card-header -->
+            </div>
+        </div>
+    </div>
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
 
-                <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table class="table table-head-fixed text-nowrap">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">주문현황</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
                             <th>주문번호</th>
@@ -39,34 +81,78 @@
                             <th>결제타입</th>
                         </tr>
                         </thead>
+                        <tfoot>
+                        <tr>
+                            <th>주문번호</th>
+                            <th>상품이름</th>
+                            <th>판매자</th>
+                            <th>구매자아이디</th>
+                            <th>상품색상</th>
+                            <th>상품수량</th>
+                            <th>상품총액</th>
+                            <th>수령인</th>
+                            <th>주소</th>
+                            <th>결제상태</th>
+                            <th>결제타입</th>
+                        </tr>
+                        </tfoot>
                         <tbody>
-                        <tr th:each="item : ${orderListPro}">
-                            <td><input type="hidden" th:value="${item.orderNo}" th:text="${item.orderNo}" name="orderNo"></td>
-                            <td th:value="${item.productName}" th:text="${item.productName}" ></td>
-                            <td th:value="${item.sellerName}" th:text="${item.sellerName}"></td>
-                            <td th:value="${item.memberId}" th:text="${item.memberId}"></td>
-                            <td th:value="${item.colorName}" th:text="${item.colorName}"></td>
-                            <td th:value="${item.orderQty}" th:text="${item.orderQty}"></td>
-                            <td th:value="${item.totalPrice}" th:text="${item.totalPrice}"></td>
-                            <td th:value="${item.recipient}" th:text="${item.recipient}"></td>
-                            <td th:value="${item.orderAddr}" th:text="${item.orderAddr}"></td>
+                        <tr th:each="orderListPro : ${orderListPro}">
+                            <td><input type="hidden" th:value="${orderListPro.orderNo}"
+                                       th:text="${orderListPro.orderNo}"
+                                       name="orderNo"></td>
+                            <td th:value="${orderListPro.productName}"
+                                th:text="${orderListPro.productName}"></td>
+                            <td th:value="${orderListPro.sellerName}"
+                                th:text="${orderListPro.sellerName}"></td>
+                            <td th:value="${orderListPro.memberId}" th:text="${orderListPro.memberId}"></td>
+                            <td th:value="${orderListPro.colorName}"
+                                th:text="${orderListPro.colorName}"></td>
+                            <td th:value="${orderListPro.orderQty}" th:text="${orderListPro.orderQty}"></td>
+                            <td th:value="${orderListPro.totalPrice}"
+                                th:text="${orderListPro.totalPrice}"></td>
+                            <td th:value="${orderListPro.recipient}"
+                                th:text="${orderListPro.recipient}"></td>
+                            <td th:value="${orderListPro.orderAddr}"
+                                th:text="${orderListPro.orderAddr}"></td>
                             <td>
                                 <select class="orderType" name="orderCode">
-                                    <option th:value="${item.orderCode}" th:text="${item.orderType}"></option>
+                                    <option th:value="${orderListPro.orderCode}"
+                                            th:text="${orderListPro.orderType}" readonly></option>
                                 </select>
                             </td>
-                            <td th:text="${item.payType}"></td>
+                            <td th:text="${orderListPro.payType}"></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-                <button type="submit">버튼</button>
             </div>
         </div>
+
     </div>
-    </form>
+    <!-- /.container-fluid -->
+
 </div>
+<!-- End of Main Content -->
+
+
+</div>
+<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+
+
+<!-- Page level plugins -->
+<!--<script th:src="@{plugins/jquery/jquery.min.js}"></script>-->
 <script th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+<!-- Custom scripts for all pages-->
+<script th:src="@{plugins/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{plugins/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Page level custom scripts -->
+
+
 
 <script th:inline="javascript">
     $(document).ready(function () {
@@ -78,9 +164,18 @@
 
         console.log(jsonOrderStatus);
 
+        var chkbox = $("input[type=checkbox]");
+
+        chkbox.on('click', function (event) {
+            chkbox.prop('checked', false);
+            $(event.target).prop('checked', true);
+            console.log($(event.target).val());
+        });
+
         var orderStatusArr = new Array();
         var orderStatusObj = new Object();
         var orderStatusSelect = $(".orderType");
+
 
         for (var i = 0; i < jsonData.length; i++) {
 
@@ -93,9 +188,16 @@
         for (var j = 0; j < orderStatusArr.length; j++) {
 
             orderStatusSelect.append("<option value='" + orderStatusArr[j].orderCode + "'>" + orderStatusArr[j].orderType + "</option>");
-        }
 
+        }
     });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable();
+    });
+
 </script>
 </body>
 </html>
