@@ -27,6 +27,19 @@ public interface PhotoBoardMapper {
 
     //사진게시판 사용자 게시글
     public List<PhotoBoardVO> userPhoto (String memberId) throws Exception;
+
+    //insert area 코드
+    public List<PhotoBoardVO> area() throws Exception;
+
+    //insert house 코드
+    public List<PhotoBoardVO> house() throws Exception;
+
+    //insert place 코드
+    public List<PhotoBoardVO> place() throws Exception;
+
+    //insert style 코드
+    public List<PhotoBoardVO> style() throws Exception;
+
     //좋아요, 스크랩은 고민
 
 }
