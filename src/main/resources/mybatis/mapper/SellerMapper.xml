@@ -20,4 +20,11 @@
          VALUES (#{sellerId}, #{sellerPw}, '2', '0')
     </insert>
 
+    <select id="searchSellerInfo" resultType="com.bit.house.domain.SellerVO">
+        SELECT
+        *
+        FROM
+        seller
+        WHERE sellerId = #{sellerId}
+    </select>
 </mapper>

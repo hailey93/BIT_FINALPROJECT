@@ -10,4 +10,5 @@ public interface SellerMapper {
     public void insertSellerToUser(SellerVO sellerVO);
 
     SellerVO searchSeller(String id);
+    SellerVO searchSellerInfo(String sellerId);
 }
