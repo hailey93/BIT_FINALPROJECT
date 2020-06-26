@@ -8,15 +8,8 @@ import lombok.ToString;
 @Setter
 @Getter
 @NoArgsConstructor
-public class ChatVO {
-
-    public enum MessageType {
-        ENTER, LEAVE, TALK
-    }
-
-    private MessageType type;
-    private String chatId;
+public class ChatMsgVO {
     private String sender;
     private String msg;
-    private int count;
+
 }

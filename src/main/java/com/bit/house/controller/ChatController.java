@@ -31,7 +31,6 @@ public class ChatController {
         if(ChatVO.MessageType.ENTER.equals(message.getType())){
             chatRepository.enterChatRoom(message.getChatId());
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
-
         } else if(ChatVO.MessageType.LEAVE.equals(message.getType())){
             message.setMsg(message.getSender()+"님이 퇴장하셨습니다.");
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);

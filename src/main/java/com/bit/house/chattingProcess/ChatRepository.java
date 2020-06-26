@@ -1,9 +1,12 @@
 package com.bit.house.chattingProcess;
 
+import com.bit.house.domain.ChatMsgVO;
 import com.bit.house.domain.ChatRoomVO;
+import com.bit.house.domain.ChatVO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.core.HashOperations;
+import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
@@ -25,6 +28,7 @@ public class ChatRepository {
     private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, ChatRoomVO> opsHashChatRoom;
     private Map<String, ChannelTopic> topics;
+    private ListOperations msgList;
 
     @PostConstruct
     public void init() {
@@ -76,5 +80,11 @@ public class ChatRepository {
     public ChatRoomVO addCount(ChatRoomVO chatRoomVO){
         opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
         return opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId());
+    }
+
+    public void saveMsg(ChatVO vo, ChatMsgVO msgvo){
+        //레디스에 채팅 메시지 저장
+        msgList.rightPush(vo.getChatId(), msgvo);
+
     }
 }

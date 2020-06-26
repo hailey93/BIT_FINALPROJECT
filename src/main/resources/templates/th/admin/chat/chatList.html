@@ -28,8 +28,9 @@
             <tbody>
             <tr class="list-group list-group-horizontal" th:each="roomList: ${roomLists}">
                 <td th:text="${roomList.memberId}" style="width:60%"></td>
-                <td style="width:30%"><input type="button" class="btn btn-primary" th:value="(${roomList.count}==1) ? '상담시작' : '상담중'"
-                                             th:data-id="${roomList.chatId}" th:data-count="${roomList.count}"id="createRoom" onclick="enterRoom()"/>
+                <td style="width:30%">
+                    <input th:if="${roomList.count}==1" type="button" class="btn btn-primary" th:value="상담시작"
+                           th:data-id="${roomList.chatId}" id="createRoom" onclick="enterRoom()"/>
                 </td>
             </tr>
             </tbody>
@@ -37,35 +38,12 @@
 
         <script th:inline="javascript" type="text/javascript">
             var chatId = $('#createRoom').attr('data-id');
-            var count=$('#createRoom').attr('data-count');
 
             function enterRoom() {
                 var url = "/enter/" + chatId;
                 window.open(url, "new_popup", "scrollbars=no, width=350, height=400, menubar=false, location=false");
             }
         </script>
-        <!--<div>
-            <tr>
-                <th class="num">순서</th>
-                <th class="roomName">방 이름</th>
-                <th class="enterRoom"></th>
-            </tr>
-        </div>
-        <div>
-            <tr th:each="roomList: ${roomLists}">
-                <td class="num" th:text="${roomListStat}"></td>
-                <td class="roomName" th:text="${roomList.chatId}"></td>
-                <td class="enterRoom"><button type="button" th:onclick="|enterRoom${roomList.chatId}|">상담시작</button></td>
-            </tr>
-        </div>-->
-
-        <!--<table class="inputTable">
-            <tr>
-                <th class="input-group-prepend"><label class="input-group-text">방이름</label></th>
-                <th><input class="form-control" type="text" th:name="roomName" th:id="roomName"></th>
-                <th class="input-group-append"><button class="btn btn-primary" th:id="createRoom">방개설</button></th>
-            </tr>
-        </table>-->
     </div>
 </div>
 </body>

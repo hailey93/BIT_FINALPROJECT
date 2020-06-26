@@ -42,6 +42,8 @@ function connect() {
             var receive = JSON.parse(msg.body);
 
             if(receive.type=='ENTER'){
+                console.log("연결!!!!!1");
+                $(".content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>");
                 if(sender!=receive.sender){
                     //상담원 입장했을때 고객이 보는 시점
                     $('.content').append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>상담원이 입장하였습니다.</div><div class='message'>안녕하세요? 무엇 궁금하신가요?</div></div></div>");
