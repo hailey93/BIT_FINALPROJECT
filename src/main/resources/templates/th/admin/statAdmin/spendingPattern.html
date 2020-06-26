@@ -34,6 +34,8 @@
             var jsonData;
             var chart1Data;
             var options;
+
+            var oldGraph;
             drawGraph();
             drawCanvas();
             function getDate() {
@@ -88,11 +90,15 @@
                         data : dateform,
                         success : function(data){
                             alert("suc");
-                            console.log("ajax 성공!");
-                            jsonData = data;
+                            console.log("ajax 성공!"+"oldGraph.destroy");
+                            jsonData = data
+
+                            oldGraph.destroy;
+
+                            reloadFunc();
                             drawGraph();
                             drawCanvas();
-                            reloadFunc();
+
                         },
                         error: function () {
                             alert("err");
@@ -107,6 +113,11 @@
             }
 
             function reloadFunc(){
+                console.log("reload");
+
+                /*var myLineChart = new Chart(ctx, config);
+
+                myLineChart.destroy();*/
                 /*var div = document.createElement('div');
                 div.innerHTML = document.getElementById('myChart').innerHTML;
                 $( 'div' ).remove( '#hoho' );
@@ -118,8 +129,8 @@
                 //$('#myChart').load(location.href + '#hoho');
             }
             function drawGraph(){
-                console.log("drawGraph()  실행 !" );
-                console.log("jsonGraph는?" + jsonData);
+                //console.log("drawGraph()  실행 !" );
+                //console.log("jsonGraph는?" + jsonData);
                 var json = [[${jsonText}]];
                 //console.log(json);
                 var jsonParse;
@@ -128,8 +139,8 @@
                 }else {
                     jsonParse = JSON.parse(jsonData);
                 }
-                console.log("json? : "+json);
-                console.log("jsonParse는? : "+jsonParse);
+                //console.log("json? : "+json);
+                //console.log("jsonParse는? : "+jsonParse);
                 var chart1Arr = new Array();
                 var labelElement = new Array();
                 var yearArr = new Array();
@@ -192,6 +203,9 @@
 
 
                 function drawCanvas() {
+
+
+
                     var chart1Canvas = document.getElementById("myChart");
                     var ctx = chart1Canvas.getContext('2d');
                     var myNewChart = new Chart(ctx, {
@@ -199,6 +213,7 @@
                         data: chart1Data,
                         options: options
                     });
+                    oldGraph = myNewChart;
                 }
 
 
