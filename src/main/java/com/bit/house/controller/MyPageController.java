@@ -190,7 +190,8 @@ public class MyPageController {
         model.addAttribute("scrapCount", myPageMapper.scrapCount(userId));
         model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), userId));
 
-        System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
+        //System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
+
         return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
@@ -257,7 +258,7 @@ public class MyPageController {
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
         msgVO.setMemberId(request.getParameter(memberVO.getMemberId())); //내 아이디 = 세션처리
-        msgVO.setMsgContents(request.getParameter("msgContent"));
+        msgVO.setMsgContent(request.getParameter("msgContent"));
         msgVO.setReceiveId(request.getParameter("receiveId"));
 
         myPageMapper.noteSending(msgVO);
