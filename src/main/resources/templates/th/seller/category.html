@@ -11,180 +11,229 @@
 <div layout:fragment="content">
     <form class="needs-validation" th:method="POST" th:action="@{/testCategory}" enctype="multipart/form-data">
         <div class="wrapper">
-            <!-- Main content -->
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card card-info">
-                                <div class="card-header">
-                                    <h3 class="card-title">카테고리</h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <form role="form">
-                                        <div class="row">
-                                            <div class="col-sm-4">
-                                                <!-- Select multiple-->
-                                                <div class="form-group">
-                                                    <label>대분류</label>
-                                                    <select multiple class="optionCategory1 form-control">
 
-                                                    </select>
-                                                </div>
-                                            </div>
 
-                                            <div class="col-sm-4">
-                                                <!-- Select multiple-->
-                                                <div class="form-group">
-                                                    <label>중분류</label>
-                                                    <select multiple class="optionCategory2 form-control">
+            <!-- Main Sidebar Container -->
+            <aside class="main-sidebar sidebar-dark-green elevation-4">
 
-                                                    </select>
-                                                </div>
-                                            </div>
+                <!-- Sidebar -->
+                <div class="sidebar">
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                        <div class="image">
+                            <img th:src="@{icon/thehouse.jpg}" class="img-circle elevation-2 width=50px height=50px"  alt="User Image">
+                        </div>
+                        <div class="info">
+                            <a href="#" class="d-block">업체명</a>
+                        </div>
+                    </div>
 
-                                            <div class="col-sm-4">
-                                                <!-- Select multiple-->
-                                                <div class="form-group">
-                                                    <label>소분류</label>
-                                                    <select multiple class="optionCategory3 form-control"
-                                                            name="categoryCode">
+                    <!-- Sidebar Menu -->
+                    <nav class="mt-2">
+                        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                            data-accordion="false">
+                            <li class="nav-item has-treeview menu-open">
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>업체 관리</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>업체 ID 관리</p>
+                                        </a>
+                                    </li>
 
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                    <!-- /.sidebar-menu -->
+                </div>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <div class="container-fluid">
+                        <div class="row mb-2">
+
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- general form elements -->
-                            <div class="card card-info">
-                                <div class="card-header">
-                                    <h3 class="card-title">상품정보</h3>
+
+                <!-- Main content -->
+                <section class="content">
+                    <div class="container-fluid">
+                        <!-- Small boxes (Stat box) -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                        <h3 class="card-title">카테고리</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <form role="form">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <!-- Select multiple-->
+                                                    <div class="form-group">
+                                                        <label>대분류</label>
+                                                        <select multiple class="optionCategory1 form-control">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <!-- Select multiple-->
+                                                    <div class="form-group">
+                                                        <label>중분류</label>
+                                                        <select multiple class="optionCategory2 form-control">
+
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    <!-- Select multiple-->
+                                                    <div class="form-group">
+                                                        <label>소분류</label>
+                                                        <select multiple class="optionCategory3 form-control"
+                                                                name="categoryCode">
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="productName">상품명</label>
-                                            <input type="text" class="form-control" name="productName" id="productName"
-                                                   placeholder="productName">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="modelName">모델명</label>
-                                            <input type="text" class="form-control" name="modelName" id="modelName"
-                                                   placeholder="modelName">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="sellerName">업체명</label>
-                                            <input type="text" class="form-control" name="sellerName" id="sellerName"
-                                                   placeholder="sellerName" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="form-group col-md-6">
-                                            <label for="customPrice">판매가</label>
-                                            <input type="text" class="form-control" name="customPrice" id="customPrice"
-                                                   placeholder="customPrice">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="sellPrice">소비자가</label>
-                                            <input type="text" class="form-control" name="sellPrice" id="sellPrice"
-                                                   placeholder="sellPrice">
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label for="purchasePrice">매입가</label>
-                                            <input type="text" class="form-control" name="purchasePrice"
-                                                   id="purchasePrice"
-                                                   placeholder="purchasePrice">
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
 
-                                    <div class="row">
-                                        <div class="form-group col-md-3">
-                                            <label for="optionColor">색상</label>
-                                            <select class="optionColor form-control" id="optionColor">
 
-                                            </select>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- general form elements -->
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                        <h3 class="card-title">상품정보</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="productName">상품명</label>
+                                                <input type="text" class="form-control" name="productName"
+                                                       id="productName"
+                                                       placeholder="productName">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="modelName">모델명</label>
+                                                <input type="text" class="form-control" name="modelName" id="modelName"
+                                                       placeholder="modelName">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="sellerName">업체명</label>
+                                                <input type="text" class="form-control" name="sellerName"
+                                                       id="sellerName"
+                                                       placeholder="sellerName" readonly>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-3">
-                                            <label for="productQty">재고</label>
-                                            <input class="form-control" type="text" name="productQty" id="productQty"
-                                                   placeholder="수량">
+                                        <div class="row">
+                                            <div class="form-group col-md-6">
+                                                <label for="customPrice">판매가</label>
+                                                <input type="text" class="form-control" name="customPrice"
+                                                       id="customPrice"
+                                                       placeholder="customPrice">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="sellPrice">소비자가</label>
+                                                <input type="text" class="form-control" name="sellPrice" id="sellPrice"
+                                                       placeholder="sellPrice">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label for="purchasePrice">매입가</label>
+                                                <input type="text" class="form-control" name="purchasePrice"
+                                                       id="purchasePrice"
+                                                       placeholder="purchasePrice">
+                                            </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="form-group col-md-3">
+                                                <label for="optionColor">색상</label>
+                                                <select class="optionColor form-control" id="optionColor">
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group col-md-3">
+                                                <label for="productQty">재고</label>
+                                                <input class="form-control" type="text" name="productQty"
+                                                       id="productQty"
+                                                       placeholder="수량">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>상품 이미지 등록</label>
+                                            <div class="input-group row">
+                                                <div class="custom-file col-md-3">
+                                                    <input type="file" class="custom-file-input" name="file"
+                                                           id="exampleInputFile1"
+                                                           multiple>
+                                                    <label class="custom-file-label" for="exampleInputFile1">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="custom-file col-md-3">
+                                                    <input type="file" class="custom-file-input" name="file"
+                                                           id="exampleInputFile2"
+                                                           multiple>
+                                                    <label class="custom-file-label" for="exampleInputFile2">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="custom-file col-md-3">
+                                                    <input type="file" class="custom-file-input" name="file"
+                                                           id="exampleInputFile3"
+                                                           multiple>
+                                                    <label class="custom-file-label" for="exampleInputFile3">Choose
+                                                        file</label>
+                                                </div>
+                                                <div class="custom-file col-md-3">
+                                                    <input type="file" class="custom-file-input" name="file"
+                                                           id="exampleInputFile4"
+                                                           multiple>
+                                                    <label class="custom-file-label" for="exampleInputFile4">Choose
+                                                        file</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <!-- general form elements -->
+                                <div class="card card-info">
+                                    <div class="card-header">
+                                        <h3 class="card-title">에디터</h3>
                                     </div>
 
                                     <div class="form-group">
-                                        <label>상품 이미지 등록</label>
-                                        <div class="input-group row">
-                                            <div class="custom-file col-md-3">
-                                                <input type="file" class="custom-file-input" name="file"
-                                                       id="exampleInputFile1"
-                                                       multiple>
-                                                <label class="custom-file-label" for="exampleInputFile1">Choose
-                                                    file</label>
-                                            </div>
-                                            <div class="custom-file col-md-3">
-                                                <input type="file" class="custom-file-input" name="file"
-                                                       id="exampleInputFile2"
-                                                       multiple>
-                                                <label class="custom-file-label" for="exampleInputFile2">Choose
-                                                    file</label>
-                                            </div>
-                                            <div class="custom-file col-md-3">
-                                                <input type="file" class="custom-file-input" name="file"
-                                                       id="exampleInputFile3"
-                                                       multiple>
-                                                <label class="custom-file-label" for="exampleInputFile3">Choose
-                                                    file</label>
-                                            </div>
-                                            <div class="custom-file col-md-3">
-                                                <input type="file" class="custom-file-input" name="file"
-                                                       id="exampleInputFile4"
-                                                       multiple>
-                                                <label class="custom-file-label" for="exampleInputFile4">Choose
-                                                    file</label>
-                                            </div>
-                                        </div>
+                                        <div id="summernote" name="file"><p>Hello Summernote</p></div>
                                     </div>
 
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12">
-                            <!-- general form elements -->
-                            <div class="card card-info">
-                                <div class="card-header">
-                                    <h3 class="card-title">에디터</h3>
-                                </div>
-
-                                <div class="form-group">
-                                    <div id="summernote" name="file"><p>Hello Summernote</p></div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <!-- /.content -->
-
-                        <!-- Control Sidebar -->
-                        <aside class="control-sidebar control-sidebar-dark">
-                            <!-- Control sidebar content goes here -->
-                        </aside>
-
-                        <button type="submit" class="btn btn-primary">Submit</button>
-
                     </div>
-
-                </div>
+                </section>
             </div>
         </div>
     </form>

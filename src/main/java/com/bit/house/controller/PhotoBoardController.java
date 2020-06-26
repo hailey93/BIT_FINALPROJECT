@@ -28,7 +28,7 @@ public class PhotoBoardController {
 
 
     //사진 메인
-    @RequestMapping("/comunityMain")
+    @RequestMapping("/communityMain")
     private String communityMain(Model model, PhotoBoardVO photoBoardVO) throws Exception{
 
         return "th/photoBoard/photoBoardMain";
@@ -43,7 +43,13 @@ public class PhotoBoardController {
     }
     //사진 등록
     @RequestMapping("/photoinsert")//게시글 작성 폼 호출
-    private String insertAsk() {
+    private String insertAsk(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+
+        model.addAttribute("areaCode", photoBoardMapper.area());
+        model.addAttribute("houseCode", photoBoardMapper.house());
+        model.addAttribute("styleCode", photoBoardMapper.style());
+        model.addAttribute("placeCode", photoBoardMapper.place());
+
         return "th/photoBoard/photoBoardInsert";
     }
 

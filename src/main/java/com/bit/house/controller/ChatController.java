@@ -68,9 +68,15 @@ public class ChatController {
         ChatRoomVO vo=chatRepository.findRoombyId(chatId);
 
         if(String.valueOf(authentication.getAuthorities()).equals("[ROLE_ADMIN]")) {
+            //관리자아이디 set
             vo.setAdminId(authentication.getName());
             chatRepository.setAdmin(vo);
         }
+        //인원수+1
+        int count=vo.getCount();
+        vo.setCount(++count);
+        chatRepository.addCount(vo);
+
         model.addAttribute("chatInfo", vo);
 
         return "th/main/chatting";

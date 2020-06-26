@@ -17,6 +17,7 @@ public class ChatRoomVO implements Serializable {
     private String memberId;
     private String adminId;
     private String time;
+    private int count;
 
     public static ChatRoomVO create(String memberId){
         SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
@@ -26,6 +27,7 @@ public class ChatRoomVO implements Serializable {
         chatRoomVO.chatId= UUID.randomUUID().toString();
         chatRoomVO.memberId=memberId;
         chatRoomVO.time=time;
+        chatRoomVO.count=0;
         return chatRoomVO;
     }
 }

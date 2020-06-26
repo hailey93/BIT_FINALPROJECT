@@ -9,15 +9,15 @@
 </head>
 <body>
 <div layout:fragment="content">
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>채팅방리스트</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>채팅방리스트</h1>
+            </div>
+            <div th:id="roomContainer" class="roomContainer">
+                <table th:id="roomList" class="roomList"></table>
+            </div>
         </div>
-        <div th:id="roomContainer" class="roomContainer">
-            <table th:id="roomList" class="roomList"></table>
-        </div>
-    </div>
         <table class="table table-hover">
             <thead>
             <tr class="list-group list-group-horizontal">
@@ -27,48 +27,46 @@
             </thead>
             <tbody>
             <tr class="list-group list-group-horizontal" th:each="roomList: ${roomLists}">
-                <td th:text="${roomList.memberId}" style="width:70%"></td>
-                <td style="width:30%"><input type="button" class="btn btn-primary" value="상담시작" th:data-id="${roomList.chatId}" id="createRoom" onclick="enterRoom()"/></td>
+                <td th:text="${roomList.memberId}" style="width:60%"></td>
+                <td style="width:30%"><input type="button" class="btn btn-primary" th:value="(${roomList.count}==1) ? '상담시작' : '상담중'"
+                                             th:data-id="${roomList.chatId}" th:data-count="${roomList.count}"id="createRoom" onclick="enterRoom()"/>
+                </td>
             </tr>
             </tbody>
         </table>
-    <!--<div>
-        <tr>
-            <th class="num">순서</th>
-            <th class="roomName">방 이름</th>
-            <th class="enterRoom"></th>
-        </tr>
+
+        <script th:inline="javascript" type="text/javascript">
+            var chatId = $('#createRoom').attr('data-id');
+            var count=$('#createRoom').attr('data-count');
+
+            function enterRoom() {
+                var url = "/enter/" + chatId;
+                window.open(url, "new_popup", "scrollbars=no, width=350, height=400, menubar=false, location=false");
+            }
+        </script>
+        <!--<div>
+            <tr>
+                <th class="num">순서</th>
+                <th class="roomName">방 이름</th>
+                <th class="enterRoom"></th>
+            </tr>
+        </div>
+        <div>
+            <tr th:each="roomList: ${roomLists}">
+                <td class="num" th:text="${roomListStat}"></td>
+                <td class="roomName" th:text="${roomList.chatId}"></td>
+                <td class="enterRoom"><button type="button" th:onclick="|enterRoom${roomList.chatId}|">상담시작</button></td>
+            </tr>
+        </div>-->
+
+        <!--<table class="inputTable">
+            <tr>
+                <th class="input-group-prepend"><label class="input-group-text">방이름</label></th>
+                <th><input class="form-control" type="text" th:name="roomName" th:id="roomName"></th>
+                <th class="input-group-append"><button class="btn btn-primary" th:id="createRoom">방개설</button></th>
+            </tr>
+        </table>-->
     </div>
-    <div>
-        <tr th:each="roomList: ${roomLists}">
-            <td class="num" th:text="${roomListStat}"></td>
-            <td class="roomName" th:text="${roomList.chatId}"></td>
-            <td class="enterRoom"><button type="button" th:onclick="|enterRoom${roomList.chatId}|">상담시작</button></td>
-        </tr>
-    </div>-->
-
-    <!--<table class="inputTable">
-        <tr>
-            <th class="input-group-prepend"><label class="input-group-text">방이름</label></th>
-            <th><input class="form-control" type="text" th:name="roomName" th:id="roomName"></th>
-            <th class="input-group-append"><button class="btn btn-primary" th:id="createRoom">방개설</button></th>
-        </tr>
-    </table>-->
-    <script th:inline="javascript" type="text/javascript">
-        var chatId=$('#createRoom').attr('data-id');
-        function enterRoom() {
-            document.getElementById('createRoom').value="상담중";
-            $('#createRoom').prop("disabled", false);
-
-            var url="/enter/"+chatId;
-            window.open(url,"new_popup","scrollbars=no, width=350, height=400, menubar=false, location=false");
-            formName.target="new_popup";
-            formName.action="/chat";
-            formName.method="post";
-            formName.submit();
-        }
-    </script>
-</div>
 </div>
 </body>
 </html>

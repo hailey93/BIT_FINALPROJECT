@@ -16,4 +16,5 @@ public class MsgVO {
     private String receiveId;
     private String msgContents;
     private Date msgDate;
+
 }

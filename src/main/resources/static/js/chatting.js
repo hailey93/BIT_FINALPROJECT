@@ -34,7 +34,8 @@ function connect() {
             type:'ENTER',
             chatId:chatId,
             sender:sender,
-            chatTime:chatTime
+            chatTime:chatTime,
+            count:count
         }));
 
         ws.subscribe("/sub/chat/"+chatId, function(msg) {

@@ -21,7 +21,8 @@ public class ChatVO {
     private String sender;
     private String msg;
     private String sessionId;
-    private long count;
+    private int count;
+
     private String memberId;
     private String adminId;
     private Timestamp time;

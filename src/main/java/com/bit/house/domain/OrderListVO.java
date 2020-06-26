@@ -33,6 +33,10 @@ public class OrderListVO {
     private String month;
     private String day;
 
+    private String sellerName;
+    private String productName;
+    private String modelName;
+
     @Autowired(required = false)
     MemberVO memberVO;
     @Autowired(required = false)

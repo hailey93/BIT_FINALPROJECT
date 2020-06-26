@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <title>채팅방</title>
 </head>
-<body>
+<body onbeforeunload="disconnect()">
 <div class="chatBox" id="chatBox">
     <div class="card">
         <header class="card-header header-title">
@@ -58,6 +58,8 @@
             var chatId = [[${chatInfo.chatId}]];
             var admin = [[${chatInfo.adminId}]];
             var chatTime=[[${chatInfo.time}]];
+            var count=[[${chatInfo.count}]];
+
             if (admin == null) {
                 var sender = [[${chatInfo.memberId}]];
             } else {
