@@ -9,6 +9,14 @@ var msg=$('#message').val();
 console.log(msg);
 var messages=new Array();
 
+$(document).ready(function() {
+    $('#message').keydown(function (key) {
+        if(key.keyCode==13){
+            sendMsg();
+        }
+    });
+});
+
 function sendMsg() {
     ws.send("/pub/message", {}, JSON.stringify({
         type:'TALK',
