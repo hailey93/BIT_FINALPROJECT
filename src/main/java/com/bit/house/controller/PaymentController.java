@@ -35,10 +35,15 @@ public class PaymentController {
             model.addAttribute("memberBasketList", basketMember);
             return "th/member/payment/memberPayment";
         }else{
+            List<String> hohoSession1 = new ArrayList<>();
             List<String> hohoSession2 = new ArrayList<>();
-            hohoSession2 = (List<String>) session.getAttribute("hoho3");
+            List<String> hohoSession3 = new ArrayList<>();
 
-            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2);
+            hohoSession1 = (List<String>) session.getAttribute("proNo");
+            hohoSession2 = (List<String>) session.getAttribute("proColor");
+            hohoSession3 = (List<String>) session.getAttribute("proQty");
+
+            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession1,hohoSession2);
             model.addAttribute("nonMemberBasketList", basketVOList);
             return "th/member/payment/nonMemberPayment";
         }
