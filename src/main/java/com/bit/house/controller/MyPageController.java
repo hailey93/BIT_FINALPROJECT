@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
@@ -42,22 +43,25 @@ public class MyPageController {
 
     //프로필설정
     @RequestMapping("/myProfile")
-    private String viewProfile(Model model, String memberId) throws Exception{
+    private String viewProfile(Model model, HttpSession session) throws Exception{
 
-        memberId = "youn123";
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("myprofile", myPageMapper.selectProfile(memberId));
 
-        System.out.println(myPageMapper.selectProfile(memberId));
+        model.addAttribute("myprofile", myPageMapper.selectProfile(memberVO.getMemberId()));
+
+        System.out.println(myPageMapper.selectProfile(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/profileInfo";
     }
 
     //프로필수정
     @RequestMapping("/modifyProfile")
-    private String modifyProfile(MemberVO memberVO, HttpServletRequest request, MultipartHttpServletRequest mreq) throws Exception{
+    private String modifyProfile(MemberVO memberVO, HttpServletRequest request, MultipartHttpServletRequest mreq,
+                                 HttpSession session) throws Exception{
 
-        memberVO.setMemberId("youn123");
+        memberVO = (MemberVO) session.getAttribute("memberVO");
+
         memberVO.setNickName(request.getParameter("nickName"));
         memberVO.setMemberIntro(request.getParameter("memberIntro"));
 
@@ -112,13 +116,13 @@ public class MyPageController {
     //팔로우
     @RequestMapping("/follow")
     @ResponseBody
-    private String follow(HttpServletRequest request, FollowVO followVO, String memberId, @RequestParam("followId") String followId, HttpSession session, String followNo) throws Exception{
+    private String follow(HttpServletRequest request, FollowVO followVO, HttpSession session, @RequestParam("followId") String followId, String followNo) throws Exception{
 
-        memberId = "jung123";
-        followNo = memberId+followId;
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        followNo = memberVO.getMemberId()+followId;
 
 
-        followVO.setMemberId(memberId);
+        followVO.setMemberId(memberVO.getMemberId());
         followVO.setFollowId(followId);
         followVO.setFollowNo(followNo);
 
@@ -134,10 +138,12 @@ public class MyPageController {
     //팔로우취소
     @RequestMapping("/cancelFollow")
     @ResponseBody
-    private void cancelFollow(@RequestParam("followId") String followId, String memberId, FollowVO followVO) throws Exception{
+    private void cancelFollow(@RequestParam("followId") String followId, HttpSession session, FollowVO followVO) throws Exception{
 
-        memberId="jung123";
-        followVO.setMemberId(memberId);
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+
+        followVO.setMemberId(memberVO.getMemberId());
         followVO.setFollowId(followId);
 
         System.out.println("followId : "+followId);
@@ -148,19 +154,19 @@ public class MyPageController {
     }
     //내 프로필
     @RequestMapping("/myBoard")
-    private String myProfile(Model model, HttpSession session, String memberId) throws Exception{
+    private String myProfile(Model model, HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        memberId = "youn123";
 
-        model.addAttribute("myphoto", myPageMapper.profilePhoto(memberId));
-        model.addAttribute("mprofile", myPageMapper.myProfile(memberId));
-        model.addAttribute("myscrap", myPageMapper.profileScrap(memberId));
-        model.addAttribute("followCount", myPageMapper.followCount(memberId));
-        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
-        model.addAttribute("photoCount", myPageMapper.photoCount(memberId));
-        model.addAttribute("scrapCount", myPageMapper.scrapCount(memberId));
+
+        model.addAttribute("myphoto", myPageMapper.profilePhoto(memberVO.getMemberId()));
+        model.addAttribute("mprofile", myPageMapper.myProfile(memberVO.getMemberId()));
+        model.addAttribute("myscrap", myPageMapper.profileScrap(memberVO.getMemberId()));
+        model.addAttribute("followCount", myPageMapper.followCount(memberVO.getMemberId()));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberVO.getMemberId()));
+        model.addAttribute("photoCount", myPageMapper.photoCount(memberVO.getMemberId()));
+        model.addAttribute("scrapCount", myPageMapper.scrapCount(memberVO.getMemberId()));
 
 
         return "th/member/mypage/profile/myBoard";
@@ -168,10 +174,12 @@ public class MyPageController {
 
     //사용자 프로필
     @RequestMapping("/memberProfile")
-    private String memberProfile(Model model, /*@PathVariable*/ String userId, String memberId) throws Exception{
+    private String memberProfile(Model model, /*@PathVariable*/ String userId, HttpSession session) throws Exception{
+
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
         userId = "youn123";
-        memberId = "jung123";
+
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
@@ -180,7 +188,7 @@ public class MyPageController {
         model.addAttribute("followingCount", myPageMapper.followingCount(userId));
         model.addAttribute("photoCount", myPageMapper.photoCount(userId));
         model.addAttribute("scrapCount", myPageMapper.scrapCount(userId));
-        model.addAttribute("fcount", myPageMapper.followerCount(memberId, userId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), userId));
 
         System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
         return "th/member/mypage/profile/memberProfile";
@@ -208,18 +216,22 @@ public class MyPageController {
 
     //보낸쪽지함
     @RequestMapping("/sendNote")
-    private String sendNote(Model model) throws Exception{
+    private String sendNote(Model model, HttpSession session) throws Exception{
 
-        model.addAttribute("sendnote", myPageMapper.sendNote("youn123"));
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        model.addAttribute("sendnote", myPageMapper.sendNote(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/sendNote";
     }
 
     //받은쪽지함
     @RequestMapping("/receiveNote")
-    private String receiveNote(Model model) throws Exception{
+    private String receiveNote(Model model, HttpSession session) throws Exception{
 
-        model.addAttribute("receiveNote", myPageMapper.receiveNote("youn123"));
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        model.addAttribute("receiveNote", myPageMapper.receiveNote(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/receiveNote";
     }
@@ -228,7 +240,7 @@ public class MyPageController {
     @RequestMapping("/noteSending")
     private String noteSending(Model model, @RequestParam(required = false) String receiveId){
 
-        receiveId = "youn123";
+
 
         System.out.println("id : "+receiveId);
         model.addAttribute("sending", receiveId);
@@ -240,11 +252,13 @@ public class MyPageController {
 
     //쪽지보내기
     @RequestMapping("/noteSendingProc")
-    private String noteSendingProc(MsgVO msgVO, HttpServletRequest request) throws Exception{
+    private String noteSendingProc(MsgVO msgVO, HttpServletRequest request, HttpSession session) throws Exception{
 
-        msgVO.setMemberId(request.getParameter("memberId")); //내 아이디 = 세션처리
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        msgVO.setMemberId(request.getParameter(memberVO.getMemberId())); //내 아이디 = 세션처리
         msgVO.setMsgContents(request.getParameter("msgContent"));
-        msgVO.setReceiveId(request.getParameter("memberId"));
+        msgVO.setReceiveId(request.getParameter("receiveId"));
 
         myPageMapper.noteSending(msgVO);
 
@@ -267,8 +281,11 @@ public class MyPageController {
 
     @GetMapping("/settings")
     public String getProfileInfo(HttpSession session, Model model) {
+
         MemberVO member = (MemberVO) session.getAttribute("memberVO");
+
         model.addAttribute("member", member);
+
         return "th/member/mypage/info/myAllInfoSettings";
     }
 

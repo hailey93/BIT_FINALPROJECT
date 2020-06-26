@@ -50,12 +50,9 @@ public class AskBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setAskContent(request.getParameter("askContent"));
         askBoardVO.setMemberId(memberVO.getMemberId());
-
-
 
         askBoardMapper.insertAsk(askBoardVO);
 
