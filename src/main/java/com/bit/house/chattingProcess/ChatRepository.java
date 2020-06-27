@@ -3,8 +3,10 @@ package com.bit.house.chattingProcess;
 import com.bit.house.domain.ChatMsgVO;
 import com.bit.house.domain.ChatRoomVO;
 import com.bit.house.domain.ChatVO;
+import com.bit.house.mapper.ChatMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -28,11 +30,15 @@ public class ChatRepository {
     private final RedisTemplate<String, Object> redisTemplate;
     private HashOperations<String, String, ChatRoomVO> opsHashChatRoom;
     private Map<String, ChannelTopic> topics;
-    private ListOperations msgList;
+    private ListOperations<String, Object> msgList;
+
+    @Autowired(required = false)
+    ChatMapper chatMapper;
 
     @PostConstruct
     public void init() {
         opsHashChatRoom=redisTemplate.opsForHash();
+        msgList=redisTemplate.opsForList();
         topics=new HashMap<>();
     }
 
@@ -74,6 +80,15 @@ public class ChatRepository {
         ChannelTopic topic=topics.get(chatId);
         redisMessageListener.removeMessageListener(redisSubscriber, topic);
         topics.remove(chatId);
+        ChatRoomVO chatInfo=opsHashChatRoom.get(CHAT_ROOMS, chatId);
+
+        //레디스에 저장된 채팅메시지 디비에 저장
+        StringBuilder msg=new StringBuilder();
+        msg.append(msgList.range(chatId,0,-1));
+        chatMapper.insertMsg(chatInfo.getChatId(), chatInfo.getMemberId(), msg.toString() ,chatInfo.getTime());
+        //레디스에 저장된 채팅내역 삭제
+        msgList.trim(chatId,-1,0);
+        //레디스에 저장된 채팅정보 삭제
         opsHashChatRoom.delete(CHAT_ROOMS, chatId);
     }
 
@@ -82,9 +97,12 @@ public class ChatRepository {
         return opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId());
     }
 
-    public void saveMsg(ChatVO vo, ChatMsgVO msgvo){
+    public void saveMsg(ChatVO vo){
         //레디스에 채팅 메시지 저장
-        msgList.rightPush(vo.getChatId(), msgvo);
+        ChatMsgVO msgvo=new ChatMsgVO();
+        msgList.rightPush(vo.getChatId(), vo.getSender());
+        msgList.rightPush(vo.getChatId(), vo.getMsg());
+        msgList.rightPush(vo.getChatId(), vo.getTime());
 
     }
 }

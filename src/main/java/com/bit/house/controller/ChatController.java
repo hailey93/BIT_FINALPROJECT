@@ -5,8 +5,11 @@ import com.bit.house.chattingProcess.RedisPublisher;
 import com.bit.house.domain.ChatRoomVO;
 import com.bit.house.domain.ChatVO;
 import com.bit.house.domain.MemberVO;
+import com.bit.house.mapper.ChatMapper;
+import com.bit.house.mapper.MainMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,22 +34,22 @@ public class ChatController {
 
         if(ChatVO.MessageType.ENTER.equals(message.getType())){
             chatRepository.enterChatRoom(message.getChatId());
+            message.setMsg(message.getSender()+"님이 입장하셨습니다.");
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
         } else if(ChatVO.MessageType.LEAVE.equals(message.getType())){
             message.setMsg(message.getSender()+"님이 퇴장하셨습니다.");
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
             chatRepository.deleteChatRoom(message.getChatId());
         } else{
+            //채팅시간 set
+            SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+            String time=currentTime.format(System.currentTimeMillis());
+            message.setTime(time);
+            //채팅메시지 저장
+            chatRepository.saveMsg(message);
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
         }
 
-    }
-
-    @GetMapping("/admin/chatList")
-    public String startChat(Model model, HttpSession session){
-        //채팅리스트
-        model.addAttribute("roomLists", chatRepository.findAllRoom());
-        return "th/admin/chat/chatList";
     }
 
     @PostMapping("/chat")
@@ -79,5 +83,12 @@ public class ChatController {
         model.addAttribute("chatInfo", vo);
 
         return "th/main/chatting";
+    }
+
+    @GetMapping("/admin/chatList")
+    public String startChat(Model model){
+        //관리자 채팅리스트
+        model.addAttribute("roomLists", chatRepository.findAllRoom());
+        return "th/admin/chat/chatList";
     }
 }

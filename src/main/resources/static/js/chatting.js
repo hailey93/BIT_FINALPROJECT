@@ -34,15 +34,15 @@ function connect() {
             type:'ENTER',
             chatId:chatId,
             sender:sender,
-            chatTime:chatTime,
-            count:count
+            enterTime:enterTime,
+            /*count:count*/
         }));
 
         ws.subscribe("/sub/chat/"+chatId, function(msg) {
             var receive = JSON.parse(msg.body);
 
             if(receive.type=='ENTER'){
-                console.log("연결!!!!!1");
+                /*$(".content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>");*/
                 $(".content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>");
                 if(sender!=receive.sender){
                     //상담원 입장했을때 고객이 보는 시점

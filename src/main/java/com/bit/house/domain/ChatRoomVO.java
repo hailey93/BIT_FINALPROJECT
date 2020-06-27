@@ -7,6 +7,9 @@ import lombok.ToString;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
+/*
+채팅방 정보 저장 vo
+ */
 @ToString
 @Setter
 @Getter

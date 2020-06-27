@@ -58,8 +58,7 @@
         <script th:inline="javascript">
             var chatId = [[${chatInfo.chatId}]];
             var admin = [[${chatInfo.adminId}]];
-            var chatTime=[[${chatInfo.time}]];
-            var count=[[${chatInfo.count}]];
+            var enterTime=[[${chatInfo.time}]];
 
             if (admin == null) {
                 var sender = [[${chatInfo.memberId}]];
