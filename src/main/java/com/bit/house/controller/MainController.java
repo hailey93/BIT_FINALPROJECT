@@ -62,8 +62,14 @@ public class MainController {
     @GetMapping("/storeBest")
     public String storeBest(Model model) {
         //model.addAttribute("bestList", mainService.selectBestList());
-       model.addAttribute("bestList", mainMapper.selectbestLists());
+        model.addAttribute("bestList", mainMapper.selectBestLists());
         return "th/main/storeBest";
+    }
+
+    @GetMapping("/storeNewBest")
+    public String storeNewBest(Model model) {
+        model.addAttribute("newList", mainMapper.selectNewBestLists());
+        return "th/main/storeNewBest";
     }
 
     @PostMapping("/infiniteScrollDown")

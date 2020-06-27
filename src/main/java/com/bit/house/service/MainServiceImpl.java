@@ -16,7 +16,7 @@ public class MainServiceImpl implements MainService {
 
     @Override
     public List<productQtyVO> selectBestList() {
-        //option테이블에서 productNo와 group by productNo별로 qty sum 가져오기
+        /*//option테이블에서 productNo와 group by productNo별로 qty sum 가져오기
         List<productQtyVO> qtys=mainMapper.selectTotalQty();
         List<productQtyVO> bestlists=new ArrayList();
         int ranking=1;
@@ -28,8 +28,8 @@ public class MainServiceImpl implements MainService {
             bestList.setTotalQty(qty.getTotalQty());
             bestList.setRanking(ranking++);
             bestlists.add(bestList);
-        }
+        }*/
 
-        return bestlists;
+        return null;
     }
 }

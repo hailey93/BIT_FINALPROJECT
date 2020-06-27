@@ -9,10 +9,10 @@ import java.util.List;
 @Mapper
 public interface MainMapper {
     List<ProductVO> selectMainList();
-    List<productQtyVO> selectTotalQty();
+    /*List<productQtyVO> selectTotalQty();
     List<productQtyVO> selectQtyByNo();
-    productQtyVO selectDetail(String productNo);
+    productQtyVO selectDetail(String productNo);*/
 
-    List<productQtyVO> selectbestLists();
-
+    List<productQtyVO> selectBestLists();
+    List<productQtyVO> selectNewBestLists();
 }

@@ -20,16 +20,16 @@
         <div class="ranking-feed" id="ranking-type-filter">
             <ol class="ranking-type-filter">
                 <a th:href="@{/storeBest}">
-                    <li class="nav-link active ranking-type-filter__item ranking-type-filter__item--left left--active"
+                    <li class="nav-link active ranking-type-filter__item ranking-type-filter__item--left"
                         data-toggle="tab">역대판매 베스트</li></a>
                 <a th:href="@{/storeNewBest}">
-                   <li class="nav-link ranking-type-filter__item ranking-type-filter__item--right"
+                   <li class="nav-link ranking-type-filter__item ranking-type-filter__item--right right--active"
                        data-toggle="tab">신제품 베스트</li></a>
                 </li>
             </ol>
-            <div class="virtualized-list ranking-feed__content row" id="sellBest"
+            <div class="virtualized-list ranking-feed__content row" id="newBest"
                  style="padding-top: 0px; transform: translateY(0px);">
-                <tr th:each="products : ${bestList}">
+                <tr th:each="products : ${newList}">
                     <div class="ranking-feed-item-wrap col-12 col-md-12 col-lg-3">
                         <div class="ranking-product-item__wrap">
                             <article class="production-item"><a class="ranking-product-item__link"

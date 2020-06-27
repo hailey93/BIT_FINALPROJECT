@@ -49,6 +49,7 @@ public class ChatRepository {
     public ChatRoomVO findRoombyId(String chatId) {
         return opsHashChatRoom.get(CHAT_ROOMS, chatId);
     }
+
     public ChatRoomVO setAdmin(ChatRoomVO chatRoomVO) {
         opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
         return opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId());
@@ -58,7 +59,6 @@ public class ChatRepository {
         //채팅방생성-채팅방공유를 위해 redis hash에 저장
         ChatRoomVO chatRoomVO=ChatRoomVO.create(memberId);
         opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
-
         return chatRoomVO;
     }
 
@@ -99,10 +99,8 @@ public class ChatRepository {
 
     public void saveMsg(ChatVO vo){
         //레디스에 채팅 메시지 저장
-        ChatMsgVO msgvo=new ChatMsgVO();
         msgList.rightPush(vo.getChatId(), vo.getSender());
         msgList.rightPush(vo.getChatId(), vo.getMsg());
         msgList.rightPush(vo.getChatId(), vo.getTime());
-
     }
 }
