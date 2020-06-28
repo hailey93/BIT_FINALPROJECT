@@ -9,13 +9,17 @@
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+
+    <th:block layout:fragment="js">
+        <script type="text/javascript" th:src="@{/js/storeMain.js}"></script>
+    </th:block>
+
     <script type="text/javascript" th:inline="javascript">history.scrollRestoration = "auto"</script>
 </head>
 <body>
 <div layout:fragment="content">
     <div id="store-index">
+
         <div class="fixed-btn-area" sec:authorize="hasAnyRole('ROLE_MEMBER', 'ROLE_USER')">
             <a href="#" onclick="enterChat(createRoom)">
                 <div class="fixed-wrap">
@@ -30,7 +34,6 @@
             </a>
         </div>
 
-
         <section class="container store-index-section store-index-recommend-list"
                  th:style="${showRecommend}!=null ? 'display:block' : 'display:none'">
             <h1>추천 상품</h1>
@@ -43,7 +46,7 @@
                         <article class="production-item"><a class="production-item__overlay"
                                                             th:href="@{/productions/productDetails(productNo=${item.productNo})}"></a>
                             <div class="production-item-image production-item__image">
-                                <img class="image" alt="" th:src="@{'/uploadImg/'+${item.productMainImg}}" srcset="">
+                                <img class="image" alt="" th:src="@{'/uploadImg/'+${item.productMainImg}}">
                             </div>
                             <div class="production-item__content">
                                 <h1 class="production-item__header">
@@ -61,128 +64,32 @@
             </div>
         </section>
         <section class="container store-index-section store-index-product-list">
-            <h1>인기 상품</h1>
+            <h1>전체 상품</h1>
             <div th:id="autoScroll" class="virtualized-list row" style="padding-top: 0px; transform: translateY(0px);">
-                <div class="col-6 col-md-3 product-item-wrap" th:each="products : ${mainList}">
-                    <article class="production-item">
-                        <a class="production-item__overlay"
-                           th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
-                        <div type="hidden" id="productNo" th:data-no="${products.productNo}"></div>
-                        <div class="production-item-image production-item__image">
-                            <img class="image" alt="" th:src="@{'/uploadImg/'+${products.productMainImg}}"
-                                 srcset="">
-                        </div>
-                        <div class="production-item__content">
-                            <h1 class="production-item__header">
+                <tr th:each="products : ${mainList}">
+                    <div class="col-6 col-md-3 product-item-wrap">
+                        <article class="production-item">
+                            <a class="production-item__overlay"
+                               th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
+                            <div class="production-item-image production-item__image">
+                                <img class="image" alt="" th:src="@{'/uploadImg/'+${products.productMainImg}}">
+                            </div>
+                            <div class="production-item__content">
+                                <h1 class="production-item__header">
                                     <span class="production-item__header__brand"
                                           th:text="${products.sellerName}"></span>
-                                <span class="production-item__header__name"
-                                      th:text="${products.productName}"></span>
-                            </h1>
-                            <!--<span class="production-item-price">-->
-                            <span class="production-item-price__price"
-                                  th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
-                            <!--</span>-->
-                        </div>
-                    </article>
-                </div>
+                                    <span class="production-item__header__name"
+                                          th:text="${products.productName}"></span>
+                                </h1>
+                                <span class="production-item-price__price"
+                                      th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
+                            </div>
+                        </article>
+                    </div>
+                </tr>
             </div>
         </section>
     </div>
-    <script type="text/javascript">
-        function enterChat(formName) {
-            window.open("", "new_popup", "scrollbars=no, width=400, height=450, menubar=false, location=false");
-            formName.target = "new_popup";
-            formName.action = "/chat";
-            formName.method = "post";
-            formName.submit();
-        }
-
-        /*$(window).scroll(function () {
-            if($(window).scrollTop()==$(document).height()-$(window).height()){
-                $('.product-item-wrap').append('<article class="production-item"><a class="production-item__overlay"th:href="@{/productions/productDetails(productNo='+'[[${mainList.productNo}]]'
-                    +')}"></a><div class="production-item-image production-item__image">'
-                    +'<img class="image" alt="" th:src="@{\'/uploadImg/\'+'+'[[${mainList.productMainImg}]]'+'}" srcset=""></div>'
-                    +'<div class="production-item__content"><h1 class="production-item__header"><span class="production-item__header__brand" th:text="'+'[[${mainList.sellerName}]]'+'"></span>'
-                    +'<span class="production-item__header__name" th:text="'+'[[${mainList.productName}]]'+'"></span></h1>'
-                    +'<span class="production-item-price__price" th:text="'+'${#numbers.formatInteger([[mainList.customerPrice]], 3, \'COMMA\')'+'}"></span></div></article>')
-            }
-        });*/
-
-
-    </script>
-
-    <!--/*$(document).ready(function () {
-    $('#autoScroll').jscroll({
-    autoTrigger: true,
-    loadingHtml:
-    '<article class="production-item"><a class="production-item__overlay"th:href="@{/productions/productDetails(productNo='+'[[${mainList.productNo}]]'
-                    +')}"></a><div class="production-item-image production-item__image">'
-    +'<img class="image" alt="" th:src="@{\'/uploadImg/\'+'+'[[${mainList.productMainImg}]]'+'}" srcset=""></div>'
-    +'<div class="production-item__content"><h1 class="production-item__header"><span class="production-item__header__brand" th:text="'+'[[${mainList.sellerName}]]'+'"></span>'
-        +'<span class="production-item__header__name" th:text="'+'[[${mainList.productName}]]'+'"></span></h1>'
-        +'<span class="production-item-price__price" th:text="'+'${#numbers.formatInteger([[mainList.customerPrice]], 3, \'COMMA\')'+'}"></span></div></article>',
-
-    nextSelector: 'a.nextPage:last'
-    });
-    });*/-->
-
-    <!-- < script
-    type = "text/javascript" >
-    var lastScrollTop = 0;
-    $(window).scroll(function () {
-        var currentScrollTop = $(window).scrollTop();
-
-        if (currentScrollTop - lastScrollTop > 0) {
-            lastScrollTop = currentScrollTop;
-        } else {
-            lastScrollTop = currentScrollTop;
-        }
-
-        var lastProductNo = $("#productNo:last").attr("data-no");
-        //console(lastProductNo);
-
-        $.ajax({
-            type: 'post',
-            url: 'infiniteScrollDown',
-            headers: {
-                "Content-Type": "application/json",
-                "X-HTTP-Method-Override": "POST"
-            },
-            dataType: 'json',
-            data: JSON.stringify({
-                productNo: lastProductNo
-            }),
-
-            success: function (data) {
-                var str = "";
-                if (data != "") {
-                    $(data).each(
-                        function () {
-                            console.log(this);
-                            str += '<article class="production-item"><a class="production-item__overlay" th:href="@{/productions/productDetails(productNo=' + 'this.productNo' + ')}"></a>'
-                                + '<div type="hidden" class="productNo" th:value=' + 'this.productNo' + '></div>'
-                                + '<div class="production-item-image production-item__image">'
-                                + '<img class="image" alt="" th:src="@{\'/uploadImg/\'+' + 'this.productMainImg' + '}" srcset="">'
-                                + '</div>'
-                                + '<div class="production-item__content">' + '<h1 class="production-item__header">'
-                                + '<span class="production-item__header__brand" th:text="' + 'this.sellerName' + '"></span>'
-                                + '<span class="production-item__header__name" th:text="' + 'this.productName' + '"></span>'
-                                + '</h1>' + '<span class="production-item-price">'
-                                + '<span class="production-item-price__price" th:text="' + '#numbers.formatInteger(this.customerPrice, 3, \'COMMA\')' + '"></span>'
-                                + '</span>' + '</div>' + '</article>';
-                        });
-                    $('.production-item').empty();
-                    $('.scrollLocation').after(str);
-                } else {
-                    alert("실패");
-                }
-
-            }
-        });
-
-    })
-    </script>-->
 </div>
 </body>
 </html>

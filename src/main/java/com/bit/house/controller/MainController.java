@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -72,11 +74,14 @@ public class MainController {
         return "th/main/storeNewBest";
     }
 
-    @PostMapping("/infiniteScrollDown")
-    public @ResponseBody List<ProductVO> scrollDown(@RequestBody ProductVO vo){
+    @GetMapping("/infiniteScrollDown")
+    @ResponseBody
+    public Map<String, List<ProductVO>> scrollDown(){
         log.info("무한스크롤");
-        String productNoStart=vo.getProductNo();
-        return mainMapper.selectMainList();
+        Map<String, List<ProductVO>> scrollList=new HashMap<String, List<ProductVO>>();
+        scrollList.put("mainList", mainMapper.selectMainList());
+
+        return scrollList;
     }
 
 }
