@@ -9,7 +9,7 @@
 
 <body>
 <div layout:fragment="content">
-    <form class="needs-validation" th:method="POST" th:action="@{/testCategory}" enctype="multipart/form-data">
+<!--    <form class="" >-->
         <div class="wrapper">
 
 
@@ -25,12 +25,9 @@
                                 <img th:src="@{/icon/thehouse.jpg}"
                                      class="img-circle elevation-2 width=50px height=50px"
                                      alt="User Image">
-
+                                <a th:text="${sellerInfo.sellerName}" th:href="@{/seller/sellerInfo}"></a>
                             </div>
 
-                            <div class="info">
-                                <a th:text="${sellerInfo.sellerName}" th:href="@{/seller/sellerInfo}" class="d-block"></a>
-                            </div>
                         </div>
                     </div>
 
@@ -104,34 +101,18 @@
                                                                placeholder="사업자등록번호" th:value="${sellerInfo.sellerRes}">
                                                     </div>
                                                 </div>
+                                                <form th:action="@{/seller/uploadImg}" method="post" enctype="multipart/form-data">
                                                 <div class="form-group row">
-                                                    <label for="sellerImg" class="col-sm-2 col-form-label">대표
-                                                        이미지</label>
-                                                    <div class="custom-file col-sm-10">
-                                                        <input type="text" class="form-control custom-file-input"
+                                                    <label class="col-sm-2 mr-2 col-form-label">대표 이미지</label>
+                                                    <div class="custom-file col-sm-8">
+                                                        <input type="file" class="custom-file-input" name="file"
                                                                id="sellerImg"
-                                                               name="sellerImg"
-                                                               placeholder="대표 이미지" th:value="${sellerInfo.sellerImg}"
                                                                multiple>
+                                                        <label class="custom-file-label" for="sellerImg" th:text="${sellerInfo.sellerImg}"></label>
+                                                        <button type="submit">업로드</button>
                                                     </div>
-                                                    <!--                                                    <div class="input-group row">-->
-                                                    <!--                                                        <div class="custom-file col-sm-10">-->
-                                                    <!--                                                            <input type="file" class="custom-file-input form-control" name="sellerImg"-->
-                                                    <!--                                                                   id="exampleInputFile1" th:value="${sellerInfo.sellerImg}"-->
-                                                    <!--                                                                   multiple>-->
-                                                    <!--                                                            <label class="custom-file-label" for="exampleInputFile1">Choose-->
-                                                    <!--                                                                file</label>-->
-                                                    <!--                                                        </div>-->
-                                                    <!--                                                    </div>-->
                                                 </div>
-                                                <!--                                                <div class="form-group row">-->
-                                                <!--                                                    <label for="sellerImg" class="col-sm-2 col-form-label">대표-->
-                                                <!--                                                        이미지</label>-->
-                                                <!--                                                    <div class="col-sm-10">-->
-                                                <!--                                                        <input type="text" class="form-control" id="sellerImg"-->
-                                                <!--                                                               name="sellerImg" placeholder="대표 이미지" th:value="${sellerInfo.sellerImg}">-->
-                                                <!--                                                    </div>-->
-                                                <!--                                                </div>-->
+                                                </form>
 
                                                 <div class="form-group row">
                                                     <label for="sellerAddr" class="col-sm-2 col-form-label">회사
@@ -205,7 +186,12 @@
                 </section>
             </div>
         </div>
-    </form>
+<!--    </form>-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
 </div>
 </body>
 
