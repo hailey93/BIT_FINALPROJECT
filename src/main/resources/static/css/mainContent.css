@@ -1,4 +1,4 @@
-.fixed-btn-area{
+/*.fixed-btn-area{
     position: fixed;
     top: 90%;
     float: left;
@@ -9,6 +9,75 @@
     z-index: 99999;
     padding: 13px;
     border-radius: 100px;
+}*/
+@media all and (min-width: 1800px) {
+    .fixed-btn-area {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 90%;
+        /*float: left;*/
+        width: 50px;
+        background: #35c5f0;
+        height: 50px;
+        left: 300px;
+        z-index: 99999;
+        padding: 13px;
+        border-radius: 100px;
+    }
+}
+@media all and (min-width: 1650px) and (max-width: 1749px) {
+    .fixed-btn-area {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 90%;
+        width: 50px;
+        background: #35c5f0;
+        height: 50px;
+        left: 200px;
+        z-index: 99999;
+        padding: 13px;
+        border-radius: 100px;
+    }
+}
+@media all and (min-width: 1401px) and (max-width: 1649px) {
+    .fixed-btn-area {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 90%;
+        width: 50px;
+        background: #35c5f0;
+        height: 50px;
+        left: 100px;
+        z-index: 99999;
+        padding: 13px;
+        border-radius: 100px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1400px){
+    .fixed-btn-area {
+        position: -webkit-sticky;
+        position: sticky;
+        top: 90%;
+        width: 50px;
+        background: #35c5f0;
+        height: 50px;
+        z-index: 99999;
+        padding: 13px;
+        border-radius: 100px;
+    }
+}
+@media (max-width: 767px) {
+    .fixed-btn-area {
+        position: -webkit-sticky;
+        position: sticky;
+        width: 50px;
+        background: #35c5f0;
+        height: 50px;
+        z-index: 99999;
+        padding: 13px;
+        border-radius: 100px;
+    }
+
 }
 
 .store-index-popular-items__header {

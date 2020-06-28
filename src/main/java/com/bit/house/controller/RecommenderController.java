@@ -20,7 +20,7 @@ public class RecommenderController {
 
     @GetMapping("/training")
     public String training(){
-        return "th/admin/recommender/trainingTestPage";
+        return "th/admin/recommender/training";
     }
     //추천아이템 트레이닝
     @GetMapping("/trainingStart")
@@ -30,13 +30,4 @@ public class RecommenderController {
         training.training(recommenderService.selectClickProductById());
 
     }
-    /*@GetMapping("/training")
-    public String getTraining(){
-
-        TrainingProcess training=new TrainingProcess();
-        training.training(recommenderService.selectClickProductById());
-
-        return "th/admin/recommender/trainingTestPage";
-    }*/
-
 }
