@@ -11,4 +11,8 @@ public interface SellerMapper {
 
     SellerVO searchSeller(String id);
     SellerVO searchSellerInfo(String sellerId);
+
+    public void updateSellerInfo(String sellerName, String sellerRes, String sellerImg, String sellerAddr, String sellerUrl, String sellerId);
+    public void updateSellerManager(String sellerManager, String managerTel, String managerEmail, String sellerId);
+    public void updateSellerInfoLogin(String sellerPw, String sellerId);
 }

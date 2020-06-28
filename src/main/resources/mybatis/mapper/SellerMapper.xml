@@ -27,4 +27,22 @@
         seller
         WHERE sellerId = #{sellerId}
     </select>
+
+    <update id="updateSellerInfo">
+		UPDATE seller
+		SET sellerName=#{sellerName}, sellerRes=#{sellerRes}, sellerImg=#{sellerImg}, sellerAddr=#{sellerAddr}, sellerUrl=#{sellerUrl}
+		where sellerId=#{sellerId}
+	</update>
+
+    <update id="updateSellerManager">
+		UPDATE seller
+		SET sellerManager=#{sellerManager}, managerTel=#{managerTel}, managerEmail=#{managerEmail}
+		where sellerId=#{sellerId}
+	</update>
+
+    <update id="updateSellerInfoLogin">
+		UPDATE allMember
+		SET userpw=#{sellerPw}
+		where userid=#{sellerId}
+	</update>
 </mapper>

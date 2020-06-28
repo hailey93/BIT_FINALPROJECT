@@ -19,22 +19,20 @@
                         <ul class="navbar-nav ml-auto">
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link" th:href="@{/admin/statAdmin}" id="navbarDropdown" role="button" aria-haspopup="true"
+                                <a class="nav-link" th:href="@{/seller/sellerInfo}" id="navbarDropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">업체관리
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" th:href="@{/seller/sellerInfo}">업체관리</a>
-                                    <a class="dropdown-item" th:href="@{/}">상품관리</a>
-                                    <a class="dropdown-item" th:href="@{/}">주문관리</a>
-                                    <a class="dropdown-item" th:href="@{/}">통계관리</a>
+                                    <a class="dropdown-item" th:href="@{/seller/sellerInfo}">업체 관리</a>
+                                    <a class="dropdown-item" th:href="@{/seller/sellerInfoLogin}">업체 ID 관리</a>
                                 </div>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link" th:href="@{/}" id="navbarDropdown" role="button" aria-haspopup="true"
+                                <a class="nav-link" th:href="@{/seller/category}" id="navbarDropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">상품관리
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" th:href="@{/}">상품등록</a>
+                                    <a class="dropdown-item" th:href="@{/seller/category}">상품등록</a>
                                     <a class="dropdown-item" th:href="@{/}">상품리스트</a>
                                 </div>
 
@@ -42,24 +40,20 @@
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true"
+                                <a class="nav-link" th:href="@{/seller/orderList}" id="navbarDropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">주문관리
                                 </a>
-                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" th:href="@{/}">주문조회</a>
-                                    <a class="dropdown-item" th:href="@{/}">주문취소</a>
-                                    <a class="dropdown-item" th:href="@{/}">주문환불</a>
-                                </div>
+
                             </li>
 
                             <li class="nav-item dropdown">
-                                <a class="nav-link" href="#" id="navbarDropdown" role="button" aria-haspopup="true"
+                                <a class="nav-link" th:href="@{/seller/sellerChart}" id="navbarDropdown" role="button" aria-haspopup="true"
                                    aria-expanded="false">통계관리
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" th:href="@{/}">전체통계</a>
-                                    <a class="dropdown-item" th:href="@{/}">월별통계</a>
-                                    <a class="dropdown-item" th:href="@{/}">일별통계</a>
+                                    <a class="dropdown-item" th:href="@{/seller/sellerChart}">전체통계</a>
+                                    <a class="dropdown-item" th:href="@{/seller/sellerChart}">월별통계</a>
+                                    <a class="dropdown-item" th:href="@{/seller/sellerChart}">일별통계</a>
                                 </div>
                             </li>
                         </ul>

@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -35,33 +34,6 @@ public class OrderListController {
     @Autowired
     OrderListService orderListService;
 
-    @GetMapping("/orderList")
-    public String orderList() {
-        return "th/main/orderList";
-    }
-
-
-//    @GetMapping("/orderListTest")
-//    public String orderListTest(Model model) {
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        String jsonOrderStatus;
-//        List<OrderStatusVO> orderStatus = orderStatusService.searchOrderStatus();
-//        model.addAttribute("orderCheck", orderStatus);
-//
-//        try {
-//            jsonOrderStatus = mapper.writeValueAsString(orderStatus);
-//            model.addAttribute("jsonOrderStatus", jsonOrderStatus);
-//        } catch (JsonGenerationException e) {
-//            e.printStackTrace();
-//        } catch (JsonMappingException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return "th/seller/orderList";
-//    }
-
     @PostMapping("/orderListChange")
     public String orderListChange(String[] orderCode, String[] orderNo) {
 
@@ -71,10 +43,10 @@ public class OrderListController {
         }
 
 
-        return "redirect:/seller/orderListTest";
+        return "redirect:/seller/orderList";
     }
 
-    @RequestMapping(value="/orderListTest")
+    @RequestMapping(value="/orderList")
     public String orderCheck(@AuthenticationPrincipal Principal principal, Model model, String orderCode) {
 
         String id = principal.getName();
