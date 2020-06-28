@@ -8,6 +8,7 @@ import lombok.Setter;
 @Getter
 @NoArgsConstructor
 public class LikeVO {
+    private String likeNo;
     private String memberId;
     private int photoBoardNo;
 }

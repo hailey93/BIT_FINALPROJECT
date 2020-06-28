@@ -3,11 +3,11 @@
 <div th:fragment="navBar_myPage">
     <div class="w3-container">
         <div class="w3-bar">
-            <a href=""
+            <a th:href="@{/member/myBoard}"
                class="w3-bar-item w3-button w3-hover-none w3-border-white w3-bottombar w3-hover-border-blue w3-hover-text-blue">프로필</a>
             <a th:href="@{/order_list}"
                class="w3-bar-item w3-button w3-hover-none w3-border-white w3-bottombar w3-hover-border-blue w3-hover-text-blue">마이쇼핑</a>
-            <a th:href="@{/settings}"
+            <a th:href="@{/member/settings}"
                class="w3-bar-item w3-button w3-hover-none w3-border-white w3-bottombar w3-hover-border-blue w3-hover-text-blue">설정</a>
         </div>
     </div>

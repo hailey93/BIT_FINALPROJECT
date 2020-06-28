@@ -24,7 +24,7 @@ import java.util.UUID;
 
 @Slf4j
 @Controller
-//@RequestMapping("member")
+@RequestMapping("member")
 public class MyPageController {
 
     @Autowired(required = false)
@@ -40,6 +40,7 @@ public class MyPageController {
     private MemberService memberService;
 
 
+
     //프로필설정
     @RequestMapping("/myProfile")
     private String viewProfile(Model model, HttpSession session) throws Exception{
@@ -52,6 +53,14 @@ public class MyPageController {
         System.out.println(myPageMapper.selectProfile(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/profileInfo";
+    }
+
+    @RequestMapping("/mainProfile")
+    private String mainProfile(HttpSession session) throws Exception{
+
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        return "th/member/mypage/profile/samPro";
     }
 
     //프로필수정
@@ -85,7 +94,7 @@ public class MyPageController {
 
         myPageMapper.modifyProfile(memberVO);
 
-        return "redirect:/myProfile";
+        return "redirect:/member/settings";
     }
     //팔로워메뉴
     @RequestMapping("/viewFollow")
@@ -131,7 +140,7 @@ public class MyPageController {
 
         myPageMapper.follow(followVO);
 
-        return "redirect:/memberProfile";
+        return "redirect:/member/memberProfile";
     }
 
     //팔로우취소
@@ -173,13 +182,11 @@ public class MyPageController {
 
     //사용자 프로필
     @RequestMapping("/memberProfile")
-    private String memberProfile(Model model, /*@PathVariable*/ String userId, HttpSession session) throws Exception{
+    private String memberProfile(Model model, @RequestParam("userId") String userId, HttpSession session) throws Exception{
 
-        //MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-        MemberVO memberVO = new MemberVO();
-        userId = "youn123";
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        memberVO.setMemberId("oleg123");
+
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
@@ -243,6 +250,7 @@ public class MyPageController {
 
 
 
+
         System.out.println("id : "+receiveId);
         model.addAttribute("sending", receiveId);
         System.out.println("model end");
@@ -257,13 +265,13 @@ public class MyPageController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        msgVO.setMemberId(request.getParameter(memberVO.getMemberId())); //내 아이디 = 세션처리
+        msgVO.setMemberId(memberVO.getMemberId());
         msgVO.setMsgContent(request.getParameter("msgContent"));
         msgVO.setReceiveId(request.getParameter("receiveId"));
 
         myPageMapper.noteSending(msgVO);
 
-        return "redirect:/sendNote";
+        return "redirect:/member/receiveNote";
     }
 
     //쪽지 삭제
@@ -276,16 +284,17 @@ public class MyPageController {
 
         myPageService.deleteNote(msgNum);
 
-        return "redirect:/sendNote";
+        return "redirect:/member/sendNote";
     }
 
 
     @GetMapping("/settings")
-    public String getProfileInfo(HttpSession session, Model model) {
+    public String getProfileInfo(HttpSession session, Model model) throws Exception{
 
-        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("member", member);
+        model.addAttribute("member", memberVO);
+        model.addAttribute("myprofile", myPageMapper.selectProfile(memberVO.getMemberId()));
 
         return "th/member/mypage/info/myAllInfoSettings";
     }

@@ -7,6 +7,9 @@
     <title>내 프로필</title>
 </head>
 <body>
+<div layout:fragment="content">
+    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
+    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
 <div class="container">
     <div class="form-group">
         <img th:src="@{'/uploadImg'+${mprofile.memberImg}}" style="width: 300px; height: 300px;"/>
@@ -29,7 +32,7 @@
     <div class="form-group">
         <th:block th:each="mphoto : ${myphoto}">
         <tr th:onclick="" ><!-- photodetail로 이동-->
-        <td th:text="${mphoto.photoImg1}"/>
+        <td><img th:src="'/uploadImg'+${mphoto.photoImg1}" style="width: 200px; height: 200px;"/></td>
         </tr>
         </th:block>
     </div>
@@ -39,10 +42,11 @@
     <div class="form-group">
         <th:block th:each="mscrap : ${myscrap}">
             <tr th:onclick=""><!-- photodetail로 이동-->
-            <td th:text="${mscrap.photoImg1}"/>
+                <td><img th:src="'/uploadImg'+${mscrap.photoImg1}" style="width: 200px; height: 200px;"/></td>
             </tr>
         </th:block>
     </div>
+</div>
 </div>
 </body>
 </html>

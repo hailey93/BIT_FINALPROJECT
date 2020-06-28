@@ -2,8 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.house.mapper.PhotoBoardMapper">
 
-   <select id="photoBoardList" resultType="PhotoBoardVO">
-       SELECT * FROM photoboard
+    <select id="communityMain" resultType="PhotoBoardVO">
+        SELECT * FROM photodetail ORDER BY likeCount desc LIMIT 16;
+    </select>
+
+    <select id="photoBoardList" resultType="PhotoBoardVO">
+       SELECT * FROM photoboard ORDER BY photoBoardNo desc
 
    </select>
 
@@ -13,8 +17,19 @@
         VALUE(#{memberId}, #{photoTitle}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5}, #{areaCode}, #{styleCode}, #{houseCode}, #{placeCode} )
     </insert>
 
+    <update id="updatePhoto" parameterType="PhotoBoardVO">
+       UPDATE photoboard SET
+       photoTitle = #{photoTitle}, photoContent = #{photoContent}, photoImg1 = #{photoImg1}, photoImg2 = #{photoImg2}, photoImg3 = #{photoImg3}, photoImg4 = #{photoImg4}, photoImg5 = #{photoImg5},
+       areaCode = #{areaCode}, styleCode = #{styleCode}, houseCode = #{houseCode}, placeCode = #{placeCode}
+       WHERE photoBoardNo = #{photoBoardNo}
+    </update>
+
+    <delete id="deletePhoto" parameterType="int">
+        DELETE FROM photoboard WHERE photoBoardNo = #{photoBoardNo}
+    </delete>
+
     <select id="photoDetail" parameterType="int" resultType="PhotoBoardVO">
-        SELECT * FROM thehouse.photodetail WHERE photoBoardNo = #{photoBoardNo}
+        SELECT * FROM photodetail WHERE photoBoardNo = #{photoBoardNo}
     </select>
 
     <select id="area" resultType="PhotoBoardVO">
@@ -42,9 +57,57 @@
         LIMIT 4;
     </select>
 
-    <select id="communityMain" resultType="PhotoBoardVO">
-        SELECT * FROM photodetail ORDER BY likeCount desc;
+    <insert id="like" parameterType="LikeVO">
+        INSERT INTO
+        thehouse.like(likeNo, memberId, photoBoardNo)
+        VALUES(#{likeNo}, #{memberId}, #{photoBoardNo})
+    </insert>
+
+    <delete id="cancelLike" parameterType="LikeVO">
+        DELETE FROM thehouse.like WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
+    </delete>
+
+    <insert id="scrap" parameterType="ScrapVO">
+        INSERT INTO
+        scrap(memberId, photoBoardNo)
+        VALUES(#{memberId}, #{photoBoardNo})
+    </insert>
+
+    <delete id="cancelScrap" parameterType="ScrapVO">
+        DELETE FROM scrap WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
+    </delete>
+
+    <select id="likeStat" resultType="int">
+        SELECT count(*) FROM thehouse.like WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
     </select>
 
+    <select id="scrapStat" resultType="int">
+        SELECT count(*) FROM scrap WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
+    </select>
 
+    <select id="photoComment" resultType="CommentVO">
+        SELECT * FROM comment WHERE photoBoardNo = #{photoBoardNo}
+        ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;
+    </select>
+
+    <insert id="insertPhotoComment" parameterType="CommentVO">
+        INSERT INTO
+        comment(memberId, commentupDate, commentContent, commentGroupNo, commentIndent, commentStep, photoBoardNo)
+        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0, #{photoBoardNo})
+    </insert>
+
+    <delete id="deletePhotoComment" parameterType="int">
+        DELETE FROM comment WHERE commentNo = #{commentNo}
+    </delete>
+
+    <insert id="replyPhotoComment" parameterType="CommentVO">
+        INSERT INTO
+        comment(memberId, upDate, commentContent, commentGroupNo, commentIndent, commentStep, photoBoardNo)
+        VALUES(#{memberId}, curdate(), #{commentContent}, #{commentGroupNo}, #{commentIndent}+1,
+        (select ifnull(max(commentStep)+1, 1) from comment c where commentGoupNo = #{commentGroupNo} AND commentIndent = #{commentIndent}+1), #{photoBoardNo})
+    </insert>
+
+    <select id="commentCount" resultType="int">
+        SELECT count(*) FROM comment WHERE photoBoardNo = #{photoBoardNo}
+    </select>
 </mapper>

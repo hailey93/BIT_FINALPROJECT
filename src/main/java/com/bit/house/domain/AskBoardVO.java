@@ -10,7 +10,7 @@ import java.sql.Date;
 @Getter
 @NoArgsConstructor
 public class AskBoardVO {
-    private int askBoardno;
+    private int askBoardNo;
     private String memberId;
     private String askTitle;
     private String askContent;

@@ -5,10 +5,22 @@
 <head>
     <meta charset="UTF-8">
     <title>질문 게시판</title>
+    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </head>
-
 <body>
+<div layout:fragment="content">
+    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
+    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
+    <h2>팔로워</h2>
 
+    <div class="container">
+        <table class="table table-hover">
+            <tr th:each="follower : ${follow}">
+                <td th:text="${follower.followId}"></td>
+                <td><input type="button" id="followcancel" name="followcancel" vlaue="팔로우취소"/></td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

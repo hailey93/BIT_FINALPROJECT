@@ -1,17 +1,13 @@
 package com.bit.house.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
 import java.sql.Date;
 
-@Setter
-@Getter
-@NoArgsConstructor
+@Data
 public class CommentVO {
     private String memberId;
-    private Date upDate;
+    private Date commentupDate;
     private String commentContent;
     private int commentGroupNo;
     private int commentIndent;

@@ -133,7 +133,7 @@ $(function() {
 
             $.ajaxSettings.traditional=true;
             $.ajax({
-                url : "/deleteNote",
+                url : "/member/deleteNote",
                 type : "post",
                 data : {msgNum : dchk},
                 success : function(data){

@@ -39,5 +39,15 @@
         DELETE FROM askboard WHERE askBoardno = #{askBoardno}
     </delete>
 
+    <select id="askComment" resultType="CommentVO">
+        SELECT * FROM comment WHERE askBoardNo = ${askBoardNo}
+        ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;
+    </select>
+
+    <insert id="insertAskComment" parameterType="CommentVO">
+        INSERT INTO
+        comment(memberId, commentupDate, commentContent, commentGroupNo, commentIndent, commentStep, askBoardNo)
+        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0, #{askBoardNo})
+    </insert>
 
 </mapper>

@@ -7,6 +7,7 @@
     <title>질문게시판</title>
 </head>
 <body>
+<div layout:fragment="content">
 <h2>게시글 목록</h2>
 
 <button class="btn btn-primary" onclick="location.href='/askinsert'">글쓰기</button>
@@ -21,8 +22,8 @@
         </tr>
 
         <th:block th:each="board : ${list}">
-            <tr th:onclick="'location.href=\''+@{/askdetail/{askBoardno}(askBoardno=${board.askBoardno})}+'\''">
-                <td th:text="${board.askBoardno}"/>
+            <tr th:onclick="'location.href=\''+@{/askdetail/{askBoardNo}(askBoardNo=${board.askBoardNo})}+'\''">
+                <td th:text="${board.askBoardNo}"/>
                 <td>
                     <th:block th:text="${board.askTitle}"/>
                 </td>
@@ -31,6 +32,7 @@
             </tr>
         </th:block>
     </table>
+</div>
 </div>
 </body>
 </html>
