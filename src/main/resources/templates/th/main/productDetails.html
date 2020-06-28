@@ -304,9 +304,9 @@
             }else{
                 console.log("memId : ~ajax " + memId);
 
-                var selectOption = document.getElementById("inputGroupSelect01");
+                var selectOption = $('#colorSelect').text();
                 console.log(selectOption);
-                selectOption = selectOption.options[selectOption.selectedIndex].value;
+                //selectOption = selectOption.options[selectOption.selectedIndex].value;
                 console.log("옵션 : " + selectOption);
                 var qty = document.getElementById("hohoBox").value;
                 console.log("qty : " + qty | 0);

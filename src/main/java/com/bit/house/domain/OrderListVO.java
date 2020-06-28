@@ -28,6 +28,8 @@ public class OrderListVO {
     private Date orderConfirmDate;
     private Date orderCancelDate;
     private String cancelReason;
+    private int payCode;
+    private int orderCode;
 
     private String year;
     private String month;

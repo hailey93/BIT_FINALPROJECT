@@ -31,10 +31,10 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-	public String kakaoPayReady(List<BasketVO> basketVOS, String productName, int[] orderQty, int totalP) {
+	public String kakaoPayReady(List<OrderListVO> orderListVOList) {
 		log.info("KakaoPayReady 호출............................................");
         RestTemplate restTemplate = new RestTemplate();
-        log.info("orderQty :?" + orderQty + "basketVOS" + basketVOS);
+        log.info("orderListVOList" + orderListVOList);
         /*log.info("userId :: " + houseUser.getUserId());
         log.info("payment : 흐" + housePayment);
         log.info("houseProduct : 흐" + houseProduct);*/
@@ -47,7 +47,13 @@ public class KakaoPay {
 
 
         int totalQty = 0;
+        int totalP = 0;
+        for(int i=0;i<orderListVOList.size();i++){
+            totalQty += orderListVOList.get(i).getOrderQty();
+            totalP += orderListVOList.get(i).getTotalPrice();
+        }
 
+        System.out.println("totalQty : "+ totalQty+"totalPrice : "+totalP);
 
         //        HouseUser houseUser = null;
        // HouseUser houseUser = session.getAttribute("user")
@@ -58,9 +64,9 @@ public class KakaoPay {
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "001");
         params.add("partner_user_id", "s");
-        params.add("item_name",productName+"외");
-        params.add("quantity", ""+totalQty);
-        params.add("total_amount", ""+totalP);
+        params.add("item_name",orderListVOList.get(0).getProductName()+"외"+Integer.toString(totalQty-1));
+        params.add("quantity", Integer.toString(totalQty));
+        params.add("total_amount", Integer.toString(totalP));
         params.add("tax_free_amount", "100");
         params.add("approval_url", "http://localhost:8080/kakaoPaySuccess");
         params.add("cancel_url", "http://localhost:8080/kakaoPayCancel");

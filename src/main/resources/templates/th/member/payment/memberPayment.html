@@ -58,7 +58,7 @@
 
                                     <input type="hidden" name="orderQty" th:value="${list.qty}"><br>
                                     <input type="hidden" name="productNo" th:value="${list.productNo}"><br>
-                                    <input type="hidden" name="colorName" th:value="${list.productColor}"><br>
+                                    <input type="hidden" name="colorName" th:value="${list.colorVO.colorType}"><br>
                                     <input type="hidden" name="memberId" th:value="ha123"><br>
                                     <input type="hidden" name="totalPrice" th:value="${list.getProductVO().getPurchasePrice()}"><br>
                                     <input type="hidden" name="usedPoint" th:value=3><br>
@@ -66,6 +66,7 @@
                                     <input type="hidden" name="orderDate" th:value="2020-06-05"><br>
                                     <input type="hidden" name="payCode" th:value="1"><br>
                                     <input type="hidden" name="orderCode" th:value="10"><br>
+                                    <input type="hidden" name="productName" th:value="${list.productName}">
                                 <!--orderListVO에 저장안되나-->
 
                                     <img th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}" alt="320">
@@ -102,7 +103,7 @@
                             <div class="label">우편번호</div>
                             <div class="input">
                                 <input class="non_edit quarter" presence="true" readonly="readonly" value="" data-hj-suppress="" type="text" name="zipCode" id="order_received_zip_code">
-                                <span class="find_address">우편번호</span>
+                                <span class="find_address" onclick="execPostCode()">우편번호</span>
                             </div>
                         </div>
                         <div class="field">
@@ -387,7 +388,7 @@
 
 
     <script>
-        $('.find_address').click(function execPostCode() {
+        function execPostCode() {
             new daum.Postcode({
                 oncomplete: function(data) {
                     // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
@@ -429,7 +430,7 @@
                     window.close();
                 }
             }).open();
-        });
+        }
 
     </script>
 
@@ -438,9 +439,11 @@
 
     <script>
         var name = "";
+        var phoneNum = "";
         function InitValue(frm){
 
             name = frm.order_payer_name.value; //이름
+            phoneNum = frm.order_received_phone_number.value;
         }
         function ShipToBill(frm){
             var n = null;
@@ -449,12 +452,12 @@
                 InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
 
                 document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value; // 이름 = 받는사람
-
+                document.getElementById("order_payer_phone_number").value = document.getElementById("order_received_phone_number").value;
 
             }else{						//체크박스를 해제한다면
 
                 frm.order_payer_name.value=''; // 이름 = 이름
-
+                frm.order_payer_phone_number.value='';
             }
             /*if(!frm.copy_delivery.checked){
                 document.getElementById("order_recipient").value = '';

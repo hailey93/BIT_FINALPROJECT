@@ -43,4 +43,9 @@ public interface AdminMapper {
     public List<OrderListVO> getMonthlySellerSalesVolume(String sellerName, String year);
     // 일간
     public List<OrderListVO> getDailySellerSalesVolume(String sellerName, String year, String month);
+
+    //주문내역 저장
+    public void insertNonMemberOrderList(List<OrderListVO> orderListVOList);
+    //orderNo
+    public String getOrderNo(String today);
 }

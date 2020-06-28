@@ -1,6 +1,9 @@
 package com.bit.house.controller.kakao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +12,8 @@ import javax.servlet.http.HttpSession;
 
 import com.bit.house.domain.*;
 import com.bit.house.domain.kakao.KakaoPayApprovalVO;
+import com.bit.house.mapper.AdminMapper;
+import org.nd4j.nativeblas.Nd4jCpu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +29,8 @@ import lombok.extern.java.Log;
 @Log
 @Controller
 public class KakaoPayController {
+    @Autowired(required = false)
+    AdminMapper adminMapper;
     
 	@Autowired(required = false)
     KakaoPayApprovalVO kakaoInfo;
@@ -36,8 +43,8 @@ public class KakaoPayController {
 	
     @Setter(onMethod_ = @Autowired)
     private KakaoPay kakaopay;
-    
-    
+
+
     @GetMapping("/kakaoPay")
     public void kakaoPayGet(Model model) {
     	log.info("KakaoPayGet 호출............................................");
@@ -52,38 +59,108 @@ public class KakaoPayController {
     // <div> 안에 <a href> button false js에서 선택한게 있으면 submit 아니면 되돌아가기
     @PostMapping("/kakaoPay")
     public String kakaoPay(HttpSession session, String[] productNo,
-                           int[] orderQty, String[] colorName,String productName,int[] totalPrice) { // 리스트로?
+                           int[] orderQty, String[] colorName,String[] productName,
+                           int[] totalPrice,String recipient,String receivedAt, String receivedAtDetail) { // 리스트로?
+
         log.info("kakaoPay post 호출............................................");
-        List<BasketVO> basketMember = (List<BasketVO>) session.getAttribute("basketMember");
-        log.info("orderlist? : " + basketMember + "totalPrice : ?" + totalPrice);
+        int totalP = 0;
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        String memberId;;
+        int orderQ = 0;
+
+        List<OrderListVO> orderListVOList = new ArrayList<>(productNo.length);
+
+        java.sql.Date sqlToday = new java.sql.Date(System.currentTimeMillis());
+        System.out.println("오늘 : ? "+sqlToday);
+
+
+        SimpleDateFormat orderDateForm, orderNoForm;
+        orderDateForm = new SimpleDateFormat("yyyyMMdd");
+        String today = orderDateForm.format(sqlToday);
+
+        System.out.println(today + "그리고"+sqlToday);
+
+        String orderCount = adminMapper.getOrderNo(today);
+        String result = null;
+        if(orderCount == null){
+            result = "0000";
+        }else {
+            result = orderCount.substring(orderCount.length() - 4, orderCount.length());
+        }
+
+        System.out.println("parse전 : " +result);
+        int result2 = Integer.parseInt(result);
+        System.out.println("parse 후 :" + result);
+        String No= null;
+
+
+
+
+        for(int i=0; i<orderQty.length;i++){
+            orderQ += orderQty[i];
+        }
+
+
+
+        if(memberVO != null){
+            memberId = memberVO.getMemberId();
+            List<BasketVO> basketMember = (List<BasketVO>) session.getAttribute("basketMember");
+            System.out.println("basketVO : " + basketMember);
+        }else{
+
+            memberId="nonMember";
+
+            //List<BasketVO> basketMember = (List<BasketVO>) session.getAttribute("basketMember");
+            //log.info("orderlist? : " + basketMember + "totalPrice : ?" + totalPrice);
+            System.out.println("!@#@#@@@@@@@@@@@@@@@@@@ : "+productNo.length);
+
+
+            //session.setAttribute("orderListVO", orderListVO);
+            //List<BasketVO> basketVOList = (List<BasketVO>) session.getAttribute("basketVOList");
+
+        }
+
         for(int i=0; i < productNo.length; i++){
+
+            if(0<=result2 && result2<10){
+                No="000"+Integer.toString(result2+i+1);
+            }else if(10<=result2 && result2<100){
+                No="00"+Integer.toString(result2+i+1);
+            }else if(100<=result2 && result2<1000){
+                No="0"+Integer.toString(result2+i+1);
+            }else  if(1000<=result2 && result2<10000){
+                No=""+Integer.toString(result2+i+1);
+            }
+
+            System.out.println(memberId +""+colorName[i]);
+
+            OrderListVO orderListVO = new OrderListVO();
+
+            orderListVO.setOrderNo(today+"-"+No);
+            orderListVO.setMemberId(memberId);
+            orderListVO.setColorName(colorName[i]);
+            //orderListVO.setModelName(productName[i]);
+            orderListVO.setProductNo(productNo[i]);
+            orderListVO.setProductName(productName[i]);
+            orderListVO.setOrderQty(orderQty[i]);
+            orderListVO.setTotalPrice(totalPrice[i]);
+            orderListVO.setRecipient(recipient);
+            orderListVO.setOrderAddr(receivedAt+receivedAtDetail);
+            orderListVO.setOrderDate(sqlToday);
+            orderListVO.setPayCode(1);
+            orderListVO.setOrderCode(10);
+            System.out.println("set전에"+orderListVO+orderListVOList);
+            orderListVOList.add(i,orderListVO);
+            System.out.println("after orderListVOList : "+orderListVOList);
+            totalP += totalPrice[i];
             System.out.println(i+"번쨰 : " +productNo[i]);
         }
+        session.setAttribute("orderListVOList",orderListVOList);
 
-        for(int i=0; i < colorName.length; i++){
-            System.out.println(i+"번째 : "+colorName[i]);
-        }
-        int totalP = 0;
-        for(int i=0; i < orderQty.length; i++){
-            System.out.println(i+"번째 : "+orderQty[i]);
-        }
-        for(int i=0; i < totalPrice.length; i++){
-            System.out.println(i+"번째 : "+totalPrice[i]);
-            totalP += totalPrice[i];
-        }
-
-        System.out.println("VO :: "+ productName);
-        //배열이라
-        session.setAttribute("productNo", productNo);
-        session.setAttribute("colorName", colorName);
-        session.setAttribute("orderQty", orderQty);
-        session.setAttribute("orderListVO", orderListVO);
-
-        System.out.println("수량 입력"+session.getAttribute("orderQty"));
-        return "redirect:" + kakaopay.kakaoPayReady(basketMember,productName,orderQty,totalP);
+        return "redirect:" + kakaopay.kakaoPayReady(orderListVOList);
  
     }
-    List<OrderListVO> orderListVO = new ArrayList<OrderListVO>();
+    //List<OrderListVO> orderListVO = new ArrayList<OrderListVO>();
 
 
     /*, HouseProduct houseProduct, List<HouseUser> houseUser*/
@@ -95,8 +172,22 @@ public class KakaoPayController {
        // System.out.println(houseUser);
         //houseUser = userDAO.getHouseUser(houseUser);
         //System.out.println(houseUser);
+
+
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-        String memberId = memberVO.getMemberId();
+        String memberId;
+
+        List<OrderListVO> orderListVOList = (List<OrderListVO>) session.getAttribute("orderListVOList");
+        adminMapper.insertNonMemberOrderList(orderListVOList);
+
+        /*if(memberVO != null){
+            memberId = memberVO.getMemberId();
+
+        }else{
+
+
+        }*/
+        memberId = orderListVOList.get(0).getMemberId();
         kakaoInfo = kakaopay.kakaoPayInfo(pg_token, memberId);
 
         //이렇게 하는 이유
