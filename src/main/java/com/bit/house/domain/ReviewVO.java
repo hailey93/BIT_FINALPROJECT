@@ -3,10 +3,13 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@ToString
 public class ReviewVO {
     private String memberId;
     private String reviewContent;
@@ -16,4 +19,8 @@ public class ReviewVO {
     private String reviewImg3;
     private String productNo;
     private String orderNo;
+
+    private String colorName;
+    private String productName;
+    private String modelName;
 }

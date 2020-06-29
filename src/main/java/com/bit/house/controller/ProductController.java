@@ -63,10 +63,11 @@ public class ProductController {
         ProductVO product = productMapper.getProductVOByProductNo(productNo);
         List<String> colorCodeVOList = productMapper.getProductVOByProductColorCode(productNo);
         product.setColorCodeVOList(colorCodeVOList);
-
+        List<ProductVO> reviewList = productMapper.getProductReviewByProductNo(productNo);
 
         SellerVO seller = productMapper.getProductVOBySellerName(productNo);
 
+        model.addAttribute("reviewList", reviewList);
         model.addAttribute("product", product);
         model.addAttribute("seller",seller);
 
@@ -91,6 +92,7 @@ public class ProductController {
         recommenderService.updateClickTotalCount(productNo);
         return "th/main/productDetails";
     }
+
 
 
 

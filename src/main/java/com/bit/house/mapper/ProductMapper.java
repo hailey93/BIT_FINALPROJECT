@@ -31,4 +31,7 @@ public interface ProductMapper {
     @Select("select s.sellerName, s.managerTel, s.managerEmail, s.sellerAddr from product p join seller s on p.sellerName=s.sellerName where productno =#{productNo}")
     SellerVO getProductVOBySellerName(String productNo);
 
+    @Select("select r.memberId, p.modelName, ol.colorName, r.reviewContent, r.reviewImg1 from product p join orderList ol on p.productNo=ol.productNo join review r on ol.orderNo=r.orderNo where p.productNo=#{productNo}")
+    List<ProductVO> getProductReviewByProductNo(String productNo);
+
 }

@@ -41,7 +41,8 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void updatePW(MemberVO memberVO) {
-
+        memberVO.setUserpw(passwordEncoder.encode(memberVO.getUserpw()));
+        memberInfoMapper.updateMemberPassword(memberVO);
     }
 
     /*@Override
