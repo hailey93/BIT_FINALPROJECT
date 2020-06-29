@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
@@ -289,26 +290,22 @@ public class MyPageController {
 
 
     @GetMapping("/settings")
-    public String getProfileInfo(HttpSession session, Model model) throws Exception{
-
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
-        model.addAttribute("member", memberVO);
-        model.addAttribute("myprofile", myPageMapper.selectProfile(memberVO.getMemberId()));
-
+    public String getProfileInfo(HttpSession session, Model model) {
+        MemberVO member = (MemberVO) session.getAttribute("memberVO");
+        model.addAttribute("member", member);
         return "th/member/mypage/info/myAllInfoSettings";
     }
 
     @PostMapping("updateInfo")
-    public String updateProfileInfo(HttpSession session,MemberVO memberVO) {
+    public String updateProfileInfo(HttpSession session, MemberVO memberVO) {
         memberInfoMapper.updateInfoMemberById(memberVO);
-       session.setAttribute("memberVO", memberVO);
+        session.setAttribute("memberVO", memberVO);
         return "redirect:/settings";
     }
 
     @PostMapping("updatePassword")
-    public String updateProfilePassword(MemberVO memberVO){
-       memberService.updatePW(memberVO);
+    public String updateProfilePassword(MemberVO memberVO) {
+        memberService.updatePW(memberVO);
         return "redirect:/settings";
     }
 

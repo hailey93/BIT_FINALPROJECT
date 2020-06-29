@@ -28,10 +28,15 @@ public class MemberVO {
     private String userTel;
     private String userEmail;
 
+    private String orderNo;
+    private Date confirmDate;
+    private String cancelReason;
+
+
 
 
     @Autowired(required = false)
-    OrderListVO orderListVO;
+    private OrderListVO orderListVO;
     /*@Autowired(required = false)
     OrderListVO orderListVO;*/
 }
