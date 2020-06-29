@@ -160,7 +160,7 @@ public class BasketController {
 
     }
 
-    @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
+   /* @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
     public @ResponseBody void basketSession(HttpSession session, String[] hoho) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
         System.out.println("ajax!");
         for(String a : hoho){
@@ -220,63 +220,9 @@ public class BasketController {
         System.out.println("getAttribute");
         hohoSession2 = (List<String>) session.getAttribute("hoho3");
         System.out.println("호호세션 : "+hohoSession2);
-        //List로 쓰자
-        System.out.println("Mapper 실행 ");
 
-        //List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // product 테이블에서 상품정보 가져옴
-        //System.out.println(basketVOList.get(0));
-
-        // 여기까지 비회원 장바구니
-
-        // 회원 장바구니 시작 회원 장바구니 테이블에 insert
-       // String userId = (String) session.getAttribute("userId");
-        //basketVO.setMemberId(userId);
-        //basketVO.setproductNo(productNo);
-        //basketVO.setproductColor(productColor);
-        //basketVO.setQty(qty);
-       // basketMapper.insertMemberBasket(basketVO);
-
-
-
-        //List<BasketVO> basketVOList = basketMapper.getArray(hoho2);
-        //System.out.println(basketVOList);
-
-        //basketVO =  basketMapper.getBasket();
-        //System.out.println("basketVO : :: : : "+basketVO);
-
-        /*System.out.println("Split Test ! ");
-        String hana = "hey mr, [aomo] to";
-        han = hana.split("[\\,\\[\\]]");
-        System.out.println("han : " +han);
-        for (String string : han) {
-
-            System.out.print(string);
-        }*/
-        //System.out.println(list);
-        //List<ProductVO> analist = new ArrayList<ProductVO>();
-        //System.out.println(analist);
-
-        /*;
-        List<Map<String,Object>> resultMap = new ArrayList<Map<String,Object>>();
-        // resultMap = JSONArray.fromObject(JsonSerializer.toJSON(paramData));
-        try {
-            JSONArray ja = (JSONArray) JSONValue.parse(Objects.requireNonNull(ServletRequestUtils.getStringParameter(request, "arrValue")));
-            System.out.println(ja);
-        } catch (ServletRequestBindingException e) {
-            e.printStackTrace();
-        }
-         */
-        /*for(int i=0; i<hoho.length; i++) {
-            System.out.print("split 전 : "+hoho[i]);
-
-
-            System.out.print("split 후 : " + hoho[i] + " ");
-            System.out.println("");
-        }*/
-        //List<ProductVO> productVOList = adminMapper.getProduct();
-       // model.addAttribute("list", productVOList);
     }
-
+*/
 
     @GetMapping("/basket")
     public String gobasket(HttpSession session,ProductVO productVO,BasketVO basketVO,Model model){

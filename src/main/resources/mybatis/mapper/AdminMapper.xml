@@ -111,7 +111,7 @@ group by memberId, month,year, month order by orderQty desc;
     <!-- memberInfo Page -->
     <select id="getUserInfo" resultMap="memberInfo">
 		select m.memberName, m.memberId, m.memberAddr, m.memberEmail, sum(u.orderQty2)as orderQty,
-sum(u.totalPrice2)as totalPrice from member m, userpurchasevolume u where u.memberId = m.memberId
+sum(u.totalPrice2)as totalPrice from member m, dailysalestats u where u.memberId = m.memberId
 group by memberId;
 	</select>
 
@@ -125,7 +125,7 @@ group by memberId;
 	</select>
     <!-- userDateStat page -->
     <select id="getUserDateStat" resultMap="saleStat">
-		  select sum(totalPrice2) as totalPrice, memberId, year,month,day from userpurchasevolume where
+		  select sum(totalPrice) as totalPrice, memberId, year,month,day from dailysalestats where
 		    orderdate between #{date1} and #{date2} group by memberId;
 	</select>
 
@@ -161,10 +161,39 @@ group by memberId;
         </foreach>
     </insert>
 
+    <insert id="insertInicis">
+        INSERT INTO orderlist(
+        orderNo,
+        productNo,
+        memberId,
+        colorName,
+        orderQty,
+        totalPrice,
+        recipient,
+        orderAddr,
+        orderDate,
+        payCode,
+        orderCode)
+        VALUES
+        (#{orderNo},#{productNo},null,#{colorName},#{orderQty},#{totalPrice},#{recipient},#{orderAddr},#{orderDate}
+        ,#{payCode},#{orderCode}
+        )
+    </insert>
+
+
+    <insert id="insertNonMemTable">
+        INSERT INTO nonmember(
+        orderNo,nonMemberName,nonMemberEmail,nonMemberPw,nonMemberTel,nonMemberAddr)
+        VALUES
+        (#{orderNo},#{nonMemberName},#{nonMemberEmail},#{nonMemberPw},#{nonMemberTel},#{nonMemberAddr}
+        )
+    </insert>
+
     
     <select id="getOrderNo" resultType="String" parameterType="String">
         select orderNo from orderlist where orderNo like concat('%',#{today},'%') order by orderNo desc limit 1
     </select>
+
 
     <!--#연단위 구매 많이한 유저
     select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, year
