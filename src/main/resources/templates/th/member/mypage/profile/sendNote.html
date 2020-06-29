@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>받은 쪽지함</title>
@@ -10,20 +12,18 @@
         margin:0 auto;
         align: center;
     }
-
-
 </style>
     <script src="https://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript" th:src="@{/js/profile.js}"></script>
-
 </head>
 
 <body>
-
+<div layout:fragment="content">
+    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
+    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
 <h2>받은 쪽지함</h2>
-
 <div class="container">
-    <form action="/noteSending" method="post" id="sending" name="sending">
+    <form action="/member/noteSending" method="post" id="sending" name="sending">
 
     <input type="button" id="send" name="send" value="쪽지보내기">
     <input type="button" id="delete" name="delete" value="삭제" >
@@ -58,6 +58,7 @@
     </table>
         <input type="hidden" id="receiveId" name="receiveId" value=""/>
     </form>
+</div>
 </div>
 </body>
 </html>

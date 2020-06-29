@@ -1,72 +1,195 @@
-//사진 업로드
-$(document).ready(function (e){
-    $("input[type='file']").change(function(e){
+//좋아요버튼
+$(function(){
+    $("#like").click(function(){
 
-        //div 내용 비워주기
-        $('#preview').empty();
+        var BoardNo = {
+            photoBoardNo : $("#user").val(),
+        };
+        console.log(BoardNo);
 
-        var files = e.target.files;
-        var arr =Array.prototype.slice.call(files);
+        $.ajaxSettings.traditional = true;
+        $.ajax({
+            type: "post",
+            url : "/like",
+            data : BoardNo,
+            success : function(data){
 
-        //업로드 가능 파일인지 체크
-        for(var i=0;i<files.length;i++){
-            if(!checkExtension(files[i].name,files[i].size)){
-                return false;
-            }
-        }
-
-        preview(arr);
-
-
-    });//file change
-
-    function checkExtension(fileName,fileSize){
-
-        var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
-        var maxSize = 10485760;  //10MB
-
-        if(fileSize >= maxSize){
-            alert('파일 사이즈 초과');
-            $("input[type='file']").val("");  //파일 초기화
-            return false;
-        }
-
-        if(regex.test(fileName)){
-            alert('업로드 불가능한 파일이 있습니다.');
-            $("input[type='file']").val("");  //파일 초기화
-            return false;
-        }
-        return true;
-    }
-
-    function preview(arr){
-        arr.forEach(function(f){
-
-            //파일명이 길면 파일명...으로 처리
-            var fileName = f.name;
-            if(fileName.length > 10){
-                fileName = fileName.substring(0,7)+"...";
-            }
-
-            //div에 이미지 추가
-            var str = '<div style="display: inline-flex; ">';
-            // str += '<span>'+fileName+'</span><br>';
-
-            //이미지 파일 미리보기
-            if(f.type.match('image.*')){
-                var reader = new FileReader(); //파일을 읽기 위한 FileReader객체 생성
-                reader.onload = function (e) { //파일 읽어들이기를 성공했을때 호출되는 이벤트 핸들러
-                    //str += '<button type="button" class="delBtn" value="'+f.name+'" style="background: red">x</button><br>';
-                    str += '<img src="'+e.target.result+'" title="'+f.name+'" width=300 height=300 />';
-                    str += '</li></div>';
-                    $(str).appendTo('#preview');
-                }
-                reader.readAsDataURL(f);
-            }else{
-                str += '<img src="/resources/img/fileImg.png" title="'+f.name+'" width=300 height=300 />';
-                $(str).appendTo('#preview');
-            }
-        });//arr.forEach
-    }
+                location.reload();
+            },
+        });
+    });
 });
 
+//좋아요취소버튼
+$(function(){
+    $("#cancellike").click(function(){
+        var BoardNo = {
+            photoBoardNo: $("#user").val(),
+        };
+        console.log(BoardNo);
+
+        $.ajaxSettings.traditional = true;
+        $.ajax({
+            type: "post",
+            url: "/nonlike",
+            data: BoardNo,
+            success : function(data){
+
+                location.reload();
+            },
+        });
+    });
+});
+
+//스크랩버튼
+$(function(){
+    $("#scrap").click(function(){
+        var BoardNo = {
+            photoBoardNo : $("#user").val(),
+        };
+        console.log(BoardNo);
+
+        $.ajaxSettings.traditional = true;
+        $.ajax({
+            type: "post",
+            url: "/scrap",
+            data: BoardNo,
+            success : function(data){
+
+                location.reload();
+            },
+        });
+    });
+});
+
+$(function(){
+    $("#cancelscrap").click(function(){
+        var BoardNo = {
+            photoBoardNo : $("#user").val(),
+        };
+        console.log(BoardNo);
+
+        $.ajaxSettings.traditional = true;
+        $.ajax({
+            type: "post",
+            url: "/nonscrap",
+            data: BoardNo,
+            success : function(data){
+
+                location.reload();
+            },
+        });
+    });
+});
+
+$(function(){
+    $("#notesend").click(function(){
+        var receive = $("#memberId").val();
+        console.log(receive);
+
+        document.sending.receiveId.value=receive;
+
+        $("#sending").submit();
+    });
+
+});
+
+$(function(){
+    $("#photoinsert").click(function(){
+        var area = $("#areaSelect").val();
+        var house = $("#houseSelect").val();
+        var style = $("#styleSelect").val();
+        var place = $("#placeSelect").val();
+
+        console.log(area);
+        console.log(house);
+        console.log(style);
+        console.log(place);
+
+        document.insertphoto.area.value=area;
+        document.insertphoto.style.value=style;
+        document.insertphoto.house.value=house;
+        document.insertphoto.place.value=place;
+
+        $("#insertphoto").submit();
+    });
+});
+
+function update(idx) {
+    var photoBoardNo = idx;
+    location.href = "/photoupdate/" + photoBoardNo;
+};
+
+function del(idx){
+    var photoBoardNo = idx;
+    location.href = "/photodelete/" + photoBoardNo;
+};
+
+$(function(){
+    $("#photoupdate").click(function(){
+        var area = $("#areaSelect").val();
+        var house = $("#houseSelect").val();
+        var style = $("#styleSelect").val();
+        var place = $("#placeSelect").val();
+
+        console.log(area);
+        console.log(house);
+        console.log(style);
+        console.log(place);
+
+
+                    document.updatephoto.area.value=area;
+                    document.updatephoto.style.value=style;
+                    document.updatephoto.house.value=house;
+                    document.updatephoto.place.value=place;
+
+                    $("#updatephoto").submit();
+
+
+
+    });
+});
+
+$(function(){
+    $("#pCommentInsert").click(function(){
+        /*var BoardNo = {
+            photoBoardNo : $("#user").val(),
+        };*/
+
+        var Content = $("#comment").serialize();
+
+        //console.log(BoardNo);
+        console.log(Content);
+
+        $.ajaxSettings.traditional = true;
+        $.ajax({
+            type: "post",
+            url: "/insertPhotoComment",
+            data: Content,
+            success : function(data){
+                console.log(data);
+                location.reload();
+            },
+        });
+    });
+});
+
+$(function () {
+    var obj = [];
+
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: obj,
+        elPlaceHolder: "askContent",
+        sSkinURI: "/editor/SmartEditor2Skin.html",
+        htParams: {
+            bUseToolbar: true,
+            bUseVerticalResizer: true,
+            bUseModeChanger: true,
+        }
+    });
+
+    $("#updateBoard").click(function () {
+        obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
+        $("#updateBoardFrm").submit();
+    });
+});

@@ -1,6 +1,9 @@
 package com.bit.house.mapper;
 
+import com.bit.house.domain.CommentVO;
+import com.bit.house.domain.LikeVO;
 import com.bit.house.domain.PhotoBoardVO;
+import com.bit.house.domain.ScrapVO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -17,7 +20,7 @@ public interface PhotoBoardMapper {
     public void insertPhoto(PhotoBoardVO photoBoardVO) throws Exception;
 
     //사진게시판 수정
-    public String updatePhoto(PhotoBoardVO photoBoardVO) throws Exception;
+    public void updatePhoto(PhotoBoardVO photoBoardVO) throws Exception;
 
     //사진게시판 삭제
     public int deletePhoto(int photoBoardNo) throws Exception;
@@ -40,6 +43,27 @@ public interface PhotoBoardMapper {
     //insert style 코드
     public List<PhotoBoardVO> style() throws Exception;
 
-    //좋아요, 스크랩은 고민
+    //좋아요
+    public void like(LikeVO likeVO) throws Exception;
 
+    public void cancelLike(LikeVO likeVO) throws Exception;
+
+    //좋아요 상태
+    int likeStat(String memberId, int photoBoardNo) throws Exception;
+
+    //스크랩
+    public void scrap(ScrapVO scrapVO) throws Exception;
+
+    public void cancelScrap(ScrapVO scrapVO) throws Exception;
+
+    //스크랩 상태
+    int scrapStat(String memberId, int photoBoardNo) throws Exception;
+
+    //댓글
+    public List<CommentVO> photoComment(int photoBoardNo) throws Exception;
+
+    //댓글 작성
+    public void insertPhotoComment(CommentVO commentVO) throws Exception;
+
+    int commentCount(int photoBoardNo) throws Exception;
 }

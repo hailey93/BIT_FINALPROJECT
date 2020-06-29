@@ -68,7 +68,7 @@
         SELECT s.scrapNo, p.memberId, p.photoBoardNo, p.photoImg1
         FROM scrap s INNER JOIN photoboard p
         ON s.photoBoardNo = p.photoBoardNo
-        WHERE s.memberId = 'youn123'
+        WHERE s.memberId = #{memberId}
         ORDER BY s.scrapNo desc
         LIMIT 4;
     </select>
@@ -107,7 +107,7 @@
     <insert id="noteSending" parameterType="MsgVO">
         INSERT INTO
         msg(memberId, receiveId, msgContent, msgDate)
-        VALUES(#{memberId}, #{receiveId}, #{msgContent}, #{msgDate})
+        VALUES(#{memberId}, #{receiveId}, #{msgContent}, curdate())
     </insert>
 
     <delete id="deleteNote" parameterType="int">

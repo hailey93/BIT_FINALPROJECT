@@ -12,12 +12,17 @@
 <body>
 <div layout:fragment="content">
 <div class="container store-index-section store-index-product-list"><h1>사진</h1>
+    <div class="form-group">
+        <button onclick="location.href='/photoInsert'" style="outline: 0;">글쓰기</button>
+    </div>
     <div class="virtualized-list row" style="padding-top:0px; transform: translateY(0px);">
         <tr th:each="photo : ${photoList}">
             <div class="col-6 col-md-3 product-item-wrap">
+                <form th:action="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
                 <article class="production-item"><a class="production-item__overlay" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}"></a>
                     <div class="production-item-image production-item__image">
-                        <img class="image" alt="" th:src="@{'/uploadImg/board'+${photo.photoImg1}}" srcset="">
+                        <img class="image" alt="" th:src="@{'/uploadImg'+${photo.photoImg1}}" srcset="">
+                        <input type="hidden" id="userId" name="userId" th:value="${photo.memberId}"/>
                     </div>
                     <div class="production-item__content">
                         <h1 class="production-item__header">
@@ -25,6 +30,7 @@
                         </h1>
                     </div>
                 </article>
+                </form>
             </div>
         </tr>
     </div>

@@ -1,6 +1,7 @@
 package com.bit.house.controller;
 
 import com.bit.house.domain.AskBoardVO;
+import com.bit.house.domain.CommentVO;
 import com.bit.house.domain.MemberVO;
 import com.bit.house.mapper.AskBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,11 @@ public class AskBoardController {
     }
 
     @RequestMapping("askdetail/{askBoardno}") //글 상세페이지
-    private String askDetail(@PathVariable int askBoardno, Model model) throws Exception {
+    private String askDetail(@PathVariable int askBoardNo, Model model) throws Exception {
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        model.addAttribute("askComment", askBoardMapper.askComment(askBoardNo));
+
 
         return "th/askBoard/askBoardDetail";
     }
@@ -59,10 +62,10 @@ public class AskBoardController {
         return "redirect:/askBoardList";
     }
 
-    @GetMapping("/askreply/{askBoardno}")//답글 작성 폼
-    private String askReply(@PathVariable int askBoardno, Model model) throws Exception {
+    @GetMapping("/askreply/{askBoardNo}")//답글 작성 폼
+    private String askReply(@PathVariable int askBoardNo, Model model) throws Exception {
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
 
         return "th/askBoard/askBoardReplyInsert";
     }
@@ -85,10 +88,10 @@ public class AskBoardController {
         return "redirect:/askBoardList";
     }
 
-    @RequestMapping("/askupdate/{askBoardno}")//게시글 수정 폼
-    private String askUpdate(@PathVariable int askBoardno, Model model) throws Exception {
+    @RequestMapping("/askupdate/{askBoardNo}")//게시글 수정 폼
+    private String askUpdate(@PathVariable int askBoardNo, Model model) throws Exception {
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardno));
+        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
 
         return "th/askBoard/askBoardUpdate";
     }
@@ -100,17 +103,18 @@ public class AskBoardController {
 
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setAskContent(request.getParameter("askContent"));
-        askBoardVO.setAskBoardno(Integer.parseInt(request.getParameter("askBoardno")));
+        askBoardVO.setAskBoardNo(Integer.parseInt(request.getParameter("askBoardNo")));
 
         askBoardMapper.askUpdate(askBoardVO);
 
-        return "redirect:/askdetail/" + request.getParameter("askBoardno");
+        return "redirect:/askdetail/" + request.getParameter("askBoardNo");
     }
 
-    @RequestMapping("/askdelete/{askBoardno}")
-    private String askDelete(@PathVariable int askBoardno) throws Exception {
+    @RequestMapping("/askdelete/{askBoardNo}")
+    private String askDelete(@PathVariable int askBoardNo) throws Exception {
 
-        askBoardMapper.askDelete(askBoardno);
+        askBoardMapper.askDelete(askBoardNo);
+
 
         return "redirect:/askBoardList";
     }
@@ -152,6 +156,23 @@ public class AskBoardController {
             e.printStackTrace();
         }
         return sb.toString();
+    }
+
+    @RequestMapping("/insertAskComment")
+    @ResponseBody
+    private void insertComment(@RequestParam("commentContent") String commentContent, CommentVO commentVO, HttpSession session, @RequestParam("photoBoardNo") int photoBoardNo) throws Exception{
+
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        System.out.println("내용 : "+commentContent);
+        System.out.println("글번호 : "+photoBoardNo);
+
+        commentVO.setMemberId(memberVO.getMemberId());
+        commentVO.setCommentContent(commentContent);
+        commentVO.setPhotoBoardNo(photoBoardNo);
+
+        askBoardMapper.insertAskComment(commentVO);
+
     }
 
 }

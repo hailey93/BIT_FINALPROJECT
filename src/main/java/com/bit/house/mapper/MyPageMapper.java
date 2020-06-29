@@ -21,10 +21,10 @@ public interface MyPageMapper {
     public List<FollowVO> following() throws Exception;
 
     //팔로우
-    public String follow(FollowVO followVO) throws Exception;
+    public void follow(FollowVO followVO) throws Exception;
 
     //팔로우 취소
-    public String cancelFollow(FollowVO followVO) throws Exception;
+    public void cancelFollow(FollowVO followVO) throws Exception;
 
     //내 프로필
     public MemberVO myProfile(String memberId) throws Exception;
@@ -46,7 +46,7 @@ public interface MyPageMapper {
     public List<MsgVO> receiveNote(String memberId) throws Exception;
 
     //쪽지 보내기
-    public String noteSending(MsgVO msgVO) throws Exception;
+    public void noteSending(MsgVO msgVO) throws Exception;
 
     //쪽지 삭제
     public int deleteNote(int msgNo) throws Exception;

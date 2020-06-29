@@ -7,25 +7,77 @@
     <title>사진 상세보기</title>
 
 
+    <script type="text/javascript" th:src="@{/js/photoBoard.js}"></script>
+
 </head>
 <body>
 <div layout:fragment="content">
-      <div class="form-group">
-        <th:block th:text="${photodetail.areaCode}, ${photodetail.styleCode}, ${photodetail.placeCode}, ${photodetail.houseCode}"/>
-      </div>
-      <div class="form-group">
-          <th:block th:src="'/uploadImg'+${photodetail.photoImg1}, '/uploadImg'+${photodetail.photoImg2}, '/uploadImg'+${photodetail.photoImg3}, '/uploadImg'+${photodetail.photoImg4}, '/uploadImg'+${photodetail.photoImg5}"/>
-      </div>
-      <div class="form-group">
-          <th:block th:text="${photodetail.photoContent}"/>
-      </div>
-
     <div class="form-group">
-        <input type="button" id="like" name="like" /> <!-- 버튼 이미지만들고, th:if로 좋아요, 취소 만들어야함. 스크랩도 마찬가지-->
-        <input type="button" id="scrap" name="scrap"/>
-        <th:block
+        <input type="button" th:if="${likestat == 0}" id="like" name="like" th:value="${photodetail.likeCount}"/>
+        <input type="button" th:if="${likestat == 1}" id="cancellike" name="cancellike" value="좋아요취소"/>
+        <input type="button" th:if="${scrapstat == 0}" id="scrap" name="scrap" value="스크랩"/>
+        <input type="button" th:if="${scrapstat == 1}" id="cancelscrap" name="cancelscrap" value="스크랩취소"/>
+        <input type="hidden" id="user" name="user" th:value="${photodetail.photoBoardNo}"/>
+        <input type="button" th:if="${member} == ${photodetail.memberId}" id="photoup" name="photoup" value="수정"
+        th:onclick="'javascript:update('+${photodetail.photoBoardNo}+');'"/>
+        <input type="button" th:if="${member} == ${photodetail.memberId}" id="photodel" name="photodel" value="삭제"
+               th:onclick="'javascript:del('+${photodetail.photoBoardNo}+');'"/>
+
     </div>
 
+
+
+    <div class="form-group">
+        <form action="/member/noteSending" method="post" id="sending" name="sending">
+        <input type="hidden" id="memberId" name="memberId" th:value="${photodetail.memberId}">
+        <th:block th:text="${photodetail.memberId}"/>
+            <input type="button" id="notesend" name="notesend" value="쪽지보내기">
+            <input type="hidden" id="receiveId" name="receiveId" value=""/>
+        </form>
+    </div>
+
+    <div class="form-group">
+        <tr th:each="photo : ${userphoto}">
+            <img th:src="'/uploadImg'+${photo?.photoImg1}" style="width:200px; height: 200px;"/>
+            </th:each>
+        </tr>
+    </div>
+
+    <div class="form-group">
+        <th:block th:text="${photodetail?.areaType}" />
+        <th:block th:text="${photodetail?.houseType}" />
+        <th:block th:text="${photodetail?.styleType}" />
+        <th:block th:text="${photodetail?.placeType}" />
+    </div>
+
+    <div class="form-group">
+        <img th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
+        <img th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
+        <img th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
+        <img th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
+        <img th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
+    </div>
+
+    <div class="form-group">
+        <th:block th:text="${photodetail.photoContent}"/>
+    </div>
+
+    <div class="form-group">
+        <form id="comment" method="post" name="comment">
+        <p>댓글&nbsp;&nbsp;<th:block th:text="${commentCount}"/></p>
+            <input type="text" id="commentContent" name="commentContent" placeholder="댓글을 입력하세요"/>
+        <input type="hidden" id="photoBoardNo" name="photoBoardNo" th:value="${photodetail.photoBoardNo}"/>
+        <input type="button" id="pCommentInsert" name="pCommentInsert" value="작성"/>
+        </form>
+        <br>
+        <table type="table table-hover">
+        <tr th:each="pComment : ${photoComment}">
+            <td th:text="${pComment.memberId}"></td>
+            <td th:text="${pComment.commentContent}"></td>
+        </th:each>
+        </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

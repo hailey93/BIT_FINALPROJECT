@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>질문 게시판</title>
 </head>
-
 <body>
+<div layout:fragment="content">
+    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
+    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
+    <h2>팔로잉</h2>
 
+    <div class="container">
+        <table class="table table-hover">
+            <tr th:each="follow : ${following}">
+                <td th:text="${follow.memberId}"></td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>
