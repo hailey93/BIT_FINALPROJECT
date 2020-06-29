@@ -32,23 +32,26 @@ public class PaymentController {
             log.info(memberId);
             List<BasketVO> basketMember = basketMapper.getMemberBasketList(memberId);
             System.out.println("qty :: " + basketMember);
+            //session.setAttribute("basketMember", basketMember);
             model.addAttribute("memberBasketList", basketMember);
             return "th/member/payment/memberPayment";
         }else{
-            List<String> hohoSession1 = new ArrayList<>();
-            List<String> hohoSession2 = new ArrayList<>();
-            List<Integer> hohoSession3 = new ArrayList<>();
+            List<String> proNoSession1;
+            List<String> proColorSession2;
+            List<Integer> proQtySession3;
 
-            hohoSession1 = (List<String>) session.getAttribute("proNo");
-            hohoSession2 = (List<String>) session.getAttribute("proColor");
-            hohoSession3 = (List<Integer>) session.getAttribute("proQty");
+            //localSessionStorage
+            proNoSession1 = (List<String>) session.getAttribute("proNo");
+            proColorSession2 = (List<String>) session.getAttribute("proColor");
+            proQtySession3 = (List<Integer>) session.getAttribute("proQty");
 
-            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession1,hohoSession2);
+            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(proNoSession1,proColorSession2);
             for(int i=0; i<basketVOList.size(); i++) {
-                basketVOList.get(i).setQty(hohoSession3.get(i));
+                basketVOList.get(i).setQty(proQtySession3.get(i));
                 System.out.println("리스트 i 의 qty입니다"+basketVOList.get(i).getQty());
             }
             System.out.println("리스트:"+basketVOList);
+            session.setAttribute("nonMemberBasketVOList", basketVOList);
             model.addAttribute("nonMemberBasketList", basketVOList);
             return "th/member/payment/nonMemberPayment";
         }

@@ -105,6 +105,8 @@
         p.productMainImg, p.purchasePrice,  b.* from  product p,
         basket b where b.memberId = #{memberId} and b.productNo = p.productNo;
     </select>
+
+
 <!--
     <select id="getArray" parameterType="java.util.ArrayList" resultType="basketVO">
         select * from product where productName in
