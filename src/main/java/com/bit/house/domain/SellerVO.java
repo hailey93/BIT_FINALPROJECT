@@ -22,7 +22,7 @@ public class SellerVO {
     private boolean permit;
     private Date applyDate;
     private Date permitDate;
-    private Date sellerImg;
+    private String sellerImg;
 
 
 }

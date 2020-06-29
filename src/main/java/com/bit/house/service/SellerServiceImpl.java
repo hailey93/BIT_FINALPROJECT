@@ -41,5 +41,24 @@ public class SellerServiceImpl implements SellerService {
         return sellerMapper.searchSellerInfo(sellerId);
     }
 
+    @Override
+    public void updateSellerInfo(String sellerName, String sellerRes, String sellerImg, String sellerAddr, String sellerUrl, String sellerId) {
+
+
+        sellerMapper.updateSellerInfo(sellerName, sellerRes, sellerImg, sellerAddr, sellerUrl, sellerId);
+    }
+
+    @Override
+    public void updateSellerManager(String sellerManager, String managerTel, String managerEmail, String sellerId) {
+
+        sellerMapper.updateSellerManager(sellerManager, managerTel, managerEmail, sellerId);
+    }
+
+    @Override
+    public void updateSellerInfoLogin(String sellerPw, String sellerId) {
+
+        sellerPw = passwordEncoder.encode(sellerPw);
+        sellerMapper.updateSellerInfoLogin(sellerPw, sellerId);
+    }
 
 }
