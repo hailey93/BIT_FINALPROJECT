@@ -12,6 +12,7 @@
 </head>
 <body>
 <div layout:fragment="content">
+
     <div class="form-group">
         <input type="button" th:if="${likestat == 0}" id="like" name="like" th:value="${photodetail.likeCount}"/>
         <input type="button" th:if="${likestat == 1}" id="cancellike" name="cancellike" value="좋아요취소"/>
@@ -28,9 +29,13 @@
 
 
     <div class="form-group">
+        <form action="/member/memberProfile" method="post" id="profile" name="profile">
+        <input type="button" th:value="${photodetail.memberId}" id="memberprofile" name="memberprofile" style="background-color: #ffffff; border: 0; outline: 0; width: 100px; height: 30px;"/>
+        <input type="hidden" id="userId" name="userId" value=""/>
+        </form>
         <form action="/member/noteSending" method="post" id="sending" name="sending">
         <input type="hidden" id="memberId" name="memberId" th:value="${photodetail.memberId}">
-        <th:block th:text="${photodetail.memberId}"/>
+
             <input type="button" id="notesend" name="notesend" value="쪽지보내기">
             <input type="hidden" id="receiveId" name="receiveId" value=""/>
         </form>

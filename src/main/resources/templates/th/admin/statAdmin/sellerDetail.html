@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>업체관리</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="form-group">
+        <h2>거래처 상세</h2><br>
+        <tr>
+            <p>업체아이디</p><th:block th:text="${sellerDetail.sellerId}"/><br>
+            <p>업체명</p><th:block th:text="${sellerDetail.sellerName}"/><br>
+            <p>사업자등록번호</p><th:block th:text="${sellerDetail.sellerRes}"/><br>
+            <p>업체홈페이지</p><th:block th:text="${sellerDetail.sellerUrl}"/><br>
+            <p>영업담당자</p><th:block th:text="${sellerDetail.sellerManager}"/><br>
+            <p>전화번호</p><th:block th:text="${sellerDetail.managerTel}"/><br>
+            <p>이메일</p><th:block th:text="${sellerDetail.managerEmail}"/><br>
+            <p>주소</p><th:block th:text="${sellerDetail.sellerAddr}"/><br>
+        </tr>
+    </div>
+</div>
+</body>
+</html>

@@ -11,9 +11,9 @@
 </head>
 <body>
 <div layout:fragment="content">
-<h2>보낸 쪽지함</h2>
 <th:block th:replace="th/fragments/navBar_myPage"></th:block>
     <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
+    <h2><a href="/member/sendNote">받은 쪽지함</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;보낸 쪽지함</h2>
 <div class="container">
     <form action="/noteSending" method="post" id="sending" name="sending">
 

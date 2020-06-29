@@ -99,26 +99,32 @@ public class MyPageController {
     }
     //팔로워메뉴
     @RequestMapping("/viewFollow")
-    private String viewFollow(Model model) throws Exception{
+    private String viewFollow(Model model, HttpSession session) throws Exception{
 
-        model.addAttribute("follower", myPageMapper.follower());
-        model.addAttribute("following", myPageMapper.following());
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        model.addAttribute("follower", myPageMapper.follower(memberVO.getMemberId()));
+        model.addAttribute("following", myPageMapper.following(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/viewFollow";
     }
     //팔로우 팔로잉 전체보기 html 하나로 합쳐볼것.
     @RequestMapping("/allFollow")
-    private String allFollow(Model model) throws Exception{
+    private String allFollow(Model model, HttpSession session) throws Exception{
 
-        model.addAttribute("follow", myPageMapper.follower());
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        model.addAttribute("follow", myPageMapper.follower(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/allFollow";
     }
     //팔로잉 전체보기
     @RequestMapping("allFollowing")
-    private String allFollowing(Model model) throws Exception{
+    private String allFollowing(Model model, HttpSession session) throws Exception{
 
-        model.addAttribute("following", myPageMapper.following());
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        model.addAttribute("following", myPageMapper.following(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/allFollowing";
     }
@@ -290,9 +296,13 @@ public class MyPageController {
 
 
     @GetMapping("/settings")
-    public String getProfileInfo(HttpSession session, Model model) {
+    public String getProfileInfo(HttpSession session, Model model) throws Exception{
+
         MemberVO member = (MemberVO) session.getAttribute("memberVO");
         model.addAttribute("member", member);
+        model.addAttribute("myprofile", myPageMapper.selectProfile(member.getMemberId()));
+
+
         return "th/member/mypage/info/myAllInfoSettings";
     }
 

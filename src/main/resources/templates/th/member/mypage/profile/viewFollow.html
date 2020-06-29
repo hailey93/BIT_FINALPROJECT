@@ -11,8 +11,18 @@
 <div layout:fragment="content">
     <th:block th:replace="th/fragments/navBar_myPage"></th:block>
     <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
-    <h2>팔로워, 팔로잉</h2>
-
+    <h2>팔로워</h2>
+    <div class="form-group">
+        <tr th:each="follower : ${follower}" >
+            <td th:text="${follower.followId}"></td>
+        </tr>
+    </div>
+    <h2>팔로잉</h2>
+    <div class="form-group">
+        <tr th:each="follow : ${following}">
+            <td th:text="${follow.memberId}"></td>
+        </tr>
+    </div>
 
 </div>
 </body>

@@ -55,7 +55,7 @@ public class PhotoBoardController {
 
     @RequestMapping("/photoInsertProc")
     private String insertPhotoProc(PhotoBoardVO photoBoardVO,
-                                   MultipartHttpServletRequest mtf, String memberId, HttpServletRequest request) throws Exception{
+                                   MultipartHttpServletRequest mtf, HttpSession session, HttpServletRequest request) throws Exception{
 
         List<String> photoImgArray = new ArrayList<String>();
         List<MultipartFile> fileList = mtf.getFiles("files");
@@ -111,9 +111,9 @@ public class PhotoBoardController {
         }
         System.out.println("end");
 
-        memberId = "youn123";
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        photoBoardVO.setMemberId(memberId);
+        photoBoardVO.setMemberId(memberVO.getMemberId());
         photoBoardVO.setPhotoTitle(request.getParameter("photoTitle"));
         photoBoardVO.setPhotoContent(request.getParameter("photoContent"));
         photoBoardVO.setAreaCode(request.getParameter("areaCode"));

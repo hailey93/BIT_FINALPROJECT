@@ -174,22 +174,13 @@ $(function(){
     });
 });
 
-$(function () {
-    var obj = [];
+$(function(){
+    $("#memberprofile").click(function(){
+        var userId = $("#memberId").val();
 
-    nhn.husky.EZCreator.createInIFrame({
-        oAppRef: obj,
-        elPlaceHolder: "askContent",
-        sSkinURI: "/editor/SmartEditor2Skin.html",
-        htParams: {
-            bUseToolbar: true,
-            bUseVerticalResizer: true,
-            bUseModeChanger: true,
-        }
-    });
+        document.profile.userId.value=userId;
+        console.log(userId);
 
-    $("#updateBoard").click(function () {
-        obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
-        $("#updateBoardFrm").submit();
-    });
-});
+        $("#profile").submit();
+    })
+})
