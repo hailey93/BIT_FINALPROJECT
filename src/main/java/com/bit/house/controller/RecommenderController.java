@@ -23,11 +23,12 @@ public class RecommenderController {
         return "th/admin/recommender/training";
     }
     //추천아이템 트레이닝
+
     @GetMapping("/trainingStart")
-    public void getTraining(){
+    public String getTraining(){
 
         TrainingProcess training=new TrainingProcess();
         training.training(recommenderService.selectClickProductById());
-
+        return "redirect:/admin/training";
     }
 }

@@ -40,8 +40,7 @@
 
         <div class="chatbox-area">
             <div class="card-content chat-content">
-                <div class="content">
-                </div>
+
             </div>
         </div>
 
@@ -55,7 +54,7 @@
             </div>
         </footer>
 
-        <script th:inline="javascript">
+        <script th:inline="javascript" type="text/javascript">
             var chatId = [[${chatInfo.chatId}]];
             var admin = [[${chatInfo.adminId}]];
             var enterTime=[[${chatInfo.time}]];
@@ -65,6 +64,17 @@
             } else {
                 var sender = [[${chatInfo.adminId}]];
             }
+
+            /*$(document).ready(function() {
+                $('#message').keydown(function (key) {
+                    if(key.keyCode==13){
+                        sendMsg();
+                    }
+                });
+
+                $('.chatbox-area').scrollTop($('.chatbox-area')[0].scrollHeight);
+
+            });*/
         </script>
     </div>
 </div>

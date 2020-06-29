@@ -1,6 +1,5 @@
 package com.bit.house.chattingProcess;
 
-import com.bit.house.domain.ChatMsgVO;
 import com.bit.house.domain.ChatRoomVO;
 import com.bit.house.domain.ChatVO;
 import com.bit.house.mapper.ChatMapper;
@@ -84,10 +83,12 @@ public class ChatRepository {
 
         //레디스에 저장된 채팅메시지 디비에 저장
         StringBuilder msg=new StringBuilder();
-        msg.append(msgList.range(chatId,0,-1));
-        chatMapper.insertMsg(chatInfo.getChatId(), chatInfo.getMemberId(), msg.toString() ,chatInfo.getTime());
-        //레디스에 저장된 채팅내역 삭제
-        msgList.trim(chatId,-1,0);
+        if(msgList.size(chatId)!=0){
+            msg.append(msgList.range(chatId,0,-1));
+            chatMapper.insertMsg(chatInfo.getChatId(), chatInfo.getMemberId(), msg.toString() ,chatInfo.getTime());
+            //레디스에 저장된 채팅내역 삭제
+            msgList.trim(chatId,-1,0);
+        }
         //레디스에 저장된 채팅정보 삭제
         opsHashChatRoom.delete(CHAT_ROOMS, chatId);
     }

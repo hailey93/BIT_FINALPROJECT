@@ -15,6 +15,7 @@ $(document).ready(function() {
             sendMsg();
         }
     });
+
 });
 
 function sendMsg() {
@@ -35,27 +36,28 @@ function connect() {
             chatId:chatId,
             sender:sender,
             enterTime:enterTime,
-            /*count:count*/
+
         }));
 
         ws.subscribe("/sub/chat/"+chatId, function(msg) {
             var receive = JSON.parse(msg.body);
 
             if(receive.type=='ENTER'){
-                /*$(".content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>");*/
-                $(".content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>");
+
                 if(sender!=receive.sender){
                     //상담원 입장했을때 고객이 보는 시점
-                    $('.content').append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>상담원이 입장하였습니다.</div><div class='message'>안녕하세요? 무엇 궁금하신가요?</div></div></div>");
-                    /*$('.content').append("<div class='message'>"+ receive.sender+": 안녕하세요? 무엇 궁금하신가요?</div></div></div>");*/
-                } /*else{
-                    $('.outgoing').append("<div class='bubble'>나: 안녕하세요 어떤 점이 궁금하신가요?</div>");
-                }*/
+                    $('.chat-content').append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>상담원이 입장하였습니다.</div><div class='message'>안녕하세요? 무엇 궁금하신가요?</div></div></div>");
+                }
             } else if(receive.type=='TALK'){
                 if(sender==receive.sender){
-                    $('.content').append("<div class='chat-message-group writer-user'><div class='chat-messages'><div class='message'>"+ receive.msg+ "</div></div></div>");
+                    $('.chat-content').append("<div class='chat-message-group writer-user'><div class='chat-messages'><div class='message'>"+ receive.msg+ "</div></div></div>")
+                                 .stop()
+                                 .animate({ scrollTop: $('.chat-content')[0].scrollHeight }, 1000);
+
                 } else {
-                    $(".content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>");
+                    $(".chat-content").append("<div class='chat-message-group'><div class='chat-messages'><div class='message'>" + receive.msg + "</div></div></div>")
+                                 .stop()
+                                 .animate({ scrollTop: $('.chat-content')[0].scrollHeight }, 1000);
                 }
             } else {
                 alert("상대방이 채팅방을 나갔습니다. 채팅이 종료됩니다.")
