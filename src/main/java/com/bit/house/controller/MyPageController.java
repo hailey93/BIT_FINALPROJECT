@@ -300,13 +300,13 @@ public class MyPageController {
     public String updateProfileInfo(HttpSession session, MemberVO memberVO) {
         memberInfoMapper.updateInfoMemberById(memberVO);
         session.setAttribute("memberVO", memberVO);
-        return "redirect:/settings";
+        return "redirect:/member/settings";
     }
 
     @PostMapping("updatePassword")
     public String updateProfilePassword(MemberVO memberVO) {
         memberService.updatePW(memberVO);
-        return "redirect:/settings";
+        return "redirect:/member/settings";
     }
 
 
