@@ -56,17 +56,17 @@
                                 <div class="information" th:each="list, listStat : ${memberBasketList}">
 
 
-                                    <input type="hidden" name="orderQty" th:value="${list.qty}"><br>
-                                    <input type="hidden" name="productNo" th:value="${list.productNo}"><br>
-                                    <input type="hidden" name="colorName" th:value="${list.colorVO.colorType}"><br>
-                                    <input type="hidden" name="memberId" th:value="ha123"><br>
-                                    <input type="hidden" name="totalPrice" th:value="${list.getProductVO().getPurchasePrice()}"><br>
-                                    <input type="hidden" name="usedPoint" th:value=3><br>
-                                    <input type="hidden" name="orderAddr" th:value="addr"><br>
-                                    <input type="hidden" name="orderDate" th:value="2020-06-05"><br>
-                                    <input type="hidden" name="payCode" th:value="1"><br>
-                                    <input type="hidden" name="orderCode" th:value="10"><br>
-                                    <input type="hidden" name="productName" th:value="${list.productName}">
+                                    <input type="hidden" name="orderQty" id="orderQty" th:value="${list.qty}"><br>
+                                    <input type="hidden" name="productNo" id="productNo" th:value="${list.productNo}"><br>
+                                    <input type="hidden" name="colorName" id="colorName" th:value="${list.productColor}"><br>
+                                    <input type="hidden" name="memberId" id="memberId" th:value="ha123"><br>
+                                    <input type="hidden" name="totalPrice" id="totalPrice" th:value="${list.getProductVO().getPurchasePrice()}"><br>
+                                    <input type="hidden" name="usedPoint" id="usedPoint" th:value=3><br>
+                                    <input type="hidden" name="orderAddr" id="orderAddr" th:value="addr"><br>
+                                    <input type="hidden" name="orderDate" id="orderDate" th:value="2020-06-05"><br>
+                                    <input type="hidden" name="payCode" id="payCode" th:value="1"><br>
+                                    <input type="hidden" name="orderCode" id="orderCode" th:value="10"><br>
+                                    <input type="hidden" name="productName" id="productName" th:value="${list.productName}">
                                 <!--orderListVO에 저장안되나-->
 
                                     <img th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}" alt="320">
@@ -320,8 +320,12 @@
             console.log("이름 테스트 : " + $('#productNameTest').text() + " 외");
             console.log("이메일 테스트 : " + $('#order_payer_email').val() + " 이름 : " + $('#order_payer_name').val()
                 + " 집코드 : " + $('#order_received_zip_code').val() + " 번호 : " + $('#order_payer_phone_number').val());
-
+            console.log("test : " + $('#productNo').val() + "memId : " +$('#memberId').val() + "colorName :" + $('#colorName').val()
+            +"orderQty" + $('#orderQty').val() + "totalPrice" + $('#totalPrice').val() + "recipient : "+ $('#order_recipient').val()
+            +"recieved_at : " +$('#order_received_at').val())
             //IMP.request_pay(param, callback) 호출
+            var price = $('#paymentTP').text();
+            price = Number(price);
             IMP.request_pay({ // param
                 pg: "inicis",
                 pay_method: "card",
@@ -340,39 +344,42 @@
                     nowTime += '-' + (now.getMonth() + 1);
                     nowTime += '-' + now.getDate();
                     var source = {
-                        orderNo : nowTime+"-0001",
-                        productNo : "a",
-                        memberId : "b",
-                        colorName : "c",
-                        orderQty : "d",
-                        totalPrice : "e" ,
-                        recipient : "f",
-                        orderAddr : "g",
-                        orderDate : "h",
-                        payCode : "q",
-                        orderCode : "w"
+                        orderNo : nowTime+"-8899",
+                        productNo : $('#productNo').val(),
+                        memberId : $('#memberId').val(),
+                        colorName : $('#colorName').val(),
+                        orderQty : $('#orderQty').val(),
+                        totalPrice : $('#totalPrice').val() ,
+                        recipient : $('#order_recipient').text(),
+                        orderAddr : $('#order_received_at').text(),
+                        orderDate : "2020-06-29",
+                        payCode : "2",
+                        orderCode : "10"
                     };
+                    console.log("source :: "+source);
                     console.log("source : : "+source.orderNo);
                     $.ajax({
                         url : '/paymentCom',
                         type : "POST",
 
                         data : {
-                            orderNo : nowTime+"-0001",
-                            productNo : "a",
-                            memberId : "b",
-                            colorName : "c",
-                            orderQty : 1,
-                            totalPrice : 1 ,
-                            recipient : "f",
-                            orderAddr : "g",
-                            orderDate : '2020-06-04',
-                            payCode :  1,
-                            orderCode : 10
+                            orderNo : nowTime+"-9000",
+                            productNo : $('#productNo').val(),
+                            memberId : $('#memberId').val(),
+                            colorName : $('#colorName').val(),
+                            orderQty : $('#orderQty').val(),
+                            totalPrice : price ,
+                            recipient : $('#order_recipient').val(),
+                            orderAddr : $('#order_received_at').val(),
+                            orderDate : "2020-06-29",
+                            payCode : "2",
+                            orderCode : "10"
                         },
                         success : function() {
                             alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                            //location.href = "/index";
+                            //location.href = "/";
+                            console.log("세션을 삭제합니다");
+                            localStorage.removeItem("saveL");
                         },
                         error : function() {
                             alert('ajax 실패')

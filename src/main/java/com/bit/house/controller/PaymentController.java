@@ -2,7 +2,9 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.BasketVO;
 import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.NonMemberVO;
 import com.bit.house.domain.OrderListVO;
+import com.bit.house.mapper.AdminMapper;
 import com.bit.house.mapper.BasketMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Slf4j
 @Controller
 public class PaymentController {
+
+    @Autowired
+    AdminMapper adminMapper;
 
     @Autowired
     BasketMapper basketMapper;
@@ -83,7 +90,43 @@ public class PaymentController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/paymentCom")
-    public @ResponseBody void paymentComplete(OrderListVO orderListVO){
-        System.out.println("@@@@@@@@@@@@@@@@@@@@ orderListVO  :: "+orderListVO);
+    public @ResponseBody void paymentComplete(OrderListVO orderListVO, NonMemberVO nonMemberVO){
+        java.sql.Date sqlToday = new java.sql.Date(System.currentTimeMillis());
+        System.out.println("오늘 : ? "+sqlToday);
+
+
+        SimpleDateFormat orderDateForm, orderNoForm;
+        orderDateForm = new SimpleDateFormat("yyyyMMdd");
+        String today = orderDateForm.format(sqlToday);
+
+        System.out.println(today + "그리고"+sqlToday);
+
+        String orderCount = adminMapper.getOrderNo(today);
+        String result = null;
+        if(orderCount == null){
+            result = "0000";
+        }else {
+            result = orderCount.substring(orderCount.length() - 4, orderCount.length());
+        }
+
+        System.out.println("parse전 : " +result);
+        int result2 = Integer.parseInt(result);
+        System.out.println("parse 후 :" + result);
+        String No= null;
+        if(0<=result2 && result2<10){
+            No="000"+Integer.toString(result2+1);
+        }else if(10<=result2 && result2<100){
+            No="00"+Integer.toString(result2+1);
+        }else if(100<=result2 && result2<1000){
+            No="0"+Integer.toString(result2+1);
+        }else  if(1000<=result2 && result2<10000){
+            No=""+Integer.toString(result2+1);
+        }
+        orderListVO.setOrderNo(today+'-'+No);
+        nonMemberVO.setOrderNo(today+'-'+No);
+        log.info("paymentCom 호출@@@@");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@ orderListVO  :: "+orderListVO+"nonmembervO: "+ nonMemberVO);
+        adminMapper.insertInicis(orderListVO);
+        adminMapper.insertNonMemTable(nonMemberVO);
     }
 }
