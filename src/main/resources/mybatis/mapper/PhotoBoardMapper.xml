@@ -49,11 +49,10 @@
     </select>
 
     <select id="userPhoto" resultType="PhotoBoardVO">
-        SELECT p.photoBoardNo, p.photoImg1, m.memberImg
-        FROM photoboard p INNER JOIN member m
-        ON p.memberId = m.memberId
-        WHERE p.memberId = #{memberId}
-        ORDER BY p.photoBoardNO desc
+        SELECT photoBoardNo, photoImg1
+        FROM photoboard
+        WHERE memberId = #{memberId}
+        ORDER BY photoBoardNO desc
         LIMIT 4;
     </select>
 

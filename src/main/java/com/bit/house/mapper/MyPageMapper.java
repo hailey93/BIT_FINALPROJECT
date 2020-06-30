@@ -15,10 +15,10 @@ public interface MyPageMapper {
     public void modifyProfile(MemberVO memberVO) throws Exception;
 
     //팔로워
-    public List<FollowVO> follower() throws Exception;
+    public List<FollowVO> follower(String memberId) throws Exception;
 
     //팔로잉
-    public List<FollowVO> following() throws Exception;
+    public List<FollowVO> following(String memberId) throws Exception;
 
     //팔로우
     public void follow(FollowVO followVO) throws Exception;

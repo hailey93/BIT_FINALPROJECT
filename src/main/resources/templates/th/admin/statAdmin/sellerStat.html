@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>업체관리</title>
+
+    <script type="text/javascript" th:src="@{/js/sellerAdm.js}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="form-group">
+        <h2>거래처 상세</h2>
+        <form action="/admin/sellerDetail" id="detailSeller" name="detailSeller">
+        <input type="button" id="sellerDetail" name="sellerDetail" value="더보기" style="background-color: #ffffff; border: 0; outline: 0;"/>
+        <input type="hidden" id="sellerName" name="sellerName" value=""/>
+            <input type="hidden" id="seller" name="seller" th:value="${sellerStat.sellerName}"/>
+        </form>
+        <tr>
+            <th>업체명</th>
+            <th>전화번호</th>
+            <th>승인날짜</th>
+        </tr>
+        <tr>
+            <td th:text="${sellerStat.sellerName}"></td>
+            <td th:text="${sellerStat.managerTel}"></td>
+            <td th:text="${sellerStat.permitDate}"></td>
+        </tr>
+
+        <div class="form-group">
+            <h2>판매글</h2>&nbsp;&nbsp;<th:block th:text="${productCount}"/>
+            <form action="/admin/allSellerProduct" id="allProduct" name="allProduct">
+            <input type="button" id="productAll" name="productAll" value="더보기"
+                   style="background-color: #ffffff; border: 0; outline: 0;"/>
+                <input type="hidden" id="sellerProduct" name="sellerProduct" value=""/>
+            <div class="form-group">
+                <tr th:each="stat : ${sellerProduct}">
+                    <td><img th:src="@{'/uploadImg/'+${stat.productMainImg}}" style="width: 200px; height: 200px;"/></td>
+                </tr>
+            </div>
+            </form>
+        </div>
+        </th:block>
+    </div>
+</div>
+</body>
+</html>

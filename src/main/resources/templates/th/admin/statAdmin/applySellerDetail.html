@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/defaultLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>업체관리</title>
+    <script type="text/javascript" th:src="@{/js/sellerAdm.js}"></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <h2><th:block th:text="${sellerDetail.sellerName}"/></h2>
+
+        <div class="form-group">
+            <p>사업자 등록번호</p><th:block th:text="${sellerDetail.sellerRes}"/>
+            <p>홈페이지</p><th:block th:text="${sellerDetail.sellerUrl}"/>
+            <p>담당자 이메일</p><th:block th:text="${sellerDetail.managerEmail}"/>
+        </div>
+        <div class="form-group">
+            <form action="/admin/applyProc" id="proc" name="proc">
+            <input type="button" id="apply" name="apply" value="승인"/>
+            <input type="hidden" id="sellerName" name="sellerName" value=""/>
+                <input type="hidden" id="name" name="name" th:value="${sellerDetail.sellerName}"/>
+            </form>
+
+            <!--<input type="button" id="reject" name="reject" value="거절"/>-->
+        </div>
+    </div>
+</div>
+</body>
+</html>
