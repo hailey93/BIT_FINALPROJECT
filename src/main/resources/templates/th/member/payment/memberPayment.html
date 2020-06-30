@@ -51,11 +51,9 @@
                     <table cellspacing="0" id="order_productions">
                         <tbody data-hj-suppress="" data-hj-ignore-attribute="">
                         <tr class="production" data-id="41033" data-cost="55900" data-count="1" data-name="[핀란디아] [오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors">
+                            <th:block th:if="${memberBasketList != null}">
                             <td><input type="text" name="productName" th:value="${memberBasketList.get(0).productName}">
-
                                 <div class="information" th:each="list, listStat : ${memberBasketList}">
-
-
                                     <input type="hidden" name="orderQty" id="orderQty" th:value="${list.qty}"><br>
                                     <input type="hidden" name="productNo" id="productNo" th:value="${list.productNo}"><br>
                                     <input type="hidden" name="colorName" id="colorName" th:value="${list.productColor}"><br>
@@ -81,6 +79,22 @@
                                     </div>
                                 </div>
                             </td>
+                            </th:block>
+                            <th:block th:unless="${productNo != null}">
+                                <td>
+                                <img th:src="@{'/uploadImg/'+${productVO.getProductMainImg()}}" alt="320">
+                                <div>
+                                    <div class="name" id="productNameTest" th:text="${productVO.productName}"></div>
+                                    <div class="option" th:text="${productVO.colorVO.colorType}"></div>
+                                    <div class="cost_count">
+                                        <div class="totalCost" th:price-total="${productVO.getPurchasePrice()}" th:text="${productVO.getPurchasePrice()}"></div>
+                                        <div class="divider">|</div>
+                                        <div class="count" th:text="1개"></div>
+                                    </div>
+                                </div>
+                                </td>
+                            </th:block>
+
                         </tr>
                         </tbody>
                     </table>

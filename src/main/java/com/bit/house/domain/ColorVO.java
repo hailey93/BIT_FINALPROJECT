@@ -10,7 +10,6 @@ import org.apache.ibatis.type.Alias;
 @Getter
 @NoArgsConstructor
 @ToString
-@Alias("colorVO")
 public class ColorVO {
     private String colorCode;
     private String colorType;

@@ -45,6 +45,10 @@ public class ProductVO {
     private String Month;
     private String day;
 
+    @Autowired(required = false)
+    private ColorVO colorVO;
+
+
     private List<String> colorCodeVOList;
 
 }

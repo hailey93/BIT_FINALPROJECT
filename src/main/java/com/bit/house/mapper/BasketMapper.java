@@ -18,7 +18,7 @@ public interface BasketMapper {
 
     public List<BasketVO> getMemberBasketList(String memberId);
 
-    public void deletememberBasket(String[] delProductNoArray);
+    public void deletememberBasket(List<BasketVO> basketVOList);
 
 
 

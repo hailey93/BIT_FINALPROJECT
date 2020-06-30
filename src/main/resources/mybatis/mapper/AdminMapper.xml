@@ -46,6 +46,23 @@
 
     </resultMap>
 
+    <resultMap id="directPayment" type="productVO">
+        <result column="productNo" property="productNo"/>
+        <result column="productName" property="productName"/>
+        <result column="purchasePrice" property="purchasePrice"/>
+        <result column="productMainImg" property="productMainImg"/>
+
+        <association property="colorVO" javaType="colorVO">
+            <result column="colorCode" property="colorCode"/>
+            <result column="colorType" property="colorType"/>
+        </association>
+
+    </resultMap>
+
+    <select id="getDirectPayment" resultMap="directPayment">
+        select c.colorCode, p.productNo, c.colorType, p.productName, p.purchasePrice, p.productMainImg  from color c, product p where c.colorType = #{colorN} and p.productNo=#{productNo};
+    </select>
+
     <!-- 해당 업체 연간 판매량 -->
     <select id="getYearlySellerSalesVolume" resultMap="dailysalestats">
 				select sellerName, sum(orderQty) as orderQty,

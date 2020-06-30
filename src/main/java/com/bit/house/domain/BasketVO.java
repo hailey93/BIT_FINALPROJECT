@@ -30,4 +30,10 @@ public class BasketVO {
     @Autowired(required = false)
     private ColorVO colorVO;
 
+    public BasketVO(String memberId, String productNo, String productColor){
+        this.memberId = memberId;
+        this.productNo = productNo;
+        this.productColor = productColor;
+    }
+
 }

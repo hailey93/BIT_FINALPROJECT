@@ -51,4 +51,6 @@ public interface AdminMapper {
 
     public void insertInicis(OrderListVO orderListVO);
     public void insertNonMemTable(NonMemberVO nonMemberVO);
+
+    public ProductVO getDirectPayment(String productNo, String colorN);
 }
