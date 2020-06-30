@@ -188,11 +188,12 @@ public class MyPageController {
     }
 
     //사용자 프로필
-    @RequestMapping("/memberProfile")
-    private String memberProfile(Model model, @RequestParam("userId") String userId, HttpSession session) throws Exception{
+    @RequestMapping("/memberProfile/{memberId}")
+    private String memberProfile(Model model, @PathVariable("memberId") String userId, HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
+        System.out.println("userId : "+ userId);
 
 
         model.addAttribute("memprofile", myPageMapper.myProfile(userId));

@@ -22,14 +22,40 @@
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 100%;">
                                 <img class="card-detail-card-image__image" th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card-detail-card">
+                        <div class="card-detail-card-image-wrap card-detail-card__image">
+                            <div class="card-detail-card-image" style="padding-bottom: 100%;">
                                 <img class="card-detail-card-image__image" th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card-detail-card">
+                        <div class="card-detail-card-image-wrap card-detail-card__image">
+                            <div class="card-detail-card-image" style="padding-bottom: 100%;">
                                 <img class="card-detail-card-image__image" th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card-detail-card">
+                        <div class="card-detail-card-image-wrap card-detail-card__image">
+                            <div class="card-detail-card-image" style="padding-bottom: 100%;">
                                 <img class="card-detail-card-image__image" th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="card-detail-card">
+                        <div class="card-detail-card-image-wrap card-detail-card__image">
+                            <div class="card-detail-card-image" style="padding-bottom: 100%;">
+
                                 <img class="card-detail-card-image__image" th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                         <p class="card-detail-card__description" th:text="${photodetail.photoContent}"></p>
                     </article>
+
                     <div class="card-detail-comment-section">
                         <section class="comment-feed">
                             <h1 class="comment-feed-header">
@@ -86,24 +112,28 @@
                                 <div class="card-detail-sidebar__content">
                                     <div class="card-detail-writer">
                                         <div class="card-detail-writer__user">
-                                            <a class="card-detail-writer__link" href=""><!--프로필창으로 이동 -->
-                                                <img th:src="'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'"
-                                                     srcset="'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg' 1.5x,
-                                                                '/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg' 2x,
-                                                                '/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg' 3x">
+                                            <a class="card-detail-writer__link" th:href="@{/member/memberProfile/{memberId}(memberId=${photodetail.memberId})}"><!--프로필창으로 이동 -->
+                                                <img th:src="@{'/uploadImg'+${photodetail?.memberImg}}" style="width: 50px; height: 50px;"
+                                                     th:attr="srcset=|@{'/uploadImg'+${photodetail?.memberImg}} 1.5x,
+                                                                        @{'/uploadImg'+${photodetail?.memberImg}} 2x,
+                                                                        @{'/uploadImg'+${photodetail?.memberImg}} 3x|">
                                                 <span class="card-detail-writer__name" th:text="${photodetail.memberId}"></span>
                                             </a>
                                         </div>
                                         <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow" type="button">쪽지보내기</button>
                                     </div>
                                     <div class="card-detail-pc-related-card-list">
-                                        <ul class="card-detail-pc-related-card-list__list" th:each="photo : ${userphoto}">
+                                        <ul class="card-detail-pc-related-card-list__list" >
+                                            <th:block th:each="photo : ${userphoto}">
                                             <li class="card-detail-pc-related-card-list__item">
                                                 <a class="card-detail-pc-related-card-list__item__link" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
-                                                    <img class="card-detail-pc-related-card-list__item__image" alt th:src="'/uploadImg'+${photo?.photoImg1}">
+                                                    <img class="card-detail-pc-related-card-list__item__image" alt th:src="@{'/uploadImg'+${photo.photoImg1}}"
+                                                        th:attr="srcset=|@{'/uploadImg'+${photo.photoImg1}} 1.5x,
+                                                                        @{'/uploadImg'+${photo.photoImg1}} 2x,
+                                                                        @{'/uploadImg'+${photo.photoImg1}} 3x|">
                                                 </a>
                                             </li>
-                                            </th:each>
+                                            </th:block>
                                         </ul>
                                            <a class="card-detail-pc-related-card-list__more" href="">더보기</a><!-- allphoto로 이동? 아니면 없애든지-->
                                     </div>
