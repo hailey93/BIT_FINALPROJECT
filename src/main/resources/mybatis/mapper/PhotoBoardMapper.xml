@@ -85,8 +85,17 @@
     </select>
 
     <select id="photoComment" resultType="CommentVO">
-        SELECT * FROM comment WHERE photoBoardNo = #{photoBoardNo}
+        SELECT c.commentNo, c.memberId, c.commentupDate, c.commentContent, c.commentGroupNo, c.commentIndent, c.commentStep, c.photoBoardNo, m.memberImg
+        FROM comment c INNER JOIN member m
+        ON c.memberId = m.memberId
+        WHERE c.photoBoardNo = #{photoBoardNo}
         ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;
+    </select>
+
+    <select id="myProfileImg" resultType="memberVO">
+        SELECT memberId, memberImg
+        FROM member
+        WHERE memberId = #{memberId}
     </select>
 
     <insert id="insertPhotoComment" parameterType="CommentVO">

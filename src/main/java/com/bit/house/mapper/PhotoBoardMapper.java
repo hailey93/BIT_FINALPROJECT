@@ -1,9 +1,6 @@
 package com.bit.house.mapper;
 
-import com.bit.house.domain.CommentVO;
-import com.bit.house.domain.LikeVO;
-import com.bit.house.domain.PhotoBoardVO;
-import com.bit.house.domain.ScrapVO;
+import com.bit.house.domain.*;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -66,4 +63,7 @@ public interface PhotoBoardMapper {
     public void insertPhotoComment(CommentVO commentVO) throws Exception;
 
     int commentCount(int photoBoardNo) throws Exception;
+
+    //myProfileImg
+    public MemberVO myProfileImg(String memberId) throws Exception;
 }

@@ -28,11 +28,11 @@
         <tr th:each="photo : ${photoList}">
             <div class="col-6 col-md-3 product-item-wrap">
                 <form th:action="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}" method="post" id="frm" name="frm">
-                <article class="production-item"><a class="production-item__overlay" <!--th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}"-->></a>
+                <article class="production-item"><a class="production-item__overlay" ></a>
                     <div class="production-item-image production-item__image">
                         <img class="image" alt="" th:src="@{'/uploadImg'+${photo.photoImg1}}" srcset="">
                         <input type="hidden" id="userId" name="userId" th:text="${photo.memberId}"/>
-                        <!--<input type="hidden" id="userId" name="userId" value=""/>-->
+
                     </div>
 
                     <div class="production-item__content">

@@ -58,33 +58,59 @@
 
                     <div class="card-detail-comment-section">
                         <section class="comment-feed">
-                            <h1 class="comment-feed-header">
+                            <h1 class="comment-feed__header">
                                 댓글&nbsp;
-                                <span class="comment-feed__header__count zero" th:text="${commentCount}"></span>
+                                <span class="comment-feed__header__count" th:text="${commentCount}"></span>
                             </h1>
-                            <form class="comment-feed__form">
+                            <form class="comment-feed__form"  id="comment">
                                 <div class="comment-feed__form__user">
                                     <!-- th:if로 로그인 사용자의 프로필 이미지가 없으면 아래 사진으로 아니면 그 밑에 사진으로.-->
-                                    <img th:src="'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'"
-                                         srcset="'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg' 1.5x,
-                                                '/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg' 2x,
-                                                '/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg' 3x"/>
+                                    <img th:if="${member?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${member?.memberImg}}"
+                                         th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
+                                                                        @{'/uploadImg'+${member?.memberImg}} 2x,
+                                                                        @{'/uploadImg'+${member?.memberImg}} 3x|">
+                                    <img th:if="${member?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                         th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                                     <!-- 로그인한 사용자 프로필 이미지 -->
                                 </div>
                                 <div class="comment-feed__form__input">
                                     <div class="comment-feed__form__content">
                                         <div class="comment-content-input">
-                                            <div class="comment-content-input__text comment-feed__form__content__text"
-                                                 data-ph="댓글을 작성해주세요" contenteditable="true">::before
-                                            </div>
+                                            <input class="comment-content-input__text comment-feed__form__content__text"
+                                                id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true">
+                                            </input>
                                         </div>
                                     </div>
                                     <div class="comment-feed__form__actions">
-                                        <button class="comment-feed__form__submit" aria-label="등록" type="submit" disabled>등록</button>
+                                        <button class="comment-feed__form__submit" aria-label="등록" id="pCommentInsert" type="submit">등록</button>
+                                        <input type="hidden" id="photoBoardNo" name="photoBoardNo" th:value="${photodetail.photoBoardNo}"/>
                                     </div>
                                 </div>
                             </form>
-                            <ul class="comment-feed__list"></ul>
+                            <ul class="comment-feed__list">
+                                <th:block th:each="pComment : ${photoComment}">
+                                    <li class="comment-feed__list__item">
+                                        <article class="comment-feed__item">
+                                            <p class="comment-feed__item__content">
+                                                <a th:href="@{/member/memberProfile/{memberId}(memberId=${pComment.memberId})}" class="comment-feed__item__content__author">
+                                                    <img th:if="${pComment?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${pComment?.memberImg}}"
+                                                         th:attr="srcset=|@{'/uploadImg'+${pComment?.memberImg}} 1.5x,
+                                                                        @{'/uploadImg'+${pComment?.memberImg}} 2x,
+                                                                        @{'/uploadImg'+${pComment?.memberImg}} 3x|">
+                                                    <img th:if="${pComment?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                                         th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
+                                                    <span class="comment-feed__item__content__author__name" th:text="${pComment.memberId}"></span>
+                                                </a>
+                                                <span class="comment-feed__item__content__content" th:text="${pComment.commentContent}"></span>
+                                            </p>
+                                        </article>
+                                    </li>
+                                </th:block>
+                            </ul>
                         </section>
                     </div>
                 </div>
@@ -113,10 +139,14 @@
                                     <div class="card-detail-writer">
                                         <div class="card-detail-writer__user">
                                             <a class="card-detail-writer__link" th:href="@{/member/memberProfile/{memberId}(memberId=${photodetail.memberId})}"><!--프로필창으로 이동 -->
-                                                <img th:src="@{'/uploadImg'+${photodetail?.memberImg}}" style="width: 50px; height: 50px;"
+                                                <img th:if="${photodetail?.memberImg != null}" class="card-detail-writer__image" th:src="@{'/uploadImg'+${photodetail?.memberImg}}" style="width: 50px; height: 50px;"
                                                      th:attr="srcset=|@{'/uploadImg'+${photodetail?.memberImg}} 1.5x,
                                                                         @{'/uploadImg'+${photodetail?.memberImg}} 2x,
                                                                         @{'/uploadImg'+${photodetail?.memberImg}} 3x|">
+                                                <img th:if="${photodetail?.memberImg == null}" class="card-detail-writer__image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
+                                                     th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                                                 <span class="card-detail-writer__name" th:text="${photodetail.memberId}"></span>
                                             </a>
                                         </div>
@@ -135,7 +165,7 @@
                                             </li>
                                             </th:block>
                                         </ul>
-                                           <a class="card-detail-pc-related-card-list__more" href="">더보기</a><!-- allphoto로 이동? 아니면 없애든지-->
+                                           <a class="card-detail-pc-related-card-list__more" th:href="@{/member/allPhoto/{memberId}(memberId=${photodetail.memberId})}">더보기</a><!-- allphoto로 이동? 아니면 없애든지-->
                                     </div>
                                 </div>
                             </div>

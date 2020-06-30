@@ -140,11 +140,9 @@ public class PhotoBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("memberVO", memberVO);
-
         PhotoBoardVO detail=photoBoardMapper.photoDetail(photoBoardNo);
 
-        model.addAttribute("member", memberVO.getMemberId());
+        model.addAttribute("member", photoBoardMapper.myProfileImg(memberVO.getMemberId()));
         model.addAttribute("photodetail", detail);
         model.addAttribute("userphoto", photoBoardMapper.userPhoto(detail.getMemberId()));
         model.addAttribute("likestat", photoBoardMapper.likeStat(memberVO.getMemberId(), photoBoardNo));
