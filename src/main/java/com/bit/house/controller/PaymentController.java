@@ -30,8 +30,9 @@ public class PaymentController {
     public String memberPayment(HttpSession session, String productNo,Model model,String colorN, String directPayment){
         String memberId = "";
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-        System.out.println("컬러 : " + colorN.equals("")
-                + colorN.getClass());
+        if(colorN != null) {
+            System.out.println("컬러 : " + colorN.equals("") + colorN.getClass());
+        }
         if(colorN == ""){
             return "redirect:/";
         }
