@@ -128,7 +128,7 @@
 
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
-                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">
+                    return false;">
                         장바구니
                     </button>
                     <a href="/basketPop" value="저장" onClick="saveSessionStorage(); return false;">저장</a>
@@ -267,15 +267,14 @@
 
                 var value = document.getElementById("productNo").value;
                 var colorValue = $('#inputGroupSelect01').val();
-                if(colorValue == ""){
-                    alert("색상 선택하세요")
-                    window.location.href = '/';
-                }
                 var qtyValue = $("select[name=hohoBox]").val();
                 var arr = [value, colorValue, qtyValue];
                 var list;
                 var localSessionItem = localStorage.getItem("saveL");
-
+                if(colorValue == "") {
+                    alert("색상 선택하세요")
+                    window.location.href = '/';
+                }else{
                 if (localSessionItem == null) {
                     console.log("localSessionItem is Null입니다")
                     b = 0;
@@ -306,14 +305,17 @@
                     }
 
                 }
+
                 ajaxSessionStorage();
+                }
             } else {
                 var selectOption = $('#inputGroupSelect01').val();
                 var qty = document.getElementById("hohoBox").value;
                 var pNo = document.getElementById("productNo").value;
                 console.log("pNo" + pNo);
-                if (qty == "") {
-                    alert("숫자 입력하세요");
+                if (selectOption == "") {
+                    alert("다시 골라요");
+                    window.location.href = '/';
                 } else {
                     $.ajax({ // 세션 보내기 ajax
                         //console.log("hi");
@@ -328,7 +330,7 @@
                         ,
                         success: function (e) {
                             console.log("basketMem 완료")
-
+                            window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
                         },
                         error: function () {
                             console.log("test err");
@@ -354,7 +356,6 @@
                 //console.log("hi");
                 url: "/basketLocal",
                 type: "POST",
-                dataType: 'json',
                 traditional: true,
                 data: {
                     'hoho': hoSession,
@@ -363,6 +364,7 @@
                 ,
                 success: function (e) {
                     alert("ajax완료")
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
                 }, error: function () {
                     console.log("test err");
                 }

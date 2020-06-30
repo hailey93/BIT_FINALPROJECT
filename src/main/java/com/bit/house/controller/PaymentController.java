@@ -30,6 +30,9 @@ public class PaymentController {
     public String memberPayment(HttpSession session, String productNo,Model model,String colorN, String directPayment){
         String memberId = "";
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        if(directPayment != null) {
+            System.out.println("다이렉트 : " + directPayment + directPayment.getClass() + "is true" + directPayment.equals(null));
+        }
         if(colorN != null) {
             System.out.println("컬러 : " + colorN.equals("") + colorN.getClass());
         }
@@ -117,7 +120,7 @@ public class PaymentController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/paymentCom")
-    public @ResponseBody void paymentComplete(OrderListVO orderListVO, NonMemberVO nonMemberVO){
+    public @ResponseBody void paymentComplete(OrderListVO orderListVO, NonMemberVO nonMemberVO,HttpSession session){
         java.sql.Date sqlToday = new java.sql.Date(System.currentTimeMillis());
         System.out.println("오늘 : ? "+sqlToday);
 
@@ -153,7 +156,22 @@ public class PaymentController {
         nonMemberVO.setOrderNo(today+'-'+No);
         log.info("paymentCom 호출@@@@");
         System.out.println("@@@@@@@@@@@@@@@@@@@@ orderListVO  :: "+orderListVO+"nonmembervO: "+ nonMemberVO);
-        adminMapper.insertInicis(orderListVO);
-        adminMapper.insertNonMemTable(nonMemberVO);
+        String memberId = "";
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        if(memberVO != null) {
+            adminMapper.insertInicis(orderListVO);
+        }else {
+            adminMapper.insertInicis(orderListVO);
+            adminMapper.insertNonMemTable(nonMemberVO);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveAddr")
+    public @ResponseBody String saveAddr(String fullAddr,HttpSession session ){
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        String memberId = memberVO.getMemberId();
+        System.out.println("saveAddr 실행");
+        adminMapper.updateMemberAddr(fullAddr,memberId);
+        return "ss";
     }
 }

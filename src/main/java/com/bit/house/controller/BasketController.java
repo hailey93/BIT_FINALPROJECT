@@ -58,6 +58,7 @@ public class BasketController {
     public String basketPop(HttpServletRequest request) {
         return "th/member/basket/basketPop";
     }
+
     @RequestMapping(value = "/basketMember", method = RequestMethod.POST)
     public @ResponseBody void basketMem(BasketVO basketVO, String memberId,String productNo, String productColor, String qty){
         System.out.println("id : " + memberId + "pNo : "+productNo + "productColor : " + productColor
