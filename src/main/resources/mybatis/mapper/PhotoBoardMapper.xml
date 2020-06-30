@@ -62,9 +62,21 @@
         VALUES(#{likeNo}, #{memberId}, #{photoBoardNo})
     </insert>
 
+    <update id="likeCount" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        likeCount = likeCount + 1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
+
     <delete id="cancelLike" parameterType="LikeVO">
         DELETE FROM thehouse.like WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
     </delete>
+
+    <update id="likeCountSub" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        likeCount = likeCount -1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
 
     <insert id="scrap" parameterType="ScrapVO">
         INSERT INTO
@@ -72,9 +84,21 @@
         VALUES(#{memberId}, #{photoBoardNo})
     </insert>
 
+    <update id="scrapCount" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        scrapCount = scrapCount + 1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
+
     <delete id="cancelScrap" parameterType="ScrapVO">
         DELETE FROM scrap WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
     </delete>
+
+    <update id="scrapCountSub" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        scrapCount = scrapCount -1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
 
     <select id="likeStat" resultType="int">
         SELECT count(*) FROM thehouse.like WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}

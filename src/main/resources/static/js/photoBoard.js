@@ -3,8 +3,9 @@ $(function(){
     $("#like").click(function(){
 
         var BoardNo = {
-            photoBoardNo : $("#user").val(),
-        };
+            photoBoardNo : $("#photoBoardNo").val(),
+        }
+
         console.log(BoardNo);
 
         $.ajaxSettings.traditional = true;
@@ -24,7 +25,7 @@ $(function(){
 $(function(){
     $("#cancellike").click(function(){
         var BoardNo = {
-            photoBoardNo: $("#user").val(),
+            photoBoardNo: $("#photoBoardNo").val(),
         };
         console.log(BoardNo);
 
@@ -45,7 +46,7 @@ $(function(){
 $(function(){
     $("#scrap").click(function(){
         var BoardNo = {
-            photoBoardNo : $("#user").val(),
+            photoBoardNo : $("#photoBoardNo").val(),
         };
         console.log(BoardNo);
 
@@ -65,7 +66,7 @@ $(function(){
 $(function(){
     $("#cancelscrap").click(function(){
         var BoardNo = {
-            photoBoardNo : $("#user").val(),
+            photoBoardNo : $("#photoBoardNo").val(),
         };
         console.log(BoardNo);
 
@@ -168,6 +169,7 @@ $(function(){
             data: Content,
             success : function(data){
                 console.log(data);
+                alert("consol");
                 location.reload();
             },
         });

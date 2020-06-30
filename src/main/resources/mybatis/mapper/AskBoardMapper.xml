@@ -3,7 +3,7 @@
 <mapper namespace="com.bit.house.mapper.AskBoardMapper">
 
     <select id="askBoardList" resultType="com.bit.house.domain.AskBoardVO">
-        SELECT askBoardno, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate,
+        SELECT askBoardNo, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate,
         askGroupNo, askIndent, askStep
         FROM askboard
         order by askGroupNo desc, askStep asc, askIndent asc;
@@ -11,7 +11,7 @@
     </select>
 
     <select id="askDetail" parameterType="int" resultType="AskBoardVO">
-        SELECT * FROM askboard WHERE askBoardno=#{askBoardno}
+        SELECT * FROM askboard WHERE askBoardNo = #{askBoardNo}
     </select>
 
     <insert id="insertAsk" parameterType="com.bit.house.domain.AskBoardVO">
@@ -40,14 +40,14 @@
     </delete>
 
     <select id="askComment" resultType="CommentVO">
-        SELECT * FROM comment WHERE askBoardNo = ${askBoardNo}
+        SELECT * FROM comment WHERE askBoardNo = #{askBoardNo}
         ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;
     </select>
 
     <insert id="insertAskComment" parameterType="CommentVO">
         INSERT INTO
         comment(memberId, commentupDate, commentContent, commentGroupNo, commentIndent, commentStep, askBoardNo)
-        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0, #{askBoardNo})
+        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0), #{askBoardNo})
     </insert>
 
 </mapper>
