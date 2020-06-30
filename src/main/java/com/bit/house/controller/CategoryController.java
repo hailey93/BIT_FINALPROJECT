@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -130,5 +128,27 @@ public class CategoryController {
         productExpImgUrl.transferTo(saveFileExp);
 
         return "redirect:/seller/category";
+    }
+
+    @GetMapping("/productList")
+    public String productList(Model model, @AuthenticationPrincipal Principal principal){
+        String id = principal.getName();
+        SellerVO sellerInfo = sellerService.searchSellerInfo(id);
+        List<ProductVO> productListInfo = productService.searchProductListInfo(id);
+
+        model.addAttribute("sellerInfo", sellerInfo);
+        model.addAttribute("productListInfo", productListInfo);
+
+        log.info(String.valueOf(productListInfo));
+        return "th/seller/productList";
+    }
+
+
+    @GetMapping("/{productNo}")
+    private String productChange(@PathVariable String productNo, Model model) {
+
+        log.info(productNo);
+
+        return "th/seller/productChange";
     }
 }

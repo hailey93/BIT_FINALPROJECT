@@ -9,6 +9,14 @@
         #{productMainImg}, #{productSubImg1}, #{productSubImg2}, #{productSubImg3}, #{productExpImg}, '0')
     </insert>
 
+    <select id="searchProductListInfo" resultType="com.bit.house.domain.ProductVO">
+        SELECT pro.productNo, pro.sellerName, pro.productName, pro.modelName, pro.customerPrice, pro.sellPrice
+        FROM product pro, seller sel
+        WHERE pro.sellerName=sel.sellerName
+        AND sellerId=#{sellerId};
+
+    </select>
+
 
 </mapper>
 

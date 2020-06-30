@@ -1,7 +1,5 @@
 package com.bit.house.mapper;
 
-import com.bit.house.domain.ColorVO;
-import com.bit.house.domain.ProductOptionVO;
 import com.bit.house.domain.ProductVO;
 import com.bit.house.domain.SellerVO;
 import org.apache.ibatis.annotations.Mapper;
@@ -38,5 +36,5 @@ public interface ProductMapper {
     List<String> selectAllProductJs();
 
     public void insertProduct(ProductVO productVO);
-
+    List<ProductVO> searchProductListInfo(String sellerId);
 }

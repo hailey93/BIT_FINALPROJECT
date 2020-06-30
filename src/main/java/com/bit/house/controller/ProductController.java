@@ -1,9 +1,11 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.*;
+import com.bit.house.domain.BasketVO;
+import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.ProductVO;
+import com.bit.house.domain.SellerVO;
 import com.bit.house.mapper.ProductMapper;
 import com.bit.house.mapper.RecommenderMapper;
-import com.bit.house.service.MemberService;
 import com.bit.house.service.RecommenderService;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -13,13 +15,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -49,9 +49,6 @@ public class ProductController {
         } else {
             productList = productMapper.selectAllProduct();
         }
-
-
-
 
         model.addAttribute("productList", productList);
         model.addAttribute("index", index);

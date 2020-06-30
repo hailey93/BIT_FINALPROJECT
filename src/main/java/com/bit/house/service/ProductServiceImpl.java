@@ -7,6 +7,8 @@ import com.bit.house.mapper.ProductOptionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -27,5 +29,11 @@ public class ProductServiceImpl implements ProductService {
     public void insertProductOption(ProductOptionVO productOptionVO) {
 
         productOptionMapper.insertProductOption(productOptionVO);
+    }
+
+    @Override
+    public List<ProductVO> searchProductListInfo(String sellerId){
+
+        return productMapper.searchProductListInfo(sellerId);
     }
 }
