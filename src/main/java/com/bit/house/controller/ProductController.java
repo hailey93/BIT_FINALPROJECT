@@ -13,11 +13,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
@@ -98,9 +100,9 @@ public class ProductController {
         List<String> colorCodeVOList = productMapper.getProductVOByProductColorCode(productNo);
         product.setColorCodeVOList(colorCodeVOList);
         List<ProductVO> reviewList = productMapper.getProductReviewByProductNo(productNo);
-
         SellerVO seller = productMapper.getProductVOBySellerName(productNo);
-
+        String reviewUrlImg = "/uploadImg/reviewImg/";
+        model.addAttribute("reviewUrlImg", reviewUrlImg);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("product", product);
         model.addAttribute("seller", seller);
