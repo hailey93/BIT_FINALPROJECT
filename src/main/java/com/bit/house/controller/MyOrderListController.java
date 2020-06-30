@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
@@ -55,9 +56,10 @@ public class MyOrderListController {
     }
 
     @PostMapping("/addReview")
-    public String addReview(HttpSession session, ReviewVO reviewVO, @RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) throws IOException {
+    public String addReview(HttpSession session, ReviewVO reviewVO, OrderListVO orderListVO, @RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) throws IOException {
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         reviewVO.setMemberId(memberVO.getMemberId());
+        orderListVO.setMemberId(memberVO.getMemberId());
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {
@@ -94,14 +96,19 @@ public class MyOrderListController {
             reviewVO.setReviewImg3(resultFilename);
         }
         myOrderListMapper.addReview(reviewVO);
+        myOrderListMapper.addConfirmOrderType(orderListVO);
         return "redirect:/order_list";
     }
 
     @PostMapping("/delete")
-    private String delete(@RequestParam("orderNo") String orderNo){
-        myOrderListMapper.deleteReviewById(orderNo);
+    private String delete(@RequestParam("orderNo") String[] orderNo){
+        for(String order : orderNo) {
+            myOrderListMapper.deleteReviewById(order);
+        }
         return "redirect:/order_list";
     }
+
+
 
 
 

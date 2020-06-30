@@ -15,18 +15,23 @@ public interface MyOrderListMapper {
     @Select("select ol.orderNo, ol.orderDate, p.productName, p.modelName, ol.orderQty, p.sellerName, ol.totalPrice, os.orderType, ol.colorName from orderlist ol join product p on ol.productNo=p.productNo join orderstatus os on ol.ordercode=os.orderCode where memberId=#{memberId}")
     List<OrderListVO> getMyOrderListById(String memberId);
 
-    @Update("update orderlist set orderConfirmReason=#{orderConfirmReason}, orderConfirmDate=sysdate() where orderNo=#{orderNo}")
+    @Update("update orderlist set orderCode='60', cancelReason=#{orderConfirmReason} where orderNo=#{orderNo}")
     void addReturnReason(OrderListVO orderListVO);
 
-    @Update("update orderlist set cancelReason=#{cancelReason}, orderCancelDate=sysdate() where orderNo=#{orderNo}")
+    @Update("update orderlist set orderCode='50', cancelReason=#{cancelReason}, orderCancelDate=sysdate() where orderNo=#{orderNo}")
     void addCancelReason(OrderListVO orderListVO);
 
     @Insert("insert into review(orderNo, memberId, reviewContent, reviewImg1, reviewImg2, reviewImg3) values(#{orderNo}, #{memberId}, #{reviewContent}, #{reviewImg1}, #{reviewImg2}, #{reviewImg3})")
     void addReview(ReviewVO reviewVO);
+
+    @Update("update orderList set orderCode='40', orderConfirmDate=sysdate() where orderNo=#{orderNo}")
+    void addConfirmOrderType(OrderListVO orderListVO);
 
     @Select("select r.orderNo, r.reviewContent, ol.colorName, p.productName, p.modelName from review r join orderList ol on r.orderNo=ol.orderNo join product p on ol.productNo=p.productNo where r.memberId=#{memberId}")
     List<ReviewVO> showUserReview(String memberId);
 
     @Delete("delete from review where orderNo=#{orderNo}")
     void deleteReviewById(String orderNo);
+
+
 }
