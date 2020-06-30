@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bit.house.mapper.ChatMapper">
+    
+    <resultMap id="msg" type="chatVO">
+        <result property="sender" column="memberId"></result>
+        <result property="msg" column="msg"></result>
+        <result property="time" column="time"></result>
+    </resultMap>
     <insert id="insertMsg" parameterType="map">
         insert into thehouse.chat values(#{chatRoomId}, #{memberId}, #{msg}, #{time})
     </insert>
 
+    <select id="selectChatMsg" resultMap="msg">
+        select memberId, msg, time from thehouse.chat order by time desc
+    </select>
+
+    <select id="selectChatMsgById" parameterType="String" resultMap="msg">
+        select memberId, msg, time from thehouse.chat where memberId=#{memberId} order by time desc
+    </select>
 </mapper>

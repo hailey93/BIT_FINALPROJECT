@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="th/layout/adminLayout">
+<head>
+    <meta charset="UTF-8">
+    <title>회원채팅이력</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/secondaryMenu.css}">
+    </th:block>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="container">
+        <div class="layout-navigation-bar">
+            <div class="layout-navigation-secondary-wrap">
+                <div class="layout-navigation-secondary" style="position: relative;">
+                    <div class="layout-navigation-secondary__content">
+                        <nav class="layout-navigation-secondary__menu">
+                            <a class="layout-navigation-secondary__menu__item" th:href="@{/admin/chatList}">채팅리스트</a>
+                            <a class="layout-navigation-secondary__menu__item"
+                               th:href="@{/admin/chatHistory}">회원 채팅이력</a>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>회원 채팅이력</h4>
+                </div>
+                <form class="form-inline col-md-4 ml-auto">
+                    <div class="input-group input-group-sm">
+                        <input hidden="hidden" />
+                        <input type="text" class="form-control" id="memberId" placeholder="아이디"/>
+                        <div class="input-group-append">
+                        <input class="btn btn-outline-secondary" type="button" id="button-addon2" onclick="searchId()" value="검색"/>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-hover">
+                <thead>
+                <tr class="list-group list-group-horizontal">
+                    <th style="width:10%">회원아이디</th>
+                    <th style="width:70%">채팅내용</th>
+                    <th style="width:10%">상담일자</th>
+                </tr>
+                </thead>
+                <tbody id="tableList">
+                    <div th:each="msgList: ${msgLists}">
+                        <tr class="list-group list-group-horizontal">
+                            <td th:text="${msgList.sender}" style="width:10%"></td>
+                            <td th:text="${msgList.msg}" style="width:70%"></td>
+                            <td th:text="${msgList.time}" style="width:10%"></td>
+                        </tr>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        $(document).ready(function() {
+            $('#memberId').keydown(function (key) {
+                if(key.keyCode==13){
+                    searchId();
+                }
+            });
+        });
+        function searchId() {
+            var id = {memberId: $('#memberId').val()};
+
+            $.ajax({
+                url: "/chatHistoryById",
+                type: 'GET',
+                data: id,
+                dataType: 'json',
+
+                success: function (data) {
+                    var msgList = data.msgList;
+                    var list;
+
+                    $.each(msgList, function (index, value) {
+                        var msg=value.msg.split(",");
+                        console.log(msg);
+
+                        list = list
+                            + '<tr class="list-group list-group-horizontal"><td style="width:10%">' + value.sender + '</td>'
+                            + '<td style="width:70%">' + value.msg + '</td>'
+                            + '<td style="width:10%">' + value.time + '</td></tr>'
+                    });
+                    $('#tableList').empty();
+                    $('#tableList').append(list);
+                },
+            })
+        }
+    </script>
+</div>
+</body>
+</html>

@@ -29,18 +29,14 @@
                 <tr th:each="products : ${bestList}">
                     <div class="ranking-feed-item-wrap col-12 col-md-12 col-lg-3">
                         <div class="ranking-product-item__wrap">
-                            <article class="production-item"><a class="ranking-product-item__link"
-                                                                th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
-                                <div th:name="|a${products.ranking}|"
-                                     class="ranking-product-item__number-wrap ranking-product-item__number__medal">
-                                    <span th:name="|b${products.ranking}|" class="ranking-product-item__number"
-                                          th:text="${products.ranking}" th:data-rank="${products.ranking}"></span>
+                            <article class="production-item">
+                                <a class="ranking-product-item__link" th:href="@{/productions/productDetails(productNo=${products.productNo})}"></a>
+                                <div th:name="|a${products.ranking}|" class="ranking-product-item__number-wrap ranking-product-item__number__medal">
+                                    <span th:name="|b${products.ranking}|" class="ranking-product-item__number" th:text="${products.ranking}" th:data-rank="${products.ranking}"></span>
                                 </div>
                                 <div class="ranking-product-item__img-wrap">
                                     <div class="production-item-image production-item__image">
-                                        <img class="image" alt=""
-                                             th:src="@{'/uploadImg/'+${products.productMainImg}}"
-                                             srcset="">
+                                        <img class="image" th:src="@{'/uploadImg/'+${products.productMainImg}}">
                                     </div>
                                 </div>
                                 <div class="ranking-product-item__content">

@@ -5,18 +5,32 @@
 <head>
     <meta charset="UTF-8">
     <title>채팅리스트</title>
-
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/secondaryMenu.css}">
+    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container">
+        <div class="layout-navigation-bar">
+        <div class="layout-navigation-secondary-wrap">
+            <div class="layout-navigation-secondary" style="position: relative;">
+                <div class="layout-navigation-secondary__content">
+                    <nav class="layout-navigation-secondary__menu">
+                        <a class="layout-navigation-secondary__menu__item" th:href="@{/admin/chatList}">채팅리스트</a>
+                        <a class="layout-navigation-secondary__menu__item" th:href="@{/admin/chatHistory}">회원 채팅이력</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-md-12">
-                <h1>채팅리스트</h1>
+                <h4>채팅리스트</h4>
             </div>
-            <div th:id="roomContainer" class="roomContainer">
+            <!--<div th:id="roomContainer" class="roomContainer">
                 <table th:id="roomList" class="roomList"></table>
-            </div>
+            </div>-->
         </div>
         <table class="table table-hover">
             <thead>
@@ -46,6 +60,7 @@
                 window.open(url, "new_popup", "scrollbars=no, width=400, height=450, menubar=false, location=false");
             }
         </script>
+    </div>
     </div>
 </div>
 </body>

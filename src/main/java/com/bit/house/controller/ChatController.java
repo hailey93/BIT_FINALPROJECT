@@ -6,7 +6,6 @@ import com.bit.house.domain.ChatRoomVO;
 import com.bit.house.domain.ChatVO;
 import com.bit.house.domain.MemberVO;
 import com.bit.house.mapper.ChatMapper;
-import com.bit.house.mapper.MainMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +14,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,6 +28,9 @@ import java.text.SimpleDateFormat;
 public class ChatController {
     private final RedisPublisher redisPublisher;
     private final ChatRepository chatRepository;
+
+    @Autowired(required = false)
+    ChatMapper chatMapper;
 
     @MessageMapping("/message")
     public void message(ChatVO message){
@@ -86,9 +89,25 @@ public class ChatController {
     }
 
     @GetMapping("/admin/chatList")
-    public String startChat(Model model){
+    public String getChatList(Model model){
         //관리자 채팅리스트
         model.addAttribute("roomLists", chatRepository.findAllRoom());
         return "th/admin/chat/chatList";
+    }
+
+    @GetMapping("/admin/chatHistory")
+    public String getChatHistory(Model model){
+        //회원 채팅이력
+        model.addAttribute("msgLists", chatMapper.selectChatMsg());
+        return "th/admin/chat/chatHistory";
+    }
+
+    @GetMapping("/chatHistoryById")
+    @ResponseBody
+    public Map<String, List<ChatVO>> getChatHistoryById(@RequestParam String memberId){
+        //회원 채팅이력 검색
+        Map<String, List<ChatVO>> msgList=new HashMap<>();
+        msgList.put("msgList", chatMapper.selectChatMsgById(memberId));
+        return msgList;
     }
 }

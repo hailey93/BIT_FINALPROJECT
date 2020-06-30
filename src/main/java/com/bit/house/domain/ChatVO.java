@@ -25,6 +25,5 @@ public class ChatVO implements Serializable {
     private String chatId;
     private String sender;
     private String msg;
-    /*private int count;*/
     private String time;
 }
