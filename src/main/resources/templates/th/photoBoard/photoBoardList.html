@@ -7,46 +7,37 @@
     <title>사진 목록</title>
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
+        <link rel="stylesheet" th:href="@{/css/photoBoard.css}">
     </th:block>
-    <script type="text/javascript">
 
-            var userId = $('#userId').text();
-            console.log(userId);
-            document.frm.userId.value=userId;
-
-            $("#frm").submit();
-
-    </script>
 </head>
 <body>
 <div layout:fragment="content">
-<div class="container store-index-section store-index-product-list"><h1>사진</h1>
-    <div class="form-group">
-        <button onclick="location.href='/photoInsert'" style="outline: 0;">글쓰기</button>
+    <div class="container store-index-section store-index-product-list"><h1>사진</h1>
+        <div class="form-group">
+            <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                    onclick="location.href='/photoInsert'" type="button">글쓰기</button>
+            <!--<button th:if="${member == null}" class="button button&#45;&#45;color-gray-4 button&#45;&#45;size-30 button&#45;&#45;shape-4 card-detail-writer__follow"
+                    onclick="location.href='/customLogin'" type="button">글쓰기</button>-->
+        </div>
+        <div class="virtualized-list row" style="padding-top:0px; transform: translateY(0px);">
+            <tr th:each="photo : ${photoList}">
+                <div class="col-6 col-md-3 product-item-wrap">
+                    <article class="production-item">
+                        <a class="production-item__overlay" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}"></a>
+                        <div class="production-item-image production-item__image">
+                            <img class="image" alt="" th:src="@{'/uploadImg'+${photo.photoImg1}}" srcset="">
+                        </div>
+                        <div class="production-item__content">
+                            <h1 class="production-item__header">
+                                <span class="production-item__header__name" th:text="${photo.photoTitle}"></span>
+                            </h1>
+                        </div>
+                    </article>
+                </div>
+            </tr>
+        </div>
     </div>
-    <div class="virtualized-list row" style="padding-top:0px; transform: translateY(0px);">
-        <tr th:each="photo : ${photoList}">
-            <div class="col-6 col-md-3 product-item-wrap">
-                <form th:action="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}" method="post" id="frm" name="frm">
-                <article class="production-item"><a class="production-item__overlay" ></a>
-                    <div class="production-item-image production-item__image">
-                        <img class="image" alt="" th:src="@{'/uploadImg'+${photo.photoImg1}}" srcset="">
-                        <input type="hidden" id="userId" name="userId" th:text="${photo.memberId}"/>
-
-                    </div>
-
-                    <div class="production-item__content">
-                        <h1 class="production-item__header">
-                            <span class="production-item__header__name" th:text="${photo.photoTitle}"></span>
-                        </h1>
-                    </div>
-
-                </article>
-                <!--</form>-->
-            </div>
-        </tr>
-    </div>
-</div>
 </div>
 </body>
 </html>

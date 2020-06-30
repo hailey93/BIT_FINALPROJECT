@@ -39,6 +39,10 @@
         DELETE FROM askboard WHERE askBoardno = #{askBoardno}
     </delete>
 
+    <select id="askCommentCount" resultType="int">
+        SELECT count(*) FROM comment WHERE askBoardNo = #{askBoardNo}
+    </select>
+
     <select id="askComment" resultType="CommentVO">
         SELECT * FROM comment WHERE askBoardNo = #{askBoardNo}
         ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;

@@ -35,8 +35,11 @@ public class PhotoBoardController {
     }
     //사진 목록
     @RequestMapping("/photoBoardList")
-    private String photoBoardList(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+    private String photoBoardList(Model model, HttpSession session) throws Exception{
 
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        /*model.addAttribute("member", memberVO.getMemberId());*/
         model.addAttribute("photoList", photoBoardMapper.photoBoardList());
 
         return "th/photoBoard/photoBoardList";
@@ -328,7 +331,7 @@ public class PhotoBoardController {
         return "th/photoBoard/photoLike";
     }
 
-    //다중파일업로드
+    /*//다중파일업로드
     @RequestMapping(value = "/photouploader", method = RequestMethod.POST)
     @ResponseBody
     public String multiplePhotoUploader(HttpServletRequest request) {
@@ -364,7 +367,7 @@ public class PhotoBoardController {
             e.printStackTrace();
         }
         return sb.toString();
-    }
+    }*/
 
     @RequestMapping("/insertPhotoComment")
     @ResponseBody

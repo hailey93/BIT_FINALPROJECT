@@ -37,6 +37,7 @@ public class AskBoardController {
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
         model.addAttribute("askComment", askBoardMapper.askComment(askBoardNo));
+        model.addAttribute("commentCount", askBoardMapper.askCommentCount(askBoardNo));
 
 
         return "th/askBoard/askBoardDetail";

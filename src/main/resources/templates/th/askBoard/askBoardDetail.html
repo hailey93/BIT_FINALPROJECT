@@ -5,48 +5,168 @@
 <head>
     <meta charset="UTF-8">
     <title>질문 게시판</title>
+    <script type="text/javascript" th:src="@{/js/askBoard.js}"></script>
 </head>
-<script type="text/javascript" th:src="@{/js/askBoard.js}"></script>
 <body>
 <div layout:fragment="content">
-<h2>게시글 상세</h2>
-<button class="btn btn-primary" th:onclick="'javascript:update('+${detail.askBoardNo}+');'">수정</button>
+<main class="qna-detail">
+    <article class="qna-detail__container container">
+        <section class="qna-detail__container__content">
+            <header class="qna-detail__content__header-container">
+                <div class="qna-detail__content__header-top">
+                    <a class="qna-detail__content__header-subtitle" href="/askBoardList">질문과 답변</a>
+                </div>
+                <h1 class="qna-detail__content__header-title" th:text="${detail.askTitle}"></h1>
+                <address class="qna-detail-author qna-detail__content__header-author-section">
+                    <a class="qna-detail-author__profile-link" href="#"><!--작성자 프로필링크-->
+                        <div class="qna-detail-author__profile-link__image">
+                            <!--<img src="#" th:attr="srcset"> --><!--작성자 프로필 이미지 -->
+                        </div>
+                        <div class="qna-detail-author__profile-link__summary">
+                            <div class="qna-detail-author__profile-link__summary-section">
+                                <span class="qna-detail-author__profile-link__summary-nickname" th:text="${detail.memberId}"></span>
+                            </div>
+                            <div class="qna-detail-author__profile-link__summary-introduction"></div>
+                        </div>
+                    </a>
+                    <div>
+                        <a class="button button--color-gray-4 button--size-30 button--shape-4">쪽지보내기</a>
+                    </div>
+                </address>
+            </header>
+            <section class="qna-detail__content__body">
+                <th:block th:utext="${detail.askContent}"/>
+            </section>
+            <footer class="qna-detail__footer">
+                <div class="qna-detail__footer__metadata">
+                    <time th:text="${detail.askDate}"></time>
+                </div>
+            </footer>
+            <section class="qna-detail__comment-section">
+                <section class="comment-feed">
+                    <h1 class="comment-feed__header">
+                        댓글&nbsp;<span class="comment-feed__header__count" th:text="${commentCount}"></span>
+                    </h1>
+                    <form class="comment-feed__form">
+                        <div class="comment-feed__form__user">
+                            <!--<img src="#" th:attr="srcset">--><!-- 댓글 input 옆 이미지-->
+                        </div>
+                        <div class="comment-feed__form__input">
+                            <div class="comment-feed__form__content">
+                                <div class="comment-content-input">
+                                    <div class="comment-content-input__text comment-feed__content__text" data-ph="댓글을 적어주세요" contenteditable="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment-feed__form__actions">
+                                <button class="comment-feed__form__submit" aria-label="등록" type="submit" disabled>등록</button>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="comment-feed__list">
+                        <th:block th:each="aComment : ${askComment}">
+                        <li class="comment-feed__list__item">
+                            <article class="comment-feed__item">
+                                <p class="comment-feed__item__content">
+                                    <a href="#" class="comment-feed__item__content__author">
+                                        <!--<img class="comment-feed__item__content__author__image" th:alt="${aComment.memberId}"
+                                             src="#"
+                                             th:attr="srcset">-->
+                                        <span class="comment-feed__item__content__author__name" th:text="${aComment.memberId}"></span>
+                                    </a>
+                                    <span class="comment-feed__item__content__content" th:text="${aComment.commentContent}"></span>
+                                </p>
+                            </article>
+                        </li>
+                        </th:block>
+                    </ul>
+                </section>
+            </section>
+        </section>
+        <nav class="qna-detail__container__sidebar">
+            <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top" data-offset="81" class="sticky-container" style="position: sticky; top: 81px;">
+                <div class="sticky-child" style="position: relative">
+                    <div class="qna-detail__container__sidebar__content">
+                        <address class="qna-detail-author qna-detail__container__sidebar__author">
+                            <a class="qna-detail-author__profile-link" href="#"><!--작성자 프로필이동 -->
+                                <div class="qna-detail-author__profile-link__image">
+                                    <!--<img src="#" th:attr="srcset">--><!-- 작성자 프로필이미지-->
+                                </div>
+                                <div class="qna-detail-author__profile-link__summary">
+                                    <div class="qna-detail-author__profile-link__summary-section">
+                                        <span class="qna-detail-author__profile-link__summary-nickname" th:text="${detail.memberId}"></span>
+                                    </div>
+                                    <div class="qna-detail-author__profile-link__summary-introduction"></div>
+                                </div>
+                            </a>
+                            <div>
+                                <a class="button button--color-gray-4 button--size-30 button--shape-4">팔로우</a>
+                            </div>
+                        </address>
+                        <aside class="qna-detail-actions question__sidebar__actions">
+                            <div class="drop-down qna-detail-actions__wrapper">
+                                <button class="button button--color-gray-14-inverted button--size-30 button--shape-round qna-detail-actions__action" type="button">
+                                    <span class="qna-detail-actions__action__label">쪽지보내기</span>
+                                </button>
+                            </div>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </article>
+    <!--<div class="top-button qna-detail__back-to-top">
+        <svg class="top-button__icon" viewBox="0 0 34 34" preserveAspectRatio="xMidYMid meet">
+            <g fill="none" fill-rule="evenodd">
+                <rect width="33" height="33" x=".5" y=".5" fill="#FFF" stroke="#DBDBDB" rx="4"></rect>
+                <path fill="#DBDBDB" d="M10.5 20.4l-1.2-1.1 7.4-7.4.1.1.2-.1 7.3 7.4-1.1 1.1-6.4-6.3-6.3 6.3z"></path>
+            </g>
+        </svg>
+    </div>-->
+</main>
+</div>
+
+
+
+
+
+<!--<h2>게시글 상세</h2>
+<button id="update" th:onclick="'javascript:update('+${detail.askBoardNo}+');'">수정</button>
 <button class="btn btn-danger" th:onclick="'javascript:del('+${detail.askBoardNo}+');'">삭제</button>
 <button class="btn btn-primary" th:onclick="'javascript:reply('+${detail.askBoardNo}+');'">답변하기</button>
 
-<div class="container">
 
-        <div clas="form-group">
-            <label>제목</label>
-            <th:block th:text="${detail.askTitle}"/>
-        </div>
-        <div clas="form-group">
-            <label>작성자</label>
-            <th:block th:text="${detail.memberId}"/>
-        </div>
-        <div clas="form-group">
-            <label>작성날짜</label>
-            <th:block th:text="${detail.askDate}"/>
-        </div>
-        <div clas="form-group">
-            <label>내용</label>
-            <th:block th:utext="${detail.askContent}"/>
-        </div>
+<div clas="form-group">
+    <label>제목</label>
+    <th:block th:text="${detail.askTitle}"/>
+</div>
+<div clas="form-group">
+    <label>작성자</label>
+    <th:block th:text="${detail.memberId}"/>
+</div>
+<div clas="form-group">
+    <label>작성날짜</label>
+    <th:block th:text="${detail.askDate}"/>
+</div>
+<div clas="form-group">
+    <label>내용</label>
+    <th:block th:utext="${detail.askContent}"/>
+</div>
 
-    <div class="form-group">
-        <form id="comment" method="post" name="comment">
-            <input type="text" id="commentContent" name="commentContent" placeholder="댓글을 입력하세요"/>
-            <input type="hidden" id="askBoardNo" nam="askBoardNo" th:value="${detail.askBoardNo}"/>
-            <input type="button" id="aCommentInsert" name="aCommentInsert" value="작성"/>
-        </form>
-        <tr th:each="aComment : ${askComment}">
-            <td th:text="${aComment.memberId}"></td>
-            <td th:text="${aComment.commentContent}"></td>
+<div class="form-group">
+    <form id="comment" method="post" name="comment">
+        <input type="text" id="commentContent" name="commentContent" placeholder="댓글을 입력하세요"/>
+        <input type="hidden" id="askBoardNo" nam="askBoardNo" th:value="${detail.askBoardNo}"/>
+        <input type="button" id="aCommentInsert" name="aCommentInsert" value="작성"/>
+    </form>
+    <tr th:each="aComment : ${askComment}">
+        <td th:text="${aComment.memberId}"></td>
+        <td th:text="${aComment.commentContent}"></td>
         </th:each>
-        </tr>
-    </div>
+    </tr>
+</div>-->
 
-</div>
-</div>
+
+
 </body>
 </html>

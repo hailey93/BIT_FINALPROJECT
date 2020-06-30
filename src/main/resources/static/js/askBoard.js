@@ -20,7 +20,12 @@ $(function(){
 function reply(idx) {
     var askBoardNo = idx;
     location.href = "/askreply/" + askBoardNo;
-}
+};
+
+function update(idx) {
+    var askBoardNo = idx;
+    location.href = "/askupdate/" + askBoardNo;
+};
 
 function del(idx) {
     var askBoardNo = idx;
@@ -31,12 +36,7 @@ function del(idx) {
         location.href = "/askdelete/" + askBoardNo;
 
     }
-}
-
-function update(idx) {
-    var askBoardNo = idx;
-    location.href = "/askupdate/" + askBoardNo;
-}
+};
 
 
 $(function () {
@@ -51,6 +51,16 @@ $(function () {
             bUseVerticalResizer: true,
             bUseModeChanger: true,
         }
+    });
+
+    $("#insertBoard").click(function () {
+        obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
+        $("#insertBoardFrm").submit();
+    });
+
+    $("#replyInsertBoard").click(function () {
+        obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
+        $("#replyInsertBoardFrm").submit();
     });
 
     $("#updateBoard").click(function () {
