@@ -1,6 +1,7 @@
 package com.bit.house.controller;
 
 import com.bit.house.domain.AllMemberVO;
+import com.bit.house.domain.OrderListVO;
 import com.bit.house.domain.SellerVO;
 import com.bit.house.service.AllMemberService;
 import com.bit.house.service.SellerService;
@@ -71,11 +72,11 @@ public class SellerController {
     public String changeSellerInfo(MultipartFile[] sellerImgUrl, HttpServletRequest request,String sellerName, String sellerRes,
                                    String sellerImg, String sellerAddr, String sellerUrl, @AuthenticationPrincipal Principal principal) {
 
-        String uploadFolderSeller = request.getSession().getServletContext().getRealPath("image/seller");
+        String uploadFolderReview = request.getSession().getServletContext().getRealPath("image/seller");
 
         for(MultipartFile multipartFile : sellerImgUrl) {
 
-            File saveFile = new File(uploadFolderSeller, multipartFile.getOriginalFilename());
+            File saveFile = new File(uploadFolderReview, multipartFile.getOriginalFilename());
             sellerImg = "/uploadImg/seller/" + multipartFile.getOriginalFilename();
 
             log.info(multipartFile.getOriginalFilename());
