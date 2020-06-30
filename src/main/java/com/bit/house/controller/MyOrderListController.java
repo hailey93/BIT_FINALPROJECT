@@ -13,12 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,8 +27,6 @@ public class MyOrderListController {
     @Autowired
     private MyOrderListMapper myOrderListMapper;
 
-
-    public static String uploadPath = System.getProperty("user.dir") + "/src/main/webapp/image/reviewImg";
 
     @GetMapping("/order_list")
     public String myOrderList(HttpSession session, Model model) {
@@ -55,55 +51,60 @@ public class MyOrderListController {
     }
 
     @PostMapping("/addReview")
-    public String addReview(HttpSession session, ReviewVO reviewVO, @RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) throws IOException {
+    public String addReview(HttpSession session, HttpServletRequest request, ReviewVO reviewVO, OrderListVO orderListVO, @RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) throws IOException {
+        String uploadFolderReview = request.getSession().getServletContext().getRealPath("image/reviewImg");
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         reviewVO.setMemberId(memberVO.getMemberId());
+        orderListVO.setMemberId(memberVO.getMemberId());
+
         if (file != null && !file.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
+            File uploadDir = new File(uploadFolderReview);
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
             String resultFilename = uuidFile + "." + file.getOriginalFilename();
 
-            file.transferTo(new File(uploadPath + "/" + resultFilename));
+            file.transferTo(new File(uploadFolderReview + "/" + resultFilename));
             reviewVO.setReviewImg1(resultFilename);
         }
 
         if (file2 != null && !file2.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+            File uploadDir2 = new File(uploadFolderReview);
+            if (!uploadDir2.exists()) {
+                uploadDir2.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file2.getOriginalFilename();
+            String resultFilename2 = uuidFile + "." + file2.getOriginalFilename();
 
-            file2.transferTo(new File(uploadPath + "/" + resultFilename));
-            reviewVO.setReviewImg2(resultFilename);
+            file2.transferTo(new File(uploadFolderReview + "/" + resultFilename2));
+            reviewVO.setReviewImg2(resultFilename2);
         }
 
         if (file3 != null && !file3.getOriginalFilename().isEmpty()) {
-            File uploadDir = new File(uploadPath);
-            if (!uploadDir.exists()) {
-                uploadDir.mkdir();
+            File uploadDir3 = new File(uploadFolderReview);
+            if (!uploadDir3.exists()) {
+                uploadDir3.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
-            String resultFilename = uuidFile + "." + file3.getOriginalFilename();
+            String resultFilename3 = uuidFile + "." + file3.getOriginalFilename();
 
-            file3.transferTo(new File(uploadPath + "/" + resultFilename));
-            reviewVO.setReviewImg3(resultFilename);
+            file3.transferTo(new File(uploadFolderReview + "/" + resultFilename3));
+            reviewVO.setReviewImg3(resultFilename3);
         }
         myOrderListMapper.addReview(reviewVO);
+        myOrderListMapper.addConfirmOrderType(orderListVO);
         return "redirect:/order_list";
     }
+
 
     @PostMapping("/delete")
-    private String delete(@RequestParam("orderNo") String orderNo){
-        myOrderListMapper.deleteReviewById(orderNo);
+    private String delete(@RequestParam("orderNo") String[] orderNo) {
+        for (String order : orderNo) {
+            myOrderListMapper.deleteReviewById(order);
+        }
         return "redirect:/order_list";
     }
-
-
 
 
 }

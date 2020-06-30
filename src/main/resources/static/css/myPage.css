@@ -1,36 +1,39 @@
-.container{
+.container {
     width: 1000px;
     margin: 0 auto;
     text-align-all: center;
 
 }
-.frm{
+
+.frm {
     margin: 0 auto;
     padding: 0;
 }
 
 body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, fieldset, legend, input, textarea, p, blockquote, th, td {
-    margin: 0 ;
+    margin: 0;
     padding: 0;
 
 }
 
-.file_input_div{
-    position:relative;
-    width:250px;
-    height:250px;
-    overflow:hidden;
+.file_input_div {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    overflow: hidden;
 }
-.file_input_button{
+
+.file_input_button {
     padding: 0 0 0 0px;
 }
-.file_input_hidden{
-    font-size:200px;
-    position:absolute;
-    right:0px;
-    top:0px;
-    opacity:0;
+
+.file_input_hidden {
+    font-size: 200px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    opacity: 0;
     filter: alpha(opacity=0);
     -ms-filter: alpha(opacity=0);
-    cursor:pointer;
+    cursor: pointer;
 }

@@ -6,15 +6,15 @@
         <div class="row justify-content-center">
             <div class="col-md-12 xs-12 md-auto">
                 <nav class="navbar navbar-icon-top navbar-expand-lg navbar-light" style="background-color: white;">
-                    <a class="navbar-brand" th:href="@{/}"><img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width=50px
-                                                                height=50px /> <b> TheHouse</b></a>
+                    <a class="navbar-brand logo-font" th:href="@{/}"><img th:src="@{/icon/thehouse.jpg}" class="rounded-circle" width=50px
+                                                                height=50px /> <b>니가사는그집</b></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <div class="collapse navbar-collapse sub-font" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
 
                             <li class="nav-item dropdown">
@@ -43,48 +43,13 @@
 
                             </li>
 
-
-                            <!--                            <div sec:authorize="hasRole('ROLE_SELLER')">-->
-                            <!--                                <li class="nav-item dropdown">-->
-                            <!--                                    <a class="nav-link" th:href="@{/seller/sellerInfo}" id="navbarDropdown" role="button" aria-haspopup="true"-->
-                            <!--                                       aria-expanded="false">-->
-
-                            <!--                                        업체관리-->
-                            <!--                                    </a>-->
-                            <!--                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">-->
-                            <!--                                        <a class="dropdown-item" th:href="@{/seller/sellerInfo}">업체관리</a>-->
-                            <!--                                        <a class="dropdown-item" th:href="@{/}">상품관리</a>-->
-                            <!--                                        <a class="dropdown-item" th:href="@{/}">주문관리</a>-->
-                            <!--                                        <a class="dropdown-item" th:href="@{/}">통계관리</a>-->
-                            <!--                                    </div>-->
-
-
-                            <!--                                </li>-->
-                            <!--                            </div>-->
-
-
-                            <div sec:authorize="!hasAnyRole('ROLE_ADMIN', 'ROLE_SELLER')">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link" href="#" id="navDropdown" role="button" aria-haspopup="true"
-                                       aria-expanded="false">
-
-                                        Dropdown
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="navDropdown">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Action</a>
-                                    </div>
-                                </li>
-                            </div>
-                            <!--                            </div>-->
-
-
                             <div class="nav-wrapper">
-                                <form class="form-inline ml-0 ml-md-3" action="/productions/searchlist" method="get">
+                                <div class="searchBar">
+                                <form class="form-inline ml-3 ml-md-3n" action="/productions/searchlist" method="get">
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" style="width:100px;"
-                                               name="index" id="${index}" th:value="${index?:''}" onfocus="this.value=''">
+                                        <input class="form-control form-control-navbar" type="search"
+                                               placeholder="Search" aria-label="Search" style="width:100px;"
+                                               name="index" id="index" th:value="${index?:''}" onfocus="this.value=''">
 
                                         <div class="input-group-append">
                                             <button class="btn btn-navbar" type="submit">
@@ -93,6 +58,7 @@
                                         </div>
                                     </div>
                                 </form>
+                            </div>
                             </div>
                         </ul>
 

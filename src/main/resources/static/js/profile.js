@@ -20,7 +20,7 @@ $(function () {
         $.ajaxSettings.traditional=true;
         $.ajax({
             type : "post",
-            url : "/follow",
+            url : "/member/follow",
             data : follow,
             success : function(data){
 
@@ -42,7 +42,7 @@ $(function(){
         $.ajaxSettings.traditional=true;
         $.ajax({
             type : "post",
-            url : "/cancelFollow",
+            url : "/member/cancelFollow",
             data : follow,
             success : function(data){
 

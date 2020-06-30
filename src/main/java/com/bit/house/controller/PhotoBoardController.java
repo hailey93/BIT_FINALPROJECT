@@ -55,7 +55,7 @@ public class PhotoBoardController {
 
     @RequestMapping("/photoInsertProc")
     private String insertPhotoProc(PhotoBoardVO photoBoardVO,
-                                   MultipartHttpServletRequest mtf, String memberId, HttpServletRequest request) throws Exception{
+                                   MultipartHttpServletRequest mtf, HttpSession session, HttpServletRequest request) throws Exception{
 
         List<String> photoImgArray = new ArrayList<String>();
         List<MultipartFile> fileList = mtf.getFiles("files");
@@ -111,9 +111,9 @@ public class PhotoBoardController {
         }
         System.out.println("end");
 
-        memberId = "youn123";
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        photoBoardVO.setMemberId(memberId);
+        photoBoardVO.setMemberId(memberVO.getMemberId());
         photoBoardVO.setPhotoTitle(request.getParameter("photoTitle"));
         photoBoardVO.setPhotoContent(request.getParameter("photoContent"));
         photoBoardVO.setAreaCode(request.getParameter("areaCode"));
@@ -134,7 +134,7 @@ public class PhotoBoardController {
     }
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
-    private String photoDetail(@PathVariable int photoBoardNo, Model model, HttpServletRequest request, HttpSession session) throws Exception{
+    private String photoDetail(@PathVariable int photoBoardNo, Model model, String userId, PhotoBoardVO photoBoardVO, HttpServletRequest request, HttpSession session) throws Exception{
         //아이디값은 멤버아이디가 아닌 userId로 받아오고 세션에 내 아이디넣어서 넘겨주고 버튼 생성.
 
 
@@ -142,11 +142,11 @@ public class PhotoBoardController {
 
         model.addAttribute("memberVO", memberVO);
 
-        System.out.println(request.getParameter("uesrId"));
+        PhotoBoardVO detail=photoBoardMapper.photoDetail(photoBoardNo);
 
         model.addAttribute("member", memberVO.getMemberId());
-        model.addAttribute("photodetail", photoBoardMapper.photoDetail(photoBoardNo));
-        model.addAttribute("userphoto", photoBoardMapper.userPhoto(request.getParameter("userId")));
+        model.addAttribute("photodetail", detail);
+        model.addAttribute("userphoto", photoBoardMapper.userPhoto(detail.getMemberId()));
         model.addAttribute("likestat", photoBoardMapper.likeStat(memberVO.getMemberId(), photoBoardNo));
         model.addAttribute("scrapstat", photoBoardMapper.scrapStat(memberVO.getMemberId(), photoBoardNo));
         model.addAttribute("photoComment", photoBoardMapper.photoComment(photoBoardNo));
