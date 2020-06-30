@@ -107,7 +107,7 @@ public class BasketController {
 
     @RequestMapping(value = "/basketLocal", method = RequestMethod.POST)
     public @ResponseBody void basketLocal(String[] hoho,HttpSession session, String first) {
-        System.out.println("호호 출력"+hoho.getClass());
+        System.out.println("호호 출력"+hoho.getClass()+ "호호길이 : ");
         String[] ab = new String[100];
         int i=0;
         String check = "첫번째";
@@ -279,17 +279,21 @@ public class BasketController {
         return "th/member/basket/btest";
     }
 
-    @GetMapping("/loginPost")
-    public String loginPost(HttpServletRequest request, Model model, HttpSession session, MemberVO houseUser){
-        /*System.out.println("//////////////");
-        houseUser = adminMapper.getUser();
-        System.out.println(houseUser);
-        session.setAttribute("houseUser", houseUser);
-        System.out.println("hUser ID  :: "+ houseUser.getMemberId());
-        model.addAttribute("house", houseUser);
-        //model.addAttribute("payment", adminMapper.getPayment());
-        model.addAttribute("product", adminMapper.getProduct());
-        //log.info("model payment : "+ adminMapper.getPayment());*/
-        return "th/main/productDetailsLJH";
+    @RequestMapping(method = RequestMethod.POST, value = "/delCheckBox")
+    public @ResponseBody void delCheckBox(String[] delProductNoArray){
+       basketMapper.deletememberBasket(delProductNoArray);
+
     }
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/delNonmemberBasket")
+    public @ResponseBody void delNonmemberBasket(String bool,HttpSession session){
+        System.out.println("bool : " + bool);
+        if(bool != null){
+            session.removeAttribute("proNo");
+            session.removeAttribute("proColor");
+            session.removeAttribute("proQty");
+        }
+    }
+
 }
