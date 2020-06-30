@@ -54,8 +54,7 @@
                                     <span class="production-item__header__name" th:text="${item.productName}"></span>
                                 </h1>
                                 <span class="production-item-price">
-                                    <span class="production-item-price__price"
-                                          th:text="${#numbers.formatInteger(item.customerPrice, 3, 'COMMA')}"></span>
+                                    <span class="production-item-price__price" th:text="${#numbers.formatInteger(item.customerPrice, 3, 'COMMA')}"></span>
                                 </span>
                             </div>
                         </article>
@@ -81,8 +80,10 @@
                                     <span class="production-item__header__name"
                                           th:text="${products.productName}"></span>
                                 </h1>
-                                <span class="production-item-price__price"
-                                      th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
+                                <span class="production-item-price">
+                                    <span class="production-item-price__price"
+                                          th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
+                                </span>
                             </div>
                         </article>
                     </div>

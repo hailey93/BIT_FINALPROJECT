@@ -20,12 +20,9 @@
         <div class="ranking-feed" id="ranking-type-filter">
             <ol class="ranking-type-filter">
                 <a th:href="@{/storeBest}">
-                    <li class="nav-link active ranking-type-filter__item ranking-type-filter__item--left left--active"
-                        data-toggle="tab">역대판매 베스트</li></a>
+                    <li class="nav-link active ranking-type-filter__item ranking-type-filter__item--left left--active">역대판매 베스트</li></a>
                 <a th:href="@{/storeNewBest}">
-                   <li class="nav-link ranking-type-filter__item ranking-type-filter__item--right"
-                       data-toggle="tab">신제품 베스트</li></a>
-                </li>
+                   <li class="nav-link ranking-type-filter__item ranking-type-filter__item--right">신제품 베스트</li></a>
             </ol>
             <div class="virtualized-list ranking-feed__content row" id="sellBest"
                  style="padding-top: 0px; transform: translateY(0px);">
@@ -54,9 +51,8 @@
                                               th:text="${products.productName}"></span>
                                     </h1>
                                     <span class="production-item-price">
-                                <span class="production-item-price__price"
-                                      th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
-                                </span>
+                                        <span class="production-item-price__price" th:text="${#numbers.formatInteger(products.customerPrice, 3, 'COMMA')}"></span>
+                                    </span>
                                 </div>
                             </article>
                         </div>

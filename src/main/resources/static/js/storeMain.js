@@ -21,7 +21,7 @@ $(window).scroll(function () {
                         + '<img class="image" alt="" src="/uploadImg/' + value.productMainImg + '"></div>'
                         + '<div class="production-item__content"><h1 class="production-item__header"><span class="production-item__header__brand">' + value.sellerName + '</span>'
                         + '<span class="production-item__header__name">' + value.productName + '</span></h1>'
-                        + '<span class="production-item-price__price">' + price.toLocaleString() + '</span></div></article></div>'
+                        + '<span class="production-item-price"><span class="production-item-price__price">' + price.toLocaleString() + '</span></span></div></article></div>'
 
                 });
 
