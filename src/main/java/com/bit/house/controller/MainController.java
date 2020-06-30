@@ -10,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -32,8 +30,6 @@ public class MainController {
 
     @GetMapping(value = {"/storeMain", "/"})
     public String main(Model model, HttpSession session) {
-
-        //log.info(String.valueOf(session.getAttribute("memberVO")));
 
         model.addAttribute("mainList", mainMapper.selectMainList());
 
@@ -63,7 +59,6 @@ public class MainController {
 
     @GetMapping("/storeBest")
     public String storeBest(Model model) {
-        //model.addAttribute("bestList", mainService.selectBestList());
         model.addAttribute("bestList", mainMapper.selectBestLists());
         return "th/main/storeBest";
     }
@@ -77,7 +72,6 @@ public class MainController {
     @GetMapping("/infiniteScrollDown")
     @ResponseBody
     public Map<String, List<ProductVO>> scrollDown(){
-        log.info("무한스크롤");
         Map<String, List<ProductVO>> scrollList=new HashMap<String, List<ProductVO>>();
         scrollList.put("mainList", mainMapper.selectMainList());
 

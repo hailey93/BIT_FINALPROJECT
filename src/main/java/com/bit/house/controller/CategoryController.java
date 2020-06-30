@@ -15,8 +15,12 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
@@ -38,7 +42,6 @@ public class CategoryController {
     @GetMapping("/category")
     public String category(Model model, @AuthenticationPrincipal Principal principal) {
 
-
         String id = principal.getName();
         SellerVO sellerInfo = sellerService.searchSellerInfo(id);
         model.addAttribute("sellerInfo", sellerInfo);
@@ -56,9 +59,7 @@ public class CategoryController {
 
             model.addAttribute("jsonText", jsonText);
             model.addAttribute("jsonColor", jsonColor);
-//            log.info(jsonText);
-//
-//            log.info(jsonColor);
+
         } catch (JsonGenerationException e) {
             e.printStackTrace();
         } catch (JsonMappingException e) {
@@ -68,28 +69,42 @@ public class CategoryController {
         }
         return "th/seller/category";
     }
+
+
+    @PostMapping("/addProduct")
+    @ResponseBody
+    public void addProduct(MultipartFile[] productExpImgUrl, MultipartFile[] productMainImgUrl, HttpServletRequest request, String[] optionColor, String[] productQty){
+
+        String uploadFolderSeller = request.getSession().getServletContext().getRealPath("image/product");
 //
-//    @PostMapping(value = "/addProduct", produces = "application/json")
-//    public String testCategoryCode(String categoryCode, MultipartFile[] file, HttpServletRequest request) {
+//        for(MultipartFile multipartFile : productExpImgUrl) {
 //
-//        String uploadFolder = request.getSession().getServletContext().getRealPath("image/test");
+//            File saveFile = new File(uploadFolderSeller, multipartFile.getOriginalFilename());
+////            productExpImg = "/uploadImg/product/" + multipartFile.getOriginalFilename();
 //
-//        for (MultipartFile multipartFile : file) {
-//
-//            log.info(multipartFile.getOriginalFilename());
-//
-//            File saveFile = new File(uploadFolder, multipartFile.getOriginalFilename());
-//
+////            sellerService.updateSellerInfo(sellerName, sellerRes, sellerImg, sellerAddr, productExpImg, principal.getName());
 //            try {
-//                multipartFile.transferTo((saveFile));
+//                multipartFile.transferTo(saveFile);
+//
+//                log.info("success");
 //
 //            } catch (Exception e) {
 //                log.error(e.getMessage());
 //            }
 //        }
-//
-//        return "th/seller/testCategory";
-//    }
+       for(MultipartFile multipartFile : productExpImgUrl){
+           log.info(multipartFile.getOriginalFilename());
+       }
 
+        for(MultipartFile multipartFile : productMainImgUrl){
+            log.info(multipartFile.getOriginalFilename());
+        }
+
+       for(int i=0; i<optionColor.length; i++){
+         log.info(optionColor[i]);
+         log.info(productQty[i]);
+       }
+
+    }
 
 }

@@ -12,30 +12,7 @@ public class RecommendProcess {
     private static Logger log = LoggerFactory.getLogger(RecommendProcess.class);
 
     public Collection<String> recommender(String productNo) {
-        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel("src/main/webapp/trainingFile/trainingFile1.txt");
-
-        /*PLEASE NOTE: after model is restored, it's still required to set SentenceIterator and TokenizerFactory, if you're going to train this model*/
-
-
-        /*SentenceIterator uptrainIterator = new CollectionSentenceIterator(sentences);
-        TokenizerFactory uptrainTokenizer = new DefaultTokenizerFactory();
-
-        uptrainTokenizer.setTokenPreProcessor(new CommonPreprocessor() {
-            @Override
-            public String preProcess(String token) {
-                return StringCleaning.stripPunct(token).toUpperCase();
-            }
-
-
-        });
-
-        word2Vec.setTokenizerFactory(uptrainTokenizer);
-        word2Vec.setSentenceIterator(uptrainIterator);
-
-
-        log.info("Word2vec uptraining...");
-
-        word2Vec.fit();*/
+        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel("src/main/webapp/trainingFile/trainingFile.txt");
 
         Collection<String> recommendItems = word2Vec.wordsNearestSum(productNo, 4);
         log.info("Closest words : " + recommendItems);

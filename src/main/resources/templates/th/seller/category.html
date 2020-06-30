@@ -9,11 +9,9 @@
 
 <body>
 <div layout:fragment="content">
-    <form class="needs-validation" th:method="POST" th:action="@{/addProduct}" enctype="multipart/form-data">
+    <form class="needs-validation" th:method="POST" th:action="@{/seller/addProduct}" enctype="multipart/form-data">
         <div class="wrapper">
 
-
-            <!-- Main Sidebar Container -->
             <aside class="main-sidebar sidebar-dark-green elevation-4">
 
                 <!-- Sidebar -->
@@ -167,52 +165,58 @@
                                                        placeholder="purchasePrice">
                                             </div>
                                         </div>
+                                        <div class="addOptional">
+                                            <div class="row">
+                                                <div class="form-group col-md-3">
+                                                    <label for="optionColor">색상</label>
 
-                                        <div class="row">
-                                            <div class="form-group col-md-3">
-                                                <label for="optionColor">색상</label>
-                                                <select class="optionColor form-control" id="optionColor">
+                                                    <select class="optionColor form-control" id="optionColor"
+                                                            name="optionColor">
 
-                                                </select>
-                                            </div>
-                                            <div class="form-group col-md-3">
-                                                <label for="productQty">재고</label>
-                                                <input class="form-control" type="text" name="productQty"
-                                                       id="productQty"
-                                                       placeholder="수량">
+                                                    </select>
+
+                                                </div>
+                                                <div class="form-group col-md-3 ">
+                                                    <label for="productQty">재고</label>
+                                                    <input class="form-control" type="text" name="productQty"
+                                                           id="productQty" value="0">
+                                                </div>
+                                                <div>
+                                                    <i class="fas fa-plus-circle addOptionalColor"></i>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <label>상품 이미지 등록</label>
+                                            <label>상품 메인 이미지 등록</label>
                                             <div class="input-group row">
-                                                <div class="custom-file col-md-3">
-                                                    <input type="file" class="custom-file-input" name="file"
-                                                           id="exampleInputFile1"
+
+                                                <div class="custom-file col-md-11">
+                                                    <input type="file" class="custom-file-input"
+                                                           name="productMainImgUrl"
+                                                           id="productMainImgUrl"
                                                            multiple>
-                                                    <label class="custom-file-label" for="exampleInputFile1">Choose
+                                                    <label class="custom-file-label" for="productMainImgUrl">Choose
                                                         file</label>
                                                 </div>
-                                                <div class="custom-file col-md-3">
-                                                    <input type="file" class="custom-file-input" name="file"
-                                                           id="exampleInputFile2"
+                                                <div class="col-md-12" style="text-align: center;">
+                                                    <img id="MainImgView" class="col-md-5 mb-3 mt-4">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>상품 서브 이미지 등록(3개까지 가능 합니다.)</label>
+                                            <div class="input-group row">
+                                                <div class="custom-file col-md-11">
+                                                    <input type="file" class="custom-file-input" name="productSubImgUrl"
+                                                           id="productSubImgUrl"
                                                            multiple>
-                                                    <label class="custom-file-label" for="exampleInputFile2">Choose
+                                                    <label class="custom-file-label" for="productSubImgUrl">Choose
                                                         file</label>
                                                 </div>
-                                                <div class="custom-file col-md-3">
-                                                    <input type="file" class="custom-file-input" name="file"
-                                                           id="exampleInputFile3"
-                                                           multiple>
-                                                    <label class="custom-file-label" for="exampleInputFile3">Choose
-                                                        file</label>
-                                                </div>
-                                                <div class="custom-file col-md-3">
-                                                    <input type="file" class="custom-file-input" name="file"
-                                                           id="exampleInputFile4"
-                                                           multiple>
-                                                    <label class="custom-file-label" for="exampleInputFile4">Choose
-                                                        file</label>
+                                                <div class="col-md-12 subImg">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -223,18 +227,31 @@
                             <div class="col-md-12">
                                 <!-- general form elements -->
                                 <div class="card card-info">
+
                                     <div class="card-header">
-                                        <h3 class="card-title">에디터</h3>
+                                        <h3 class="card-title">게시글 이미지</h3>
                                     </div>
-                                    <div class="custom-file col-md-3">
-                                        <input type="file" class="custom-file-input" name="file"
-                                               id="exampleInputFile5"
-                                               multiple>
-                                        <label class="custom-file-label" for="exampleInputFile5">Choose
-                                            file</label>
+                                    <div class="form-group row justify-content-center">
+
+                                        <div class="custom-file col-md-11 mt-3">
+                                            <input type="file" class="custom-file-input" name="productExpImgUrl"
+                                                   id="productExpImgUrl"
+                                                   multiple>
+                                            <label class="custom-file-label" for="productExpImgUrl"></label>
+                                            <!--                                               th:text="${sellerInfo.sellerImg}"></label>-->
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" style="text-align: center;">
+                                        <img id="ExpImgView" class="col-md-12 mb-3">
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-info" style="float:right;">
+                                수정
+                            </button>
                         </div>
 
                     </div>
@@ -243,6 +260,64 @@
         </div>
     </form>
 
+
+    <script th:inline="javascript">
+        $(document).ready(function () {
+
+            var jsonColor = [[${jsonColor}]];
+            var jsonDataColor = JSON.parse(jsonColor);
+            console.log(jsonColor);
+
+            var colorArr = new Array();
+            var colorObj = new Object();
+
+            var colorSelect = $(".optionColor");
+
+            for (var i = 0; i < jsonDataColor.length; i++) {
+
+                colorObj = new Object();
+                colorObj.colorCode = jsonDataColor[i].colorCode;
+                colorObj.colorType = jsonDataColor[i].colorType;
+                colorArr.push(colorObj);
+            }
+            for (var j = 0; j < colorArr.length; j++) {
+                colorSelect.append("<option value='" + colorArr[j].colorCode + "'>" + colorArr[j].colorType + "</option>");
+            }
+
+
+            $('.addOptionalColor').on('click', function () {
+                $('.addOptional').append('<div class="row">\n' +
+                    '                                                <div class="form-group col-md-3">\n' +
+                    '                                                    <label for="optionColor">색상</label>\n' +
+                    '\n' +
+                    '                                                    <select class="optionColor form-control" id="optionColor" name="optionColor">\n' +
+
+                    '                                                    </select>\n' +
+                    '\n' +
+                    '                                                </div>\n' +
+                    '                                                <div class="form-group col-md-3 ">\n' +
+                    '                                                    <label for="productQty">재고</label>\n' +
+                    '                                                    <input class="form-control" type="text" name="productQty"\n' +
+                    '                                                           id="productQty"\n' +
+                    '                                                           value="0">\n' +
+                    '                                                </div>\n' +
+
+                    '                                            </div>');
+
+
+                for (var j = 0; j < colorArr.length; j++) {
+                    $('.optionColor').append("<option value='" + colorArr[j].colorCode + "'>" + colorArr[j].colorType + "</option>");
+
+                }
+                console.log("success");
+            });
+
+
+        });
+
+    </script>
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             bsCustomFileInput.init();
@@ -250,26 +325,29 @@
     </script>
 
     <script th:inline="javascript">
-        var jsonColor = [[${jsonColor}]];
-        var jsonDataColor = JSON.parse(jsonColor);
-        console.log(jsonColor);
 
-        var colorArr = new Array();
-        var colorObj = new Object();
+        //
+        // var jsonColor = [[${jsonColor}]];
+        // var jsonDataColor = JSON.parse(jsonColor);
+        // console.log(jsonColor);
+        //
+        // var colorArr = new Array();
+        // var colorObj = new Object();
+        //
+        // var colorSelect = $(".optionColor");
+        //
+        // for (var i = 0; i < jsonDataColor.length; i++) {
+        //
+        //     colorObj = new Object();
+        //     colorObj.colorCode = jsonDataColor[i].colorCode;
+        //     colorObj.colorType = jsonDataColor[i].colorType;
+        //     colorArr.push(colorObj);
+        // }
+        //
+        // for (var j = 0; j < colorArr.length; j++) {
+        //     colorSelect.append("<option value='" + colorArr[j].colorCode + "'>" + colorArr[j].colorType + "</option>");
+        // }
 
-        var colorSelect = $(".optionColor");
-
-        for (var i = 0; i < jsonDataColor.length; i++) {
-
-            colorObj = new Object();
-            colorObj.colorCode = jsonDataColor[i].colorCode;
-            colorObj.colorType = jsonDataColor[i].colorType;
-            colorArr.push(colorObj);
-        }
-
-        for (var j = 0; j < colorArr.length; j++) {
-            colorSelect.append("<option value='" + colorArr[j].colorCode + "'>" + colorArr[j].colorType + "</option>");
-        }
     </script>
 
     <script th:inline="javascript">
@@ -375,8 +453,71 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+        });
+    </script>
 
 
+    <script type="text/javascript">
+        function readURLExp(input) {
+            if (input.files && input.files[0]) {
+                var readerExp = new FileReader();
+                readerExp.onload = function (e) {
+                    $('#ExpImgView').attr('src', e.target.result);
+                }
+                readerExp.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#productExpImgUrl").change(function () {
+            readURLExp(this);
+        });
+    </script>
+
+    <script type="text/javascript">
+
+        var sel_files = [];
+
+        $(document).ready(function () {
+            $("#productSubImgUrl").on("change", handleImgsFilesSelect);
+        });
+
+        function handleImgsFilesSelect(e) {
+            var files = e.target.files;
+            var filesArr = Array.prototype.slice.call(files);
+
+            filesArr.forEach(function (f) {
+
+                sel_files.push(f);
+
+                var readerSub = new FileReader();
+                readerSub.onload = function (e) {
+                    var img_html = "<img src=\"" + e.target.result + "\" width='150px' height='150px' style='margin-right: 40px; margin-top:20px'/>";
+                    $('.subImg').append(img_html);
+                }
+                readerSub.readAsDataURL(f);
+            });
+        }
+    </script>
+
+
+    <script type="text/javascript">
+        function readURLMain(input) {
+            if (input.files && input.files[0]) {
+                var readerExp = new FileReader();
+                readerExp.onload = function (e) {
+                    $('#MainImgView').attr('src', e.target.result);
+                }
+                readerExp.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $("#productMainImgUrl").change(function () {
+            readURLMain(this);
+        });
+    </script>
 
 </div>
 </body>

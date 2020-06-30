@@ -104,20 +104,9 @@ public class KakaoPayController {
 
         if(memberVO != null){
             memberId = memberVO.getMemberId();
-            List<BasketVO> basketMember = (List<BasketVO>) session.getAttribute("basketMember");
-            System.out.println("basketVO : " + basketMember);
         }else{
-
             memberId="nonMember";
-
-            //List<BasketVO> basketMember = (List<BasketVO>) session.getAttribute("basketMember");
-            //log.info("orderlist? : " + basketMember + "totalPrice : ?" + totalPrice);
             System.out.println("!@#@#@@@@@@@@@@@@@@@@@@ : "+productNo.length);
-
-
-            //session.setAttribute("orderListVO", orderListVO);
-            //List<BasketVO> basketVOList = (List<BasketVO>) session.getAttribute("basketVOList");
-
         }
 
         for(int i=0; i < productNo.length; i++){
@@ -168,12 +157,6 @@ public class KakaoPayController {
     public String kakaoPaySuccess(@RequestParam("pg_token") String pg_token, Model model,HttpSession session) {
         log.info("kakaoPaySuccess get 호출............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
-         //HouseUser houseUser = (HouseUser) session.getAttribute("houseUser");
-       // System.out.println(houseUser);
-        //houseUser = userDAO.getHouseUser(houseUser);
-        //System.out.println(houseUser);
-
-
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         String memberId;
 
@@ -195,7 +178,15 @@ public class KakaoPayController {
         System.out.println("//////////");
         System.out.println("kakaoInfo : " + kakaoInfo);
         model.addAttribute("kakaoInfo", kakaoInfo);
-        session.getAttribute(pg_token);
+
+        if(memberVO == null){
+            session.removeAttribute("proNo");
+            session.removeAttribute("proColor");
+            session.removeAttribute("proQty");
+        }
+        session.removeAttribute("orderListVOList");
+
+        //session.getAttribute(pg_token);
 
         // 원래 있던거 model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, pg_token));
         

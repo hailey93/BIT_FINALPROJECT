@@ -17,5 +17,11 @@ haha
 상품수량: <span th:text = "${kakaoInfo.quantity}"></span>-->
 <!-- 결제금액: <span th:text = "${kakaoInfo.amount.total}"></span> -->
 <!-- 결제방법: <sapn th:text = "${kakaoInfo.payment_method_type}"></sapn> -->
+<script>
+    $(document).reday(function removeSession(){
+        console.log("로컨세션 삭제합니다");
+        localStorage.removeItem("saveL");
+    });
+</script>
 </body>
 </html>

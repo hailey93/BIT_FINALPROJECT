@@ -5,19 +5,25 @@ import com.bit.house.mapper.ProductMapper;
 import com.bit.house.mapper.RecommenderMapper;
 import com.bit.house.service.MemberService;
 import com.bit.house.service.RecommenderService;
+import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.List;
+
 @Slf4j
 @Controller
 @RequestMapping("productions")
@@ -26,17 +32,17 @@ public class ProductController {
     @Autowired
     private ProductMapper productMapper;
 
-    @Autowired(required =false)
+    @Autowired(required = false)
     RecommenderService recommenderService;
 
-    @Autowired(required =false)
+    @Autowired(required = false)
     RecommenderMapper recommenderMapper;
-
 
 
     @GetMapping("/searchlist")
     public String findProduct(@RequestParam(required = false, defaultValue = "") String index, Model model) {
         List<ProductVO> productList = productMapper.selectAllProduct();
+
 
         if (index != null && !index.isEmpty()) {
             productList = productMapper.selectProduct(index);
@@ -44,36 +50,66 @@ public class ProductController {
             productList = productMapper.selectAllProduct();
         }
 
+
+
+
         model.addAttribute("productList", productList);
         model.addAttribute("index", index);
         return "th/main/searchList";
     }
 
+    @GetMapping("/searchList")
+    public String searchBox(Model model){
+        List<String> productJsList = productMapper.selectAllProductJs();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonText;
+
+        try {
+            jsonText = mapper.writeValueAsString(productJsList);
+            System.out.println(jsonText);
+            model.addAttribute("jsonText", jsonText);
+        } catch (
+                JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (
+                JsonMappingException e) {
+            e.printStackTrace();
+        } catch (
+                IOException e) {
+            e.printStackTrace();
+        }
+
+        return "/th/fragments/header";
+    }
+
+
+
 
     @GetMapping("/category")
     public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {
         List<ProductVO> categoryList = productMapper.selectProductByCategory(category);
-            model.addAttribute("productList", categoryList);
+        model.addAttribute("productList", categoryList);
 
         return "th/main/categoryList";
     }
 
     @GetMapping("/productDetails")
-    public String getProductVODetails(@ModelAttribute("basketVO") BasketVO basketVO , String productNo, Model model, HttpSession session){
+    public String getProductVODetails(@ModelAttribute("basketVO") BasketVO basketVO, String productNo, Model model, HttpSession session) {
         ProductVO product = productMapper.getProductVOByProductNo(productNo);
         List<String> colorCodeVOList = productMapper.getProductVOByProductColorCode(productNo);
         product.setColorCodeVOList(colorCodeVOList);
         List<ProductVO> reviewList = productMapper.getProductReviewByProductNo(productNo);
-
         SellerVO seller = productMapper.getProductVOBySellerName(productNo);
-
+        String reviewUrlImg = "/uploadImg/reviewImg/";
+        model.addAttribute("reviewUrlImg", reviewUrlImg);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("product", product);
-        model.addAttribute("seller",seller);
+        model.addAttribute("seller", seller);
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        if(memberVO!=null){
+        if (memberVO != null) {
             String memberId = memberVO.getMemberId();
             log.info(memberId);
             ObjectMapper mapper = new ObjectMapper();
@@ -92,8 +128,6 @@ public class ProductController {
         recommenderService.updateClickTotalCount(productNo);
         return "th/main/productDetails";
     }
-
-
 
 
 }

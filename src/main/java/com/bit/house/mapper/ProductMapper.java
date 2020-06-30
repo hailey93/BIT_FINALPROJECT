@@ -34,4 +34,6 @@ public interface ProductMapper {
     @Select("select r.memberId, p.modelName, ol.colorName, r.reviewContent, r.reviewImg1 from product p join orderList ol on p.productNo=ol.productNo join review r on ol.orderNo=r.orderNo where p.productNo=#{productNo}")
     List<ProductVO> getProductReviewByProductNo(String productNo);
 
+    @Select("Select productName from product")
+    List<String> selectAllProductJs();
 }

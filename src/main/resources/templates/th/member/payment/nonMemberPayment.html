@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="th/layout/defaultLayout"> <!-- 이거 쓰면 이니시스 안먹힘 -->
+      layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
     <title>nonMember</title>
@@ -28,7 +28,8 @@
 
 <!-- form --><form id="edit_order" class="edit_order" action="/kakaoPay" accept-charset="UTF-8" method="post">
 
-                <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
+                <input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch">
+            <input type="hidden" name="authenticity_token" value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
                 <div id="title">
                     주문/결제
                 </div>
@@ -50,17 +51,11 @@
                             <td>
                                 <div class="information" th:each="list, listStat : ${nonMemberBasketList}">
 
-                                    <input type="hidden" name="orderQty" th:value="${list.qty}"><br>
-                                    <input type="hidden" name="productNo" th:value="${list.productNo}"><br>
-                                    <input type="hidden" name="colorName" th:value="${list.colorVO.colorType}"><br>
-                                    <input type="hidden" name="memberId" th:value="ha123"><br>
-                                    <input type="hidden" name="totalPrice" th:value="${list.getProductVO().getPurchasePrice()}"><br>
-                                    <input type="hidden" name="usedPoint" th:value=3><br>
-                                    <input type="hidden" name="orderAddr" th:value="addr"><br>
-                                    <input type="hidden" name="orderDate" th:value="2020-06-05"><br>
-                                    <input type="hidden" name="payCode" th:value="1"><br>
-                                    <input type="hidden" name="orderCode" th:value="10"><br>
-                                    <input type="hidden" name="productName" th:value="${list.productName}">
+                                    <input type="hidden" name="orderQty" id="orderQty" th:value="${list.qty}"><br>
+                                    <input type="hidden" name="productNo" id="productNo" th:value="${list.productNo}"><br>
+                                    <input type="hidden" name="colorName" id="colorName" th:value="${list.colorVO.colorType}"><br>
+                                    <input type="hidden" name="totalPrice" id="totalPrice" th:value="${list.getProductVO().getPurchasePrice()}"><br>
+                                    <input type="hidden" name="productName" id="productName" th:value="${list.productName}">
                                     <img th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}" alt="320">
                                     <div>
                                         <div class="name" th:text="${list.productName}"></div>
@@ -167,17 +162,12 @@
                             <div class="label">휴대전화</div>
                             <div class="input phone">
                                 <input presence="true" value="" data-hj-suppress="" type="text" name="order[payer_phone_number]" id="order_payer_phone_number">
-                                <div id="verified_phone_number">
-                                    <div class="verified_phone_number" data-value="" data-verified=""></div>
-                                    <div class="need_verified">
-
-                                        <div id="verified_inputs" style="display: none;">
-                                            <input id="verified_input" class="donot_check_before_payment" placeholder="인증번호" autocomplete="off" type="text" data-hj-suppress="" size="6">
-                                            <div id="check_verified">확인</div>
-                                            <div id="resend_verified_number">재전송</div>
-                                        </div>
-                                    </div>
-                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="label">비밀번호</div>
+                            <div class="input password">
+                                <input presence="true" value="" data-hj-suppress="" type="text" name="order[payer_password]" id="order_payer_password">
                             </div>
                         </div>
                         <div class="field">
@@ -230,6 +220,7 @@
                                 <span class="number" th:id="paymentTP"></span>
                             </div>
                         </div>
+
                     </div>
 
                 </div>
@@ -276,7 +267,7 @@
                             결제 진행 필수사항 동의
                         </label>
                     </div>
-
+                </div>
             </form>
         </div>
     </div>
@@ -313,40 +304,72 @@
         var IMP = window.IMP;
         function requestPay(){
             IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+            console.log("getTP : "+$('#paymentTP').text());
 
+            var price = $('#paymentTP').text();
+            price = Number(price);
             //IMP.request_pay(param, callback) 호출
             IMP.request_pay({ // param
                 pg: "inicis",
                 pay_method: "card",
-                merchant_uid: "ORD20180131-0000011",
-                name: "노르웨이 회전 의자",
-                amount: 64900,
-                buyer_email: "gildong@gmail.com",
-                buyer_name: "홍길동",
-                buyer_tel: "010-4242-4242",
-                buyer_addr: "서울특별시 강남구 신사동",
-                buyer_postcode: "01181"
+                merchant_uid: 'merchant_' + new Date().getTime(),
+                name: $('#productNameTest').text() + " 외",
+                amount: 1,
+                buyer_email: $('#order_payer_email').val(),
+                buyer_name: $('#order_payer_name').val(),
+                buyer_tel: $('#order_payer_phone_number').val(),
+                buyer_addr: $('#order_received_at').val(),
+                buyer_postcode: $('#order_received_zip_code').val()
             }, function (rsp) { // callback
                 if (rsp.success) {
+                    var now = new Date();
+                    var nowTime = now.getFullYear();
+                    console.log(nowTime);
+                    nowTime += '-' + (now.getMonth() + 1);
+                    nowTime += '-' + now.getDate();
+                    console.log(now + " nowTime" + nowTime);
+                    /*var source = {
+                        orderNo : nowTime+"-2599",
+                        productNo : $('#productNo').val(),
+                        memberId : null,
+                        colorName : $('#colorName').val(),
+                        orderQty : $('#orderQty').val(),
+                        totalPrice : $('#totalPrice').val() ,
+                        recipient : $('#order_recipient').text(),
+                        orderAddr : $('#order_received_at').text(),
+                        orderDate : "2020-06-29",
+                        payCode : "2",
+                        orderCode : "10"
+                    };*/
+                    //console.log("source :: "+source);
+                    //console.log("source : : "+source.orderNo);
                     $.ajax({
-                        url : '/paymentComplete',
-                        method : 'POST',
-                        dataType : 'JSON',
+                        url : '/paymentCom',
+                        type : "POST",
+
                         data : {
-                            'customer.customerID' : '3',
-                            'paymentMethod' : '3',
-                            'reservationStartDate' : '3',
-                            'reservationFinishDate' : '3',
-                            'reservationDate' : '3',
-                            'imp_uid' : '3',
-                            'merchant_uid' : '3',
-                            'totalAmount' : '3',
-                            'room.roomTypeTable.roomType' : '3',
-                            'room.roomPerson' :'3'
+                            orderNo : null,
+                            productNo : $('#productNo').val(),
+                            memberId : null,
+                            colorName : $('#colorName').val(),
+                            orderQty : $('#orderQty').val(),
+                            totalPrice : price ,
+                            recipient : $('#order_recipient').val(),
+                            orderAddr : $('#order_received_at').val(),
+                            orderDate : "2020-06-29",
+                            payCode : "2",
+                            orderCode : "10",
+                            nonMemberName : $('#order_payer_name').val(),
+                            nonMemberEmail : $('#order_payer_email').val(),
+                            nonMemberPw : $('#order_payer_password').val(),
+                            nonMemberTel : $('#order_received_phone_number').val(),
+                            nonMemberAddr : $('#order_received_at').val()
                         },
                         success : function() {
                             alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                            location.href = "/index";
+                            //location.href = "/";
+                            console.log("세션을 삭제합니다");
+                            localStorage.removeItem("saveL");
                         },
                         error : function() {
                             alert('ajax 실패')

@@ -48,4 +48,7 @@ public interface AdminMapper {
     public void insertNonMemberOrderList(List<OrderListVO> orderListVOList);
     //orderNo
     public String getOrderNo(String today);
+
+    public void insertInicis(OrderListVO orderListVO);
+    public void insertNonMemTable(NonMemberVO nonMemberVO);
 }

@@ -25,6 +25,7 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -69,10 +70,10 @@ public class TrainingProcess {
         Collection<String> words = vec.wordsNearest("DK013-100100001", 5);
         log.info(" Words closest to : {}", words);
 
-        WordVectorSerializer.writeWord2VecModel(vec, "src/main/webapp/trainingFile/trainingFile1.txt");
+        WordVectorSerializer.writeWord2VecModel(vec, new File("src/main/webapp/trainingFile/trainingFile.txt"));
 
 
-        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel("src/main/webapp/trainingFile/trainingFile1.txt");
+        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel("src/main/webapp/trainingFile/trainingFile.txt");
 
         /*PLEASE NOTE: after model is restored, it's still required to set SentenceIterator and TokenizerFactory, if you're going to train this model*/
 

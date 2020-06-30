@@ -8,8 +8,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <th:block layout:fragment="css">
-        <link rel="stylesheet" th:href="@{/css/mainContent.css}">
-        <link rel="stylesheet" th:href="@{/css/basket.css}">
+      <!--  <link rel="stylesheet" th:href="@{/css/statAdmin.css}">-->
     </th:block>
 </head>
 <body>
@@ -24,8 +23,8 @@
         <h1>
             <a href="">연간</a>
         </h1>날짜 : <input id="dateCalendar" type='date'/> - <input id="dateCalendar2" type='date'/><button onclick="getDate()">클릭</button>
-        <div id="hoho">
-        <canvas id="myChart" style="width:100%; height:100%; float:none"></canvas>
+        <div  class="spendingPatternDiv" id="hoho" style="width: 50%; height: 300px" >
+        <canvas class="spendingPatternGraph" id="myChart" style="height: 100%; width: 100%"; float="left" ></canvas>
         </div>
         <div id="field">
         </div>
@@ -114,16 +113,27 @@
 
             function reloadFunc(){
                 console.log("reload");
+                //var ctx = chart1Canvas.getContext('2d');
+                //var myLineChart = new Chart(ctx, config);
 
-                /*var myLineChart = new Chart(ctx, config);
+                //myLineChart.destroy();
 
-                myLineChart.destroy();*/
+
+                var div = document.getElementById('hoho').innerHTML;
+                console.log("div : " +div);
+                ///document.getElementById('myChart').appendChild(div);
+                $('.spendingPatternGraph').remove();
+                var canv = document.createElement('canvas');
+                canv.id = 'myChart';
+                document.getElementById('hoho').appendChild(canv);
+                console.log(canv);
+                //canvas 만들기만 하면 됨
                 /*var div = document.createElement('div');
                 div.innerHTML = document.getElementById('myChart').innerHTML;
-                $( 'div' ).remove( '#hoho' );
+                //$( 'div' ).remove( '#hoho' );
                 alert("리로드");
-                document.getElementById('hoho').appendChild(div);
-*/
+                document.getElementById('hoho').appendChild(div);*/
+
 
 
                 //$('#myChart').load(location.href + '#hoho');

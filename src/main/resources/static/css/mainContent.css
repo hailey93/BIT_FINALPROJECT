@@ -1,21 +1,9 @@
-/*.fixed-btn-area{
-    position: fixed;
-    top: 90%;
-    float: left;
-    width: 50px;
-    background: #35c5f0;
-    height: 50px;
-    left: 430px;
-    z-index: 99999;
-    padding: 13px;
-    border-radius: 100px;
-}*/
+
 @media all and (min-width: 1800px) {
     .fixed-btn-area {
         position: -webkit-sticky;
         position: sticky;
         top: 90%;
-        /*float: left;*/
         width: 50px;
         background: #35c5f0;
         height: 50px;
@@ -606,6 +594,12 @@
     line-height: 21px;
     width: 120px
 }
+.production-item-price {
+    display: block;
+    font-size: 17px;
+    line-height: 23px;
+    font-weight: 700;
+}
 
 .production-item--placeholder .production-item-stats {
     width: 100px
@@ -637,32 +631,3 @@
     bottom: 0;
     background: rgba(0, 0, 0, .02)
 }
-
-/*.store-index{*/
-/*    width: 80%;*/
-/*    right: 0;*/
-/*    position: absolute;*/
-/*}*/
-
- <!--채팅 아이콘 -->
-.fixed-btn-area {
-    position: fixed;
-    right: 10px;
-    bottom: 10px;
-    z-index: 100;
-    display: block
-}
-
-.fixed-btn-area .fixed-wrap {
-    position: relative;
-    float: left;
-    height: 60px;
-    border-radius: 30px;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box
-}
-
-.fixed-btn-area .fixed-wrap .btn-tit {
-    padding: 20px 30px 24px
-}
-

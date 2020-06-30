@@ -77,6 +77,8 @@ public class StatAdminController {
         return "th/admin/statAdmin/productSalesVolume";
     }
 
+
+
     @GetMapping("/mem")
     public String memManageMent() {
         return "th/admin/statAdmin/memberManagement";
@@ -118,9 +120,28 @@ public class StatAdminController {
     
     //회사명 받아오기 resp
     @RequestMapping(value = "/sellerGraphAjax", method = RequestMethod.POST)
-    public @ResponseBody Object sellerGraphAjax(String inputSellerName){
-
+    public @ResponseBody Object sellerGraphAjax(String inputSellerName,Model model){
+        adminMapper.getYearlySellerSalesVolume(inputSellerName);
         log.info("sellerAjax 호출" + inputSellerName);
+
+        List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(inputSellerName);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonText;
+
+        try {
+            jsonText = mapper.writeValueAsString(yearlySellerSalesVolume);
+
+            model.addAttribute("jsonText", jsonText);
+            System.out.println("jsonText는 : ? : " + jsonText);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //회사 이름으로 찾기
         //adminMapper.getSellerStat(sellerName);
 
@@ -128,7 +149,36 @@ public class StatAdminController {
         //adminMapper.getSpendingPattern();
         return  inputSellerName;
     }
-    
+
+    @GetMapping("/searchCom")
+    public String searchCom(String inputSellerName,Model model,String sellerName){
+        log.info("sellerAjax 호출" + inputSellerName);
+
+        List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonText;
+
+        try {
+            jsonText = mapper.writeValueAsString(yearlySellerSalesVolume);
+
+            model.addAttribute("yearlyJson", jsonText);
+            System.out.println("jsonText는 : ? : " + jsonText);
+        } catch (JsonGenerationException e) {
+            e.printStackTrace();
+        } catch (JsonMappingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //회사 이름으로 찾기
+        //adminMapper.getSellerStat(sellerName);
+
+        //전체 판매량 순으로 정렬
+        //adminMapper.getSpendingPattern();
+        return "th/admin/statAdmin/productSalesVolume";
+    }
     
     //회원 소비패턴
     @GetMapping("/spendingPattern")

@@ -1,12 +1,12 @@
 $(document).ready(function() {
-    /*$('.ranking-type-filter__item--left').click(function () {
+    $('.ranking-type-filter__item--left').click(function () {
         $('.ranking-type-filter__item--right').removeClass('right--active')
         $('.ranking-type-filter__item--left').addClass('left--active');
     });
     $('.ranking-type-filter__item--right').click(function () {
         $('.ranking-type-filter__item--left').removeClass('left--active');
         $('.ranking-type-filter__item--right').addClass('right--active');
-    });*/
+    });
 
     var rank=new Array();
     $('.ranking-product-item__number').each(function(){
