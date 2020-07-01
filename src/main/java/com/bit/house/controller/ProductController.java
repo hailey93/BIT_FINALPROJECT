@@ -14,15 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpRequestHandler;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Controller
@@ -41,34 +41,29 @@ public class ProductController {
 
     @GetMapping("/searchlist")
     public String findProduct(@RequestParam(required = false, defaultValue = "") String index, Model model) {
-        List<ProductVO> productList = productMapper.selectAllProduct();
-
+        List<ProductVO> productList;
 
         if (index != null && !index.isEmpty()) {
             productList = productMapper.selectProduct(index);
         } else {
             productList = productMapper.selectAllProduct();
         }
-
-
-
-
         model.addAttribute("productList", productList);
         model.addAttribute("index", index);
         return "th/main/searchList";
     }
 
-    @GetMapping("/searchList")
-    public String searchBox(Model model){
-        List<String> productJsList = productMapper.selectAllProductJs();
 
+    @GetMapping("/searchBox")
+    @ResponseBody
+    public Map<String, String> searchBox(Model model) {
+        Map<String, String> mapList = new HashMap<>();
+        List<String> productJsList = productMapper.selectAllProductJs();
         ObjectMapper mapper = new ObjectMapper();
         String jsonText;
-
         try {
             jsonText = mapper.writeValueAsString(productJsList);
-            System.out.println(jsonText);
-            model.addAttribute("jsonText", jsonText);
+           mapList.put("jsonText", jsonText);
         } catch (
                 JsonGenerationException e) {
             e.printStackTrace();
@@ -79,12 +74,8 @@ public class ProductController {
                 IOException e) {
             e.printStackTrace();
         }
-
-        return "/th/fragments/header";
+        return mapList;
     }
-
-
-
 
     @GetMapping("/category")
     public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {

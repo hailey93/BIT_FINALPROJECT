@@ -37,3 +37,52 @@
 .production-selling-header__price__original{
 text-decoration: line-through;
 }
+
+.production-selling-header__price__customer{
+    font-size: 32px;
+    font-weight: 900;
+    font-family: Tahoma,sans-serif;
+    color: black;
+}
+.production-selling-header__price__original {
+
+    font-family: Tahoma,sans-serif;
+    font-size: 20px;
+    color: #757575;
+    text-transform: lowercase;
+
+
+}
+
+
+.won{
+    font-size: 28px;
+    font-weight: 400;
+}
+
+.production-selling-header__title__name{
+    margin: 0;
+    font-size: 25px;
+    line-height: 34px;
+    font-weight: 400;
+    color: black;
+}
+
+.production-selling-header__title__brand{
+    text-decoration: none;
+    font-size: 13px;
+    touch-action: manipulation;
+    cursor: pointer;
+    color: #35c5f0;
+    font-weight: 700;
+}
+
+
+.col-md-7{
+    padding-left: 110px;
+}
+
+#pills-tab {
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+}

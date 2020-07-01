@@ -9,15 +9,16 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
     <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
+    <link th:href="@{/css/starRating.css}" rel="stylesheet"/>
 
     <script th:src="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js}"></script>
 
     <script>
-        $( document ).ready( function() {
-            $( '.check-all' ).click( function() {
-                $( '.check' ).prop( 'checked', this.checked );
-            } );
-        } );
+        $(document).ready(function () {
+            $('.check-all').click(function () {
+                $('.check').prop('checked', this.checked);
+            });
+        });
     </script>
 
 </head>
@@ -55,7 +56,8 @@
                     <td th:text="무료"></td>
                     <td th:text="${orderList.orderType}"></td>
                     <td>
-                        <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample"
+                        <button class="btn btn-primary" type="button" data-toggle="collapse" aria-expanded="false"
+                                aria-controls="collapseExample"
                                 th:attr="data-target='#conf' + ${iter.count}">구매확정
                         </button>
                         <div th:id="'conf' + ${iter.count}" class="collapse">
@@ -78,6 +80,42 @@
                                             <div class="modal-body">
                                                 <div class="form-group">
                                                     <label class="col-form-label">별점평가</label>
+                                                    <fieldset class="rating" th:id="'starRating' + ${iter.count}">
+                                                        <input type="radio" th:id="'star5_' + ${iter.count}" name="rank"
+                                                               value="5"/><label class="full" th:for="'star5_' + ${iter.count}"
+                                                                                 title="Awesome - 5 stars"></label>
+                                                        <input type="radio" th:id="'star4half_' + ${iter.count}" name="rank"
+                                                               value="4,5"/><label class="half"
+                                                                                            th:for="'star4half_' + ${iter.count}"
+                                                                                            title="Pretty good - 4.5 stars"></label>
+                                                        <input type="radio" th:id="'star4_' + ${iter.count}" name="rank"
+                                                               value="4"/><label class="full" th:for="'star4_' + ${iter.count}"
+                                                                                 title="Pretty good - 4 stars"></label>
+                                                        <input type="radio" th:id="'star3half_' + ${iter.count}" name="rank"
+                                                               value="3,5"/><label class="half"
+                                                                                            th:for="'star3half_' + ${iter.count}"
+                                                                                            title="Meh - 3.5 stars"></label>
+                                                        <input type="radio" th:id="'star3_' + ${iter.count}" name="rank"
+                                                               value="3"/><label class="full" th:for="'star3_' + ${iter.count}"
+                                                                                 title="Meh - 3 stars"></label>
+                                                        <input type="radio" th:id="'star2half_' + ${iter.count}" name="rank"
+                                                               value="2,5"/><label class="half"
+                                                                                            th:for="'star2half_' + ${iter.count}"
+                                                                                            title="Kinda bad - 2.5 stars"></label>
+                                                        <input type="radio" th:id="'star2_' + ${iter.count}" name="rank"
+                                                               value="2"/><label class="full" th:for="'star2_' + ${iter.count}"
+                                                                                 title="Kinda bad - 2 stars"></label>
+                                                        <input type="radio" th:id="'star1half_' + ${iter.count}" name="rank"
+                                                               value="1,5"/><label class="half"
+                                                                                            th:for="'star1half_' + ${iter.count}"
+                                                                                            title="Meh - 1.5 stars"></label>
+                                                        <input type="radio" th:id="'star1_' + ${iter.count}" name="rank"
+                                                               value="1"/><label class="full" th:for="'star1_' + ${iter.count}"
+                                                                                 title="Sucks big time - 1 star"></label>
+                                                        <input type="radio" th:id="'starhalf_' + ${iter.count}" name="rank"
+                                                               value="0,5"/><label class="half" th:for="'starhalf_' + ${iter.count}"
+                                                                                    title="Sucks big time - 0.5 stars"></label>
+                                                    </fieldset>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="reviewContent-text"
