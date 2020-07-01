@@ -46,9 +46,13 @@ public interface AdminMapper {
 
     //주문내역 저장
     public void insertNonMemberOrderList(List<OrderListVO> orderListVOList);
+    public void insertMemberOrderList(List<OrderListVO> orderListVOList);
     //orderNo
     public String getOrderNo(String today);
 
     public void insertInicis(OrderListVO orderListVO);
     public void insertNonMemTable(NonMemberVO nonMemberVO);
+
+    public ProductVO getDirectPayment(String productNo, String colorN);
+    public void updateMemberAddr(String fullAddr,String memberId);
 }

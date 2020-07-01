@@ -27,6 +27,8 @@ public class BasketController {
     @Autowired
     BasketMapper basketMapper;
 
+
+
     @GetMapping("/goBasket")
     public String cart(String MemberId, Model model,AllMemberVO allMemberVO, BasketVO basketVO) {
         System.out.println("goBasket!");
@@ -49,47 +51,14 @@ public class BasketController {
     //productDetail
     @GetMapping("/productDetailsLJH")
     public String product(/*HttpSession session,String productName, String colorCode,int qty*/) {
-
-        //basketMapper.insertBasket(String productName, String colorCode, int qty); --> ajax에서 할거임
-
-        /* 필요없다 아이디있으면 테이블에저장, 없음녀 세션에 저장하니
-        List<String> getMap = (List<String>) session.getAttribute("map");
-        System.out.println("getMapt : "+getMap);
-        Map<String, Object> map = new HashMap<>();
-        map.put("productName", productName);
-        map.put("colorCode", colorCode);
-        map.put("qty", qty);
-
-        //list에 map 저장
-        List<Map> list = new LinkedList<>();
-        list.add(map);
-        list.add((Map) getMap);
-
-
-        session.setAttribute("map",list);
-        System.out.println(list);*/
-
-
-        //색상 이름 수량
-        //session.setAttribute(productName, productName);
         return "th/main/productDetailsLJH";
     }
 
     @GetMapping("/basketPop")
     public String basketPop(HttpServletRequest request) {
-        /*String sessionId = (String) request.getSession().getAttribute("memberId");
-        if(sessionId != null){
-            adminMapper.getBasket();
-            model~
-
-            }
-            값이 없으면 그냥 보낸 후 페이지에서 ajax처리
-
-
-        */
-
         return "th/member/basket/basketPop";
     }
+
     @RequestMapping(value = "/basketMember", method = RequestMethod.POST)
     public @ResponseBody void basketMem(BasketVO basketVO, String memberId,String productNo, String productColor, String qty){
         System.out.println("id : " + memberId + "pNo : "+productNo + "productColor : " + productColor
@@ -107,7 +76,7 @@ public class BasketController {
 
     @RequestMapping(value = "/basketLocal", method = RequestMethod.POST)
     public @ResponseBody void basketLocal(String[] hoho,HttpSession session, String first) {
-        System.out.println("호호 출력"+hoho.getClass());
+        System.out.println("호호 출력"+hoho.getClass()+ "호호길이 : ");
         String[] ab = new String[100];
         int i=0;
         String check = "첫번째";
@@ -279,17 +248,45 @@ public class BasketController {
         return "th/member/basket/btest";
     }
 
-    @GetMapping("/loginPost")
-    public String loginPost(HttpServletRequest request, Model model, HttpSession session, MemberVO houseUser){
-        /*System.out.println("//////////////");
-        houseUser = adminMapper.getUser();
-        System.out.println(houseUser);
-        session.setAttribute("houseUser", houseUser);
-        System.out.println("hUser ID  :: "+ houseUser.getMemberId());
-        model.addAttribute("house", houseUser);
-        //model.addAttribute("payment", adminMapper.getPayment());
-        model.addAttribute("product", adminMapper.getProduct());
-        //log.info("model payment : "+ adminMapper.getPayment());*/
-        return "th/main/productDetailsLJH";
+    /*@RequestMapping(method = RequestMethod.POST, value = "/delCheckBox")
+    public @ResponseBody void delCheckBox(String[] delProductNoArray){
+       basketMapper.deletememberBasket(delProductNoArray);
+
+    }*/
+
+
+    @RequestMapping(method = RequestMethod.POST, value = "/delNonmemberBasket")
+    public @ResponseBody void delNonmemberBasket(String bool,HttpSession session){
+        System.out.println("bool : " + bool);
+        if(bool != null){
+            session.removeAttribute("proNo");
+            session.removeAttribute("proColor");
+            session.removeAttribute("proQty");
+        }
     }
+    @RequestMapping(method = RequestMethod.POST, value = "/delMemberBasket")
+    public @ResponseBody void delMemberBasket(String[] productNo, String[] productColor,HttpSession session){
+
+        String memberId = null;
+
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        List<BasketVO> basketVOList = new ArrayList<>(productNo.length);
+
+
+        if(memberVO != null){
+            memberId = memberVO.getMemberId();
+            for(int i=0; i<productNo.length;i++){
+                System.out.println("productNo : " + productNo[i] + "productColor : " + productColor[i]);
+                BasketVO basketVO = new BasketVO(memberId,productNo[i],productColor[i]);
+                basketVOList.add(basketVO);
+
+            }
+        }
+        System.out.println("basketList :: " +basketVOList);
+
+        basketMapper.deletememberBasket(basketVOList);
+    }
+
+
+
 }

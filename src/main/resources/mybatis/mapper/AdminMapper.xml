@@ -46,6 +46,23 @@
 
     </resultMap>
 
+    <resultMap id="directPayment" type="productVO">
+        <result column="productNo" property="productNo"/>
+        <result column="productName" property="productName"/>
+        <result column="purchasePrice" property="purchasePrice"/>
+        <result column="productMainImg" property="productMainImg"/>
+
+        <association property="colorVO" javaType="colorVO">
+            <result column="colorCode" property="colorCode"/>
+            <result column="colorType" property="colorType"/>
+        </association>
+
+    </resultMap>
+
+    <select id="getDirectPayment" resultMap="directPayment">
+        select c.colorCode, p.productNo, c.colorType, p.productName, p.purchasePrice, p.productMainImg  from color c, product p where c.colorType = #{colorN} and p.productNo=#{productNo};
+    </select>
+
     <!-- 해당 업체 연간 판매량 -->
     <select id="getYearlySellerSalesVolume" resultMap="dailysalestats">
 				select sellerName, sum(orderQty) as orderQty,
@@ -110,8 +127,8 @@ group by memberId, month,year, month order by orderQty desc;
 
     <!-- memberInfo Page -->
     <select id="getUserInfo" resultMap="memberInfo">
-		select m.memberName, m.memberId, m.memberAddr, m.memberEmail, sum(u.orderQty2)as orderQty,
-sum(u.totalPrice2)as totalPrice from member m, dailysalestats u where u.memberId = m.memberId
+		select m.memberName, m.memberId, m.memberAddr, m.memberEmail, sum(u.orderQty)as orderQty,
+sum(u.totalPrice)as totalPrice from member m, dailysalestats u where u.memberId = m.memberId
 group by memberId;
 	</select>
 
@@ -148,6 +165,38 @@ group by memberId;
             (
             "${item.orderNo}",
             "${item.productNo}",
+            null,
+            "${item.colorName}",
+            "${item.orderQty}",
+            "${item.totalPrice}",
+            "${item.recipient}",
+            "${item.orderAddr}",
+            "${item.orderDate}",
+            "${item.payCode}",
+            "${item.orderCode}"
+            )
+        </foreach>
+    </insert>
+
+
+    <insert id="insertMemberOrderList" parameterType="java.util.List">
+        INSERT INTO orderlist(
+        orderNo,
+        productNo,
+        memberId,
+        colorName,
+        orderQty,
+        totalPrice,
+        recipient,
+        orderAddr,
+        orderDate,
+        payCode,
+        orderCode)
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (
+            "${item.orderNo}",
+            "${item.productNo}",
             "${item.memberId}",
             "${item.colorName}",
             "${item.orderQty}",
@@ -160,6 +209,7 @@ group by memberId;
             )
         </foreach>
     </insert>
+
 
     <insert id="insertInicis">
         INSERT INTO orderlist(
@@ -189,7 +239,7 @@ group by memberId;
         )
     </insert>
 
-    
+
     <select id="getOrderNo" resultType="String" parameterType="String">
         select orderNo from orderlist where orderNo like concat('%',#{today},'%') order by orderNo desc limit 1
     </select>
@@ -220,5 +270,11 @@ update member1 set memberAddr=if(memberAddr is null,'asd',memberAddr), deliveryA
  deliveryAddr2 = if(memberAddr is not null, null, if(deliveryAddr1 is not null,null,'Addr2에 들어감' ))
  where memberId='test';
     -->
+    <update id="updateMemberAddr">
+       update member set  deliveryAddr2 = if(memberAddr is not null,if(deliveryAddr1 is not null,#{fullAddr},null ),  null)
+, deliveryAddr1 = if(memberAddr is not null, if(deliveryAddr1 is not null, deliveryAddr1,#{fullAddr} ), null) ,
+memberAddr=if(memberAddr is null,#{fullAddr},memberAddr) where memberId=#{memberId};
+
+</update>
 
 </mapper>

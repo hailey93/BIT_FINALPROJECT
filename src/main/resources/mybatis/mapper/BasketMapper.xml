@@ -124,4 +124,12 @@
     <insert id="insertBasketMember" >
         insert into basket(memberId, productNo, productColor, qty) values(#{memberId}, #{productNo}, #{productColor}, #{qty});
     </insert>
+
+   <delete id="deletememberBasket">
+        DELETE FROM basket <where>
+       <foreach collection="list" item="item" open="" close="" separator="OR">
+           (memberId=#{item.memberId} AND productColor = #{item.productColor} AND productNo = #{item.productNo})
+       </foreach>
+   </where>
+    </delete>
 </mapper>

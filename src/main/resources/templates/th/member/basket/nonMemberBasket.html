@@ -46,7 +46,7 @@
                                         </div>
                                     </span>
                                     <span class="commerce-cart__header__right">
-                                        <button class="commerce-cart__header__delete" type="button">선택삭제
+                                        <button class="commerce-cart__header__delete" name="delCheckBox" type="button" onclick="checkBoxIsChecked()" >선택삭제
                                         </button>
                                     </span>
                                 </div>
@@ -80,11 +80,11 @@
                                                             <article class="carted-product">
                                                                 <div class="round-checkbox-input round-checkbox-input--blue carted-product__select">
                                                                     <label class="round-checkbox-input__label">
-                                                                        <!-- 내부 체크박스 --><input type="checkbox"
-                                                                                               name="innerCheckbox"
+                                                                        <!-- 내부 체크박스 --><input type="checkbox" name="innerCheckbox"
+                                                                                               th:id="'innerCheckbox'+${listStat.index}"
                                                                                                class="round-checkbox-input__input"
                                                                                                checked=""
-                                                                                               aria-label="[오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors ${productName}"
+                                                                                               th:aria-label="${list.productNo}"
                                                                                                autocomplete="off">
                                                                         <span class="round-checkbox-input__icon">
                                                                             <svg class="check" width="24" height="24"
@@ -104,8 +104,7 @@
                                                                         th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}"
                                                                         alt=""></div>
                                                                 <div class="product-small-item__content"><h1
-                                                                        class="product-small-item__title" th:text="${list.productName}">[핀란디아]
-                                                                    <!-- -->데이브 화이트/블랙 메쉬 책상의자 </h1>
+                                                                        class="product-small-item__title" th:text="${list.productName}"></h1>
                                                                     <p class="product-small-item__caption">무료배송 |
                                                                         일반택배</p></div>
                                                             </a>
@@ -202,7 +201,7 @@
                                 <div class="commerce-cart__side-bar__order">
                                     <a href="/goPayment">
                                         <button class="button button--color-blue button--size-50 button--shape-4 commerce-cart__side-bar__order__btn"
-                                                type="submit" >1개 상품 구매하기
+                                                type="submit" >개 상품 구매하기
                                         </button>
                                     </a>
                                 </div>
@@ -214,6 +213,113 @@
             <script type="text/javascript" th:inline="javascript">
                 $('#getTP').text( getTP());
                 $('#paymentTP').text(getTP());
+
+                function checkBoxIsChecked() {
+                    var len = JSON.parse(localStorage.getItem("saveL")).length;
+                    console.log("체크박스 함수 실행"+len+ JSON.parse(localStorage.getItem("saveL"))[0][0]);
+                    var delProductNo = new Array();
+                    console.log("Arr : " + delProductNo.length);
+                var checkBox = new Array(len);
+                var checkBoxResult = new Array(len);
+                var a=0;
+                var trueCount = 0;
+                var isTrue;
+
+                for(var i=0;i<len;i++){
+                    checkBox[i] = document.getElementById('innerCheckbox'+i);
+
+                    checkBoxResult[i] = $(checkBox[i]).prop("checked");
+                    console.log("체크박스 저장 : " + checkBox[i]+ "result : " + checkBoxResult[i]);
+                    if(checkBoxResult[i] == false){
+                        q = JSON.parse(localStorage.getItem("saveL"))[i][0];
+                        w = JSON.parse(localStorage.getItem("saveL"))[i][1];
+                        e = JSON.parse(localStorage.getItem("saveL"))[i][2];
+                        delProductNo[a] = [q,w,e];
+                        a++;
+                    }else{
+                    trueCount++;
+                    }
+                }
+
+                console.log("checkBox : " +checkBox + "checkBoxResult : " + checkBoxResult + "delProductNo : " + delProductNo);
+
+                var b = JSON.parse(localStorage.getItem("saveL")).length;
+                    console.log("길이 측정 : " +a+JSON.parse(localStorage.getItem("saveL")).length + "a : " +a + b + "trueCount" + trueCount);
+                if(trueCount == b){
+                        delProductNo = null;
+                    }
+                console.log(delProductNo);
+                localStorage.removeItem("saveL");
+                if(delProductNo != null){
+
+                    localStorage.setItem("saveL",JSON.stringify(delProductNo));
+                    var fir = null;
+                    var hohoSession = JSON.parse(localStorage.getItem("saveL"));
+                    console.log("hohoSession : "+hohoSession);
+                    if(hohoSession.length==1){
+                        fir = "첫번째";
+                    }
+                    $.ajax({
+                        url : '/basketLocal',
+                        type : 'POST',
+                        traditional : true,
+                        data : {
+                            first : fir,
+                            hoho : hohoSession
+                        },
+                        success : function (e) {
+                            console.log("suc");
+                            window.location.reload();
+                        },
+                        error : function (e) {
+                            console.log("err");
+                        }
+                    });
+                }else{
+                    console.log("delProN is Null");
+                    $.ajax({
+                    url : '/delNonmemberBasket',
+                    type : 'POST',
+                    data : {
+                        bool : 'real',
+                    },
+                    success : function (e) {
+                        console.log("suc");
+                        window.location.reload();
+                    },
+                    error : function (e) {
+                        console.log("err");
+                    }
+                })
+                }
+                  /*  console.log("delProductNo = "+delProductNo);
+                    console.log("Arr : " + delProductNo.length + delProductNo);
+                if(delProductNo == null){
+                    console.log("checkBoxResult : "+checkBoxResult);
+                    alert("선택값이 없습니다");
+                    //window.location.reload();
+                }*/
+
+
+
+               /* memberBasket
+               $.ajax({
+                    url : '/delCheckBox',
+                    type : 'POST',
+
+                    data : {
+                        delProcutNoArray : delProductNo
+                    },
+                    success : function () {
+                        alert("삭제 되었습니다");
+
+                    },
+                    error : function () {
+                        alert("삭제 실패");
+                    }
+                })*/
+                }
+
 
                 function  getTP() {
                     console.log("getTP실행");

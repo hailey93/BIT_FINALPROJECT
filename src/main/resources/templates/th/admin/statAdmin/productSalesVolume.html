@@ -18,12 +18,12 @@
     <!-- 차트 1 -->
     <div>
         <h1> 연도별 매출 순위 </h1>
-        회사명 입력 <input type="text" value="" id="inputSellerName">
-        <form action="/admin/searchCom">
+        <!--회사명 입력 <input type="text" value="" id="inputSellerName">-->
+        <form action="/admin/searchCom" method="get">
             회사명?<input name="sellerName" type="text">
             <input type="submit">
         </form>
-        <button name="sellerBtn" onsubmit="true" onclick="sellerBtn()">제출</button>
+        <!--<button name="sellerBtn" onsubmit="true" onclick="sellerBtn()">제출</button>-->
         <!-- 차트 1 -->
         <div class="row-cols-1" id="name" style="width:35%; height:50px">
             <canvas class="chart1" id="myChart" style="width:35%; height:100%; float:left"></canvas>
@@ -159,8 +159,9 @@
     var json = [[${jsonText}]];
     var yearList = [[${yearList}]];
     var yearlyJson = [[${yearlyJson}]];
-    var sellN = [[${sellN}]];
-
+    var sellN = [[${sellerName}]];
+    sessionStorage.setItem("sellerName",sellN);
+    sellN = sessionStorage.getItem("sellerName");
 
     console.log("안녕하세요 yearList입니다 : " + yearList);
     //console.log("안녕하세요 yearlyJson입니다 : " + yearlyJson123);

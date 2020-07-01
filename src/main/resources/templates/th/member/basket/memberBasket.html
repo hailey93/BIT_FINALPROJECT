@@ -45,7 +45,9 @@
                                         </div>
                                     </span>
                                     <span class="commerce-cart__header__right">
-                                        <button class="button button--color-blue button--size-20 button--shape-4 commerce-cart__side-bar__order__btn" type="button" >선택삭제
+                                        <button class="button button--color-blue button--size-20 button--shape-4 commerce-cart__side-bar__order__btn" type="button"
+                                                name="delCheckBox"
+                                        onclick="location.href='/delMemberBasket'">선택삭제
                                         </button>
                                     </span>
                                 </div>
@@ -80,10 +82,10 @@
                                                                 <div class="round-checkbox-input round-checkbox-input--blue carted-product__select">
                                                                     <label class="round-checkbox-input__label">
                                                                         <!-- 내부 체크박스 --><input type="checkbox"
-                                                                                               name="innerCheckbox"
+                                                                                               name="innerCheckbox" th:id="'innerCheckbox'+${listStat.index}"
                                                                                                class="round-checkbox-input__input"
                                                                                                checked=""
-                                                                                               aria-label="[오늘의딜] 데이브 화이트/블랙 메쉬 책상의자 5colors ${productName}"
+                                                                                               th:aria-label="${list.productNo}"
                                                                                                autocomplete="off" th:data-cartNum="${list.basketNo}">
                                                                         <span class="round-checkbox-input__icon">
                                                                             <svg class="check" width="24" height="24"
@@ -121,9 +123,10 @@
                                                                 </button>
                                                                 <ul class="carted-product__option-list">
                                                                     <li class="carted-product__option-list__item">
-                                                                        <article class="selling-option-item"><h2
-                                                                                class="selling-option-item__name" th:text="${list.getProductColor()}"></h2>
-
+                                                                        <article class="selling-option-item">
+                                                                            <h2 class="selling-option-item__name" th:text="${list.getProductColor()}"></h2>
+                                                                            <input type="hidden" th:id="'productNo'+${listStat.index}" th:value="${list.productNo}">
+                                                                            <input type="hidden" th:id="'productColor'+${listStat.index}" th:value="${list.productColor}">
                                                                             <div class="selling-option-item__controls">
                                                                                 <div class="selling-option-item__quantity">
                                                                                     <div class="input-group select-input option-count-input">
@@ -193,7 +196,7 @@
                                     </div>
                                 </dl>
                                 <div class="commerce-cart__side-bar__order">
-                                    <a href="/goPayment">
+                                    <a href="/goPayment" >
                                         <button class="button button--color-blue button--size-50 button--shape-4 commerce-cart__side-bar__order__btn"
                                                 type="submit" >상품 구매하기
                                         </button>
@@ -219,6 +222,25 @@
                     });
 
                 });*/
+
+                /*function checkBoxIsCheckedMember(){
+                    console.log("체크박스 함수 실행");
+                        $.ajax({
+                            url: '/delMemberBasket',
+                            type : 'POST',
+                            traditional : true,
+                            data : {
+                                delete : 'go'
+                            },
+                            success : function (e) {
+                                console.log("suc");
+                                window.location.reload();
+                            },error : function (e) {
+                                console.log("err");
+                            }
+
+                        })
+                }*/
 
 
 

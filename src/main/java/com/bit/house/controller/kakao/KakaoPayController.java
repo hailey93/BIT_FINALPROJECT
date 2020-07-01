@@ -65,7 +65,7 @@ public class KakaoPayController {
         log.info("kakaoPay post 호출............................................");
         int totalP = 0;
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-        String memberId;;
+        String memberId;
         int orderQ = 0;
 
         List<OrderListVO> orderListVOList = new ArrayList<>(productNo.length);
@@ -105,7 +105,7 @@ public class KakaoPayController {
         if(memberVO != null){
             memberId = memberVO.getMemberId();
         }else{
-            memberId="nonMember";
+            memberId=null;
             System.out.println("!@#@#@@@@@@@@@@@@@@@@@@ : "+productNo.length);
         }
 
@@ -161,15 +161,15 @@ public class KakaoPayController {
         String memberId;
 
         List<OrderListVO> orderListVOList = (List<OrderListVO>) session.getAttribute("orderListVOList");
-        adminMapper.insertNonMemberOrderList(orderListVOList);
 
-        /*if(memberVO != null){
-            memberId = memberVO.getMemberId();
 
+        if(memberVO != null){
+            //memberId = memberVO.getMemberId();
+            adminMapper.insertMemberOrderList(orderListVOList);
         }else{
+            adminMapper.insertNonMemberOrderList(orderListVOList);
+        }
 
-
-        }*/
         memberId = orderListVOList.get(0).getMemberId();
         kakaoInfo = kakaopay.kakaoPayInfo(pg_token, memberId);
 
