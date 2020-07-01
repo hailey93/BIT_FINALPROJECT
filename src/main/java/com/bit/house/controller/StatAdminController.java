@@ -33,7 +33,7 @@ public class StatAdminController {
         return "th/admin/statAdmin/statAdmin";
     }
 
-    @GetMapping("/productManagement")
+    @GetMapping("/productSalesVolume")
     public String graph(Model model) {
         //판매량, 품목
         String sellerName = "가쯔";
@@ -290,6 +290,13 @@ public class StatAdminController {
         //System.out.println("houseProductList : ? " + productOptionVOList);
 
         return "";
+    }
+
+    @GetMapping("/productManagement")
+    public String productManagement(Model model){
+        List<ProductVO> productVOList = (List<ProductVO>) adminMapper.getProductManagement();
+        model.addAttribute("productVOList", productVOList);
+        return "th/admin/statAdmin/productManagement";
     }
 
 }

@@ -276,11 +276,11 @@
                             <input type="radio" value="kcp_credit_card" name="order[payment_method]"
                                    id="order_payment_method_kcp_credit_card">
 
-                            <label class="first  top" for="order_payment_method_kcp_credit_card" onclick="">
+                            <label class="first  top" for="order_payment_method_kcp_credit_card" onclick="kakaoSubmit()">
                                 <!-- kakaoPay submit 어떻게? -->
-                                <img class="img" width="64" src="" alt="Card">
+                                <img class="img" width="64" src="/img/kaka5.png" alt="Card">
                                 <div class="title">카카오페이</div>
-                                <button>카카오페이로 결제하기</button>
+                                <!--<button>카카오페이로 결제하기</button>-->
                                 <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다"
                                      data-detail2="">
 
@@ -290,7 +290,7 @@
 
                             <label class=" top" for="order_payment_method_without_bankbook" onclick="requestPay()">
                                 <img class="img" width="64"
-                                     src="https://bucketplace-v2-development.s3.amazonaws.com/pg/vbank.png" alt="Vbank">
+                                     src="/img/ini.png" alt="Vbank">
                                 <div class="title">이니시스</div>
                                 <div class="event" data-title="" data-detail1="" data-detail2="">
 
@@ -320,12 +320,8 @@
             </form>
         </div>
     </div>
-
-
-    <!-- iamport.payment.js -->
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-    <script>
-
+    <script th:inline="javascript">
         $('#getTP').text(getTP());
         $('#paymentTP').text(getTP());
 
@@ -347,39 +343,75 @@
 
         }
 
+        function kakaoSubmit() {
+
+            var adr = $('#order_recipient').val();
+            var man = $('#order_received_at').val();
+            if (adr == '' || man == '') {
+                alert("제대로 입력해주세요");
+            } else {
+                document.getElementById('edit_order').submit();
+            }
+        }
+
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = new String(date.getMonth()+1);
+        var day = new String(date.getDate());
+        var dateResult = year+'-'+month+'-'+day
+
+        // 한자리수일 경우 0을 채워준다.
+        if(month.length == 1){
+            month = "0" + month;
+        }
+        if(day.length == 1){
+            day = "0" + day;
+        }
+        console.log("날짜 : " + year + month + day);
+
 
         var IMP = window.IMP;
 
         function requestPay() {
-            IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
-            console.log("getTP : " + $('#paymentTP').text());
 
-            var price = $('#paymentTP').text();
-            price = Number(price);
-            //IMP.request_pay(param, callback) 호출
-            console.log("실험 : " +$('#order_payer_email').val() + $('#order_payer_name').val() + $('#order_payer_phone_number').val()
-            + $('#order_received_at').val());
-            IMP.request_pay({ // param
-                pg: "inicis",
-                pay_method: "card",
-                merchant_uid: 'merchant_' + new Date().getTime(),
-                name: $('#productNameTest').text() + " 외",
-                amount: 1,
-                buyer_email: $('#order_payer_email').val(),
-                buyer_name: $('#order_payer_name').val(),
-                buyer_tel: $('#order_payer_phone_number').val(),
-                buyer_addr: $('#order_received_at').val(),
-                buyer_postcode: $('#order_received_zip_code').val()
+            var adr = $('#order_recipient').val();
+            var man = $('#order_received_at').val();
+            var nam = $('#order_payer_name').val();
+            var emal = $('#order_payer_email').val();
+            var tel = $('#order_payer_phone_number').val();
+            if (adr == '' || man == '' || nam == '' || emal == '' || tel == '') {
+                alert("제대로 입력해주세요");
+            } else {
 
-            }, function (rsp) { // callback
-                if (rsp.success) {
-                    var now = new Date();
-                    var nowTime = now.getFullYear();
-                    console.log(nowTime);
-                    nowTime += '-' + (now.getMonth() + 1);
-                    nowTime += '-' + now.getDate();
-                    console.log(now + " nowTime" + nowTime);
-                    /*var source = {
+                IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
+                console.log("getTP : " + $('#paymentTP').text());
+
+                var price = $('#paymentTP').text();
+                price = Number(price);
+                //IMP.request_pay(param, callback) 호출
+                console.log("실험 : " + $('#order_payer_email').val() + $('#order_payer_name').val() + $('#order_payer_phone_number').val()
+                    + $('#order_received_at').val());
+                IMP.request_pay({ // param
+                    pg: "inicis",
+                    pay_method: "card",
+                    merchant_uid: 'merchant_' + new Date().getTime(),
+                    name: $('#productNameTest').text() + " 외",
+                    amount: 1,
+                    buyer_email: $('#order_payer_email').val(),
+                    buyer_name: $('#order_payer_name').val(),
+                    buyer_tel: $('#order_payer_phone_number').val(),
+                    buyer_addr: $('#order_received_at').val(),
+                    buyer_postcode: $('#order_received_zip_code').val()
+
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        var now = new Date();
+                        var nowTime = now.getFullYear();
+                        console.log(nowTime);
+                        nowTime += '-' + (now.getMonth() + 1);
+                        nowTime += '-' + now.getDate();
+                        console.log(now + " nowTime" + nowTime);
+                        /*var source = {
                         orderNo : nowTime+"-2599",
                         productNo : $('#productNo').val(),
                         memberId : null,
@@ -392,50 +424,46 @@
                         payCode : "2",
                         orderCode : "10"
                     };*/
-                    //console.log("source :: "+source);
-                    //console.log("source : : "+source.orderNo);
-                    $.ajax({
-                        url: '/paymentCom',
-                        type: "POST",
+                        //console.log("source :: "+source);
+                        //console.log("source : : "+source.orderNo);
+                        $.ajax({
+                            url: '/paymentCom',
+                            type: "POST",
+                            data: {
+                                orderNo: null,
+                                productNo: $('#productNo').val(),
+                                memberId: null,
+                                colorName: $('#colorName').val(),
+                                orderQty: $('#orderQty').val(),
+                                totalPrice: price,
+                                recipient: $('#order_recipient').val(),
+                                orderAddr: $('#order_received_at').val(),
+                                orderDate: dateResult,
+                                payCode: "2",
+                                orderCode: "10",
+                                nonMemberName: $('#order_payer_name').val(),
+                                nonMemberEmail: $('#order_payer_email').val(),
+                                nonMemberPw: $('#order_payer_password').val(),
+                                nonMemberTel: $('#order_received_phone_number').val(),
+                                nonMemberAddr: $('#order_received_at').val()
+                            },
+                            success: function () {
+                                alert("결제가 완료되었습니다.홈으로 이동합니다.");
+                                //location.href = "/";
+                                console.log("세션을 삭제합니다");
+                                localStorage.removeItem("saveL");
+                            },
+                            error: function () {
+                                alert('ajax 실패')
+                            }
 
-                        data: {
-                            orderNo: null,
-                            productNo: $('#productNo').val(),
-                            memberId: null,
-                            colorName: $('#colorName').val(),
-                            orderQty: $('#orderQty').val(),
-                            totalPrice: price,
-                            recipient: $('#order_recipient').val(),
-                            orderAddr: $('#order_received_at').val(),
-                            orderDate: "2020-07-01",
-                            payCode: "2",
-                            orderCode: "10",
-                            nonMemberName: $('#order_payer_name').val(),
-                            nonMemberEmail: $('#order_payer_email').val(),
-                            nonMemberPw: $('#order_payer_password').val(),
-                            nonMemberTel: $('#order_received_phone_number').val(),
-                            nonMemberAddr: $('#order_received_at').val()
-                        },
-                        success: function () {
-                            alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                            //location.href = "/";
-                            console.log("세션을 삭제합니다");
-                            localStorage.removeItem("saveL");
-                        },
-                        error: function () {
-                            alert('ajax 실패')
-                        }
-
-                    })
-                } else {
-                    alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-                }
-            });
+                        })
+                    } else {
+                        alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
+                    }
+                });
+            }
         }
-    </script>
-
-
-    <script>
         function execPostCode() {
             new daum.Postcode({
                 oncomplete: function (data) {
@@ -479,10 +507,6 @@
                 }
             }).open();
         }
-    </script>
-
-
-    <script>
         var name = "";
 
         function InitValue(frm) {
@@ -508,10 +532,6 @@
                 document.getElementById("order_recipient").value = '';
             }*/
         }
-    </script>
-
-
-    <script>
         function check() {
             if (fr.zipCode.value == "") { // 지번
                 alert("값을 입력해 주세요.1");

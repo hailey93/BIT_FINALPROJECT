@@ -9,9 +9,7 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
         <link rel="stylesheet" th:href="@{/css/basket.css}">
     </th:block>
-    <!--<th:block layout:fragment="js">
-        <link rel="stylesheet" th:href="@{/js/payment.js}">
-    </th:block>-->
+
     <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
     </div>
     <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -40,15 +38,6 @@
                     value="ze6WpkSJXppVytsnsVCC/Rw4N/nrcPaUYMlh94aRzHT3RPv8LgoiclODhGPwB5YVSWDdbRpq+Khtuxdc5WbwSg==">
                 <div id="title">
                     주문/결제
-                </div>
-                <div class="current-user__blank">
-                    <p class="current-user__blank__text">
-                        비회원은 쿠폰 &amp; 포인트 혜택을 받을 수 없습니다.<br>
-                        회원가입하고 다양한 혜택을 받으세요.
-                    </p>
-                    <a class="current-user__blank__btn" href="/signup">
-                        오늘의집 회원가입하기<span class="arrow-right-icon"></span>
-                    </a>
                 </div>
                 <div class="panel">
                     <div class="title">
@@ -96,7 +85,7 @@
                                     <div class="information">
                                         <img th:src="@{'/uploadImg/'+${productVO.getProductMainImg()}}" alt="320">
                                         <div>
-                                            <div class="name" id="productNameTest"
+                                            <div class="name" id="productNameTest1"
                                                  th:text="${productVO.productName}"></div>
                                             <div class="option" th:text="${productVO.colorVO.colorType}"></div>
                                             <div class="cost_count">
@@ -287,11 +276,12 @@
                             <input type="radio" value="kcp_credit_card" name="order[payment_method]"
                                    id="order_payment_method_kcp_credit_card">
 
-                            <label class="first  top" for="order_payment_method_kcp_credit_card" onclick="">
+                            <label class="first  top" for="order_payment_method_kcp_credit_card"
+                                   onclick="kakaoSubmit()">
                                 <!-- kakaoPay submit 어떻게? -->
-                                <img class="img" width="64" src="" alt="Card">
+                                <img class="img" width="64" src="/img/kaka5.png" alt="Card">
                                 <div class="title">카카오페이</div>
-                                <button>카카오페이로 결제하기</button>
+                                <!--<button>카카오</button>-->
                                 <div class="event" data-title="유의사항" data-detail1="-긴급재난지원금은 오늘의집에서 사용이 불가합니다"
                                      data-detail2="">
 
@@ -301,7 +291,7 @@
 
                             <label class=" top" for="order_payment_method_without_bankbook" onclick="requestPay()">
                                 <img class="img" width="64"
-                                     src="https://bucketplace-v2-development.s3.amazonaws.com/pg/vbank.png" alt="Vbank">
+                                     src="/img/ini.png" alt="Vbank">
                                 <div class="title">이니시스</div>
                                 <div class="event" data-title="" data-detail1="" data-detail2="">
 
@@ -333,220 +323,9 @@
         </div>
     </div>
 
-    <!-- iamport.payment.js -->
-    <script>
-        $('#getTP').text(getTP());
-        $('#paymentTP').text(getTP());
-
-        function getTP() {
-            console.log("getTP실행");
-            var tPrice = new Array();
-            var TP = 0;
-            $('.totalCost').each(function () {
-                tPrice.push($(this).attr('price-total'));
-            });
-            //console.log("tPrice :: "+tPrice);
-
-            for (var m = 0; m < tPrice.length; m++) {
-                console.log(Number(tPrice[m]));
-                TP += Number(tPrice[m]);
-            }
-            console.log("결과 : " + TP);
-            return TP;
-
-        }
-    </script>
-    <script>
-        var IMP = window.IMP;
-
-        function requestPay() {
-            IMP.init("imp76163221"); // "imp00000000" 대신 발급받은 "가맹점 식별코드"를 사용합니다.
-
-            console.log("이름 테스트 : " + $('#productNameTest').text() + " 외");
-            console.log("이메일 테스트 : " + $('#order_payer_email').val() + " 이름 : " + $('#order_payer_name').val()
-                + " 집코드 : " + $('#order_received_zip_code').val() + " 번호 : " + $('#order_payer_phone_number').val());
-            console.log("test : " + $('#productNo').val() + "memId : " + $('#memberId').val() + "colorName :" + $('#colorName').val()
-                + "orderQty" + $('#orderQty').val() + "totalPrice" + $('#totalPrice').val() + "recipient : " + $('#order_recipient').val()
-                + "recieved_at : " + $('#order_received_at').val())
-            //IMP.request_pay(param, callback) 호출
-            var price = $('#paymentTP').text();
-            console.log("실험 : " + $('#order_payer_email').val() + $('#order_payer_name').text() + $('#order_payer_phone_number').val()
-                + $('#order_received_at').text());
-            price = Number(price);
-            IMP.request_pay({ // param
-                pg: "inicis",
-                pay_method: "card",
-                merchant_uid: 'merchant_' + new Date().getTime(),
-                name: $('#productNameTest').text() + " 외",
-                amount: 1,
-                buyer_email: $('#order_payer_email').val(),
-                buyer_name: $('#order_payer_name').val(),
-                buyer_tel: $('#order_payer_phone_number').val(),
-                buyer_addr: $('#order_received_at').val(),
-                buyer_postcode: $('#order_received_zip_code').val()
-            }, function (rsp) { // callback
-                if (rsp.success) {
-                    var now = new Date();
-                    var nowTime = now.getFullYear();
-                    nowTime += '-' + (now.getMonth() + 1);
-                    nowTime += '-' + now.getDate();
-                    $.ajax({
-                        url: '/paymentCom',
-                        type: "POST",
-
-                        data: {
-                            orderNo: null,
-                            productNo: $('#productNo').val(),
-                            memberId: $('#memberId').val(),
-                            colorName: $('#colorName').val(),
-                            orderQty: $('#orderQty').val(),
-                            totalPrice: price,
-                            recipient: $('#order_recipient').val(),
-                            orderAddr: $('#order_received_at').val(),
-                            orderDate: "2020-07-01",
-                            payCode: "2",
-                            orderCode: "10"
-                        },
-                        success: function () {
-                            alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                            location.href = "/";
-                        },
-                        error: function () {
-                            alert('ajax 실패')
-                        }
-
-                    })
-                } else {
-                    alert("결제에 실패하였습니다. 에러 내용: " + rsp.error_msg);
-                }
-            });
-        }
-    </script>
-
-
-    <script>
-        function execPostCode() {
-            new daum.Postcode({
-                oncomplete: function (data) {
-                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
-                    // 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-                    var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-                    var extraRoadAddr = ''; // 도로명 조합형 주소 변수
-
-                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
-                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-                    if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
-                        extraRoadAddr += data.bname;
-                    }
-                    // 건물명이 있고, 공동주택일 경우 추가한다.
-                    if (data.buildingName !== '' && data.apartment === 'Y') {
-                        extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                    }
-                    // 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-                    if (extraRoadAddr !== '') {
-                        extraRoadAddr = ' (' + extraRoadAddr + ')';
-                    }
-                    // 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-                    if (fullRoadAddr !== '') {
-                        fullRoadAddr += extraRoadAddr;
-                    }
-
-                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                    console.log(data.zonecode);
-                    console.log(fullRoadAddr);
-
-
-                    $("[name=zipCode]").val(data.zonecode);
-                    $("[name=receivedAt]").val(fullRoadAddr);
-
-                    //document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-                    //document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-                    //document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress;
-                    window.close();
-                }
-            }).open();
-        }
-
-    </script>
-
-
-    <script>
-        var name = "";
-        var phoneNum = "";
-
-        function InitValue(frm) {
-
-            name = frm.order_payer_name.value; //이름
-            phoneNum = frm.order_received_phone_number.value;
-        }
-
-        function ShipToBill(frm) {
-            var n = null;
-            if (frm.copy_delivery.checked) {
-
-                InitValue(frm);			//현재 텍스트박스와 체크박스의 상태유지
-
-                document.getElementById("order_payer_name").value = document.getElementById("order_recipient").value; // 이름 = 받는사람
-                document.getElementById("order_payer_phone_number").value = document.getElementById("order_received_phone_number").value;
-
-            } else {						//체크박스를 해제한다면
-
-                frm.order_payer_name.value = ''; // 이름 = 이름
-                frm.order_payer_phone_number.value = '';
-            }
-            /*if(!frm.copy_delivery.checked){
-                document.getElementById("order_recipient").value = '';
-            }*/
-        }
-    </script>
-
-    <script>
-        function check() {
-            if (fr.zipCode.value == "") { // 지번
-                alert("값을 입력해 주세요.1");
-                fr.fr.zipCode.value.focus();
-                return false;
-            } else if (fr.receivedAt.value == "") {	//주소
-                alert("값을 입력해 주세요.2");
-                fr.fr.receivedAt.value.focus();
-                return false;
-            } else if (receivedAtDetail == "") {	//주소
-                alert("값을 입력해 주세요.3");
-                fr.receivedAtDetail.focus();
-                return false;
-            } else return true;
-        }
-
-        function saveMemberAddr() {
-            //document.getElementById('signUpUserPostNo').value = data.zonecode; //5자리 새우편번호 사용
-            //document.getElementById('signUpUserCompanyAddress').value = fullRoadAddr;
-            //document.getElementById('signUpUserCompanyAddressDetail').value = data.jibunAddress;
-            var zipCode1 = document.getElementById('order_received_zip_code').value
-            var receivedAt1 = document.getElementById('order_received_at').value
-            var receivedAtDetail1 = document.getElementById('order_received_at_detail').value
-            var fullAddr;
-            console.log(zipCode1 + receivedAt1 + receivedAtDetail1 + "\n" + fullAddr);
-            if (zipCode1 == '' || receivedAt1 == '') {
-                alert("주소를 입력하세요");
-            } else {
-                fullAddr = zipCode1 + receivedAt1 + receivedAtDetail1;
-                $.ajax({
-                    url: 'saveAddr',
-                    type: "POST",
-                    data: {
-                        fullAddr: fullAddr
-                    }, success: function () {
-                        console.log("성공");
-                    }, error: function () {
-                        console.log("실패");
-                    }
-                })
-            }
-        }
-
-    </script>
+    <th:block layout:fragment="js">
+        <script type="text/javascript" th:src="@{/js/memberPayment.js}"></script>
+    </th:block>
 </div>
 <button onClick="requestPay()">이니시스 결제</button>
 <script th:inline="javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
