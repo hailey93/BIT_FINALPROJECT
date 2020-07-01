@@ -9,31 +9,122 @@
 <body>
 <div layout:fragment="content">
     <th:block th:replace="th/fragments/navBar_myPage"></th:block>
-    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
-<div class="container">
-    <div class="form-group">
-        <img th:src="@{'/uploadImg'+${mprofile.memberImg}}" style="width: 300px; height: 300px;"/>
+    <div class="user-show-layout">
+        <div class="container">
+            <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
+            <div class="row">
+                <div class="col-12 col-lg-3 wrap--profile">
+                    <div data-sticky-enabled="false" data-sticky-always="false" data-direction="top" data-offset="81" class="sticky-container"
+                         style="position: sticky; top: 81px;">
+                        <div class="sticky-child" style="position: relative">
+                            <div class="user-profile">
+                                <div class="user-profile__container">
+                                    <div class="user-profile__profile-image">
+                                        <!--사용자 이미지-->
+                                        <img th:if="${mprofile?.memberImg != null}" th:src="@{'/uploadImg'+${mprofile?.memberImg}}"
+                                             th:attr="srcset=|@{'/uploadImg'+${mprofile?.memberImg}} 1.5x,
+                                                              @{'/uploadImg'+${mprofile?.memberImg}} 2x,
+                                                              @{'/uploadImg'+${mprofile?.memberImg}} 3x|">
+                                        <img th:if="${mprofile?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                             th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                              @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                              @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
+                                    </div>
+                                    <div class="profile-info">
+                                        <div class="profile-info__name">
+                                            <span th:text="${mprofile?.memberId}"></span>
+                                        </div>
+                                        <div class="profile-info__follow-state">
+                                            <div class="profile-info__follow-state__text">
+                                                <span>팔로워
+                                                    <span class="highlight" th:text="${followCount}"></span>
+                                                </span>
+                                            </div>
+                                            <div class="profile-info__follow-state__vertical-bar"></div>
+                                            <div class="profile-info__follow-state__text">
+                                                <span>팔로잉
+                                                    <span class="highlight" th:text="${followingCount}"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="profile-info__actions">
+                                            <button class="profile-info__btn profile-info__btn--secondary" type="button">팔로우</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="user-profile__empty"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal-line"></div>
+                <div class="col-12 offset-lg-1 col-lg-8 wrap--contents">
+                    <div class="contents">
+                        <section class="post post--collection">
+                            <h5 class="post__title">
+                                사진
+                                <strong th:text="사진수"></strong>
+                                <a class="posts__title__show-all" href="/member/allPhoto/{memberId}">전체보기</a>
+                            </h5>
+                            <div class="row post--cards__list">
+                                <th:block th:each=""><!-- 사진 게시물 4개 -->
+                                    <div class="col-4 col-md-3">
+                                        <div class="post--cards__item">
+                                            <a th:herf=""><!--사진 게시물 detail경로--></a>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </section>
+                        <section class="post post--collection">
+                            <h5 class="post__title">
+                                스크랩북
+                                <strong th:text="스크랩수"></strong>
+                                <a class="posts__title__show-all" href="/member/allScrap">전체보기</a><!-- id값 받아서 넘겨야되니까 allScrap/{memberId}로 바꾸던지 -->
+                            </h5>
+                            <div class="row post--cards__list">
+                                <th:block th:each=""><!-- 스크랩 게시물 4개 -->
+                                    <div class="col-4 col-md-3">
+                                        <div class="post--cards__item">
+                                            <a th:herf=""><!--스크랩 게시물 detail경로--></a>
+                                        </div>
+                                    </div>
+                                </th:block>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-            <th:block th:text="${mprofile.memberId}"/>
-    </div>
-    <div class="form-group">
-            <p>팔로워<th:block th:text="${followCount}"></th:block>
-                팔로잉<th:block th:text="${followingCount}"></th:block></p>
-    </div>
-    <div class="form-group">
-        <th:block th:text="${mprofile.memberIntro}"/>
-    </div>
+</div>
+
+
+
+
+<!--<div class="form-group">
+    <img th:src="@{'/uploadImg'+${mprofile.memberImg}}" style="width: 300px; height: 300px;"/>
+</div>
+<div class="form-group">
+    <th:block th:text="${mprofile.memberId}"/>
+</div>
+<div class="form-group">
+    <p>팔로워<th:block th:text="${followCount}"></th:block>
+        팔로잉<th:block th:text="${followingCount}"></th:block></p>
+</div>
+<div class="form-group">
+    <th:block th:text="${mprofile.memberIntro}"/>
+</div>
 </div>
 <div class="container">
     <div class="form-group">
-    <h3>사진<th:block th:text="${photoCount}"/></h3>
+        <h3>사진<th:block th:text="${photoCount}"/></h3>
     </div>
     <div class="form-group">
         <th:block th:each="mphoto : ${myphoto}">
-        <tr th:onclick="" ><!-- photodetail로 이동-->
-        <td><img th:src="'/uploadImg'+${mphoto.photoImg1}" style="width: 200px; height: 200px;"/></td>
-        </tr>
+            <tr th:onclick="" >&lt;!&ndash; photodetail로 이동&ndash;&gt;
+                <td><img th:src="'/uploadImg'+${mphoto.photoImg1}" style="width: 200px; height: 200px;"/></td>
+            </tr>
         </th:block>
     </div>
     <div class="form-group">
@@ -41,12 +132,11 @@
     </div>
     <div class="form-group">
         <th:block th:each="mscrap : ${myscrap}">
-            <tr th:onclick=""><!-- photodetail로 이동-->
+            <tr th:onclick="">&lt;!&ndash; photodetail로 이동&ndash;&gt;
                 <td><img th:src="'/uploadImg'+${mscrap.photoImg1}" style="width: 200px; height: 200px;"/></td>
             </tr>
         </th:block>
-    </div>
-</div>
-</div>
+    </div>-->
+
 </body>
 </html>

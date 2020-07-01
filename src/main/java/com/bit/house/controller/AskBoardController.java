@@ -4,6 +4,8 @@ import com.bit.house.domain.AskBoardVO;
 import com.bit.house.domain.CommentVO;
 import com.bit.house.domain.MemberVO;
 import com.bit.house.mapper.AskBoardMapper;
+import com.bit.house.mapper.MyPageMapper;
+import com.bit.house.mapper.PhotoBoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +25,12 @@ public class AskBoardController {
     @Autowired(required = false)
     AskBoardMapper askBoardMapper;
 
+    @Autowired(required = false)
+    PhotoBoardMapper photoBoardMapper;
+
+    @Autowired(required = false)
+    MyPageMapper myPageMapper;
+
     @RequestMapping("/askBoardList")//게시판 리스트 화면 호출
     private String askBoardList(Model model) throws Exception {
 
@@ -32,12 +40,17 @@ public class AskBoardController {
     }
 
     @RequestMapping("/askdetail/{askBoardNo}") //글 상세페이지
-    private String askDetail(@PathVariable int askBoardNo, Model model) throws Exception {
+    private String askDetail(@PathVariable int askBoardNo, Model model, HttpSession session) throws Exception {
 
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
+        AskBoardVO detail=askBoardMapper.askDetail(askBoardNo);
+
+        model.addAttribute("member", photoBoardMapper.myProfileImg(memberVO.getMemberId()));
+        model.addAttribute("detail", detail);
         model.addAttribute("askComment", askBoardMapper.askComment(askBoardNo));
         model.addAttribute("commentCount", askBoardMapper.askCommentCount(askBoardNo));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), detail.getMemberId()));
 
 
         return "th/askBoard/askBoardDetail";
@@ -79,7 +92,9 @@ public class AskBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        askBoardVO.setAskTitle(request.getParameter("askTitle"));
+        String content = "ㄴ"+request.getParameter("askTitle");
+
+        askBoardVO.setAskTitle(content);
         askBoardVO.setMemberId(memberVO.getMemberId());
         askBoardVO.setAskContent(request.getParameter("askContent"));
         askBoardVO.setAskGroupNo(Integer.parseInt(request.getParameter("askGroupNo")));
@@ -162,16 +177,16 @@ public class AskBoardController {
 
     @RequestMapping("/insertAskComment")
     @ResponseBody
-    private void insertComment(@RequestParam("commentContent") String commentContent, CommentVO commentVO, HttpSession session, @RequestParam("photoBoardNo") int photoBoardNo) throws Exception{
+    private void insertAskComment(@RequestParam("commentContent") String commentContent, CommentVO commentVO, HttpSession session, @RequestParam("askBoardNo") int askBoardNo) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
         System.out.println("내용 : "+commentContent);
-        System.out.println("글번호 : "+photoBoardNo);
+        System.out.println("글번호 : "+askBoardNo);
 
         commentVO.setMemberId(memberVO.getMemberId());
         commentVO.setCommentContent(commentContent);
-        commentVO.setPhotoBoardNo(photoBoardNo);
+        commentVO.setPhotoBoardNo(askBoardNo);
 
         askBoardMapper.insertAskComment(commentVO);
 

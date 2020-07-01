@@ -184,26 +184,30 @@ public class MyPageController {
         model.addAttribute("scrapCount", myPageMapper.scrapCount(memberVO.getMemberId()));
 
 
+
         return "th/member/mypage/profile/myBoard";
     }
 
     //사용자 프로필
     @RequestMapping("/memberProfile/{memberId}")
-    private String memberProfile(Model model, @PathVariable("memberId") String userId, HttpSession session) throws Exception{
+    private String memberProfile(Model model, @PathVariable("memberId") String memberId, HttpSession session) throws Exception{
+
+        //service로 넘어가서 memberId값이 null이라면 memberVO.getmemberId()를 memberId에 넣어주고 넘기는걸로?
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        System.out.println("userId : "+ userId);
+        System.out.println("userId : "+ memberId);
 
 
-        model.addAttribute("memprofile", myPageMapper.myProfile(userId));
-        model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
-        model.addAttribute("memberscrap", myPageMapper.profileScrap(userId));
-        model.addAttribute("followCount", myPageMapper.followCount(userId));
-        model.addAttribute("followingCount", myPageMapper.followingCount(userId));
-        model.addAttribute("photoCount", myPageMapper.photoCount(userId));
-        model.addAttribute("scrapCount", myPageMapper.scrapCount(userId));
-        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), userId));
+
+        model.addAttribute("memprofile", myPageMapper.myProfile(memberId));
+        model.addAttribute("memphoto", myPageMapper.profilePhoto(memberId));
+        model.addAttribute("memberscrap", myPageMapper.profileScrap(memberId));
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("photoCount", myPageMapper.photoCount(memberId));
+        model.addAttribute("scrapCount", myPageMapper.scrapCount(memberId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
         //System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
 
@@ -221,8 +225,8 @@ public class MyPageController {
     }
 
     //스크랩 전체보기
-    @RequestMapping("/allScrap")
-    private String allScrap(Model model, @RequestParam(required = false) String memberId) throws Exception{
+    @RequestMapping("/allScrap/{memberId")
+    private String allScrap(Model model, @PathVariable String memberId) throws Exception{
         //이것도 세션안받음
         System.out.println(memberId);
         model.addAttribute("scrap", myPageMapper.allScrap(memberId));

@@ -11,20 +11,23 @@
     </select>
 
     <select id="askDetail" parameterType="int" resultType="AskBoardVO">
-        SELECT * FROM askboard WHERE askBoardNo = #{askBoardNo}
+        SELECT a.askBoardNo, a.memberId, a.askTitle, a.askContent, a.askDate, a.askGroupNo, a.askIndent, a.askStep, m.memberImg
+        FROM askboard a  INNER JOIN member m
+        ON a.memberId = m.memberId
+        WHERE askBoardNo = #{askBoardNo}
     </select>
 
     <insert id="insertAsk" parameterType="com.bit.house.domain.AskBoardVO">
         INSERT INTO
         askboard (askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
-        values(#{askTitle}, #{askContent}, #{memberId}, now(), (select ifnull (max(askBoardno)+1, 1) from askboard b),
+        values(#{askTitle}, #{askContent}, #{memberId}, now(), (select ifnull (max(askBoardNo)+1, 1) from askboard b),
         0, 0)
     </insert>
 
     <update id="askUpdate" parameterType="AskBoardVO">
         UPDATE askboard SET
         askTitle = #{askTitle}, askContent=#{askContent}
-        WHERE askBoardno = #{askBoardno}
+        WHERE askBoardNo = #{askBoardNo}
     </update>
 
     <insert id="askReply" parameterType="AskBoardVO">
@@ -51,7 +54,7 @@
     <insert id="insertAskComment" parameterType="CommentVO">
         INSERT INTO
         comment(memberId, commentupDate, commentContent, commentGroupNo, commentIndent, commentStep, askBoardNo)
-        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0), #{askBoardNo})
+        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0, #{askBoardNo})
     </insert>
 
 </mapper>

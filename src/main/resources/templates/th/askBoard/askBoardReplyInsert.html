@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>답변작성</title>
-
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/askBoard.css}">
+    </th:block>
 
     <script type="text/javascript" th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
     <script type="text/javascript" th:src="@{/js/askBoard.js}"></script>
@@ -13,9 +15,8 @@
 
 <body>
 <div layout:fragment="content">
-<h2>답글 작성</h2>
-
-<div class="container">
+    <div class="container">
+    <h2>답글 작성</h2>
     <form action="/askreplyProc" method="post" id="replyInsertBoardFrm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="askTitle">제목</label>
@@ -27,7 +28,8 @@
         </div>
         <input type="hidden" id="askGroupNo" name="askGroupNo" th:value="${detail.askGroupNo}"/>
         <input type="hidden" id="askIndent" name="askIndent" th:value="${detail.askIndent}"/>
-        <input type="button" id="replyInsertBoard" value="등록"/>
+        <button type="button" id="replyInsertBoard"
+                class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow">등록</button>
     </form>
 </div>
 </div>
