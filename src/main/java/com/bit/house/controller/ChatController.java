@@ -44,15 +44,19 @@ public class ChatController {
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
             chatRepository.deleteChatRoom(message.getChatId());
         } else{
-            //채팅시간 set
-            SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-            String time=currentTime.format(System.currentTimeMillis());
-            message.setTime(time);
-            //채팅메시지 저장
-            chatRepository.saveMsg(message);
-            redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+            if(chatRepository.findRoombyId(message.getChatId()).getCount()==2){
+                //채팅시간 set
+                SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+                String time=currentTime.format(System.currentTimeMillis());
+                message.setTime(time);
+                //채팅메시지 저장
+                chatRepository.saveMsg(message);
+                redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+            } else{
+                message.setMsg("상담원이 입장할때까지 잠시만 기다려주세요.");
+                redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+            }
         }
-
     }
 
     @PostMapping("/chat")
