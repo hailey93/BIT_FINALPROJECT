@@ -4,7 +4,10 @@
       layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
-    <title>내 프로필</title>
+    <title><th:block th:text="${mprofile?.memberId}"/>님의 프로필</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/profile.css}">
+    </th:block>
 </head>
 <body>
 <div layout:fragment="content">
@@ -47,9 +50,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="profile-info__actions">
-                                            <button class="profile-info__btn profile-info__btn--secondary" type="button">팔로우</button>
-                                        </div>
+
                                     </div>
                                 </div>
                                 <div class="user-profile__empty"></div>
@@ -63,14 +64,19 @@
                         <section class="post post--collection">
                             <h5 class="post__title">
                                 사진
-                                <strong th:text="사진수"></strong>
-                                <a class="posts__title__show-all" href="/member/allPhoto/{memberId}">전체보기</a>
+                                <strong th:text="${photoCount}"></strong>
+                                <a class="posts__title__show-all" th:href="@{/member/allPhoto/{memberId}(memberId=${mprofile.memberId})}">전체보기</a>
                             </h5>
                             <div class="row post--cards__list">
-                                <th:block th:each=""><!-- 사진 게시물 4개 -->
+                                <th:block th:each="photo : ${myphoto}"><!-- 사진 게시물 4개 -->
                                     <div class="col-4 col-md-3">
                                         <div class="post--cards__item">
-                                            <a th:herf=""><!--사진 게시물 detail경로--></a>
+                                            <a th:herf="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
+                                                <img class="post--cards__item__img" th:src="@{'/uploadImg'+${photo.photoImg1}}"
+                                                     th:attr="srcset=|@{'/uploadImg'+${photo?.photoImg1}} 1.5x,
+                                                              @{'/uploadImg'+${photo?.photoImg1}} 2x,
+                                                              @{'/uploadImg'+${photo?.photoImg1}} 3x|">
+                                            </a>
                                         </div>
                                     </div>
                                 </th:block>
@@ -79,14 +85,19 @@
                         <section class="post post--collection">
                             <h5 class="post__title">
                                 스크랩북
-                                <strong th:text="스크랩수"></strong>
-                                <a class="posts__title__show-all" href="/member/allScrap">전체보기</a><!-- id값 받아서 넘겨야되니까 allScrap/{memberId}로 바꾸던지 -->
+                                <strong th:text="${scrapCount}"></strong>
+                                <a class="posts__title__show-all" th:href="@{/member/allScrap/{memberId}(memberId=${mprofile.memberId})}">전체보기</a><!-- id값 받아서 넘겨야되니까 allScrap/{memberId}로 바꾸던지 -->
                             </h5>
                             <div class="row post--cards__list">
-                                <th:block th:each=""><!-- 스크랩 게시물 4개 -->
+                                <th:block th:each="scrap : ${myscrap}"><!-- 스크랩 게시물 4개 -->
                                     <div class="col-4 col-md-3">
                                         <div class="post--cards__item">
-                                            <a th:herf=""><!--스크랩 게시물 detail경로--></a>
+                                            <a th:herf="@{/photodetail/{photoBoardNo}(photoBoardNo=${scrap.photoBoardNo})}">
+                                                <img class="post--cards__item__img" th:src="@{'/uploadImg'+${scrap.photoImg1}}"
+                                                     th:attr="srcset=|@{'/uploadImg'+${scrap?.photoImg1}} 1.5x,
+                                                                      @{'/uploadImg'+${scrap?.photoImg1}} 2x,
+                                                                      @{'/uploadImg'+${scrap?.photoImg1}} 3x|">
+                                            </a>
                                         </div>
                                     </div>
                                 </th:block>

@@ -148,10 +148,10 @@
                                         id="follow" name="follow">팔로우</button>
                                 <button th:if="${fcount == 1}"
                                         class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
-                                        id="followcancel" name="followcancel">팔로우 취소</button>
+                                        id="followcancel" name="followcancel">팔로우취소</button>
                                 <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
                                         id="notesend" name="notesend">쪽지보내기</button>
-                                <input type="hidden" id="fol" name="fol" th:value="${detail.memberId}"/>
+                                <input type="hidden" id="memberId" name="memberId" th:value="${detail.memberId}"/>
                                 <input type="hidden" id="receiveId" name="receiveId" value=""/>
                                 </form>
                             </div>

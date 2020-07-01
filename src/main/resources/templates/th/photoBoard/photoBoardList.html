@@ -10,6 +10,11 @@
         <link rel="stylesheet" th:href="@{/css/photoBoard.css}">
     </th:block>
 
+    <th:block layout:fragment="js">
+        <script type="text/javascript" th:src="@{/js/photoList.js}"></script>
+    </th:block>
+
+    <script type="text/javascript" th:inline="javascript">history.scrollRestoration = "auto"</script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -20,7 +25,7 @@
             <!--<button th:if="${member == null}" class="button button&#45;&#45;color-gray-4 button&#45;&#45;size-30 button&#45;&#45;shape-4 card-detail-writer__follow"
                     onclick="location.href='/customLogin'" type="button">글쓰기</button>-->
         </div>
-        <div class="virtualized-list row" style="padding-top:0px; transform: translateY(0px);">
+        <div th:id="autoScroll" class="virtualized-list row" style="padding-top:0px; transform: translateY(0px);">
             <tr th:each="photo : ${photoList}">
                 <div class="col-6 col-md-3 product-item-wrap">
                     <article class="production-item">

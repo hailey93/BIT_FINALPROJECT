@@ -42,7 +42,7 @@ public class MyPageController {
 
 
 
-    //프로필설정
+/*    //프로필설정
     @RequestMapping("/myProfile")
     private String viewProfile(Model model, HttpSession session) throws Exception{
 
@@ -54,15 +54,15 @@ public class MyPageController {
         System.out.println(myPageMapper.selectProfile(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/profileInfo";
-    }
+    }*/
 
-    @RequestMapping("/mainProfile")
+/*    @RequestMapping("/mainProfile")
     private String mainProfile(HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
         return "th/member/mypage/profile/samPro";
-    }
+    }*/
 
     //프로필수정
     @RequestMapping("/modifyProfile")
@@ -109,22 +109,30 @@ public class MyPageController {
         return "th/member/mypage/profile/viewFollow";
     }
     //팔로우 팔로잉 전체보기 html 하나로 합쳐볼것.
-    @RequestMapping("/allFollow")
-    private String allFollow(Model model, HttpSession session) throws Exception{
+    @RequestMapping("/allFollow/{memberId}")
+    private String allFollow(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("follow", myPageMapper.follower(memberVO.getMemberId()));
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("member", myPageMapper.selectProfile(memberId));
+        model.addAttribute("follower", myPageMapper.follower(memberId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
         return "th/member/mypage/profile/allFollow";
     }
     //팔로잉 전체보기
-    @RequestMapping("allFollowing")
-    private String allFollowing(Model model, HttpSession session) throws Exception{
+    @RequestMapping("allFollowing/{memberId}")
+    private String allFollowing(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("following", myPageMapper.following(memberVO.getMemberId()));
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("member", myPageMapper.selectProfile(memberId));
+        model.addAttribute("following", myPageMapper.following(memberId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
         return "th/member/mypage/profile/allFollowing";
     }
@@ -225,7 +233,7 @@ public class MyPageController {
     }
 
     //스크랩 전체보기
-    @RequestMapping("/allScrap/{memberId")
+    @RequestMapping("/allScrap/{memberId}")
     private String allScrap(Model model, @PathVariable String memberId) throws Exception{
         //이것도 세션안받음
         System.out.println(memberId);

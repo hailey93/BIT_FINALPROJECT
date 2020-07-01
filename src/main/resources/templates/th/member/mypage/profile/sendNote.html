@@ -4,61 +4,74 @@
       layout:decorator="th/layout/defaultLayout">
 <head>
     <meta charset="UTF-8">
-    <title>받은 쪽지함</title>
-<style type="text/css">
-    .container
-    {
-        width: 1000px;
-        margin:0 auto;
-        align: center;
-    }
-</style>
-    <script src="https://code.jquery.com/jquery-latest.js"></script>
+    <title>보낸 쪽지함</title>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/askBoard.css}">
+        <link rel="stylesheet" th:href="@{/css/profile.css}">
+    </th:block>
     <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </head>
 
 <body>
 <div layout:fragment="content">
     <th:block th:replace="th/fragments/navBar_myPage"></th:block>
-    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
-<h2>받은 쪽지함&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/member/receiveNote">보낸 쪽지함</a></h2>
-<div class="container">
-    <form action="/member/noteSending" method="post" id="sending" name="sending">
+    <div class="container">
+        <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
+        <div class="myhome-nav">
+            <nav class="page-navigation myhome-nav__contents">
+                <ul>
+                    <li class="page-navigation__item">
+                        <a target="_self" th:href="@{/member/receiveNote}">받은쪽지함</a>
+                    </li>
+                    <li class="page-navigation__item  page-navigation__item--active">
+                        <a target="_self" th:href="@{/member/sendNote}">보낸쪽지함</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <br>
+        <form action="/member/noteSending" method="post" id="sending" name="sending">
 
-    <input type="button" id="send" name="send" value="쪽지보내기">
-    <input type="button" id="delete" name="delete" value="삭제" >
+            <input type="button" id="send" name="send"
+                   class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                   value="쪽지보내기">
+            <input type="button" id="delete" name="delete"
+                   class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                   value="삭제">
+            <br>
+            <table class="table table-hover">
+                <tr>
+                    <th><input type="checkbox" name="allcheck" id="allcheck"/></th>
+                    <th>쪽지내용</th>
+                    <th>받은사람</th>
+                </tr>
 
-    <table class="table" >
-        <tr>
-            <th><input type="checkbox" name="allcheck" id="allcheck"/></th>
-            <th>쪽지내용</th>
-            <th>보낸사람</th>
-        </tr>
-        <th:block th:each="send : ${sendnote}">
-        <td>
-            <td class="select_note">
-                <input type="checkbox" name="check" id="check" th:data-No="${send.msgNo}"
-                th:data-sendId="${send.memberId}"/>
-            </td>
-            <td th:onclick="" th:text="${send.msgContent}">
-                <!--<span class="sub" th:text="${send.msgContents}" />--><!-- onclick에 ajax 연결 경로-->
-            <textarea id="sub" name="sub" th:text="${send.msgContent}" style="width:500px; height:150px; /*display: none*/" readonly></textarea>
-        </td>
+                <th:block th:each="send : ${sendnote}">
+                    <tr>
 
-            <td th:text="${send.memberId}"/>
+                        <td class="select_note">
+                            <input type="checkbox" name="check" id="check" th:data-No="${send.msgNo}"
+                                   th:data-sendId="${send.receiveId}"/>
+                        </td>
+                        <td th:onclick="" th:text="${send.msgContent}">
+                            <!--<span class="sub" th:text="${send.msgContents}" />--><!-- onclick에 ajax 연결 경로-->
+                            <textarea id="sub" name="sub" th:text="${send.msgContent}"
+                                      style="width:500px; height:150px; /*display: none*/" readonly></textarea>
+                        </td>
 
-        </tr>
-            <!--<tr>
-                <td></td>
-                <td><textarea id="sub" name="sub" th:text="${send.msgContents}" style="width:500px; height:150px; display: none" readonly></textarea></td>
-            </tr>-->
+                        <td th:text="${send.receiveId}"/>
+                    </tr>
+                </th:block>
+                <!--<tr>
+                    <td></td>
+                    <td><textarea id="sub" name="sub" th:text="${send.msgContents}" style="width:500px; height:150px; display: none" readonly></textarea></td>
+                </tr>-->
 
-        </th:block>
 
-    </table>
-        <input type="hidden" id="receiveId" name="receiveId" value=""/>
-    </form>
-</div>
+            </table>
+            <input type="hidden" id="receiveId" name="receiveId" value=""/>
+        </form>
+    </div>
 </div>
 </body>
 </html>

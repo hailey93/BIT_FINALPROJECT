@@ -28810,43 +28810,43 @@ html {
 .user-header__btn--follow:before {
     content: '';
     vertical-align: -3px;
-    margin-right: 5px;
+    margin-right: -13px;
     width: 16px;
     height: 16px;
-    background-image: url("/assets/icon_map/v4/page-mypage.png");
+    /*background-image: url("/assets/icon_map/v4/page-mypage.png");*/
     background-position: left -40px top -160px;
     background-size: 600px auto
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
     .user-header__btn--follow:before {
-        background-image: url("/assets/icon_map/v4/page-mypage@2x.png")
+        /*background-image: url("/assets/icon_map/v4/page-mypage@2x.png")*/
     }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 3dppx), (min-resolution: 288dpi) {
     .user-header__btn--follow:before {
-        background-image: url("/assets/icon_map/v4/page-mypage@3x.png")
+        /*background-image: url("/assets/icon_map/v4/page-mypage@3x.png")/assets/icon_map/v4/page-mypage.png!**!*/
     }
 }
 
 .user-header__btn--follow.active:before {
     width: 16px;
     height: 16px;
-    background-image: url("/assets/icon_map/v4/page-mypage.png");
+    /*background-image: url("/assets/icon_map/v4/page-mypage.png");*/
     background-position: left -80px top -160px;
     background-size: 600px auto
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx), (min-resolution: 192dpi) {
     .user-header__btn--follow.active:before {
-        background-image: url("/assets/icon_map/v4/page-mypage@2x.png")
+        /*background-image: url("/assets/icon_map/v4/page-mypage@2x.png")*/
     }
 }
 
 @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 3dppx), (min-resolution: 288dpi) {
     .user-header__btn--follow.active:before {
-        background-image: url("/assets/icon_map/v4/page-mypage@3x.png")
+        /*background-image: url("/assets/icon_map/v4/page-mypage@3x.png")*/
     }
 }
 
@@ -29159,7 +29159,7 @@ html {
     border-top: none
 }
 
-#users > .user > a > .image {
+#users > .user > a > .comment-feed__item__content > .image {
     float: left;
     width: 28px;
     height: 28px;

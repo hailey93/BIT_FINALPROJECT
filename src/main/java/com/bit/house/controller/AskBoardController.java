@@ -92,13 +92,17 @@ public class AskBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        String content = "ㄴ"+request.getParameter("askTitle");
 
-        askBoardVO.setAskTitle(content);
+
+
+        askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(memberVO.getMemberId());
         askBoardVO.setAskContent(request.getParameter("askContent"));
         askBoardVO.setAskGroupNo(Integer.parseInt(request.getParameter("askGroupNo")));
         askBoardVO.setAskIndent(Integer.parseInt(request.getParameter("askIndent")));
+        askBoardVO.setAskStep(Integer.parseInt(request.getParameter("askStep")));
+
+        askBoardMapper.askReplyUp(askBoardVO);
 
         askBoardMapper.askReply(askBoardVO);
 

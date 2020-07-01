@@ -83,12 +83,12 @@
                                     <!-- th:if로 로그인 사용자의 프로필 이미지가 없으면 아래 사진으로 아니면 그 밑에 사진으로.-->
                                     <img th:if="${member?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${member?.memberImg}}"
                                          th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
-                                                                        @{'/uploadImg'+${member?.memberImg}} 2x,
-                                                                        @{'/uploadImg'+${member?.memberImg}} 3x|">
+                                                          @{'/uploadImg'+${member?.memberImg}} 2x,
+                                                          @{'/uploadImg'+${member?.memberImg}} 3x|">
                                     <img th:if="${member?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                          th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
-                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
-                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
+                                                          @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                          @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                                     <!-- 로그인한 사용자 프로필 이미지 -->
                                 </div>
                                 <div class="comment-feed__form__input">

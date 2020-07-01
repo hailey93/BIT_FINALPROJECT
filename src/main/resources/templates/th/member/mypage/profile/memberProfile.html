@@ -40,15 +40,19 @@
                                         </div>
                                         <div class="profile-info__follow-state">
                                             <div class="profile-info__follow-state__text">
+                                                <a th:href="@{/member/allFollow/{memberId}(memberId=${memprofile?.memberId})}">
                                                 <span>팔로워
                                                     <span class="highlight" th:text="${followCount}"></span>
                                                 </span>
+                                                </a>
                                             </div>
                                             <div class="profile-info__follow-state__vertical-bar"></div>
                                             <div class="profile-info__follow-state__text">
+                                                <a th:href="@{/member/allFollowing/{memberId}(memberId=${memprofile?.memberId})}">
                                                 <span>팔로잉
                                                     <span class="highlight" th:text="${followingCount}"></span>
                                                 </span>
+                                                </a>
                                             </div>
                                         </div>
                                         <div class="profile-info__actions">

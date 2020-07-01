@@ -4,7 +4,7 @@
 
 
     <select id="selectProfile" resultType="MemberVO">
-        SELECT nickName, memberImg, memberIntro
+        SELECT nickName, memberImg, memberIntro, memberId
         FROM member
         WHERE memberId = #{memberId}
     </select>
@@ -17,11 +17,17 @@
     </update>
 
     <select id="follower" resultType="FollowVO">
-        SELECT * FROM follow WHERE memberId = #{memberId}
+        SELECT f.memberId, f.followId, m.memberImg
+        FROM follow f INNER JOIN member m
+        ON m.memberId = f.followId
+        WHERE f.memberId = #{memberId}
     </select>
 
     <select id="following" resultType="FollowVO">
-        SELECT * FROM follow WHERE followId = #{followId}
+        SELECT f.memberId, f.followId, m.memberImg
+        FROM follow f INNER JOIN member m
+        ON m.memberId = f.followId
+        WHERE followId = #{followId}
     </select>
 
     <insert id="follow" parameterType="FollowVO">
@@ -41,7 +47,7 @@
 
     <!--팔로잉 카운트-->
     <select id="followingCount" resultType="int">
-        SELECT count(*) FROM thehouse.follow WHERE followId=#{memberid}
+        SELECT count(*) FROM thehouse.follow WHERE followId=#{memberId}
     </select>
 
     <select id="myProfile" resultType="MemberVO">
@@ -91,16 +97,16 @@
     </select>
 
     <select id="sendNote" resultType="MsgVO">
-        SELECT msgNo, memberId, msgContent, msgDate
+        SELECT msgNo, receiveId, msgContent, msgDate
         FROM msg
-        WHERE receiveId = #{memberId}
+        WHERE memberId = #{memberId}
         ORDER BY msgNo desc
     </select>
 
     <select id="receiveNote" resultType="MsgVO">
-        SELECT msgNo, receiveId, msgContent, msgDate
+        SELECT msgNo, memberId, msgContent, msgDate
         FROM msg
-        WHERE memberId = #{memberId}
+        WHERE receiveId = #{memberId}
         ORDER BY msgNo desc
     </select>
 

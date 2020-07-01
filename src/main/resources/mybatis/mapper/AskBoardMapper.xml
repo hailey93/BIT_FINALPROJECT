@@ -30,12 +30,15 @@
         WHERE askBoardNo = #{askBoardNo}
     </update>
 
+    <update id="askReplyUp" parameterType="AskBoardVO">
+        update askboard SET askStep = askStep+1 WHERE askGroupNo = #{askGroupNo} AND askStep > #{askStep};
+    </update>
+
     <insert id="askReply" parameterType="AskBoardVO">
         INSERT INTO
         askboard(askTitle, askContent, memberId, askDate, askGroupNo, askIndent, askStep)
         values(#{askTitle}, #{askContent}, #{memberId}, curdate(), #{askGroupNo},
-        #{askIndent}+1, (select ifnull(max(askStep)+1, 1) from askboard b where askGroupNo = #{askGroupNo} AND
-        askIndent=#{askIndent}+1))
+        #{askIndent}+1, #{askStep}+1)
     </insert>
 
     <delete id="askDelete" parameterType="int">
@@ -48,13 +51,12 @@
 
     <select id="askComment" resultType="CommentVO">
         SELECT * FROM comment WHERE askBoardNo = #{askBoardNo}
-        ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;
     </select>
 
     <insert id="insertAskComment" parameterType="CommentVO">
         INSERT INTO
-        comment(memberId, commentupDate, commentContent, commentGroupNo, commentIndent, commentStep, askBoardNo)
-        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0, #{askBoardNo})
+        comment(memberId, commentupDate, commentContent, askBoardNo)
+        VALUES(#{memberId}, curdate(), #{commentContent}, #{askBoardNo})
     </insert>
 
 </mapper>

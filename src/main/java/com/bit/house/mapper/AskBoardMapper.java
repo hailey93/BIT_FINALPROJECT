@@ -27,6 +27,8 @@ public interface AskBoardMapper {
     public int askDelete(int askBoardNo) throws Exception;
 
     //답글 작성
+    public int askReplyUp(AskBoardVO askBoardVO) throws Exception;
+
     public int askReply(AskBoardVO askBoardVO) throws Exception;
 
     //댓글
