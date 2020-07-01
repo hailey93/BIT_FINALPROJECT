@@ -22,7 +22,7 @@
                     <option id="areaSelect" th:each="area : ${areaCode}"
                             th:value="${area.areaCode}"
                             th:utext="${area.areaType}"
-                            />
+                    />
                     <input type="hidden" id="area" name="area" value=""/>
                 </select>
                 <select class="custom-select col-md-2" id="houseGroup" name="houseCode">
@@ -60,11 +60,11 @@
             <div class="form-group">
                 <input type="file" id="files" name="files" multiple/>
                 <div id="preview">
-                    <img th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
-                    <img th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
-                    <img th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
-                    <img th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
-                    <img th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
+                    <img th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 300px; height: 300px;"/>
+                    <img th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 300px; height: 300px;"/>
+                    <img th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 300px; height: 300px;"/>
+                    <img th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 300px; height: 300px;"/>
+                    <img th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 300px; height: 300px;"/>
                 </div>
             </div>
             <input type="button" id="photoupdate" name="photoupdate" value="등록"/>

@@ -35,8 +35,11 @@ public class PhotoBoardController {
     }
     //사진 목록
     @RequestMapping("/photoBoardList")
-    private String photoBoardList(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+    private String photoBoardList(Model model, HttpSession session) throws Exception{
 
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        /*model.addAttribute("member", memberVO.getMemberId());*/
         model.addAttribute("photoList", photoBoardMapper.photoBoardList());
 
         return "th/photoBoard/photoBoardList";
@@ -134,17 +137,15 @@ public class PhotoBoardController {
     }
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
-    private String photoDetail(@PathVariable int photoBoardNo, Model model, String userId, PhotoBoardVO photoBoardVO, HttpServletRequest request, HttpSession session) throws Exception{
-        //아이디값은 멤버아이디가 아닌 userId로 받아오고 세션에 내 아이디넣어서 넘겨주고 버튼 생성.
+    private String photoDetail(@PathVariable int photoBoardNo, Model model, HttpSession session) throws Exception{
+
 
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("memberVO", memberVO);
-
         PhotoBoardVO detail=photoBoardMapper.photoDetail(photoBoardNo);
 
-        model.addAttribute("member", memberVO.getMemberId());
+        model.addAttribute("member", photoBoardMapper.myProfileImg(memberVO.getMemberId()));
         model.addAttribute("photodetail", detail);
         model.addAttribute("userphoto", photoBoardMapper.userPhoto(detail.getMemberId()));
         model.addAttribute("likestat", photoBoardMapper.likeStat(memberVO.getMemberId(), photoBoardNo));
@@ -275,6 +276,9 @@ public class PhotoBoardController {
 
         photoBoardMapper.like(likeVO);
 
+        photoBoardMapper.likeCount(photoBoardNo);
+
+
     }
     //좋아요 취소
     @RequestMapping("/nonlike")
@@ -287,6 +291,8 @@ public class PhotoBoardController {
         likeVO.setPhotoBoardNo(photoBoardNo);
 
         photoBoardMapper.cancelLike(likeVO);
+
+        photoBoardMapper.likeCountSub(photoBoardNo);
     }
     //스크랩
     @RequestMapping("/scrap")
@@ -299,6 +305,8 @@ public class PhotoBoardController {
         scrapVO.setPhotoBoardNo(photoBoardNo);
 
         photoBoardMapper.scrap(scrapVO);
+
+        photoBoardMapper.scrapCount(photoBoardNo);
 
     }
     //스크랩취소
@@ -313,6 +321,8 @@ public class PhotoBoardController {
 
         photoBoardMapper.cancelScrap(scrapVO);
 
+        photoBoardMapper.scrapCountSub(photoBoardNo);
+
     }
     //좋아요 누른사람 목록
     @RequestMapping("/likeview")
@@ -321,7 +331,7 @@ public class PhotoBoardController {
         return "th/photoBoard/photoLike";
     }
 
-    //다중파일업로드
+    /*//다중파일업로드
     @RequestMapping(value = "/photouploader", method = RequestMethod.POST)
     @ResponseBody
     public String multiplePhotoUploader(HttpServletRequest request) {
@@ -357,7 +367,7 @@ public class PhotoBoardController {
             e.printStackTrace();
         }
         return sb.toString();
-    }
+    }*/
 
     @RequestMapping("/insertPhotoComment")
     @ResponseBody

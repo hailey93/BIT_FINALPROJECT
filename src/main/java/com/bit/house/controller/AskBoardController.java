@@ -31,11 +31,13 @@ public class AskBoardController {
         return "th/askBoard/askBoardList";
     }
 
-    @RequestMapping("askdetail/{askBoardno}") //글 상세페이지
+    @RequestMapping("/askdetail/{askBoardNo}") //글 상세페이지
     private String askDetail(@PathVariable int askBoardNo, Model model) throws Exception {
+
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
         model.addAttribute("askComment", askBoardMapper.askComment(askBoardNo));
+        model.addAttribute("commentCount", askBoardMapper.askCommentCount(askBoardNo));
 
 
         return "th/askBoard/askBoardDetail";

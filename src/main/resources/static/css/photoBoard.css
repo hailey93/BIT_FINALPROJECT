@@ -11482,7 +11482,7 @@ body.show-modal {
 .comment-feed__item__content__author {
     display: block;
     margin: 0 0 -5px;
-    font-size: 0;
+    font-size: 20px;
     line-height: 20px
 }
 

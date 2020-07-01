@@ -15,6 +15,8 @@ public interface AskBoardMapper {
     //게시글 상세
     public AskBoardVO askDetail(int askBoardNo) throws Exception;
 
+    int askCommentCount(int askBoardNo) throws Exception;
+
     //게시글 작성
     public int insertAsk(AskBoardVO askBoardVO) throws Exception;
 

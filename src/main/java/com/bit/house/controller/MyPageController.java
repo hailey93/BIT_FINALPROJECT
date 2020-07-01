@@ -210,8 +210,8 @@ public class MyPageController {
         return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
-    @RequestMapping("/allPhoto")
-    private String allPhoto(Model model, @RequestParam(required = false) String memberId) throws Exception{
+    @RequestMapping("/allPhoto/{memberId}")
+    private String allPhoto(Model model, @PathVariable String memberId) throws Exception{
         //이거는 세션 받지 말고 프로필창에서 아이디 넘겨받아서 처리하는쪽으로
 
         System.out.println(memberId);
