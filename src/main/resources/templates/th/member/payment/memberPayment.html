@@ -82,6 +82,16 @@
                                     </div>
                                 </th:block>
                                 <th:block th:unless="${productVO == null}">
+                                    <input type="hidden" name="orderQty"  th:value=1><br>
+                                    <input type="hidden" name="productNo" id="productNo"
+                                           th:value="${productVO.productNo}"><br>
+                                    <input type="hidden" name="colorName" id="colorName"
+                                           th:value="${productVO.colorVO.colorType}"><br>
+                                    <input type="hidden" name="totalPrice" id="totalPrice"
+                                           th:value="${productVO.purchasePrice}"><br>
+                                    <input type="hidden" name="productName" id="productName"
+                                           th:value="${productVO.productName}">
+
                                     <div class="information">
                                         <img th:src="@{'/uploadImg/'+${productVO.getProductMainImg()}}" alt="320">
                                         <div>

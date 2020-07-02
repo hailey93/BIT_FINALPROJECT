@@ -62,7 +62,7 @@ public class KakaoPayController {
                            int[] orderQty, String[] colorName,String[] productName,
                            int[] totalPrice,String recipient,String receivedAt, String receivedAtDetail) { // 리스트로?
 
-        log.info(productNo.length + " " + orderQty.length+"" + ""+totalPrice.length + "@#@@##@");
+        //log.info(productNo.length + " " + orderQty.length+"" + ""+totalPrice.length + "@#@@##@");
 
         log.info("kakaoPay post 호출............................................");
         int totalP = 0;
@@ -111,7 +111,7 @@ if(orderQty != null){
         if(memberVO != null){
             memberId = memberVO.getMemberId();
         }else{
-            memberId=null;
+            memberId="unknown";
         }
 if(productNo != null) {
     for (int i = 0; i < productNo.length; i++) {
@@ -159,7 +159,7 @@ if(productNo != null) {
 
         session.setAttribute("orderListVOList",orderListVOList);
 
-        return "redirect:" + kakaopay.kakaoPayReady(orderListVOList);
+        return "redirect:" + kakaopay.kakaoPayReady(orderListVOList,memberId);
  
     }
     //List<OrderListVO> orderListVO = new ArrayList<OrderListVO>();
@@ -171,6 +171,7 @@ if(productNo != null) {
         log.info("kakaoPaySuccess get 호출............................................");
         log.info("kakaoPaySuccess pg_token : " + pg_token);
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        System.out.println("is null?"+memberVO);
         String memberId;
 
         List<OrderListVO> orderListVOList = (List<OrderListVO>) session.getAttribute("orderListVOList");
@@ -179,11 +180,15 @@ if(productNo != null) {
         if(memberVO != null){
             //memberId = memberVO.getMemberId();
             adminMapper.insertMemberOrderList(orderListVOList);
+            memberId = orderListVOList.get(0).getMemberId();
+            System.out.println(memberId);
         }else{
             adminMapper.insertNonMemberOrderList(orderListVOList);
+            memberId = "unknown";
+            System.out.println("비회원"+memberId);
         }
 
-        memberId = orderListVOList.get(0).getMemberId();
+
         kakaoInfo = kakaopay.kakaoPayInfo(pg_token, memberId);
 
         //이렇게 하는 이유

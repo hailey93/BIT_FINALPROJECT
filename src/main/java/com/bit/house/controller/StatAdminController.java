@@ -77,10 +77,6 @@ public class StatAdminController {
 
 
 
-    @GetMapping("/mem")
-    public String memManageMent() {
-        return "th/admin/statAdmin/memberManagement";
-    }
 
 
     @RequestMapping(value = "/yearGraphAjax", method = RequestMethod.POST)
@@ -263,10 +259,6 @@ public class StatAdminController {
     //------------------------------ 제품 관리
 
 
-    @GetMapping("/productRegistration")
-    public String productRegistration(){
-        return "th/admin/statAdmin/productRegistration";
-    }
 
     @RequestMapping(value = "/userDateStat", method = RequestMethod.POST)
     public @ResponseBody Object userDateStat(Model model, String date1, String date2) {
