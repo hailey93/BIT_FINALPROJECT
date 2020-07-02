@@ -74,7 +74,7 @@
                                             <div class="cost_count">
                                                 <div class="totalCost"
                                                      th:price-total="${list.getProductVO().getPurchasePrice()}"
-                                                     th:text="${list.getProductVO().getPurchasePrice()}"></div>
+                                                     th:text="${list.getProductVO().getPurchasePrice()}*${list.qty}"></div>
                                                 <div class="divider">|</div>
                                                 <div class="count" th:text="${list.qty}+개"></div>
                                             </div>

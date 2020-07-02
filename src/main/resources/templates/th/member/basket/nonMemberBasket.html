@@ -10,10 +10,7 @@
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
         <link rel="stylesheet" th:href="@{/css/basket.css}">
     </th:block>
-   <!--<link rel="stylesheet" media="screen"
-          href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-7a3e77c9.chunk.css">
-   --> </head>
-<!--<script src="http://code.jquery.com/jquery-2.0.2.js"></script>-->
+
 <body>
 
 <div layout:fragment="content">
@@ -54,20 +51,10 @@
 
                             <div>
                                 <ul>
-                                    <!--<th:block th:each="list : ${basketList}">
-                                        <li th:text="${list}"></li>
-                                        셀러네임
-                                        <h1 th:text="${list.getProductVO()}"></h1>
-                                        <h2 th:text="${list.getProductVO().getSellerName()}"></h2>
-                                    </th:block>-->
                                 </ul>
                             </div>
-                            <!-- 셀러네임안듬 -->
                             <!-- 상품 전체 -->
-
                             <ul class="commerce-cart__content__group-list">
-                                <!-- 상품 한개당 li 한개-->
-
                                 <li class="commerce-cart__content__group-item" th:each="list, listStat : ${basketList}">
 
                                     <article class="commerce-cart__group"><h1 class="commerce-cart__group__header" th:text="${list.productVO.getSellerName()}">                                        <!-- --> 배송</h1>
@@ -126,18 +113,18 @@
                                                                             <div class="selling-option-item__controls">
                                                                                 <div class="selling-option-item__quantity">
                                                                                     <div class="input-group select-input option-count-input">
-                                                                                        <select class="form-control">
+                                                                                        <select class="form-control" th:id="selectColorOption+${listStat.count}">
 
-                                                                                            <option value="0">1</option>
-                                                                                            <option value="1">2</option>
-                                                                                            <option value="2">3</option>
-                                                                                            <option value="3">4</option>
-                                                                                            <option value="4">5</option>
-                                                                                            <option value="5">6</option>
-                                                                                            <option value="6">7</option>
-                                                                                            <option value="7">8</option>
-                                                                                            <option value="8">9</option>
-                                                                                            <option value="9">10
+                                                                                            <option value="1">1</option>
+                                                                                            <option value="2">2</option>
+                                                                                            <option value="3">3</option>
+                                                                                            <option value="4">4</option>
+                                                                                            <option value="5">5</option>
+                                                                                            <option value="6">6</option>
+                                                                                            <option value="7">7</option>
+                                                                                            <option value="8">8</option>
+                                                                                            <option value="9">9</option>
+                                                                                            <option value="10">10
 
                                                                                             <option value="11" selected th:text="${list.qty}"></option>
                                                                                             </option>

@@ -323,6 +323,12 @@
     }
 
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+
+
     function chart3() {
         console.log("전역변수차트3변수" + globalGraph3Return);
 
@@ -333,6 +339,7 @@
         for (var i = 0; i < globalGraph3Return.length; i++) {
             dailyDayArr[i] = globalGraph3Return[i].day;
             dailyTotalPriceArr[i] = globalGraph3Return[i].totalPrice;
+            console.log("컴마 "+numberWithCommas(globalGraph3Return[i].totalPrice));
             dailyQtyArr[i] = globalGraph3Return[i].orderQty;
         }
         console.log("monthly : " + dailyDayArr + dailyQtyArr + dailyTotalPriceArr);

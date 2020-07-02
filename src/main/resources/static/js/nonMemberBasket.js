@@ -1,4 +1,30 @@
-    $('#getTP').text( getTP());
+
+const handleOnChange = e =>{
+    console.log(e.target.value);
+}
+var selectVal = new Array();
+var i=1;
+    //var test = document.getElementById('selectColorOption1');
+    //console.log("test : " + test);
+    document.querySelector('#selectColorOption'+i).addEventListener("change",handleOnChange);
+var t;
+for(var a=0;a<10;a++){
+    t = document.getElementById('selectColorOption'+i);
+    console.log("while 문 실행 "+t + i );
+    if(t == null){
+        console.log(i+'번째에서 종료');
+        break;
+    }
+    selectVal[i] = document.querySelector("#selectColorOption"+i).addEventListener("change",handleOnChange)
+
+i++
+    }
+//selVal으로 여러개 select에서 select 하면 값이 추출되게 할 수 있음.
+console.log("selVal : "+selectVal);
+
+
+
+$('#getTP').text( getTP());
 $('#paymentTP').text(getTP());
 
 function checkBoxIsChecked() {
@@ -79,37 +105,11 @@ function checkBoxIsChecked() {
             }
         })
     }
-    /*  console.log("delProductNo = "+delProductNo);
-      console.log("Arr : " + delProductNo.length + delProductNo);
-  if(delProductNo == null){
-      console.log("checkBoxResult : "+checkBoxResult);
-      alert("선택값이 없습니다");
-      //window.location.reload();
-  }*/
 
-
-
-    /* memberBasket
-    $.ajax({
-         url : '/delCheckBox',
-         type : 'POST',
-
-         data : {
-             delProcutNoArray : delProductNo
-         },
-         success : function () {
-             alert("삭제 되었습니다");
-
-         },
-         error : function () {
-             alert("삭제 실패");
-         }
-     })*/
 }
 
 
 function  getTP() {
-    console.log("getTP실행");
     var tPrice=new Array();
     var TP = 0;
     $('.selling-option-item__price__number').each(function(){
@@ -118,10 +118,9 @@ function  getTP() {
     //console.log("tPrice :: "+tPrice);
 
     for(var m = 0; m<tPrice.length; m++){
-        console.log(Number(tPrice[m]));
+        //console.log(Number(tPrice[m]));
         TP += Number(tPrice[m]);
     }
-    console.log("결과 : "+ TP);
     return TP;
 
 }
@@ -136,8 +135,3 @@ function checkAll(){
 $("input[name=innerCheckbox]").click(function(){
     $("#th_checkAll").prop("checked", false);
 });
-/*
-                function deleteBtn(){
-                    $("ul").remove("#one, #two");
-
-                }*/

@@ -279,4 +279,8 @@ memberAddr=if(memberAddr is null,#{fullAddr},memberAddr) where memberId=#{member
 
 </update>
 
+    <select id="getPopularity" resultType="orderListVO">
+        select sellerName, productName, sum(orderQty) as orderQty from dailysalestats group by productName order by orderQty desc;
+    </select>
+
 </mapper>

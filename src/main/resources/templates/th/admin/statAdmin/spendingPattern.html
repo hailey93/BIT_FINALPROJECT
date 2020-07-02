@@ -41,6 +41,10 @@
             function getDate() {
                 var date1 = document.getElementById('dateCalendar').value;
                 var date2 = document.getElementById('dateCalendar2').value;
+                if(date1 == '' || date2 == ''){
+                    alert("날짜입력하세요");
+                    return;
+                }
                 var now = new Date();
                 console.log(date1 +""+date2);
                 year = now.getFullYear()
@@ -126,6 +130,7 @@
                 $('.spendingPatternGraph').remove();
                 var canv = document.createElement('canvas');
                 canv.id = 'myChart';
+                canv.style='height: 100%; width: 100%';
                 document.getElementById('hoho').appendChild(canv);
                 console.log(canv);
                 //canvas 만들기만 하면 됨

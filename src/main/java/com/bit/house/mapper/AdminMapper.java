@@ -57,4 +57,5 @@ public interface AdminMapper {
     public void updateMemberAddr(String fullAddr,String memberId);
 
     public List<ProductVO> getProductManagement();
+    public List<OrderListVO> getPopularity();
 }

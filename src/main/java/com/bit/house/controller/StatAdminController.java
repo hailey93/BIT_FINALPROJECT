@@ -40,7 +40,7 @@ public class StatAdminController {
         List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
 
         log.info("yearlySellerSalesVolume :: " +yearlySellerSalesVolume);
-        List<ProductVO> houseProductList = adminMapper.getProduct();
+        //List<ProductVO> houseProductList = adminMapper.getProduct();
         //List<ProductVO> salesVol = adminMapper.getSalesVolume();
         //log.info("salesVol = "+salesVol);
         List<OrderListVO> spendingPattern = adminMapper.getSpendingPattern();
@@ -297,6 +297,13 @@ public class StatAdminController {
         List<ProductVO> productVOList = (List<ProductVO>) adminMapper.getProductManagement();
         model.addAttribute("productVOList", productVOList);
         return "th/admin/statAdmin/productManagement";
+    }
+
+    @GetMapping("/popularityProduct")
+    public String popularityProduct(Model model){
+        List<OrderListVO> orderListVOList = (List<OrderListVO>) adminMapper.getPopularity();
+        model.addAttribute("orderListVOList", orderListVOList);
+        return "th/admin/statAdmin/popularityProduct";
     }
 
 }
