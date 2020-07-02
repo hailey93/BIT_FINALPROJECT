@@ -47,7 +47,7 @@
                                     <span class="commerce-cart__header__right">
                                         <button class="button button--color-blue button--size-20 button--shape-4 commerce-cart__side-bar__order__btn" type="button"
                                                 name="delCheckBox"
-                                        onclick="location.href='/delMemberBasket'">선택삭제
+                                        onclick="checkBoxIsCheckedMember()">선택삭제
                                         </button>
                                     </span>
                                 </div>
@@ -100,7 +100,7 @@
                                                                 </div>
                                                                 <!-- 상품 간단 상세 --><a
                                                                     class="product-small-item product-small-item--clickable"
-                                                                    href="/productions/41033/selling">
+                                                                    th:href="@{/productions/productDetails(productNo=${list.productNo})}">
                                                                 <div class="product-small-item__image"><img
                                                                         th:src="@{'/uploadImg/'+${list.getProductVO().getProductMainImg()}}"
                                                                         alt=""></div>
@@ -132,17 +132,17 @@
                                                                                     <div class="input-group select-input option-count-input">
                                                                                         <select class="form-control">
 
-                                                                                            <option value="0">1</option>
-                                                                                            <option value="1">2</option>
-                                                                                            <option value="2">3</option>
-                                                                                            <option value="3">4</option>
-                                                                                            <option value="4">5</option>
-                                                                                            <option value="5">6</option>
-                                                                                            <option value="6">7</option>
-                                                                                            <option value="7">8</option>
-                                                                                            <option value="8">9</option>
-                                                                                            <option value="9">10</option>
-                                                                                            <option value="10" selected th:text="${list.qty}"></option>
+                                                                                            <option value="1">1</option>
+                                                                                            <option value="2">2</option>
+                                                                                            <option value="3">3</option>
+                                                                                            <option value="4">4</option>
+                                                                                            <option value="5">5</option>
+                                                                                            <option value="6">6</option>
+                                                                                            <option value="7">7</option>
+                                                                                            <option value="8">8</option>
+                                                                                            <option value="9">9</option>
+                                                                                            <option value="10">10</option>
+                                                                                            <option value="${list.qty}" selected th:text="${list.qty}"></option>
                                                                                             </option>
                                                                                         </select><span
                                                                                             class="select-input__icon"><svg
@@ -207,75 +207,56 @@
                     </div>
                 </div>
             </div>
-            <script type="text/javascript" th:inline="javascript">
+            <script th:inline="javascript" type="text/javascript">
+                function checkBoxIsCheckedMember(){
+                    console.log("체크박스 함수 실행");
+                    var basketMember = [[${basketList2}]];
+                    console.log("bsM : "+basketMember + "len : " + basketMember.length);
+                    var productNo = new Array();
+                    var productColor = new Array();
+                    var len =basketMember.length;
+                    var checkBox = new Array(len);
+                    var checkBoxResult = new Array(len);
 
-                /*$(document).ready(function(){
+                    for(var i=0;i<len;i++) {
+                        checkBox[i] = document.getElementById('innerCheckbox' + i);
 
-                    $(셀렉트박스 option).each(function(){
+                        checkBoxResult[i] = $(checkBox[i]).prop("checked");
+                        console.log("체크박스 저장 : " + checkBox[i] + "result : " + checkBoxResult[i]);
+                        if(checkBoxResult[i] == true){
+                            console.log("productNo : " + productNo[i] + "productColor : " + productColor[i]);
+                            productNo[i] = $('#productNo'+i).val();
+                            productColor[i] = $('#productColor'+i).val();
+                        }
+                    }
 
-                        if($(this).val()=="${DB값}"){
+                    /*for(var i=0; i<len;i++){
 
-                            $(this).attr("selected","selected"); // attr적용안될경우 prop으로
+                    }
+            */                    console.log(productNo+productColor);
 
+
+                    $.ajax({
+                        url: '/delMemberBasket',
+                        type : 'POST',
+                        traditional : true,
+                        data : {
+                            productNo : productNo,
+                            productColor : productColor
+                        },
+                        success : function (e) {
+                            console.log("suc");
+                            window.location.reload();
+                        },error : function (e) {
+                            console.log("err");
                         }
 
-                    });
-
-                });*/
-
-                /*function checkBoxIsCheckedMember(){
-                    console.log("체크박스 함수 실행");
-                        $.ajax({
-                            url: '/delMemberBasket',
-                            type : 'POST',
-                            traditional : true,
-                            data : {
-                                delete : 'go'
-                            },
-                            success : function (e) {
-                                console.log("suc");
-                                window.location.reload();
-                            },error : function (e) {
-                                console.log("err");
-                            }
-
-                        })
-                }*/
-
-
-
-                $('#getTP').text( getTP());
-                $('#paymentTP').text(getTP());
-
-                function  getTP() {
-                    console.log("getTP실행");
-                    var tPrice=new Array();
-                    var TP = 0;
-                    $('.selling-option-item__price__number').each(function(){
-                        tPrice.push($(this).attr('price-total'));
-                    });
-                    //console.log("tPrice :: "+tPrice);
-
-                    for(var m = 0; m<tPrice.length; m++){
-                        console.log(Number(tPrice[m]));
-                        TP += Number(tPrice[m]);
-                    }
-                    console.log("결과 : "+ TP);
-                    return TP;
-
+                    })
                 }
-
-                function checkAll(){
-                    if( $("#th_checkAll").is(':checked') ){
-                        $("input[name=innerCheckbox]").prop("checked", true);
-                    }else{
-                        $("input[name=innerCheckbox]").prop("checked", false);
-                    }
-                }
-                $("input[name=innerCheckbox]").click(function(){
-                    $("#th_checkAll").prop("checked", false);
-                });
             </script>
+            <th:block layout:fragment="js">
+                <script type="text/javascript" th:src="@{/js/memberBasket.js}"></script>
+            </th:block>
         </div>
 
         <div class="toast-message-root"></div>

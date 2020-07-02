@@ -38,95 +38,8 @@
         </div>
     </div>
 </div>
+<script th:inline="javascript">
 
-
-<!-- 차트 div 끝 -->
-<!-- layer 버튼 시작 -->
-<!-- <button name = "myShow2" onclick=showHide2();> layer2 </button><br>  버튼 필요 없으면 삭제 예정-->
-<!-- <button name = "myShow3" onclick=showHide3();> layer3 </button> -->
-
-<!-- type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-/*Controller 에서
- * ObjectMapper mapper = new ObjectMapper();
- String jsonText = mapper.writeValueAsString( list );
- model.addAttribute( "json", jsonText );
- */-->
-
-<!--
-/*
-- Chart를 생성하면서,
-- ctx를 첫번째 argument로 넘겨주고,
-- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다.
-* 타입 종류 : bar, line, pie
-*/
-
-    /* function ajaxGraph(){
-    var checkboxValues = [];
-    $("input[name='hobby']:checked").each(function(i) {
-        checkboxValues.push($(this).val());
-    });
-
-    // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
-    //var allData = { "userId": userId, "checkArray": checkboxValues };
-     //
-
-     var abcd = {
-    		 [[id:1,pasw:2],[id:2,pasw:3], ]
-     }
-    $.ajax({
-        url:"goUrl.do",
-        type:'GET',
-        data: allData,
-        success:function(data){
-            alert("완료!");
-            window.opener.location.reload();
-            console.log(data);
-            abcd = data.d;
-
-            self.close();
-        },
-        error:function(jqXHR, textStatus, errorThrown){
-            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
-            self.close();
-        }
-    });
-} */
- -->
-
-
-<!-- 보여주기 감추기 -->
-<!-- 필요 없을지도
-<script>
-    function showHide2() {
-        if (document.getElementById("myChart2").style.display == 'none') {
-            document.getElementById("myChart2").style.display = 'block';
-        } else {
-            console.log("이미 보여져있다");
-            //document.getElementById("myChart2").style.display = 'none';
-        }
-    }
-
-</script>
-
-<script>
-    function showHide3() {
-        if (document.getElementById("myChart3").style.display == 'none') {
-            document.getElementById("myChart3").style.display = 'block';
-        } else {
-            document.getElementById("myChart3").style.display = 'none';
-        }
-    }
-
-
-
-
-
-
-</script>
--->
-
-
-<script type="text/javascript">
     function sellerBtn() {
         var inputSellerName = document.getElementById("inputSellerName").value;
         console.log("inputSellerName : " + inputSellerName);
@@ -147,12 +60,9 @@
     }
 
 
-</script>
 
 
 
-
-<script th:inline="javascript">
     var globalGraph2Return;
     var globalGraph3Return;
 
@@ -211,11 +121,11 @@
 
     // 공통 data
     var backC =
-        'rgba(54, 162, 235, 0.2)'
+        'rgba(102, 152, 217, 1)'
     ;
     //borderColor: backgroundColor:
     var borderC =
-        'rgba(54, 162, 235, 1)'
+        'rgba(27, 87, 166, 0.2)'
     ;
     var options = {
         maintainAspectRatio: true, // default value. false일 경우 포함된 div의 크기에 맞춰서 그려짐.
@@ -413,6 +323,12 @@
     }
 
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+
+
     function chart3() {
         console.log("전역변수차트3변수" + globalGraph3Return);
 
@@ -423,6 +339,7 @@
         for (var i = 0; i < globalGraph3Return.length; i++) {
             dailyDayArr[i] = globalGraph3Return[i].day;
             dailyTotalPriceArr[i] = globalGraph3Return[i].totalPrice;
+            console.log("컴마 "+numberWithCommas(globalGraph3Return[i].totalPrice));
             dailyQtyArr[i] = globalGraph3Return[i].orderQty;
         }
         console.log("monthly : " + dailyDayArr + dailyQtyArr + dailyTotalPriceArr);
@@ -467,15 +384,102 @@
 
     /*
      make sure click was on an actual point
-if (activePoints.length > 0) {
-var clickedDatasetIndex = activePoints[0]._datasetIndex;
-var clickedElementindex = activePoints[0]._index;
-var label = myLine.data.labels[clickedElementindex];
-var value = myLine.data.datasets[clickedDatasetIndex].data[clickedElementindex];
-alert("Clicked: " + label + " - " + value);
-}
+    if (activePoints.length > 0) {
+    var clickedDatasetIndex = activePoints[0]._datasetIndex;
+    var clickedElementindex = activePoints[0]._index;
+    var label = myLine.data.labels[clickedElementindex];
+    var value = myLine.data.datasets[clickedDatasetIndex].data[clickedElementindex];
+    alert("Clicked: " + label + " - " + value);
+    }
     */
 </script>
+
+<!-- 차트 div 끝 -->
+<!-- layer 버튼 시작 -->
+<!-- <button name = "myShow2" onclick=showHide2();> layer2 </button><br>  버튼 필요 없으면 삭제 예정-->
+<!-- <button name = "myShow3" onclick=showHide3();> layer3 </button> -->
+
+<!-- type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+/*Controller 에서
+ * ObjectMapper mapper = new ObjectMapper();
+ String jsonText = mapper.writeValueAsString( list );
+ model.addAttribute( "json", jsonText );
+ */-->
+
+<!--
+/*
+- Chart를 생성하면서,
+- ctx를 첫번째 argument로 넘겨주고,
+- 두번째 argument로 그림을 그릴때 필요한 요소들을 모두 넘겨줍니다.
+* 타입 종류 : bar, line, pie
+*/
+
+    /* function ajaxGraph(){
+    var checkboxValues = [];
+    $("input[name='hobby']:checked").each(function(i) {
+        checkboxValues.push($(this).val());
+    });
+
+    // 사용자 ID(문자열)와 체크박스 값들(배열)을 name/value 형태로 담는다.
+    //var allData = { "userId": userId, "checkArray": checkboxValues };
+     //
+
+     var abcd = {
+    		 [[id:1,pasw:2],[id:2,pasw:3], ]
+     }
+    $.ajax({
+        url:"goUrl.do",
+        type:'GET',
+        data: allData,
+        success:function(data){
+            alert("완료!");
+            window.opener.location.reload();
+            console.log(data);
+            abcd = data.d;
+
+            self.close();
+        },
+        error:function(jqXHR, textStatus, errorThrown){
+            alert("에러 발생~~ \n" + textStatus + " : " + errorThrown);
+            self.close();
+        }
+    });
+} */
+ -->
+
+
+<!-- 보여주기 감추기 -->
+<!-- 필요 없을지도
+<script>
+    function showHide2() {
+        if (document.getElementById("myChart2").style.display == 'none') {
+            document.getElementById("myChart2").style.display = 'block';
+        } else {
+            console.log("이미 보여져있다");
+            //document.getElementById("myChart2").style.display = 'none';
+        }
+    }
+
+</script>
+
+<script>
+    function showHide3() {
+        if (document.getElementById("myChart3").style.display == 'none') {
+            document.getElementById("myChart3").style.display = 'block';
+        } else {
+            document.getElementById("myChart3").style.display = 'none';
+        }
+    }
+
+
+
+
+
+
+</script>
+-->
+
+
 
 </body>
 </html>

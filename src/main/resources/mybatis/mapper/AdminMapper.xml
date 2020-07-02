@@ -244,7 +244,9 @@ group by memberId;
         select orderNo from orderlist where orderNo like concat('%',#{today},'%') order by orderNo desc limit 1
     </select>
 
-
+    <select id="getProductManagement" resultType="productVO">
+        select productNo,sellerName,productName,modelName,customerPrice,sellPrice,purchasePrice,productCreateDate from product;
+    </select>
     <!--#연단위 구매 많이한 유저
     select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, year
     from dailysalestats2
@@ -276,5 +278,9 @@ update member1 set memberAddr=if(memberAddr is null,'asd',memberAddr), deliveryA
 memberAddr=if(memberAddr is null,#{fullAddr},memberAddr) where memberId=#{memberId};
 
 </update>
+
+    <select id="getPopularity" resultType="orderListVO">
+        select sellerName, productName, sum(orderQty) as orderQty from dailysalestats group by productName order by orderQty desc;
+    </select>
 
 </mapper>
