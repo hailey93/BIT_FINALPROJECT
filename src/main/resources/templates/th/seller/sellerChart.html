@@ -20,7 +20,7 @@
                         <div th:each="sellerInfo : ${sellerInfo}">
                             <div class="image">
                                 <!--                                <img th:src="${sellerInfo.sellerImg}"-->
-                                <img th:src="${sellerInfo.sellerImg}"
+                                <img th:src="@{'/uploadImg/'+${sellerInfo.sellerImg}}"
                                      class="rounded-circle width=50px height=50px"
                                      alt="User Image">
                                 <a th:text="${sellerInfo.sellerName}" th:href="@{/seller/sellerInfo}"></a>
