@@ -50,4 +50,6 @@ public class ProductVO {
 
     private List<String> colorCodeVOList;
 
+    private Date orderConfirmDate;
+
 }

@@ -27,25 +27,26 @@ label {
     overflow-x: hidden;
     border-bottom: 1px solid gainsboro;
 }
-.nav ul, .nav li, label {
+.nav ul, .nav li, h2 {
+    padding: 0 3px;
     line-height: 50px;
     margin: 0;
-    padding: 0 2em;
     list-style: none;
     text-decoration: none;
     color: black;
     font-weight: 100;
     width: 100%;
 }
-.item ul {
-    padding: 0 0.25em;
-}
 .nav li a {
-    line-height: 50px;
+    padding: 0 3px;
+    line-height: 20px;
     margin: 0;
-    padding: 0 4em;
     list-style: none;
     text-decoration: none;
-    color: black;
+    color: rgba(0,0,0,.5);
     font-weight: 100;
+}
+
+h2, h4, h6{
+    color: rgba(0,0,0,.5);;
 }

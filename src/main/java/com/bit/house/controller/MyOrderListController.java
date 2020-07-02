@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,10 +54,13 @@ public class MyOrderListController {
     }
 
     @PostMapping("/addReview")
-    public String addReview(HttpSession session, HttpServletRequest request, ReviewVO reviewVO, OrderListVO orderListVO, @RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) throws IOException {
+    public String addReview(HttpSession session, HttpServletRequest request, ReviewVO reviewVO, OrderListVO orderListVO, @RequestParam("rank") String rank, @RequestParam("file") MultipartFile file, @RequestParam("file2") MultipartFile file2, @RequestParam("file3") MultipartFile file3) throws IOException {
+        DecimalFormat df = new DecimalFormat("0.0");
         String uploadFolderReview = request.getSession().getServletContext().getRealPath("image/reviewImg");
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        double dProductRank = Double.parseDouble(rank.replace(",", "."));
         reviewVO.setMemberId(memberVO.getMemberId());
+        reviewVO.setProductRank(dProductRank);
         orderListVO.setMemberId(memberVO.getMemberId());
 
         if (file != null && !file.getOriginalFilename().isEmpty()) {
@@ -94,7 +98,11 @@ public class MyOrderListController {
             file3.transferTo(new File(uploadFolderReview + "/" + resultFilename3));
             reviewVO.setReviewImg3(resultFilename3);
         }
+
+
         myOrderListMapper.addReview(reviewVO);
+
+
         myOrderListMapper.addConfirmOrderType(orderListVO);
         return "redirect:/order_list";
     }
