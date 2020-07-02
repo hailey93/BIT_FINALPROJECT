@@ -76,7 +76,7 @@ function requestPay() {
             pay_method: "card",
             merchant_uid: 'merchant_' + new Date().getTime(),
             name: $('#productNameTest').text() + " 외",
-            amount: 1,
+            amount: 100,
             buyer_email: $('#order_payer_email').val(),
             buyer_name: $('#order_payer_name').val(),
             buyer_tel: $('#order_payer_phone_number').val(),
