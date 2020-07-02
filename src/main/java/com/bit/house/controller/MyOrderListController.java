@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 @Slf4j
 @Controller
+@RequestMapping("/member")
 public class MyOrderListController {
 
     @Autowired
@@ -42,13 +44,13 @@ public class MyOrderListController {
     @PostMapping("/returnReason")
     public String addReturnReason(OrderListVO orderListVO) {
         myOrderListMapper.addReturnReason(orderListVO);
-        return "redirect:/order_list";
+        return "redirect:/member/order_list";
     }
 
     @PostMapping("/cancelReason")
     public String addCancelReason(OrderListVO orderListVO) {
         myOrderListMapper.addCancelReason(orderListVO);
-        return "redirect:/order_list";
+        return "redirect:/member/order_list";
     }
 
     @PostMapping("/addReview")
@@ -102,7 +104,7 @@ public class MyOrderListController {
 
 
         myOrderListMapper.addConfirmOrderType(orderListVO);
-        return "redirect:/order_list";
+        return "redirect:/member/order_list";
     }
 
 
@@ -111,7 +113,7 @@ public class MyOrderListController {
         for (String order : orderNo) {
             myOrderListMapper.deleteReviewById(order);
         }
-        return "redirect:/order_list";
+        return "redirect:/member/order_list";
     }
 
 

@@ -36,6 +36,7 @@ public interface ProductMapper {
 
     @Select("Select productName from product")
     List<String> selectAllProductJs();
+
 }
 
 
