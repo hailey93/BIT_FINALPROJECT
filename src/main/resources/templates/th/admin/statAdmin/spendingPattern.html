@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="th/layout/defaultLayout">
+      layout:decorator="th/layout/adminLayout">
 <head>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 
@@ -14,7 +14,7 @@
 <body>
 
 <div layout:fragment="content">
-
+<div class="container">
     <div id="name" >
         Total 유저별 구매금액
 
@@ -28,8 +28,9 @@
         </div>
         <div id="field">
         </div>
+
         <!-- 차트 지우고 다시 만들어아햐나? -->
-        <script th:inline="javascript" type="text/javascript">
+        <script th:inline="javascript">
             var jsonData;
             var chart1Data;
             var options;
@@ -40,6 +41,10 @@
             function getDate() {
                 var date1 = document.getElementById('dateCalendar').value;
                 var date2 = document.getElementById('dateCalendar2').value;
+                if(date1 == '' || date2 == ''){
+                    alert("날짜입력하세요");
+                    return;
+                }
                 var now = new Date();
                 console.log(date1 +""+date2);
                 year = now.getFullYear()
@@ -68,12 +73,12 @@
                 var b1 = year2+'-'+month2+'-'+day2;
                 console.log("a1:"+a1);
                 var dateform = {
-                   /* year1 : year1,
-                    year2 : year2,
-                    month1 : month1,
-                    month2 : month2,
-                    day1 : day1,
-                    day2 : day2*/
+                    /* year1 : year1,
+                     year2 : year2,
+                     month1 : month1,
+                     month2 : month2,
+                     day1 : day1,
+                     day2 : day2*/
                     date1 : date1,
                     date2 : date2
 
@@ -125,6 +130,7 @@
                 $('.spendingPatternGraph').remove();
                 var canv = document.createElement('canvas');
                 canv.id = 'myChart';
+                canv.style='height: 100%; width: 100%';
                 document.getElementById('hoho').appendChild(canv);
                 console.log(canv);
                 //canvas 만들기만 하면 됨
@@ -212,23 +218,24 @@
 
 
 
-                function drawCanvas() {
+            function drawCanvas() {
 
 
 
-                    var chart1Canvas = document.getElementById("myChart");
-                    var ctx = chart1Canvas.getContext('2d');
-                    var myNewChart = new Chart(ctx, {
-                        type: 'pie',
-                        data: chart1Data,
-                        options: options
-                    });
-                    oldGraph = myNewChart;
-                }
+                var chart1Canvas = document.getElementById("myChart");
+                var ctx = chart1Canvas.getContext('2d');
+                var myNewChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: chart1Data,
+                    options: options
+                });
+                oldGraph = myNewChart;
+            }
 
 
         </script>
     </div>
+</div>
 </div>
 
 </body>

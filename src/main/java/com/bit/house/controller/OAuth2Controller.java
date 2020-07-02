@@ -2,15 +2,12 @@ package com.bit.house.controller;
 
 import com.bit.house.domain.AllMemberVO;
 import com.bit.house.domain.MemberVO;
-import com.bit.house.domain.OrderListVO;
 import com.bit.house.security.SocialUser;
 import com.bit.house.service.AllMemberService;
 import com.bit.house.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,17 +25,11 @@ public class OAuth2Controller {
     @Autowired
     MemberService memberService;
 
-    @GetMapping("/hello")
-    public String hello() {
-        return "th/login/hello";
-    }
-
     @GetMapping("/customLogin")
     public String customLogin(){
 
         return "th/login/customLogin";
     }
-
 
     @PostMapping("/customLogout")
     public String customLogout() {
@@ -54,25 +45,8 @@ public class OAuth2Controller {
         log.info(String.valueOf(memberVO));
 
 
-        //return "th/login/loginSuccess";
-
         return "redirect:/storeMain";
 
-    }
-
-
-    @GetMapping("/testAuth")
-    public String testAuth(HttpSession session){
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info(String.valueOf(authentication.getAuthorities()));
-
-        return  "th/login/testAuth";
-    }
-
-    @GetMapping("/loginFailure")
-    public String loginFailure() {
-        return "th/login/loginFailure";
     }
 
     @GetMapping("/signup")

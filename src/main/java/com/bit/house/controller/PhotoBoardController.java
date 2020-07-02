@@ -13,10 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class PhotoBoardController {
@@ -35,9 +32,12 @@ public class PhotoBoardController {
     }
     //사진 목록
     @RequestMapping("/photoBoardList")
-    private String photoBoardList(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+    private String photoBoardList(Model model, HttpSession session) throws Exception{
 
-        model.addAttribute("photoList", photoBoardMapper.photoBoardList());
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+
+        /*model.addAttribute("member", memberVO.getMemberId());*/
+        model.addAttribute("photoList", photoBoardMapper.selectPhotoList());
 
         return "th/photoBoard/photoBoardList";
     }
@@ -114,7 +114,6 @@ public class PhotoBoardController {
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
         photoBoardVO.setMemberId(memberVO.getMemberId());
-        photoBoardVO.setPhotoTitle(request.getParameter("photoTitle"));
         photoBoardVO.setPhotoContent(request.getParameter("photoContent"));
         photoBoardVO.setAreaCode(request.getParameter("areaCode"));
         photoBoardVO.setHouseCode(request.getParameter("houseCode"));
@@ -134,17 +133,15 @@ public class PhotoBoardController {
     }
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
-    private String photoDetail(@PathVariable int photoBoardNo, Model model, String userId, PhotoBoardVO photoBoardVO, HttpServletRequest request, HttpSession session) throws Exception{
-        //아이디값은 멤버아이디가 아닌 userId로 받아오고 세션에 내 아이디넣어서 넘겨주고 버튼 생성.
+    private String photoDetail(@PathVariable int photoBoardNo, Model model, HttpSession session) throws Exception{
+
 
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("memberVO", memberVO);
-
         PhotoBoardVO detail=photoBoardMapper.photoDetail(photoBoardNo);
 
-        model.addAttribute("member", memberVO.getMemberId());
+        model.addAttribute("member", photoBoardMapper.myProfileImg(memberVO.getMemberId()));
         model.addAttribute("photodetail", detail);
         model.addAttribute("userphoto", photoBoardMapper.userPhoto(detail.getMemberId()));
         model.addAttribute("likestat", photoBoardMapper.likeStat(memberVO.getMemberId(), photoBoardNo));
@@ -231,7 +228,6 @@ public class PhotoBoardController {
 
 
         photoBoardVO.setMemberId(memberVO.getMemberId());
-        photoBoardVO.setPhotoTitle(request.getParameter("photoTitle"));
         photoBoardVO.setPhotoContent(request.getParameter("photoContent"));
         photoBoardVO.setAreaCode(request.getParameter("areaCode"));
         photoBoardVO.setHouseCode(request.getParameter("houseCode"));
@@ -275,6 +271,9 @@ public class PhotoBoardController {
 
         photoBoardMapper.like(likeVO);
 
+        photoBoardMapper.likeCount(photoBoardNo);
+
+
     }
     //좋아요 취소
     @RequestMapping("/nonlike")
@@ -287,6 +286,8 @@ public class PhotoBoardController {
         likeVO.setPhotoBoardNo(photoBoardNo);
 
         photoBoardMapper.cancelLike(likeVO);
+
+        photoBoardMapper.likeCountSub(photoBoardNo);
     }
     //스크랩
     @RequestMapping("/scrap")
@@ -299,6 +300,8 @@ public class PhotoBoardController {
         scrapVO.setPhotoBoardNo(photoBoardNo);
 
         photoBoardMapper.scrap(scrapVO);
+
+        photoBoardMapper.scrapCount(photoBoardNo);
 
     }
     //스크랩취소
@@ -313,50 +316,8 @@ public class PhotoBoardController {
 
         photoBoardMapper.cancelScrap(scrapVO);
 
-    }
-    //좋아요 누른사람 목록
-    @RequestMapping("/likeview")
-    private String likeView(Model model, LikeVO likeVO) throws Exception{
+        photoBoardMapper.scrapCountSub(photoBoardNo);
 
-        return "th/photoBoard/photoLike";
-    }
-
-    //다중파일업로드
-    @RequestMapping(value = "/photouploader", method = RequestMethod.POST)
-    @ResponseBody
-    public String multiplePhotoUploader(HttpServletRequest request) {
-        // 파일정보
-        StringBuffer sb = new StringBuffer();
-        try {
-            // 파일명을 받는다 - 일반 원본파일명
-            String oldName = request.getHeader("file-name");
-            // 파일 기본경로 _ 상세경로
-            String filePath = request.getSession().getServletContext().getRealPath("image/board/photoboard");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
-            System.err.println(filePath);
-            String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
-                    .append(UUID.randomUUID().toString())
-                    .append(oldName.substring(oldName.lastIndexOf("."))).toString();
-            System.err.println(filePath + saveName);
-            InputStream is = request.getInputStream();
-
-            OutputStream os = new FileOutputStream(filePath + saveName);
-            int numRead;
-            byte b[] = new byte[Integer.parseInt(request.getHeader("file-size"))];
-            while ((numRead = is.read(b, 0, b.length)) != -1) {
-                os.write(b, 0, numRead);
-            }
-            os.flush();
-            os.close();
-            // 정보 출력
-            sb = new StringBuffer();
-            sb.append("&bNewLine=true")
-                    .append("&sFileName=").append(oldName)
-                    .append("&sFileURL=").append("/uploadImg/board/photoboard").append(saveName);
-            System.out.println(sb);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return sb.toString();
     }
 
     @RequestMapping("/insertPhotoComment")
@@ -374,6 +335,15 @@ public class PhotoBoardController {
 
         photoBoardMapper.insertPhotoComment(commentVO);
 
+    }
+
+    @GetMapping("/photoScrollDown")
+    @ResponseBody
+    public Map<String, List<PhotoBoardVO>> photoScrollDown(){
+        Map<String, List<PhotoBoardVO>> scrollList=new HashMap<String, List<PhotoBoardVO>>();
+        scrollList.put("photoList", photoBoardMapper.selectPhotoList());
+
+        return scrollList;
     }
 
 }

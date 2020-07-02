@@ -13,13 +13,13 @@
 
     <insert id="insertPhoto" parameterType="PhotoBoardVO">
         INSERT INTO
-        photoboard(memberId, photoTitle, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, areaCode, styleCode, houseCode, placeCode )
-        VALUE(#{memberId}, #{photoTitle}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5}, #{areaCode}, #{styleCode}, #{houseCode}, #{placeCode} )
+        photoboard(memberId, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, areaCode, styleCode, houseCode, placeCode, likeCount, scrapCount )
+        VALUE(#{memberId}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5}, #{areaCode}, #{styleCode}, #{houseCode}, #{placeCode}, 0, 0 )
     </insert>
 
     <update id="updatePhoto" parameterType="PhotoBoardVO">
        UPDATE photoboard SET
-       photoTitle = #{photoTitle}, photoContent = #{photoContent}, photoImg1 = #{photoImg1}, photoImg2 = #{photoImg2}, photoImg3 = #{photoImg3}, photoImg4 = #{photoImg4}, photoImg5 = #{photoImg5},
+       photoContent = #{photoContent}, photoImg1 = #{photoImg1}, photoImg2 = #{photoImg2}, photoImg3 = #{photoImg3}, photoImg4 = #{photoImg4}, photoImg5 = #{photoImg5},
        areaCode = #{areaCode}, styleCode = #{styleCode}, houseCode = #{houseCode}, placeCode = #{placeCode}
        WHERE photoBoardNo = #{photoBoardNo}
     </update>
@@ -62,9 +62,21 @@
         VALUES(#{likeNo}, #{memberId}, #{photoBoardNo})
     </insert>
 
+    <update id="likeCount" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        likeCount = likeCount + 1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
+
     <delete id="cancelLike" parameterType="LikeVO">
         DELETE FROM thehouse.like WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
     </delete>
+
+    <update id="likeCountSub" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        likeCount = likeCount -1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
 
     <insert id="scrap" parameterType="ScrapVO">
         INSERT INTO
@@ -72,9 +84,21 @@
         VALUES(#{memberId}, #{photoBoardNo})
     </insert>
 
+    <update id="scrapCount" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        scrapCount = scrapCount + 1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
+
     <delete id="cancelScrap" parameterType="ScrapVO">
         DELETE FROM scrap WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
     </delete>
+
+    <update id="scrapCountSub" parameterType="PhotoBoardVO">
+        UPDATE photoboard SET
+        scrapCount = scrapCount -1
+        WHERE photoBoardNo = #{photoBoardNo}
+    </update>
 
     <select id="likeStat" resultType="int">
         SELECT count(*) FROM thehouse.like WHERE memberId = #{memberId} AND photoBoardNo = #{photoBoardNo}
@@ -85,14 +109,22 @@
     </select>
 
     <select id="photoComment" resultType="CommentVO">
-        SELECT * FROM comment WHERE photoBoardNo = #{photoBoardNo}
-        ORDER BY commentGroupNo desc, commentStep asc, commentIndent asc;
+        SELECT c.commentNo, c.memberId, c.commentupDate, c.commentContent, c.photoBoardNo, m.memberImg
+        FROM comment c INNER JOIN member m
+        ON c.memberId = m.memberId
+        WHERE c.photoBoardNo = #{photoBoardNo}
+    </select>
+
+    <select id="myProfileImg" resultType="memberVO">
+        SELECT memberId, memberImg
+        FROM member
+        WHERE memberId = #{memberId}
     </select>
 
     <insert id="insertPhotoComment" parameterType="CommentVO">
         INSERT INTO
-        comment(memberId, commentupDate, commentContent, commentGroupNo, commentIndent, commentStep, photoBoardNo)
-        VALUES(#{memberId}, curdate(), #{commentContent}, (select ifnull (max(commentNo)+1, 1) from comment c), 0, 0, #{photoBoardNo})
+        comment(memberId, commentupDate, commentContent, photoBoardNo)
+        VALUES(#{memberId}, curdate(), #{commentContent}, #{photoBoardNo})
     </insert>
 
     <delete id="deletePhotoComment" parameterType="int">
@@ -108,5 +140,9 @@
 
     <select id="commentCount" resultType="int">
         SELECT count(*) FROM comment WHERE photoBoardNo = #{photoBoardNo}
+    </select>
+
+    <select id="selectPhotoList" resultType="PhotoBoardVO">
+        SELECT photoBoardNo, photoImg1 FROM photoboard ORDER BY photoBoardNo desc LIMIT 12
     </select>
 </mapper>

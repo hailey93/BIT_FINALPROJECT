@@ -8,6 +8,7 @@
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
+
     <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -171,11 +172,11 @@
 
                     </div>
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage();
-                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px'); return false;">
+                    return false;">
                         장바구니
                     </button>
-                    <a href="/basketPop" value="저장" onClick="saveSessionStorage(); return false;">저장</a>
-                    <a href="/basketPop" rel="modal:open" onclick="saveSessionStorage();">모달창띄우기</a>
+                    <!--<a href="/basketPop" value="저장" onClick="saveSessionStorage(); return false;">저장</a>
+                    <a href="/basketPop" rel="modal:open" onclick="saveSessionStorage();">모달창띄우기</a>-->
                     <button type="submit" class="btn-buy-now">바로구매</button>
                 </form>
             </div>
@@ -297,21 +298,12 @@
         </div>
     </div>
     <script th:inline="javascript">
-
         var memId2 = [[${jsonText}]];
         var memId = JSON.parse(memId2);
+
         console.log("memId : " + memId);
-
         var first;
-
-
-        // 세션에서 아이디 받아와서 아이디 없으면 실행 시켜야됨 아이디 있으면 ajax로 db에 저장시켜야함
-        // var memberId = sessionStorage.getSession(memberId);
-        // if(memberId != null){
-        // }
-
         var i = 0;
-        //var arrValue = new Array();
         var goSession;
         var sessionCheck = sessionStorage.getItem("ProductNameSession");
         var localCheck = localStorage.getItem("saveL")
@@ -353,92 +345,59 @@
 
         function saveSessionStorage() {
             if (memId == null) {
-
                 console.log("saveSessionStorage 실행");
-                // 변수를 선언한다.
+
                 var value = document.getElementById("productNo").value;
-                var colorValue = $('#colorSelect').text();
+                var colorValue = $('#inputGroupSelect01').val();
                 var qtyValue = $("select[name=hohoBox]").val();
-                console.log("colorValue : " + colorValue);
-                //var colValue = document.getElementById("").value;
-                //var qtyValue = document.getElementById("").value;
-                console.log("productNoValue  :  " + value);
-                console.log("qtyValue  :  " + qtyValue);
-
                 var arr = [value, colorValue, qtyValue];
-                console.log("arr ? " + arr);
                 var list;
-                /*
-
-
-                var arr2 = ["잉", "이", "상"];
-                console.log("arr : " + arr);
-                localStorage.setItem("saveP", arr);
-                var list = [arr, arr2];
-                console.log("List입니다 : " + list);
-                localStorage.setItem("saveL", JSON.stringify(list));
-    */
-
                 var localSessionItem = localStorage.getItem("saveL");
-                console.log("localSessionItem" + localSessionItem);
+                if(colorValue == "") {
+                    alert("색상 선택하세요")
+                    window.location.href = '/';
+                }else{
+                    if (localSessionItem == null) {
+                        console.log("localSessionItem is Null입니다")
+                        b = 0;
+                        console.log("before arr : " + arr);
+                        localStored[0] = arr;
+                        console.log(localStored[0]);
+                        console.log("생 arr : " + localStored);
+                        first = "첫번째";
+                        localStorage.setItem("saveL", JSON.stringify(localStored));
+                    } else {
+                        first = "두번째";
+                        b = 0;
+                        console.log("localSession is not Null : ");
+                        for (var i = 0; i < localStored.length; i++) {
+                            console.log("localStored : " + localStored);
+                            if (localStored[b][0] == value && localStored[b][1] == colorValue) {
+                                console.log("로컬 이미 저장돼있습니다");
+                                break;
+                            }
+                            if (localStored[b + 1] == undefined) {
+                                console.log(b);
+                                localStored[b + 1] = arr;
+                                console.log("b+1은? " + localStored[b + 1] + " & localStored : " + localStored);
+                                localStorage.setItem("saveL", JSON.stringify(localStored));
+                                break;
+                            }
+                            b++;
+                        }
 
-                if (localSessionItem == null) {
-                    console.log("localSessionItem is Null입니다")
-                    b = 0;
-                    console.log("before arr : " + arr);
-                    localStored[0] = arr;
-                    /*if(localStored == null){
-                        localStored[0] = 1;
-                    }*/
-                    console.log(localStored[0]);
-                    console.log("생 arr : " + localStored);
-                    //localStorage.setItem("saveL", localStored);
-                    //localStored[b] = JSON.stringify(arr);
-                    //console.log(localStored[b]);
-                    first = "첫번째";
-                    localStorage.setItem("saveL", JSON.stringify(localStored));
-                } else {
-                    first = "두번째";
-                    b = 0;
-                    console.log("localSession is not Null : ");
-                    for (var i = 0; i < localStored.length; i++) {
-                        console.log("localStored : " + localStored);
-                        if (localStored[b][0] == value && localStored[b][1] == colorValue) {
-                            console.log("로컬 이미 저장돼있습니다");
-                            break;
-                        }
-                        if (localStored[b + 1] == undefined) {
-                            console.log("흠 Null");
-                            console.log(b);
-                            localStored[b + 1] = arr;
-                            console.log("bf" + arr);
-                            console.log("af" + JSON.stringify(arr));
-                            console.log("b+1은? " + localStored[b + 1] + " & localStored : " + localStored);
-                            localStorage.setItem("saveL", JSON.stringify(localStored));
-                            break;
-                        }
-                        b++;
                     }
 
+                    ajaxSessionStorage();
                 }
-                ajaxSessionStorage();
             } else {
-                console.log("memId : ~ajax " + memId);
-
-                var selectOption = $('#colorSelect').text();
-                console.log(selectOption);
-                //selectOption = selectOption.options[selectOption.selectedIndex].value;
-                console.log("옵션 : " + selectOption);
+                var selectOption = $('#inputGroupSelect01').val();
                 var qty = document.getElementById("hohoBox").value;
-                console.log("qty : " + qty | 0);
-                //var pName = document.getElementById("pName").value;
-                //console.log("pName" + pName);
                 var pNo = document.getElementById("productNo").value;
                 console.log("pNo" + pNo);
-
-                if (qty == "") {
-                    alert("숫자 입력하세요");
-
+                if (selectOption == "") {
+                    alert("다시 골라요");
+                    window.location.href = '/';
                 } else {
                     $.ajax({ // 세션 보내기 ajax
                         //console.log("hi");
@@ -452,15 +411,45 @@
                         }
                         ,
                         success: function (e) {
-                            alert("basketMem 완료")
-
+                            console.log("basketMem 완료")
+                            window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
                         },
                         error: function () {
-                            alert("test err");
+                            console.log("test err");
                         }
                     });
                 }
             }
+        }
+
+        function ajaxSessionStorage() {
+
+            console.log("ajaxSessionStorage 실행");
+            hoho = [localStorage.getItem("saveL")];
+            console.log("real" + hoho + "len" + hoho.length);
+            hoSession = JSON.parse(localStorage.getItem("saveL"));
+            console.log("ex" + hoSession.length + hoSession);
+            /* JSON.stringify(hoSession);
+             console.log("af"+JSON.stringify(hoSession).length+JSON.stringify(hoSession));
+             JSON.parse(hoSession);
+             console.log("prse :" + JSON.parse(hoSession).length+JSON.parse(hoSession));*/
+            var go = 'ho';
+            $.ajax({ // 세션 보내기 ajax
+                //console.log("hi");
+                url: "/basketLocal",
+                type: "POST",
+                traditional: true,
+                data: {
+                    'hoho': hoSession,
+                    'first': first
+                }
+                ,
+                success: function (e) {
+                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
+                }, error: function () {
+                    console.log("test err");
+                }
+            });
         }
 
         // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 로컬끝
@@ -478,7 +467,6 @@
         } else {
             a = 0;
             console.log("sessionCheck is  not null");
-
             while (true) {
                 if (stored[a] == value) {
                     alert("세션 이미 저장돼있습니다");
@@ -499,9 +487,9 @@
         // sessionStorage.setItem(key, value);
         //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
 
-    }
-    else
-    {
+        }
+        else
+        {
         console.log("memId : ~ajax " + memId);
 
         var selectOption = document.getElementById("inputGroupSelect01");
@@ -543,63 +531,8 @@
     }
     }
     */
-        function ajaxSessionStorage() {
 
-            console.log("ajaxSessionStorage 실행");
-            hoho = [localStorage.getItem("saveL")];
-            console.log("real" + hoho + "len" + hoho.length);
-            hoSession = JSON.parse(localStorage.getItem("saveL"));
-            console.log("ex" + hoSession.length + hoSession);
-            /* JSON.stringify(hoSession);
-             console.log("af"+JSON.stringify(hoSession).length+JSON.stringify(hoSession));
-             JSON.parse(hoSession);
-             console.log("prse :" + JSON.parse(hoSession).length+JSON.parse(hoSession));*/
-            var go = 'ho';
-            $.ajax({ // 세션 보내기 ajax
-                //console.log("hi");
-                url: "/basketLocal",
-                type: "POST",
-                dataType: 'json',
-                traditional: true,
-                data: {
-                    'hoho': hoSession,
-                    'first': first
-                }
-                ,
-                success: function (e) {
-                    alert("ajax완료")
-                }, error: function () {
-                    console.log("test err");
-                }
-            });
 
-            /*console.log("ajaxSessionStorage 실행");
-                var i = 0;
-
-                goSession = sessionStorage.getItem("ProductNameSession")
-                console.log("exgoSession" + goSession);
-                JSON.parse(goSession);
-                console.log("afgoSession" + goSession);
-                $.ajax({ // 세션 보내기 ajax
-                    //console.log("hi");
-                    url: "/basketSession",
-                    type: "POST",
-                    traditional: true,
-                    data: {'hoho': goSession}
-                    ,
-                    success: function (e) {
-                        var result = e.result
-                        console.log("success");
-                        //console.log(hoho3);
-                        console.log(e);
-                        alert("ajax완료")
-
-                    },
-                    error: function () {
-                        alert("test err");
-                    }
-                });*/
-        }
 
     </script>
 </div>

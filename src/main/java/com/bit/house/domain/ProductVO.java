@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.apache.ibatis.type.Alias;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
@@ -23,7 +22,7 @@ public class ProductVO {
     private int sellPrice;
     private int purchasePrice;
     private String categoryCode;
-    private Date productCreatDate;
+    private Date productCreateDate;
     private Date productUpdateDate;
     private String productMainImg;
     private String productSubImg1;
@@ -44,6 +43,10 @@ public class ProductVO {
     private String Year;
     private String Month;
     private String day;
+
+    @Autowired(required = false)
+    private ColorVO colorVO;
+
 
     private List<String> colorCodeVOList;
 

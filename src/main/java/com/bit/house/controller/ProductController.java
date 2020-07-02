@@ -1,6 +1,9 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.*;
+import com.bit.house.domain.BasketVO;
+import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.ProductVO;
+import com.bit.house.domain.SellerVO;
 import com.bit.house.mapper.ProductMapper;
 import com.bit.house.mapper.RecommenderMapper;
 import com.bit.house.service.RecommenderService;
@@ -12,10 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,6 +87,7 @@ public class ProductController {
     public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {
         List<ProductVO> categoryList = productMapper.selectProductByCategory(category);
         model.addAttribute("productList", categoryList);
+
         return "th/main/categoryList";
     }
 
@@ -88,26 +99,6 @@ public class ProductController {
         List<ProductVO> reviewList = productMapper.getProductReviewByProductNo(productNo);
         SellerVO seller = productMapper.getProductVOBySellerName(productNo);
         String reviewUrlImg = "/uploadImg/reviewImg/";
-//        List<String> productStarList = productMapper.selectAllStarJs();
-//        Map<String, String> mapList = new HashMap<>();
-
-//        ObjectMapper mapperStar = new ObjectMapper();
-//        String jsonStar;
-//        try {
-//            jsonStar = mapperStar.writeValueAsString(productStarList);
-//            mapList.put("jsonStar", jsonStar);
-//        } catch (
-//                JsonGenerationException e) {
-//            e.printStackTrace();
-//        } catch (
-//                JsonMappingException e) {
-//            e.printStackTrace();
-//        } catch (
-//                IOException e) {
-//            e.printStackTrace();
-//        }
-
-
         model.addAttribute("reviewUrlImg", reviewUrlImg);
         model.addAttribute("reviewList", reviewList);
         model.addAttribute("product", product);

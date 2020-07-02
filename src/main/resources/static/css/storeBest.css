@@ -1,3 +1,15 @@
+@media (min-width: 768px) {
+    .ranking__explain {
+        display: block;
+        font-size: 15px;
+        margin-bottom: 10px;
+    }
+}
+
+.ranking__explain {
+    color: #757575;
+}
+
 .ranking-feed {
     position: relative;
     z-index: 0;
@@ -67,6 +79,7 @@
 .ranking-feed__content {
     margin-bottom: 10px
 }
+
 .ranking-product-item__wrap {
     display: -webkit-box;
     display: -webkit-flex;
@@ -106,7 +119,7 @@
     z-index: 1
 }
 
-/*.ranking-product-item__link.focus-visible:focus ~ .ranking-product-item__img-wrap .production-item-image > img {
+.ranking-product-item__link.focus-visible:focus ~ .ranking-product-item__img-wrap .production-item-image > img {
     transform: translate(-50%, -50%) scale(1.1)
 }
 
@@ -114,7 +127,11 @@
     .ranking-product-item__link:active ~ .ranking-product-item__img-wrap .production-item-image > img, .ranking-product-item__link:hover ~ .ranking-product-item__img-wrap .production-item-image > img {
         transform: translate(-50%, -50%) scale(1.1)
     }
-}*/
+}
+
+.ranking-product-item__number {
+    padding: 10px;
+}
 
 @media (min-width: 1024px) {
     .ranking-product-item__number-wrap {
@@ -131,13 +148,14 @@
 
 .ranking-product-item__number-wrap {
     -webkit-box-flex: 0;
-    font-size: 15px;
+    font-size: 20px;
     font-weight: 700;
     text-align: left;
     color: rgb(117, 117, 117);
-    width: 32px;
+    /*width: 32px;*/
     flex: 0 0 auto;
 }
+
 @media (max-width: 1023px) {
     .ranking-product-item__number__medal {
         border-radius: 50%;
@@ -153,6 +171,7 @@
 .ranking-product-item__number__gold {
     color: #fff
 }
+
 @media (min-width: 1024px) {
     .ranking-product-item__number__gold-wrap {
         background-color: #c9950d
@@ -200,6 +219,7 @@
 .ranking-product-item__img-wrap {
     position: relative;
 }
+
 @media (max-width: 1023px) {
     .ranking-product-item__img-wrap {
         width: 100px
@@ -213,6 +233,7 @@
 .ranking-product-item__content {
     padding: 0px 4px;
 }
+
 @media (max-width: 1023px) {
     .ranking-product-item__content {
         -webkit-box-flex: 1;
@@ -230,6 +251,7 @@
         margin: 9px 0px 0px;
     }
 }
+
 .ranking-product-item__header__brand {
     display: block;
     color: #757575;

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 @NoArgsConstructor
-public class FollowVO {
+public class FollowVO extends MemberVO{
     private String memberId;
     private String followId;
     private String followNo;

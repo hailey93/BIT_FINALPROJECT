@@ -33,14 +33,14 @@ public class StatAdminController {
         return "th/admin/statAdmin/statAdmin";
     }
 
-    @GetMapping("/graph")
+    @GetMapping("/productSalesVolume")
     public String graph(Model model) {
         //판매량, 품목
         String sellerName = "가쯔";
         List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
 
         log.info("yearlySellerSalesVolume :: " +yearlySellerSalesVolume);
-        List<ProductVO> houseProductList = adminMapper.getProduct();
+        //List<ProductVO> houseProductList = adminMapper.getProduct();
         //List<ProductVO> salesVol = adminMapper.getSalesVolume();
         //log.info("salesVol = "+salesVol);
         List<OrderListVO> spendingPattern = adminMapper.getSpendingPattern();
@@ -55,12 +55,10 @@ public class StatAdminController {
 
         try {
             jsonText = mapper.writeValueAsString(spendingPattern);
-
-
             yearlyJson = mapper.writeValueAsString(yearlySellerSalesVolume);
 
             model.addAttribute("yearlyJson", yearlyJson);
-            model.addAttribute("sellN", sellerName );
+            model.addAttribute("sellerName", sellerName );
 
             model.addAttribute("jsonText", jsonText);
             model.addAttribute("yearList", yearList);
@@ -152,7 +150,7 @@ public class StatAdminController {
 
     @GetMapping("/searchCom")
     public String searchCom(String inputSellerName,Model model,String sellerName){
-        log.info("sellerAjax 호출" + inputSellerName);
+        log.info("sellerAjax 호출" + sellerName);
 
         List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
 
@@ -163,6 +161,7 @@ public class StatAdminController {
             jsonText = mapper.writeValueAsString(yearlySellerSalesVolume);
 
             model.addAttribute("yearlyJson", jsonText);
+            model.addAttribute("sellerName",sellerName);
             System.out.println("jsonText는 : ? : " + jsonText);
         } catch (JsonGenerationException e) {
             e.printStackTrace();
@@ -262,10 +261,8 @@ public class StatAdminController {
     }
 
     //------------------------------ 제품 관리
-    @GetMapping("/productManagement")
-    public String productManagement(){
-        return "th/admin/statAdmin/productManagement";
-    }
+
+
     @GetMapping("/productRegistration")
     public String productRegistration(){
         return "th/admin/statAdmin/productRegistration";
@@ -293,6 +290,20 @@ public class StatAdminController {
         //System.out.println("houseProductList : ? " + productOptionVOList);
 
         return "";
+    }
+
+    @GetMapping("/productManagement")
+    public String productManagement(Model model){
+        List<ProductVO> productVOList = (List<ProductVO>) adminMapper.getProductManagement();
+        model.addAttribute("productVOList", productVOList);
+        return "th/admin/statAdmin/productManagement";
+    }
+
+    @GetMapping("/popularityProduct")
+    public String popularityProduct(Model model){
+        List<OrderListVO> orderListVOList = (List<OrderListVO>) adminMapper.getPopularity();
+        model.addAttribute("orderListVOList", orderListVOList);
+        return "th/admin/statAdmin/popularityProduct";
     }
 
 }

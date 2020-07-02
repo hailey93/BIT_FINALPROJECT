@@ -24,6 +24,9 @@
                 <a th:href="@{/storeNewBest}">
                    <li class="nav-link ranking-type-filter__item ranking-type-filter__item--right right--active">신제품 베스트</li></a>
             </ol>
+
+            <span class="ranking__explain">최근 한달내에 나온 신상품 중 베스트 순위입니다.</span>
+
             <div class="virtualized-list ranking-feed__content row" id="newBest"
                  style="padding-top: 0px; transform: translateY(0px);">
                 <tr th:each="products : ${newList}">

@@ -21,7 +21,7 @@
                         <div th:each="sellerInfo : ${sellerInfo}">
                             <div class="image">
                                 <!--                                <img th:src="${sellerInfo.sellerImg}"-->
-                                <img th:src="${sellerInfo.sellerImg}"
+                                <img th:src="@{'/uploadImg/'+${sellerInfo.sellerImg}}"
                                      class="rounded-circle width=50px height=50px"
                                      alt="User Image">
                                 <a th:text="${sellerInfo.sellerName}" th:href="@{/seller/sellerInfo}"></a>
@@ -43,7 +43,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a th:href="@{/seller/category}" class="nav-link">
+                                        <a th:href="@{/seller/productList}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>상품 리스트</p>
                                         </a>
@@ -139,18 +139,18 @@
                                                 <input type="text" class="form-control" name="modelName" id="modelName"
                                                        placeholder="modelName">
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-6" th:each="sellerInfo : ${sellerInfo}">
                                                 <label for="sellerName">업체명</label>
                                                 <input type="text" class="form-control" name="sellerName"
                                                        id="sellerName"
-                                                       placeholder="sellerName" readonly>
+                                                       th:value="${sellerInfo.sellerName}" readonly>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="form-group col-md-6">
-                                                <label for="customPrice">판매가</label>
-                                                <input type="text" class="form-control" name="customPrice"
-                                                       id="customPrice"
+                                                <label for="customerPrice">판매가</label>
+                                                <input type="text" class="form-control" name="customerPrice"
+                                                       id="customerPrice"
                                                        placeholder="customPrice">
                                             </div>
                                             <div class="form-group col-md-6">
@@ -245,14 +245,15 @@
                                     <div class="col-md-12" style="text-align: center;">
                                         <img id="ExpImgView" class="col-md-12 mb-3">
                                     </div>
+                                    <div>
+                                        <button type="submit" class="btn btn-info mr-4 mb-4" style="float:right;">
+                                            상품 등록
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <button type="submit" class="btn btn-info" style="float:right;">
-                                수정
-                            </button>
-                        </div>
+
 
                     </div>
                 </section>
@@ -324,31 +325,6 @@
         });
     </script>
 
-    <script th:inline="javascript">
-
-        //
-        // var jsonColor = [[${jsonColor}]];
-        // var jsonDataColor = JSON.parse(jsonColor);
-        // console.log(jsonColor);
-        //
-        // var colorArr = new Array();
-        // var colorObj = new Object();
-        //
-        // var colorSelect = $(".optionColor");
-        //
-        // for (var i = 0; i < jsonDataColor.length; i++) {
-        //
-        //     colorObj = new Object();
-        //     colorObj.colorCode = jsonDataColor[i].colorCode;
-        //     colorObj.colorType = jsonDataColor[i].colorType;
-        //     colorArr.push(colorObj);
-        // }
-        //
-        // for (var j = 0; j < colorArr.length; j++) {
-        //     colorSelect.append("<option value='" + colorArr[j].colorCode + "'>" + colorArr[j].colorType + "</option>");
-        // }
-
-    </script>
 
     <script th:inline="javascript">
         $(document).ready(function () {

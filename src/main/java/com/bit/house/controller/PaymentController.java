@@ -1,9 +1,6 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.BasketVO;
-import com.bit.house.domain.MemberVO;
-import com.bit.house.domain.NonMemberVO;
-import com.bit.house.domain.OrderListVO;
+import com.bit.house.domain.*;
 import com.bit.house.mapper.AdminMapper;
 import com.bit.house.mapper.BasketMapper;
 import lombok.extern.slf4j.Slf4j;
@@ -28,40 +25,73 @@ public class PaymentController {
     @Autowired
     BasketMapper basketMapper;
 
+
     @GetMapping("/goPayment")
-    public String memberPayment(HttpSession session, Model model){
+    public String memberPayment(HttpSession session, String productNo,Model model,String colorN, String directPayment){
         String memberId = "";
-
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-        if(memberVO != null){
-
-            memberId = memberVO.getMemberId();
-            log.info(memberId);
-            List<BasketVO> basketMember = basketMapper.getMemberBasketList(memberId);
-            System.out.println("qty :: " + basketMember);
-            //session.setAttribute("basketMember", basketMember);
-            model.addAttribute("memberBasketList", basketMember);
-            return "th/member/payment/memberPayment";
-        }else{
-            List<String> proNoSession1;
-            List<String> proColorSession2;
-            List<Integer> proQtySession3;
-
-            //localSessionStorage
-            proNoSession1 = (List<String>) session.getAttribute("proNo");
-            proColorSession2 = (List<String>) session.getAttribute("proColor");
-            proQtySession3 = (List<Integer>) session.getAttribute("proQty");
-
-            List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(proNoSession1,proColorSession2);
-            for(int i=0; i<basketVOList.size(); i++) {
-                basketVOList.get(i).setQty(proQtySession3.get(i));
-                System.out.println("리스트 i 의 qty입니다"+basketVOList.get(i).getQty());
-            }
-            System.out.println("리스트:"+basketVOList);
-            session.setAttribute("nonMemberBasketVOList", basketVOList);
-            model.addAttribute("nonMemberBasketList", basketVOList);
-            return "th/member/payment/nonMemberPayment";
+        if(directPayment != null) {
+            System.out.println("다이렉트 : " + directPayment + directPayment.getClass() + "is true" + directPayment.equals(null));
         }
+        if(colorN != null) {
+            System.out.println("컬러 : " + colorN.equals("") + colorN.getClass());
+        }
+        if(colorN == ""){
+            return "redirect:/";
+        }
+        if(memberVO != null){
+            if(directPayment == null) {
+                memberId = memberVO.getMemberId();
+                log.info(memberId);
+                List<BasketVO> basketMember = basketMapper.getMemberBasketList(memberId);
+                System.out.println("qty :: " + basketMember);
+                //session.setAttribute("basketMember", basketMember);
+                model.addAttribute("memberBasketList", basketMember);
+                return "th/member/payment/memberPayment";
+            }else {
+                System.out.println("directPayment는 !Null입니다 ");
+                System.out.println(productNo+colorN);
+                ProductVO productVO = adminMapper.getDirectPayment(productNo,colorN);
+                System.out.println("productVO는? : " + productVO);
+                model.addAttribute("productVO",productVO);
+                return "th/member/payment/memberPayment";
+            }
+        }else{
+            if(directPayment == null) {
+                List<String> proNoSession1;
+                List<String> proColorSession2;
+                List<Integer> proQtySession3;
+
+                //localSessionStorage
+                proNoSession1 = (List<String>) session.getAttribute("proNo");
+                proColorSession2 = (List<String>) session.getAttribute("proColor");
+                proQtySession3 = (List<Integer>) session.getAttribute("proQty");
+
+                List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(proNoSession1, proColorSession2);
+                for (int i = 0; i < basketVOList.size(); i++) {
+                    basketVOList.get(i).setQty(proQtySession3.get(i));
+                    System.out.println("리스트 i 의 qty입니다" + basketVOList.get(i).getQty());
+                }
+                System.out.println("리스트:" + basketVOList);
+                session.setAttribute("nonMemberBasketVOList", basketVOList);
+                model.addAttribute("nonMemberBasketList", basketVOList);
+                return "th/member/payment/nonMemberPayment";
+            }else {
+                System.out.println("directPayment는 !Null입니다 ");
+                System.out.println(productNo+colorN);
+                ProductVO productVO = adminMapper.getDirectPayment(productNo,colorN);
+                System.out.println("productVO는? : " + productVO);
+                model.addAttribute("productVO",productVO);
+                return "th/member/payment/nonMemberPayment";
+            }
+        }
+    }
+
+    @PostMapping("/directPayment")
+    public String directPayment(String productNo,Model model,String productColor){
+        System.out.println("TEst ::" + productNo + "productColor : " +productColor);
+        model.addAttribute("test", productNo);
+        return "th/member/payment/directPayment";
     }
 
 
@@ -90,7 +120,7 @@ public class PaymentController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/paymentCom")
-    public @ResponseBody void paymentComplete(OrderListVO orderListVO, NonMemberVO nonMemberVO){
+    public @ResponseBody void paymentComplete(OrderListVO orderListVO, NonMemberVO nonMemberVO,HttpSession session){
         java.sql.Date sqlToday = new java.sql.Date(System.currentTimeMillis());
         System.out.println("오늘 : ? "+sqlToday);
 
@@ -126,7 +156,22 @@ public class PaymentController {
         nonMemberVO.setOrderNo(today+'-'+No);
         log.info("paymentCom 호출@@@@");
         System.out.println("@@@@@@@@@@@@@@@@@@@@ orderListVO  :: "+orderListVO+"nonmembervO: "+ nonMemberVO);
-        adminMapper.insertInicis(orderListVO);
-        adminMapper.insertNonMemTable(nonMemberVO);
+        String memberId = "";
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        if(memberVO != null) {
+            adminMapper.insertInicis(orderListVO);
+        }else {
+            adminMapper.insertInicis(orderListVO);
+            adminMapper.insertNonMemTable(nonMemberVO);
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/saveAddr")
+    public @ResponseBody String saveAddr(String fullAddr,HttpSession session ){
+        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+        String memberId = memberVO.getMemberId();
+        System.out.println("saveAddr 실행");
+        adminMapper.updateMemberAddr(fullAddr,memberId);
+        return "ss";
     }
 }

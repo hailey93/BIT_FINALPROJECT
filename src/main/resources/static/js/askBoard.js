@@ -1,5 +1,5 @@
-$(function(){
-    $("#aCommentInsert").click(function(){
+$(function () {
+    $("#aCommentInsert").click(function () {
         var Content = $("#comment").serialize();
 
         console.log(Content);
@@ -9,8 +9,10 @@ $(function(){
             type: "post",
             url: "/insertAskComment",
             data: Content,
-            success : function(data){
+            success: function (data) {
                 console.log(data);
+
+                alert("consol");
                 location.reload();
             },
         });
@@ -20,7 +22,12 @@ $(function(){
 function reply(idx) {
     var askBoardNo = idx;
     location.href = "/askreply/" + askBoardNo;
-}
+};
+
+function update(idx) {
+    var askBoardNo = idx;
+    location.href = "/askupdate/" + askBoardNo;
+};
 
 function del(idx) {
     var askBoardNo = idx;
@@ -31,12 +38,7 @@ function del(idx) {
         location.href = "/askdelete/" + askBoardNo;
 
     }
-}
-
-function update(idx) {
-    var askBoardNo = idx;
-    location.href = "/askupdate/" + askBoardNo;
-}
+};
 
 
 $(function () {
@@ -53,8 +55,19 @@ $(function () {
         }
     });
 
+    $("#insertBoard").click(function () {
+        obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
+        $("#insertBoardFrm").submit();
+    });
+
+    $("#replyInsertBoard").click(function () {
+        obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
+        $("#replyInsertBoardFrm").submit();
+    });
+
     $("#updateBoard").click(function () {
         obj.getById["askContent"].exec("UPDATE_CONTENTS_FIELD", []);
         $("#updateBoardFrm").submit();
     });
 });
+

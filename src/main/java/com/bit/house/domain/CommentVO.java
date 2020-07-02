@@ -5,7 +5,7 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-public class CommentVO {
+public class CommentVO extends MemberVO{
     private String memberId;
     private Date commentupDate;
     private String commentContent;

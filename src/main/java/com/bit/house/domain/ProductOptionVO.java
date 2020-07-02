@@ -3,7 +3,6 @@ package com.bit.house.domain;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.apache.ibatis.type.Alias;
 
 @Setter
 @Getter
@@ -14,4 +13,5 @@ public class ProductOptionVO {
     private String colorCode;
     private int productQty;
     private int productSellingQty;
+    private String colorType;
 }
