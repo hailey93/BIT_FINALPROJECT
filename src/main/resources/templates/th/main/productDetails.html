@@ -131,7 +131,7 @@
                                   th:text="${product.customerPrice}"></span><span class="won">원</span></h4>
                     </div>
                     <div class="input-group">
-                        <select class="custom-select col-md-7" th:id="inputGroupSelect01">
+                        <select class="custom-select col-md-7" th:id="inputGroupSelect01" name="colorN">
                             <option selected value="" id="disabled">색상을 선택해주세요</option>
                             <option id="colorSelect" th:each="color : ${product.colorCodeVOList}"
                                     th:value="${color}"
