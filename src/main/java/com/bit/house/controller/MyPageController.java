@@ -114,6 +114,7 @@ public class MyPageController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
+        model.addAttribute("mem", memberVO.getMemberId());
         model.addAttribute("followCount", myPageMapper.followCount(memberId));
         model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
         model.addAttribute("member", myPageMapper.selectProfile(memberId));
@@ -128,6 +129,7 @@ public class MyPageController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
+        model.addAttribute("mem", memberVO.getMemberId());
         model.addAttribute("followCount", myPageMapper.followCount(memberId));
         model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
         model.addAttribute("member", myPageMapper.selectProfile(memberId));

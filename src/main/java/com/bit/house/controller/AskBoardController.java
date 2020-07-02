@@ -1,8 +1,6 @@
 package com.bit.house.controller;
 
-import com.bit.house.domain.AskBoardVO;
-import com.bit.house.domain.CommentVO;
-import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.*;
 import com.bit.house.mapper.AskBoardMapper;
 import com.bit.house.mapper.MyPageMapper;
 import com.bit.house.mapper.PhotoBoardMapper;
@@ -32,9 +30,17 @@ public class AskBoardController {
     MyPageMapper myPageMapper;
 
     @RequestMapping("/askBoardList")//게시판 리스트 화면 호출
-    private String askBoardList(Model model) throws Exception {
+    private String askBoardList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
-        model.addAttribute("list", askBoardMapper.askBoardList());
+        System.out.println("cri : "+cri.toString());
+
+        model.addAttribute("list", askBoardMapper.askBoardList(cri));
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        pageMaker.setTotalCount(askBoardMapper.listCountCriteria(cri));
+
+        model.addAttribute("pageMaker", pageMaker);//게시판 하단 페이징 관련, 이전페이지, 페이지 링크, 다음페이지
+
 
         return "th/askBoard/askBoardList";
     }

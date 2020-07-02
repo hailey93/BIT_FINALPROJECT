@@ -13,8 +13,8 @@
 
     <insert id="insertPhoto" parameterType="PhotoBoardVO">
         INSERT INTO
-        photoboard(memberId, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, areaCode, styleCode, houseCode, placeCode )
-        VALUE(#{memberId}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5}, #{areaCode}, #{styleCode}, #{houseCode}, #{placeCode} )
+        photoboard(memberId, photoContent, photoDate, photoImg1, photoImg2, photoImg3, photoImg4, photoImg5, areaCode, styleCode, houseCode, placeCode, likeCount, scrapCount )
+        VALUE(#{memberId}, #{photoContent}, curdate(), #{photoImg1}, #{photoImg2}, #{photoImg3}, #{photoImg4}, #{photoImg5}, #{areaCode}, #{styleCode}, #{houseCode}, #{placeCode}, 0, 0 )
     </insert>
 
     <update id="updatePhoto" parameterType="PhotoBoardVO">

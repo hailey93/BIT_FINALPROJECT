@@ -6,8 +6,14 @@
         SELECT askBoardNo, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate,
         askGroupNo, askIndent, askStep
         FROM askboard
-        order by askGroupNo desc, askStep asc, askIndent asc;
+        WHERE askBoardNo > 0
+        order by askGroupNo desc, askStep asc, askIndent asc
+        LIMIT #{pageStart}, #{perPageNum}
 
+    </select>
+
+    <select id="listCountCriteria" resultType="int">
+        SELECT count(*) FROM askboard WHERE askBoardNo > 0
     </select>
 
     <select id="askDetail" parameterType="int" resultType="AskBoardVO">

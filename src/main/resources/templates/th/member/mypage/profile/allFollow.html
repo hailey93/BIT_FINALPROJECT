@@ -38,11 +38,13 @@
                     <p class="user-header__follow">
                         팔로우<span class="user-header__follow__follower" th:text="${followCount}"/>|팔로잉<span class="user-header__follow__follower" th:text="${followingCount}"/>
                     </p>
+                    <div th:if="${mem} != ${member.memberId}">
                     <button th:if="${fcount == 0}" class="btn user-header__btn user-header__btn--follow"
                             id="follow" name="follow">팔로우</button><!--data-user="4247188" data-user는 오늘의집 내에서 idNumber 값인듯 지워도 될듯?-->
                     <button th:if="${fcount == 1}" class="btn user-header__btn user-header__btn--follow"
                             id="followcancel" name="followcancel">팔로우취소</button>
                     <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}"/>
+                    </div>
                 </div>
             </header>
             <div class="myhome-nav">
@@ -68,7 +70,7 @@
                                      th:attr="srcset=|@{'/uploadImg'+${follow?.memberImg}} 1.5x,
                                                                         @{'/uploadImg'+${follow?.memberImg}} 2x,
                                                                         @{'/uploadImg'+${follow?.memberImg}} 3x|">
-                                <img th:if="${follow?.memberImg == null}" class="comment-feed__item__content__author__image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                <img th:if="${follow?.memberImg == null}" class="image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                      th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                                         @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                                         @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
