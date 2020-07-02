@@ -5,22 +5,20 @@ import com.bit.house.chattingProcess.RedisPublisher;
 import com.bit.house.domain.ChatRoomVO;
 import com.bit.house.domain.ChatVO;
 import com.bit.house.domain.MemberVO;
-import com.bit.house.mapper.ChatMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,9 +26,6 @@ import java.util.Map;
 public class ChatController {
     private final RedisPublisher redisPublisher;
     private final ChatRepository chatRepository;
-
-    @Autowired(required = false)
-    ChatMapper chatMapper;
 
     @MessageMapping("/message")
     public void message(ChatVO message){
@@ -44,15 +39,19 @@ public class ChatController {
             redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
             chatRepository.deleteChatRoom(message.getChatId());
         } else{
-            //채팅시간 set
-            SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-            String time=currentTime.format(System.currentTimeMillis());
-            message.setTime(time);
-            //채팅메시지 저장
-            chatRepository.saveMsg(message);
-            redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+            if(chatRepository.findRoombyId(message.getChatId()).getCount()==2){
+                //채팅시간 set
+                SimpleDateFormat currentTime = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+                String time=currentTime.format(System.currentTimeMillis());
+                message.setTime(time);
+                //채팅메시지 저장
+                chatRepository.saveMsg(message);
+                redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+            } else{
+                message.setMsg("상담원이 입장할때까지 잠시만 기다려주세요.");
+                redisPublisher.publish(chatRepository.getTopic(message.getChatId()), message);
+            }
         }
-
     }
 
     @PostMapping("/chat")
@@ -98,16 +97,15 @@ public class ChatController {
     @GetMapping("/admin/chatHistory")
     public String getChatHistory(Model model){
         //회원 채팅이력
-        model.addAttribute("msgLists", chatMapper.selectChatMsg());
+        model.addAttribute("msgLists", chatRepository.getChatMsg());
         return "th/admin/chat/chatHistory";
     }
 
-    @GetMapping("/chatHistoryById")
-    @ResponseBody
-    public Map<String, List<ChatVO>> getChatHistoryById(@RequestParam String memberId){
-        //회원 채팅이력 검색
-        Map<String, List<ChatVO>> msgList=new HashMap<>();
-        msgList.put("msgList", chatMapper.selectChatMsgById(memberId));
-        return msgList;
+    @GetMapping("/admin/chatHistoryById")
+    public String getChatHistoryById(HttpServletRequest request, Model model){
+        //회원 채팅이력 아이디별 검색
+        String memberId=request.getParameter("memberId");
+        model.addAttribute("msgLists", chatRepository.getChatMsgById(memberId));
+        return "th/admin/chat/chatHistory";
     }
 }

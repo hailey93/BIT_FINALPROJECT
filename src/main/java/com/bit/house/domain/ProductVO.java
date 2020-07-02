@@ -22,7 +22,7 @@ public class ProductVO {
     private int sellPrice;
     private int purchasePrice;
     private String categoryCode;
-    private Date productCreatDate;
+    private Date productCreateDate;
     private Date productUpdateDate;
     private String productMainImg;
     private String productSubImg1;
@@ -49,5 +49,7 @@ public class ProductVO {
 
 
     private List<String> colorCodeVOList;
+
+    private Date orderConfirmDate;
 
 }

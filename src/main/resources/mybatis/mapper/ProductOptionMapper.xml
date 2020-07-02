@@ -8,5 +8,22 @@
     </insert>
 
 
+    <select id="searchProductColorList" resultType="com.bit.house.domain.ProductOptionVO">
+        SELECT proop.productOptionNo, proop.productNo, proop.colorCode, proop.productQty, col.colorType
+        FROM product pro, seller sel, productoption proop, color col
+        WHERE pro.sellerName=sel.sellerName AND pro.productNo = proop.productNo
+        AND proop.colorCode = col.colorCode
+        AND proop.productNo=#{productNo}
+        AND sel.sellerId=#{sellerId};
+    </select>
+
+    <update id="updateProductOption" parameterType="com.bit.house.domain.ProductOptionVO">
+
+		UPDATE productoption
+		SET productOptionNo=#{productOptionNo}, productNo=#{productNo}, colorCode=#{colorCode}, productQty=#{productQty}
+		where productOptionNo=#{productOptionNo2}
+
+    </update>
+
 </mapper>
 

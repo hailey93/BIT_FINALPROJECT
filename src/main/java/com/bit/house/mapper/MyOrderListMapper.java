@@ -21,8 +21,9 @@ public interface MyOrderListMapper {
     @Update("update orderlist set orderCode='50', cancelReason=#{cancelReason}, orderCancelDate=sysdate() where orderNo=#{orderNo}")
     void addCancelReason(OrderListVO orderListVO);
 
-    @Insert("insert into review(orderNo, memberId, reviewContent, reviewImg1, reviewImg2, reviewImg3) values(#{orderNo}, #{memberId}, #{reviewContent}, #{reviewImg1}, #{reviewImg2}, #{reviewImg3})")
+    @Insert("insert into review(orderNo, memberId, reviewContent, productRank, reviewImg1, reviewImg2, reviewImg3) values(#{orderNo}, #{memberId}, #{reviewContent}, #{productRank}, #{reviewImg1}, #{reviewImg2}, #{reviewImg3})")
     void addReview(ReviewVO reviewVO);
+
 
     @Update("update orderList set orderCode='40', orderConfirmDate=sysdate() where orderNo=#{orderNo}")
     void addConfirmOrderType(OrderListVO orderListVO);

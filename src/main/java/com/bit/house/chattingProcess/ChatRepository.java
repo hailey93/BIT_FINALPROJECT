@@ -81,11 +81,14 @@ public class ChatRepository {
         topics.remove(chatId);
         ChatRoomVO chatInfo=opsHashChatRoom.get(CHAT_ROOMS, chatId);
 
-        //레디스에 저장된 채팅메시지 디비에 저장
-        StringBuilder msg=new StringBuilder();
+        //데이터 전처리
+        StringBuilder msgData=new StringBuilder();
         if(msgList.size(chatId)!=0){
-            msg.append(msgList.range(chatId,0,-1));
-            chatMapper.insertMsg(chatInfo.getChatId(), chatInfo.getMemberId(), msg.toString() ,chatInfo.getTime());
+            msgData.append(msgList.range(chatId,0,-1));
+            String stringMsg=msgData.toString();
+            String msg=stringMsg.substring(1, stringMsg.length()-1);
+            //레디스에 저장된 채팅메시지 디비에 저장
+            chatMapper.insertMsg(chatInfo.getChatId(), chatInfo.getMemberId(), msg, chatInfo.getTime());
             //레디스에 저장된 채팅내역 삭제
             msgList.trim(chatId,-1,0);
         }
@@ -94,14 +97,37 @@ public class ChatRepository {
     }
 
     public ChatRoomVO addCount(ChatRoomVO chatRoomVO){
+        //채팅방 인원수+1
         opsHashChatRoom.put(CHAT_ROOMS, chatRoomVO.getChatId(), chatRoomVO);
         return opsHashChatRoom.get(CHAT_ROOMS, chatRoomVO.getChatId());
     }
 
     public void saveMsg(ChatVO vo){
+        //저장할 데이터 전처리
+        String msg=vo.getMsg().replaceAll(",", "");
         //레디스에 채팅 메시지 저장
         msgList.rightPush(vo.getChatId(), vo.getSender());
-        msgList.rightPush(vo.getChatId(), vo.getMsg());
-        msgList.rightPush(vo.getChatId(), vo.getTime());
+        msgList.rightPush(vo.getChatId(), msg);
+        msgList.rightPush(vo.getChatId(), vo.getTime()+"<br>");
+    }
+
+    public List<ChatVO> getChatMsg(){
+        //데이터 전처리
+        List<ChatVO> vos=chatMapper.selectChatMsg();
+        for(ChatVO vo:vos){
+            String msg=vo.getMsg().replace(",", "");
+            vo.setMsg(msg);
+        }
+        return vos;
+    }
+
+    public List<ChatVO> getChatMsgById(String memberId){
+        //데이터 전처리
+        List<ChatVO> vos=chatMapper.selectChatMsgById(memberId);
+        for(ChatVO vo:vos){
+            String msg=vo.getMsg().replace(",", "");
+            vo.setMsg(msg);
+        }
+        return vos;
     }
 }

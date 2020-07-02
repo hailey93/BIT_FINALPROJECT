@@ -33,14 +33,14 @@ public class StatAdminController {
         return "th/admin/statAdmin/statAdmin";
     }
 
-    @GetMapping("/productManagement")
+    @GetMapping("/productSalesVolume")
     public String graph(Model model) {
         //판매량, 품목
         String sellerName = "가쯔";
         List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
 
         log.info("yearlySellerSalesVolume :: " +yearlySellerSalesVolume);
-        List<ProductVO> houseProductList = adminMapper.getProduct();
+        //List<ProductVO> houseProductList = adminMapper.getProduct();
         //List<ProductVO> salesVol = adminMapper.getSalesVolume();
         //log.info("salesVol = "+salesVol);
         List<OrderListVO> spendingPattern = adminMapper.getSpendingPattern();
@@ -290,6 +290,20 @@ public class StatAdminController {
         //System.out.println("houseProductList : ? " + productOptionVOList);
 
         return "";
+    }
+
+    @GetMapping("/productManagement")
+    public String productManagement(Model model){
+        List<ProductVO> productVOList = (List<ProductVO>) adminMapper.getProductManagement();
+        model.addAttribute("productVOList", productVOList);
+        return "th/admin/statAdmin/productManagement";
+    }
+
+    @GetMapping("/popularityProduct")
+    public String popularityProduct(Model model){
+        List<OrderListVO> orderListVOList = (List<OrderListVO>) adminMapper.getPopularity();
+        model.addAttribute("orderListVOList", orderListVOList);
+        return "th/admin/statAdmin/popularityProduct";
     }
 
 }

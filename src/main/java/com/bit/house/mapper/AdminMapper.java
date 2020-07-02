@@ -55,4 +55,7 @@ public interface AdminMapper {
 
     public ProductVO getDirectPayment(String productNo, String colorN);
     public void updateMemberAddr(String fullAddr,String memberId);
+
+    public List<ProductVO> getProductManagement();
+    public List<OrderListVO> getPopularity();
 }
