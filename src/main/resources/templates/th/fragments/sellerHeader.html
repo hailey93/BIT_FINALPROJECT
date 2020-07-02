@@ -59,16 +59,9 @@
                         </ul>
 
                         <ul class="navbar-nav">
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" th:href="@{/basket}">-->
-<!--                                    <span class="asdf" style="font-size: 16px; color: black;">-->
-<!--                                        <i class="fas fa-shopping-cart"> 장바구니</i>-->
-<!--                                    </span>-->
-<!--                                </a>-->
-<!--                            </li>-->
-
                             <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/customLogout}">
-                                <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">로그아웃</button>
+                                <input sec:authorize="isAuthenticated()" type="submit" class="button-css ml-2 mr-3" style="border: 1px solid red; color:red;" value="로그아웃">
+<!--                                <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">로그아웃</button>-->
                             </form>
                         </ul>
 

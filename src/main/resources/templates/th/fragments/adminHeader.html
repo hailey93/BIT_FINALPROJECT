@@ -54,7 +54,8 @@
 
                         <ul class="navbar-nav">
                             <form class="form-inline my-2 my-lg-0" form-method="post" th:action="@{/customLogout}">
-                                <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">로그아웃</button>
+                                <input sec:authorize="isAuthenticated()" type="submit" class="button-css  ml-2 mr-3" style="border: 1px solid red; color:red;" value="로그아웃">
+<!--                                <button sec:authorize="isAuthenticated()" class="btn btn-outline-danger my-2 my-sm-0 btn-sm" type="submit">로그아웃</button>-->
                             </form>
                         </ul>
 
