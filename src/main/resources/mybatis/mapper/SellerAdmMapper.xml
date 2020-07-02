@@ -13,7 +13,7 @@
     </select>
 
     <select id="sellerProduct" resultType="ProductVO">
-        SELECT productMainImg, productName, customerPrice
+        SELECT productMainImg, productName, customerPrice, productNo
         FROM product
         WHERE sellerName=#{sellerName}
         LIMIT 4;
