@@ -21,7 +21,7 @@
                         <div th:each="sellerInfo : ${sellerInfo}">
                             <div class="image">
                                 <!--                                <img th:src="${sellerInfo.sellerImg}"-->
-                                <img th:src="${sellerInfo.sellerImg}"
+                                <img th:src="@{'/uploadImg/'+${sellerInfo.sellerImg}}"
                                      class="rounded-circle width=50px height=50px"
                                      alt="User Image">
                                 <a th:text="${sellerInfo.sellerName}" th:href="@{/seller/sellerInfo}"></a>
@@ -325,31 +325,6 @@
         });
     </script>
 
-    <script th:inline="javascript">
-
-        //
-        // var jsonColor = [[${jsonColor}]];
-        // var jsonDataColor = JSON.parse(jsonColor);
-        // console.log(jsonColor);
-        //
-        // var colorArr = new Array();
-        // var colorObj = new Object();
-        //
-        // var colorSelect = $(".optionColor");
-        //
-        // for (var i = 0; i < jsonDataColor.length; i++) {
-        //
-        //     colorObj = new Object();
-        //     colorObj.colorCode = jsonDataColor[i].colorCode;
-        //     colorObj.colorType = jsonDataColor[i].colorType;
-        //     colorArr.push(colorObj);
-        // }
-        //
-        // for (var j = 0; j < colorArr.length; j++) {
-        //     colorSelect.append("<option value='" + colorArr[j].colorCode + "'>" + colorArr[j].colorType + "</option>");
-        // }
-
-    </script>
 
     <script th:inline="javascript">
         $(document).ready(function () {

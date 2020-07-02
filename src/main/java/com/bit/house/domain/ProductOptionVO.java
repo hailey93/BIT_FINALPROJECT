@@ -13,4 +13,5 @@ public class ProductOptionVO {
     private String colorCode;
     private int productQty;
     private int productSellingQty;
+    private String colorType;
 }

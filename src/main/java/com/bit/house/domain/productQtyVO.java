@@ -17,4 +17,6 @@ public class productQtyVO extends ProductVO{
     private String productMainImg;
     private int totalQty;
     private int ranking;
+
+
 }

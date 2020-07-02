@@ -1,7 +1,6 @@
 package com.bit.house.controller;
 
 import com.bit.house.domain.AllMemberVO;
-import com.bit.house.domain.OrderListVO;
 import com.bit.house.domain.SellerVO;
 import com.bit.house.service.AllMemberService;
 import com.bit.house.service.SellerService;
@@ -17,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
 @Slf4j
@@ -69,28 +69,19 @@ public class SellerController {
     }
 
     @PostMapping("/seller/changeSellerInfo")
-    public String changeSellerInfo(MultipartFile[] sellerImgUrl, HttpServletRequest request,String sellerName, String sellerRes,
-                                   String sellerImg, String sellerAddr, String sellerUrl, @AuthenticationPrincipal Principal principal) {
+    public String changeSellerInfo(MultipartFile sellerImgUrl, HttpServletRequest request,String sellerName, String sellerRes,
+                                   String sellerAddr, String sellerUrl,String sellerImgBefore, @AuthenticationPrincipal Principal principal) throws IOException {
 
-        String uploadFolderReview = request.getSession().getServletContext().getRealPath("image/seller");
+        String uploadFolder = request.getSession().getServletContext().getRealPath("image/seller");
 
-        for(MultipartFile multipartFile : sellerImgUrl) {
-
-            File saveFile = new File(uploadFolderReview, multipartFile.getOriginalFilename());
-            sellerImg = "/uploadImg/seller/" + multipartFile.getOriginalFilename();
-
-            log.info(multipartFile.getOriginalFilename());
-            log.info(String.valueOf(multipartFile.getSize()));
-            sellerService.updateSellerInfo(sellerName, sellerRes, sellerImg, sellerAddr, sellerUrl, principal.getName());
-            try {
-                multipartFile.transferTo(saveFile);
-
-                log.info("success");
-
-            } catch (Exception e) {
-                log.error(e.getMessage());
-            }
+        String sellerImg = sellerImgBefore;
+        if (!sellerImgUrl.isEmpty()) {
+            sellerImg = "seller/" + sellerImgUrl.getOriginalFilename();
+            File saveFile = new File(uploadFolder, sellerImgUrl.getOriginalFilename());
+            sellerImgUrl.transferTo(saveFile);
         }
+        sellerService.updateSellerInfo(sellerName, sellerRes, sellerImg, sellerAddr, sellerUrl, principal.getName());
+
 
         return "redirect:/seller/sellerInfo";
     }
@@ -119,6 +110,7 @@ public class SellerController {
 
     @PostMapping("/seller/changeSellerInfoLogin")
     public String changeSellerInfoLogin(String sellerPw, @AuthenticationPrincipal Principal principal){
+
 
         sellerService.updateSellerInfoLogin(sellerPw, principal.getName());
 

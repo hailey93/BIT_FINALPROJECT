@@ -153,99 +153,106 @@ footer
     line-height: 16px
 }
 
-.layout-footer {
-    margin-top: auto
-}
+/*.layout-footer {*/
+/*    margin-top: auto;*/
+/*   */
+/*}*/
 
+/*.footer {*/
+/*    height:180px;*/
+/*    position: fixed;*/
+/*    left: 0;*/
+/*    bottom: 0;*/
+/*    width: 100%;*/
+/*}*/
 
+/*!*.toast-message__footer {*/
+/*    -webkit-box-flex: 0;*/
+/*    -webkit-flex: 0 0 52px;*/
+/*    -moz-box-flex: 0;*/
+/*    -moz-flex: 0 0 52px;*/
+/*    -ms-flex: 0 0 52px;*/
+/*    flex: 0 0 52px;*/
+/*    text-align: center;*/
+/*    height: 100%;*/
+/*    position: relative;*/
+/*    border: 0;*/
+/*    border-radius: 8px;*/
+/*    background-color: #fff*/
+/*}*/
 
-/*.toast-message__footer {
-    -webkit-box-flex: 0;
-    -webkit-flex: 0 0 52px;
-    -moz-box-flex: 0;
-    -moz-flex: 0 0 52px;
-    -ms-flex: 0 0 52px;
-    flex: 0 0 52px;
-    text-align: center;
-    height: 100%;
-    position: relative;
-    border: 0;
-    border-radius: 8px;
-    background-color: #fff
-}
+/*@media (max-width: 767px) {*/
+/*    .toast-message__footer {*/
+/*        -webkit-box-flex: 0;*/
+/*        -webkit-flex: 0 0 44px;*/
+/*        -moz-box-flex: 0;*/
+/*        -moz-flex: 0 0 44px;*/
+/*        -ms-flex: 0 0 44px;*/
+/*        flex: 0 0 44px*/
+/*    }*/
+/*}*/
 
-@media (max-width: 767px) {
-    .toast-message__footer {
-        -webkit-box-flex: 0;
-        -webkit-flex: 0 0 44px;
-        -moz-box-flex: 0;
-        -moz-flex: 0 0 44px;
-        -ms-flex: 0 0 44px;
-        flex: 0 0 44px
-    }
-}
+/*@media (max-width: 374px) {*/
+/*    .toast-message__footer {*/
+/*        -webkit-box-flex: 0;*/
+/*        -webkit-flex: 0 0 30px;*/
+/*        -moz-box-flex: 0;*/
+/*        -moz-flex: 0 0 30px;*/
+/*        -ms-flex: 0 0 30px;*/
+/*        flex: 0 0 30px*/
+/*    }*/
+/*}*/
 
-@media (max-width: 374px) {
-    .toast-message__footer {
-        -webkit-box-flex: 0;
-        -webkit-flex: 0 0 30px;
-        -moz-box-flex: 0;
-        -moz-flex: 0 0 30px;
-        -ms-flex: 0 0 30px;
-        flex: 0 0 30px
-    }
-}
+/*.toast-message__footer > * {*/
+/*    position: absolute;*/
+/*    left: 50%;*/
+/*    top: 50%;*/
+/*    transform: translate(-50%, -50%)*/
+/*}*/
 
-.toast-message__footer > * {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%)
-}
+/*.toast-message__footer__close {*/
+/*    width: 44px;*/
+/*    height: 44px;*/
+/*    display: -webkit-box;*/
+/*    display: -webkit-flex;*/
+/*    display: -moz-flex;*/
+/*    display: -ms-flexbox;*/
+/*    display: flex;*/
+/*    -webkit-box-pack: center;*/
+/*    -ms-flex-pack: center;*/
+/*    -webkit-justify-content: center;*/
+/*    -moz-justify-content: center;*/
+/*    justify-content: center;*/
+/*    -webkit-box-align: center;*/
+/*    -ms-flex-align: center;*/
+/*    -webkit-align-items: center;*/
+/*    -moz-align-items: center;*/
+/*    align-items: center;*/
+/*    background-color: #fff;*/
+/*    border-radius: 22px;*/
+/*    cursor: pointer*/
+/*}*/
 
-.toast-message__footer__close {
-    width: 44px;
-    height: 44px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    -moz-justify-content: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    align-items: center;
-    background-color: #fff;
-    border-radius: 22px;
-    cursor: pointer
-}
+/*@media (max-width: 374px) {*/
+/*    .toast-message__footer__close {*/
+/*        width: 30px*/
+/*    }*/
+/*}*/
 
-@media (max-width: 374px) {
-    .toast-message__footer__close {
-        width: 30px
-    }
-}
+/*.toast-message__footer__close__icon {*/
+/*    width: 18px;*/
+/*    height: 18px*/
+/*}*/
 
-.toast-message__footer__close__icon {
-    width: 18px;
-    height: 18px
-}
+/*@media (max-width: 767px) {*/
+/*    .toast-message__footer__close__icon {*/
+/*        width: 12px;*/
+/*        height: 12px*/
+/*    }*/
+/*}*/
 
-@media (max-width: 767px) {
-    .toast-message__footer__close__icon {
-        width: 12px;
-        height: 12px
-    }
-}
-
-@media (min-width: 768px) {
-    .toast-message__footer:hover .toast-message__footer__close {
-        background-color: rgba(0, 0, 0, .05)
-    }
-}*/
+/*@media (min-width: 768px) {*/
+/*    .toast-message__footer:hover .toast-message__footer__close {*/
+/*        background-color: rgba(0, 0, 0, .05)*/
+/*    }*/
+/*}*!*/

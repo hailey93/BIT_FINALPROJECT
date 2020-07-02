@@ -1,7 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<div th:fragment="headerFragment">
+<div th:fragment="headerFragment" class="header">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12 xs-12 md-auto">
@@ -67,7 +67,7 @@
                                 <li class="nav-item">
                                     <a class="nav-link" th:href="@{/basket}">
                                     <span class="asdf" style="font-size: 16px; color: black;">
-                                        <i class="fas fa-shopping-cart"> 장바구니</i>
+                                        <i class="fas fa-shopping-cart mr-2"></i>
                                     </span>
                                     </a>
                                 </li>
