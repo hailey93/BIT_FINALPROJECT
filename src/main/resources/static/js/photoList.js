@@ -3,7 +3,7 @@ $(window).scroll(function () {
     if ($(window).scrollTop()+$(window).height()+30> $(document).height()) {
 
         $.ajax({
-            url: '/infiniteScrollDown',
+            url: '/photoScrollDown',
             type: 'GET',
             dataType: 'JSON',
 
@@ -18,9 +18,7 @@ $(window).scroll(function () {
                     infiniteList = infiniteList
                         + '<div class="col-6 col-md-3 product-item-wrap"><article class="production-item"><a class="production-item__overlay" href="/photodetail/photoBoardNo=' + value.photoBoardNo
                         + '"></a><div class="production-item-image production-item__image">'
-                        + '<img class="image" alt="" src="/uploadImg/' + value.photoImg1 + '"></div>'
-                        + '<div class="production-item__content"><h1 class="production-item__header">'
-                        + '<span class="production-item__header__name">' + value.photoTitle + '</span></h1>'
+                        + '<img class="image" alt="" src="/uploadImg' + value.photoImg1 + '"></div>'
                         + '</div></article></div>'
 
                 });

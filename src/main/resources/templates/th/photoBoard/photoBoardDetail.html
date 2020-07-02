@@ -34,39 +34,38 @@
                                     th:onclick="'javascript:del('+${photodetail.photoBoardNo}+');'">삭제</button>
                         </div>
                     </header>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg1 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 100%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg2 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg3 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg4 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
-                        <div class="card-detail-card-image-wrap card-detail-card__image">
+                    <article  class="card-detail-card">
+                        <div th:if="${photodetail.photoImg5 != null}" class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                         <p class="card-detail-card__description" th:text="${photodetail.photoContent}"></p>
