@@ -38,6 +38,7 @@
                     </div>
                 </form>
             </div>
+
             <table class="table table-hover">
                 <thead>
                 <tr class="list-group list-group-horizontal">
@@ -47,13 +48,11 @@
                 </tr>
                 </thead>
                 <tbody id="tableList">
-                    <div th:each="msgList: ${msgLists}">
-                        <tr class="list-group list-group-horizontal">
-                            <td th:text="${msgList.sender}" style="width:10%"></td>
-                            <td th:utext="${msgList.msg}" style="width:70%"></td>
-                            <td th:text="${msgList.time}" style="width:10%"></td>
-                        </tr>
-                    </div>
+                    <tr class="list-group list-group-horizontal" th:each="msgList: ${msgLists}">
+                        <td th:text="${msgList.sender}" style="width:10%"></td>
+                        <td th:utext="${msgList.msg}" style="width:70%"></td>
+                        <td th:text="${msgList.time}" style="width:10%"></td>
+                    </tr>
                 </tbody>
             </table>
         </div>
