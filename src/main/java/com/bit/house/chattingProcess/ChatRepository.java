@@ -104,27 +104,30 @@ public class ChatRepository {
 
     public void saveMsg(ChatVO vo){
         //저장할 데이터 전처리
-        String msg=vo.getMsg().replace(",", "");
+        String msg=vo.getMsg().replaceAll(",", "");
         //레디스에 채팅 메시지 저장
         msgList.rightPush(vo.getChatId(), vo.getSender());
         msgList.rightPush(vo.getChatId(), msg);
-        msgList.rightPush(vo.getChatId(), vo.getTime());
+        msgList.rightPush(vo.getChatId(), vo.getTime()+"<br>");
     }
 
-   /* public void getChatMsg(){
+    public List<ChatVO> getChatMsg(){
+        //데이터 전처리
         List<ChatVO> vos=chatMapper.selectChatMsg();
-        List<ChatMsgVO> list=new ArrayList<>();
-
         for(ChatVO vo:vos){
-            String msg=vo.getMsg();
-            String[] msgArray=msg.split(",");
-            for(int i=0; i<msgArray.length;i++){
-                if(i%3==0){
-                    System.out.println(" ");
-                }
-                System.out.print();
-                list..set(msgArray[i]);
-            }
+            String msg=vo.getMsg().replace(",", "");
+            vo.setMsg(msg);
         }
-    }*/
+        return vos;
+    }
+
+    public List<ChatVO> getChatMsgById(String memberId){
+        //데이터 전처리
+        List<ChatVO> vos=chatMapper.selectChatMsgById(memberId);
+        for(ChatVO vo:vos){
+            String msg=vo.getMsg().replace(",", "");
+            vo.setMsg(msg);
+        }
+        return vos;
+    }
 }
