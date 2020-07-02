@@ -12,9 +12,9 @@
 </head>
 <body>
 <div layout:fragment="content">
-    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
     <div class="user-show-layout">
         <div class="container">
+            <th:block th:replace="th/fragments/navBar_myPage"></th:block>
             <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
             <div class="row">
                 <div class="col-12 col-lg-3 wrap--profile">
@@ -61,7 +61,7 @@
                                                     id="follow" name="follow" type="button">팔로우</button>
                                             <button th:if="${fcount == 1}"
                                                     class="profile-info__btn profile-info__btn--secondary"
-                                                    id="followcancel" name="followcancel" type="button">팔로우</button>
+                                                    id="followcancel" name="followcancel" type="button">팔로우취소</button>
                                         </div><br>
                                         <div class="profile-info__actions">
                                             <form action="/member/noteSending" method="post" id="sending" name="sending">
