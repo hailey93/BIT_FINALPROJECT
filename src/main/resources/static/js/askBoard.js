@@ -1,5 +1,5 @@
-$(function(){
-    $("#aCommentInsert").click(function(){
+$(function () {
+    $("#aCommentInsert").click(function () {
         var Content = $("#comment").serialize();
 
         console.log(Content);
@@ -9,8 +9,10 @@ $(function(){
             type: "post",
             url: "/insertAskComment",
             data: Content,
-            success : function(data){
+            success: function (data) {
                 console.log(data);
+
+                alert("consol");
                 location.reload();
             },
         });
@@ -68,3 +70,4 @@ $(function () {
         $("#updateBoardFrm").submit();
     });
 });
+

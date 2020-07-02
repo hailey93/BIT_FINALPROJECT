@@ -5,16 +5,17 @@
 <head>
     <meta charset="UTF-8">
     <title>글 수정</title>
-
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/askBoard.css}">
+    </th:block>
 
     <script type="text/javascript" th:src="@{/editor/js/HuskyEZCreator.js}" charset="utf-8"></script>
     <script type="text/javascript" th:src="@{/js/askBoard.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
-<h2>글 수정</h2>
-
-<div class="container">
+    <div class="container">
+    <h2>글 수정</h2>
     <form action="/askupdateProc" method="post" id="updateBoardFrm" enctype="multipart/form-data">
         <div class="form-group">
             <label for="askTitle">제목</label>
@@ -22,11 +23,12 @@
         </div>
         <div class="form-group">
             <label for="askContent">내용</label>
-            <textarea name="askContent" id="askContent" style="width: 700px; height: 400px; "><th:block
-                    th:utext="${detail.askContent}"/></textarea>
+            <textarea name="askContent" id="askContent" style="width: 700px; height: 400px; ">
+                <th:block th:utext="${detail.askContent}"/></textarea>
         </div>
         <input type="hidden" name="askBoardNo" th:value="${detail.askBoardNo}"/>
-        <input type="button" id="updateBoard" value="등록"/>
+        <button type="button" id="updateBoard"
+                class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow">등록</button>
     </form>
 </div>
 </div>

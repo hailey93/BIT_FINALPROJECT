@@ -12,7 +12,7 @@ $(function () {
     $("#follow").click(function(){
 
         var follow = {
-            followId: $("#fol").val(),
+            followId: $("#memberId").val(),
         };
         console.log(follow);
 
@@ -35,7 +35,7 @@ $(function(){
     $("#followcancel").click(function(){
 
         var follow = {
-            followId: $("#fol").val(),
+            followId: $("#memberId").val(),
         };
         console.log(follow);
 
@@ -56,7 +56,7 @@ $(function(){
 //프로필페이지에서 쪽지보내기 버튼
 $(function(){
     $("#notesend").click(function(){
-        var receive = $("#fol").val();
+        var receive = $("#memberId").val();
         document.sending.receiveId.value = receive;
         console.log(receive);
         alert('console');

@@ -42,7 +42,7 @@ public class MyPageController {
 
 
 
-    //프로필설정
+/*    //프로필설정
     @RequestMapping("/myProfile")
     private String viewProfile(Model model, HttpSession session) throws Exception{
 
@@ -54,15 +54,15 @@ public class MyPageController {
         System.out.println(myPageMapper.selectProfile(memberVO.getMemberId()));
 
         return "th/member/mypage/profile/profileInfo";
-    }
+    }*/
 
-    @RequestMapping("/mainProfile")
+/*    @RequestMapping("/mainProfile")
     private String mainProfile(HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
         return "th/member/mypage/profile/samPro";
-    }
+    }*/
 
     //프로필수정
     @RequestMapping("/modifyProfile")
@@ -109,22 +109,32 @@ public class MyPageController {
         return "th/member/mypage/profile/viewFollow";
     }
     //팔로우 팔로잉 전체보기 html 하나로 합쳐볼것.
-    @RequestMapping("/allFollow")
-    private String allFollow(Model model, HttpSession session) throws Exception{
+    @RequestMapping("/allFollow/{memberId}")
+    private String allFollow(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("follow", myPageMapper.follower(memberVO.getMemberId()));
+        model.addAttribute("mem", memberVO.getMemberId());
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("member", myPageMapper.selectProfile(memberId));
+        model.addAttribute("follower", myPageMapper.follower(memberId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
         return "th/member/mypage/profile/allFollow";
     }
     //팔로잉 전체보기
-    @RequestMapping("allFollowing")
-    private String allFollowing(Model model, HttpSession session) throws Exception{
+    @RequestMapping("allFollowing/{memberId}")
+    private String allFollowing(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        model.addAttribute("following", myPageMapper.following(memberVO.getMemberId()));
+        model.addAttribute("mem", memberVO.getMemberId());
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("member", myPageMapper.selectProfile(memberId));
+        model.addAttribute("following", myPageMapper.following(memberId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
         return "th/member/mypage/profile/allFollowing";
     }
@@ -184,26 +194,30 @@ public class MyPageController {
         model.addAttribute("scrapCount", myPageMapper.scrapCount(memberVO.getMemberId()));
 
 
+
         return "th/member/mypage/profile/myBoard";
     }
 
     //사용자 프로필
     @RequestMapping("/memberProfile/{memberId}")
-    private String memberProfile(Model model, @PathVariable("memberId") String userId, HttpSession session) throws Exception{
+    private String memberProfile(Model model, @PathVariable("memberId") String memberId, HttpSession session) throws Exception{
+
+        //service로 넘어가서 memberId값이 null이라면 memberVO.getmemberId()를 memberId에 넣어주고 넘기는걸로?
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        System.out.println("userId : "+ userId);
+        System.out.println("userId : "+ memberId);
 
 
-        model.addAttribute("memprofile", myPageMapper.myProfile(userId));
-        model.addAttribute("memphoto", myPageMapper.profilePhoto(userId));
-        model.addAttribute("memberscrap", myPageMapper.profileScrap(userId));
-        model.addAttribute("followCount", myPageMapper.followCount(userId));
-        model.addAttribute("followingCount", myPageMapper.followingCount(userId));
-        model.addAttribute("photoCount", myPageMapper.photoCount(userId));
-        model.addAttribute("scrapCount", myPageMapper.scrapCount(userId));
-        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), userId));
+
+        model.addAttribute("memprofile", myPageMapper.myProfile(memberId));
+        model.addAttribute("memphoto", myPageMapper.profilePhoto(memberId));
+        model.addAttribute("memberscrap", myPageMapper.profileScrap(memberId));
+        model.addAttribute("followCount", myPageMapper.followCount(memberId));
+        model.addAttribute("followingCount", myPageMapper.followingCount(memberId));
+        model.addAttribute("photoCount", myPageMapper.photoCount(memberId));
+        model.addAttribute("scrapCount", myPageMapper.scrapCount(memberId));
+        model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
         //System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
 
@@ -221,8 +235,8 @@ public class MyPageController {
     }
 
     //스크랩 전체보기
-    @RequestMapping("/allScrap")
-    private String allScrap(Model model, @RequestParam(required = false) String memberId) throws Exception{
+    @RequestMapping("/allScrap/{memberId}")
+    private String allScrap(Model model, @PathVariable String memberId) throws Exception{
         //이것도 세션안받음
         System.out.println(memberId);
         model.addAttribute("scrap", myPageMapper.allScrap(memberId));

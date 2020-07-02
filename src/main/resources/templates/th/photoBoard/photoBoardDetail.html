@@ -34,39 +34,38 @@
                                     th:onclick="'javascript:del('+${photodetail.photoBoardNo}+');'">삭제</button>
                         </div>
                     </header>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg1 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 100%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg2 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg3 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
+                    <article class="card-detail-card" th:if="${photodetail.photoImg4 != null}">
                         <div class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                     </article>
-                    <article class="card-detail-card">
-                        <div class="card-detail-card-image-wrap card-detail-card__image">
+                    <article  class="card-detail-card">
+                        <div th:if="${photodetail.photoImg5 != null}" class="card-detail-card-image-wrap card-detail-card__image">
                             <div class="card-detail-card-image" style="padding-bottom: 70%;">
-
-                                <img class="card-detail-card-image__image" th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
+                                <img class="card-detail-card-image__image"  th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
                             </div>
                         </div>
                         <p class="card-detail-card__description" th:text="${photodetail.photoContent}"></p>
@@ -83,20 +82,19 @@
                                     <!-- th:if로 로그인 사용자의 프로필 이미지가 없으면 아래 사진으로 아니면 그 밑에 사진으로.-->
                                     <img th:if="${member?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${member?.memberImg}}"
                                          th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
-                                                                        @{'/uploadImg'+${member?.memberImg}} 2x,
-                                                                        @{'/uploadImg'+${member?.memberImg}} 3x|">
+                                                          @{'/uploadImg'+${member?.memberImg}} 2x,
+                                                          @{'/uploadImg'+${member?.memberImg}} 3x|">
                                     <img th:if="${member?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                          th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
-                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
-                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
+                                                          @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                          @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                                     <!-- 로그인한 사용자 프로필 이미지 -->
                                 </div>
                                 <div class="comment-feed__form__input">
                                     <div class="comment-feed__form__content">
                                         <div class="comment-content-input">
                                             <input class="comment-content-input__text comment-feed__form__content__text"
-                                                id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true">
-                                            </input>
+                                                id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true"/>
                                         </div>
                                     </div>
                                     <div class="comment-feed__form__actions">

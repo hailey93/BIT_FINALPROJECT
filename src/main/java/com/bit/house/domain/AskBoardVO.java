@@ -9,7 +9,7 @@ import java.sql.Date;
 @Setter
 @Getter
 @NoArgsConstructor
-public class AskBoardVO {
+public class AskBoardVO extends MemberVO{
     private int askBoardNo;
     private String memberId;
     private String askTitle;

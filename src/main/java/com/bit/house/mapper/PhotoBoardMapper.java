@@ -74,4 +74,6 @@ public interface PhotoBoardMapper {
 
     //myProfileImg
     public MemberVO myProfileImg(String memberId) throws Exception;
+
+    List<PhotoBoardVO> selectPhotoList();
 }

@@ -9,6 +9,7 @@
         <link rel="stylesheet" th:href="@{/css/askBoard.css}">
     </th:block>
     <script type="text/javascript" th:src="@{/js/askBoard.js}"></script>
+    <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </head>
 <body>
 <div layout:fragment="content">
@@ -21,9 +22,17 @@
                 </div>
                 <h1 class="qna-detail__content__header-title" th:text="${detail.askTitle}"></h1>
                 <address class="qna-detail-author qna-detail__content__header-author-section">
-                    <a class="qna-detail-author__profile-link" href="#"><!--작성자 프로필링크-->
+                    <a class="qna-detail-author__profile-link" th:href="@{/member/memberProfile/{memberId}(memberId=${detail.memberId})}"><!--작성자 프로필링크-->
                         <div class="qna-detail-author__profile-link__image">
                             <!--<img src="#" th:attr="srcset"> --><!--작성자 프로필 이미지 -->
+                            <img th:if="${detail?.memberImg != null}" class="card-detail-writer__image" th:src="@{'/uploadImg'+${detail?.memberImg}}" style="width: 50px; height: 50px;"
+                                 th:attr="srcset=|@{'/uploadImg'+${detail?.memberImg}} 1.5x,
+                                                                        @{'/uploadImg'+${detail?.memberImg}} 2x,
+                                                                        @{'/uploadImg'+${detail?.memberImg}} 3x|">
+                            <img th:if="${detail?.memberImg == null}" class="card-detail-writer__image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
+                                 th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                         </div>
                         <div class="qna-detail-author__profile-link__summary">
                             <div class="qna-detail-author__profile-link__summary-section">
@@ -33,7 +42,9 @@
                         </div>
                     </a>
                     <div>
-                        <a class="button button--color-gray-4 button--size-30 button--shape-4">쪽지보내기</a>
+                        <!--<button type="button" th:if="${member} != ${detail.memberId}"
+                                class="button button&#45;&#45;color-gray-4 button&#45;&#45;size-30 button&#45;&#45;shape-4"
+                                id="notesend" name="notesend">쪽지보내기</button>-->
                     </div>
                 </address>
             </header>
@@ -48,21 +59,32 @@
             <section class="qna-detail__comment-section">
                 <section class="comment-feed">
                     <h1 class="comment-feed__header">
-                        댓글&nbsp;<span class="comment-feed__header__count" th:text="${commentCount}"></span>
+                        댓글&nbsp;
+                        <span class="comment-feed__header__count" th:text="${commentCount}"></span>
                     </h1>
-                    <form class="comment-feed__form">
+                    <form class="comment-feed__form" id="comment">
                         <div class="comment-feed__form__user">
                             <!--<img src="#" th:attr="srcset">--><!-- 댓글 input 옆 이미지-->
+                            <img th:if="${member?.memberImg != null}" class="comment-feed__item__content__author__image" alt=""
+                                 th:src="@{'/uploadImg'+${member?.memberImg}}"
+                                 th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
+                                                  @{'/uploadImg'+${member?.memberImg}} 2x,
+                                                  @{'/uploadImg'+${member?.memberImg}} 3x|">
+                            <img th:if="${member?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                 th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                  @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                  @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                         </div>
                         <div class="comment-feed__form__input">
                             <div class="comment-feed__form__content">
                                 <div class="comment-content-input">
-                                    <div class="comment-content-input__text comment-feed__content__text" data-ph="댓글을 적어주세요" contenteditable="true">
-                                    </div>
+                                    <input class="comment-content-input__text comment-feed__form__content__text"
+                                           id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true"/>
                                 </div>
                             </div>
                             <div class="comment-feed__form__actions">
-                                <button class="comment-feed__form__submit" aria-label="등록" type="submit" disabled>등록</button>
+                                <button class="comment-feed__form__submit" aria-label="등록" type="submit" id="aCommentInsert">등록</button>
+                                <input type="hidden" id="askBoardNo" name="askBoardNo" th:value="${detail.askBoardNo}"/>
                             </div>
                         </div>
                     </form>
@@ -71,10 +93,18 @@
                         <li class="comment-feed__list__item">
                             <article class="comment-feed__item">
                                 <p class="comment-feed__item__content">
-                                    <a href="#" class="comment-feed__item__content__author">
+                                    <a th:href="@{/member/memberProfile/{memberId}(memberId=${aComment.memberId})}" class="comment-feed__item__content__author">
                                         <!--<img class="comment-feed__item__content__author__image" th:alt="${aComment.memberId}"
                                              src="#"
                                              th:attr="srcset">-->
+                                        <img th:if="${aComment?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${aComment?.memberImg}}"
+                                             th:attr="srcset=|@{'/uploadImg'+${aComment?.memberImg}} 1.5x,
+                                                              @{'/uploadImg'+${aComment?.memberImg}} 2x,
+                                                              @{'/uploadImg'+${aComment?.memberImg}} 3x|">
+                                        <img th:if="${aComment?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                             th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                              @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                              @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                                         <span class="comment-feed__item__content__author__name" th:text="${aComment.memberId}"></span>
                                     </a>
                                     <span class="comment-feed__item__content__content" th:text="${aComment.commentContent}"></span>
@@ -91,9 +121,17 @@
                 <div class="sticky-child" style="position: relative">
                     <div class="qna-detail__container__sidebar__content">
                         <address class="qna-detail-author qna-detail__container__sidebar__author">
-                            <a class="qna-detail-author__profile-link" href="#"><!--작성자 프로필이동 -->
+                            <a class="qna-detail-author__profile-link" th:href="@{/member/memberProfile/{memberId}(memberId=${detail.memberId})}"><!--작성자 프로필이동 -->
                                 <div class="qna-detail-author__profile-link__image">
                                     <!--<img src="#" th:attr="srcset">--><!-- 작성자 프로필이미지-->
+                                    <img th:if="${detail?.memberImg != null}" class="card-detail-writer__image" th:src="@{'/uploadImg'+${detail?.memberImg}}" style="width: 50px; height: 50px;"
+                                         th:attr="srcset=|@{'/uploadImg'+${detail?.memberImg}} 1.5x,
+                                                          @{'/uploadImg'+${detail?.memberImg}} 2x,
+                                                          @{'/uploadImg'+${detail?.memberImg}} 3x|">
+                                    <img th:if="${detail?.memberImg == null}" class="card-detail-writer__image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
+                                         th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
+                                                          @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                          @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                                 </div>
                                 <div class="qna-detail-author__profile-link__summary">
                                     <div class="qna-detail-author__profile-link__summary-section">
@@ -102,15 +140,42 @@
                                     <div class="qna-detail-author__profile-link__summary-introduction"></div>
                                 </div>
                             </a>
-                            <div>
-                                <a class="button button--color-gray-4 button--size-30 button--shape-4">팔로우</a>
+                            <div th:if="${member.memberId} != ${detail.memberId}">
+                                <form action="/member/noteSending" method="post" id="sending" name="sending">
+                                <!--<a class="button button&#45;&#45;color-gray-4 button&#45;&#45;size-30 button&#45;&#45;shape-4">팔로우</a>-->
+                                <button th:if="${fcount == 0}"
+                                        class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                                        id="follow" name="follow">팔로우</button>
+                                <button th:if="${fcount == 1}"
+                                        class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                                        id="followcancel" name="followcancel">팔로우취소</button>
+                                <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                                        id="notesend" name="notesend">쪽지보내기</button>
+                                <input type="hidden" id="memberId" name="memberId" th:value="${detail.memberId}"/>
+                                <input type="hidden" id="receiveId" name="receiveId" value=""/>
+                                </form>
                             </div>
                         </address>
-                        <aside class="qna-detail-actions question__sidebar__actions">
+                        <!--<aside class="qna-detail-actions question__sidebar__actions">
                             <div class="drop-down qna-detail-actions__wrapper">
-                                <button class="button button--color-gray-14-inverted button--size-30 button--shape-round qna-detail-actions__action" type="button">
+                                <button th:if="${member} != ${detail.memberId}"
+                                        class="button button&#45;&#45;color-gray-14-inverted button&#45;&#45;size-30 button&#45;&#45;shape-round qna-detail-actions__action"
+                                        type="button"  id=note" name="note">
                                     <span class="qna-detail-actions__action__label">쪽지보내기</span>
                                 </button>
+                            </div>
+                        </aside>-->
+                        <aside class="qna-detail-aside qna-detail__container__sidebar__aside">
+                            <div class="qna-detail-aside__section">
+                                <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                                        type="button" id="askreply" name="askreply"
+                                        th:onclick="'javascript:reply('+${detail.askBoardNo}+');'">답글달기</button>
+                                <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                                        type="button" th:if="${member.memberId} == ${detail.memberId}" id="askUp" name="askUp"
+                                        th:onclick="'javascript:update('+${detail.askBoardNo}+');'">수정</button>
+                                <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                                        type="button" th:if="${member.memberId} == ${detail.memberId}" id="askdel" name="askdel"
+                                        th:onclick="'javascript:del('+${detail.askBoardNo}+');'">삭제</button>
                             </div>
                         </aside>
                     </div>
@@ -173,3 +238,4 @@
 
 </body>
 </html>
+
