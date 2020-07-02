@@ -23,18 +23,14 @@
 <div class="chatBox" id="chatBox">
     <div class="card">
         <header class="card-header header-title">
-            <a class="card-header-icon">
-                    <span class="icon">
-                        <!--<i class="fa fa-close"></i>-->
-                        <!--<button class="btn btn-primary" onclick="disconnect()" th:id="outBtn">나가기</button>-->
-                        <a href="#" class="float-right" onclick="disconnect()" style="color: #fff; font-weight:bold;">
-                            <svg class="bi bi-door-closed" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                              <path fill-rule="evenodd" d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2zm1 0v13h8V2H4z"/>
-                              <path d="M7 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
-                              <path fill-rule="evenodd" d="M1 15.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
-                            </svg>
-                        </a>
-                    </span>
+            <a class="card-header-icon" href="#" onclick="disconnect()" style="margin-left: 235px; color: #fff; font-weight:bold;">
+                <span class="icon">
+                    <svg class="bi bi-door-closed" width="2em" height="2em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 2a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2zm1 0v13h8V2H4z"/>
+                        <path d="M7 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        <path fill-rule="evenodd" d="M1 15.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </span>
             </a>
         </header>
 
@@ -49,7 +45,6 @@
                 <input id="message" class="chat-textarea" placeholder="메시지를 입력하세요.">
             </div>
             <div class="has-text-centered" style="width: 20%">
-                <!--<a class="button is-white" onclick="sendMsg()">send</a>-->
                 <button class="btn btn-light" onclick="sendMsg()" th:id="sendBtn">send</button>
             </div>
         </footer>
@@ -57,7 +52,7 @@
         <script th:inline="javascript" type="text/javascript">
             var chatId = [[${chatInfo.chatId}]];
             var admin = [[${chatInfo.adminId}]];
-            var enterTime=[[${chatInfo.time}]];
+            var enterTime = [[${chatInfo.time}]];
 
             if (admin == null) {
                 var sender = [[${chatInfo.memberId}]];

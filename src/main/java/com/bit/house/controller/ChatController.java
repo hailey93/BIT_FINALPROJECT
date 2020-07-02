@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -102,7 +101,7 @@ public class ChatController {
         return "th/admin/chat/chatHistory";
     }
 
-    @RequestMapping("/admin/chatHistoryById")
+    @GetMapping("/admin/chatHistoryById")
     public String getChatHistoryById(HttpServletRequest request, Model model){
         //회원 채팅이력 아이디별 검색
         String memberId=request.getParameter("memberId");
