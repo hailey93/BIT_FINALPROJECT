@@ -26,8 +26,8 @@
     <select id="following" resultType="FollowVO">
         SELECT f.memberId, f.followId, m.memberImg
         FROM follow f INNER JOIN member m
-        ON m.memberId = f.followId
-        WHERE followId = #{followId}
+        ON m.memberId = f.memberId
+        WHERE f.followId = #{memberId}
     </select>
 
     <insert id="follow" parameterType="FollowVO">

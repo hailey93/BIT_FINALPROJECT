@@ -28,8 +28,8 @@ public class AskBoardController {
 
     @Autowired(required = false)
     MyPageMapper myPageMapper;
-
-    @RequestMapping("/askBoardList")//게시판 리스트 화면 호출
+    //게시판 리스트 화면 호출
+    @RequestMapping("/askBoardList")
     private String askBoardList(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
         System.out.println("cri : "+cri.toString());
@@ -39,13 +39,13 @@ public class AskBoardController {
         pageMaker.setCri(cri);
         pageMaker.setTotalCount(askBoardMapper.listCountCriteria(cri));
 
-        model.addAttribute("pageMaker", pageMaker);//게시판 하단 페이징 관련, 이전페이지, 페이지 링크, 다음페이지
+        model.addAttribute("pageMaker", pageMaker);
 
 
         return "th/askBoard/askBoardList";
     }
-
-    @RequestMapping("/askdetail/{askBoardNo}") //글 상세페이지
+    //글 상세페이지
+    @RequestMapping("/askdetail/{askBoardNo}")
     private String askDetail(@PathVariable int askBoardNo, Model model, HttpSession session) throws Exception {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
@@ -61,13 +61,13 @@ public class AskBoardController {
 
         return "th/askBoard/askBoardDetail";
     }
-
-    @RequestMapping("/askinsert")//게시글 작성 폼 호출
+    //게시글 작성 폼 호출
+    @RequestMapping("/askinsert")
     private String insertAsk() {
         return "th/askBoard/askBoardInsert";
     }
-
-    @RequestMapping("/askinsertProc")//게시글 작성
+    //게시글 작성
+    @RequestMapping("/askinsertProc")
     private String insertAskProc(HttpServletRequest request, HttpSession session) throws Exception {
 
         AskBoardVO askBoardVO = new AskBoardVO();
@@ -82,8 +82,8 @@ public class AskBoardController {
 
         return "redirect:/askBoardList";
     }
-
-    @GetMapping("/askreply/{askBoardNo}")//답글 작성 폼
+    //답글 작성 폼
+    @GetMapping("/askreply/{askBoardNo}")
     private String askReply(@PathVariable int askBoardNo, Model model) throws Exception {
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
@@ -114,8 +114,8 @@ public class AskBoardController {
 
         return "redirect:/askBoardList";
     }
-
-    @RequestMapping("/askupdate/{askBoardNo}")//게시글 수정 폼
+    //게시글 수정 폼
+    @RequestMapping("/askupdate/{askBoardNo}")
     private String askUpdate(@PathVariable int askBoardNo, Model model) throws Exception {
 
         model.addAttribute("detail", askBoardMapper.askDetail(askBoardNo));
@@ -151,13 +151,13 @@ public class AskBoardController {
     @RequestMapping(value = "/file_uploader_html5.do", method = RequestMethod.POST)
     @ResponseBody
     public String multiplePhotoUpload(HttpServletRequest request) {
-        // 파일정보
+
         StringBuffer sb = new StringBuffer();
         try {
-            // 파일명을 받는다 - 일반 원본파일명
+
             String oldName = request.getHeader("file-name");
-            // 파일 기본경로 _ 상세경로
-            String filePath = request.getSession().getServletContext().getRealPath("image/board/askboard/");   //  "D:/workspace/Spring/src/main/webapp/resources/photoUpload/";
+
+            String filePath = request.getSession().getServletContext().getRealPath("image/board/askboard/");
             System.err.println(filePath);
             String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
                     .append(UUID.randomUUID().toString())
@@ -173,7 +173,7 @@ public class AskBoardController {
             }
             os.flush();
             os.close();
-            // 정보 출력
+
             sb = new StringBuffer();
             sb.append("&bNewLine=true")
                     .append("&sFileName=").append(oldName)

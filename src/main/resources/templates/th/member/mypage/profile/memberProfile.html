@@ -24,7 +24,6 @@
                             <div class="user-profile">
                                 <div class="user-profile__container">
                                     <div class="user-profile__profile-image">
-                                        <!--사용자 이미지-->
                                         <img th:if="${memprofile?.memberImg != null}" th:src="@{'/uploadImg'+${memprofile?.memberImg}}"
                                              th:attr="srcset=|@{'/uploadImg'+${memprofile?.memberImg}} 1.5x,
                                                               @{'/uploadImg'+${memprofile?.memberImg}} 2x,
@@ -88,7 +87,7 @@
                                 <a class="posts__title__show-all" th:href="@{/member/allPhoto/{memberId}(memberId=${memprofile.memberId})}">전체보기</a>
                             </h5>
                             <div class="row post--cards__list">
-                                <th:block th:each="photo : ${memphoto}"><!-- 사진 게시물 4개 -->
+                                <th:block th:each="photo : ${memphoto}">
                                     <div class="col-4 col-md-3">
                                         <div class="post--cards__item">
                                             <a th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
@@ -109,7 +108,7 @@
                                 <a class="posts__title__show-all" th:href="@{/member/allScrap/{memberId}(memberId=${memprofile.memberId})}">전체보기</a><!-- id값 받아서 넘겨야되니까 allScrap/{memberId}로 바꾸던지 -->
                             </h5>
                             <div class="row post--cards__list">
-                                <th:block th:each="scrap : ${memberscrap}"><!-- 스크랩 게시물 4개 -->
+                                <th:block th:each="scrap : ${memberscrap}">
                                     <div class="col-4 col-md-3">
                                         <div class="post--cards__item">
                                             <a th:herf="@{/photodetail/{photoBoardNo}(photoBoardNo=${scrap.photoBoardNo})}">
@@ -129,78 +128,5 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-<!--
-<div layout:fragment="content">
-    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
-    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
-    <div class="container">
-        <div class="form-group">
-            <img th:src="@{'/uploadImg'+${memprofile.memberImg}}" style="width: 300px; height: 300px;"/>
-        </div>
-
-        <div class="form-group">
-            <p><h3><th:block th:text="${memprofile.memberId}"/></h3></p>
-
-        </div>
-
-        <div class="form-group">
-            <p>팔로워<th:block th:text="${followCount}"></th:block>
-               팔로잉<th:block th:text="${followingCount}"></th:block></p>
-        </div>
-
-        <div class="form-group">
-            <form action="/noteSending" method="post" id="sending" name="sending">
-                <input type="button" th:if="${fcount == 0}" id="follow" name="follow" value="팔로우"/>
-                <input type="button" th:if="${fcount == 1}" id="followcancel" name="followcancel" value="팔로우취소"/>
-                <input type="hidden" id="fol" name="fol" th:value="${memprofile.memberId}"/>
-                <input type="button" id="notesend" name="notesend" value="쪽지보내기">
-                <input type="hidden" id="receiveId" name="receiveId" value=""/>
-            </form>
-        </div>
-
-        <div class="form-group">
-            <th:block th:text="${memprofile.memberIntro}"/>
-        </div>
-    </div>
-
-    <div class="container">
-
-        <div class="form-group">
-            <form action="/allPhoto" method="post" id="photo" name="photo">
-                <h3>사진<th:block th:text="${photoCount}"/></h3><input type="button" id="allphoto" name="allphoto" value="전체보기" style="background-color: #ffffff; border: 0; outline: 0;"/>
-                <input type="hidden" name="memberId" value=""/>
-            </form>
-        </div>
-
-        <div class="form-group">
-            <th:block th:each="userphoto : ${memphoto}">
-                <tr th:onclick="" >&lt;!&ndash; photodetail로 이동&ndash;&gt;
-                    <td><img th:src="@{'/uploadImg'+${userphoto.photoImg1}}" style="width: 200px; height: 200px;" /></td>
-                </tr>
-            </th:block>
-        </div>
-
-        <div class="form-group">
-            <form action="/allScrap" method="post" id="scrap" name="scrap">
-                <h3>스크랩<th:block th:text="${scrapCount}"/></h3><input type="button" id="allscrap" name="allscrap" value="전체보기" style="background-color: #ffffff; border: 0; outline: 0;"/>
-                <input type="hidden" name="memberId" value=""/>
-            </form>
-        </div>
-
-        <div>
-            <th:block th:each="userscrap : ${memberscrap}">
-                <tr th:onclick="" >&lt;!&ndash; photodetail로 이동&ndash;&gt;
-                    <td><img th:src="@{'/uploadImg'+${userscrap.photoImg1}}" style="width: 200px; height: 200px;" /></td>
-                </tr>
-            </th:block>
-        </div>
-    </div>
-</div>-->
 </body>
 </html>
