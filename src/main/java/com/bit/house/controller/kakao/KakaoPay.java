@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import com.bit.house.domain.BasketVO;
+import com.bit.house.domain.MemberVO;
 import com.bit.house.domain.OrderListVO;
 import com.bit.house.domain.kakao.KakaoPayApprovalVO;
 import com.bit.house.domain.kakao.KakaoPayReadyVO;
@@ -31,7 +32,7 @@ public class KakaoPay {
     private KakaoPayReadyVO kakaoPayReadyVO;
     private KakaoPayApprovalVO kakaoPayApprovalVO;
     
-	public String kakaoPayReady(List<OrderListVO> orderListVOList) {
+	public String kakaoPayReady(List<OrderListVO> orderListVOList,String memberId) {
 		log.info("KakaoPayReady 호출............................................");
         RestTemplate restTemplate = new RestTemplate();
         log.info("orderListVOList" + orderListVOList);
@@ -55,15 +56,13 @@ public class KakaoPay {
 
         System.out.println("totalQty : "+ totalQty+"totalPrice : "+totalP);
 
-        //        HouseUser houseUser = null;
-       // HouseUser houseUser = session.getAttribute("user")
-       // System.out.println(houseUser.getUserId());
+
+
         // 서버로 요청할 Body
-       // System.out.println(houseUser);
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("cid", "TC0ONETIME");
         params.add("partner_order_id", "001");
-        params.add("partner_user_id", "s");
+        params.add("partner_user_id", memberId);
         params.add("item_name",orderListVOList.get(0).getProductName()+"외"+Integer.toString(totalQty-1));
         params.add("quantity", Integer.toString(totalQty));
         params.add("total_amount", Integer.toString(totalP));
@@ -96,9 +95,7 @@ public class KakaoPay {
     	log.info("KakaoPayInfo 메소드 호출 ............................................");
         log.info("KakaoPayInfoVO............................................");
         log.info("-----------------------------");
-       // System.out.println(userId);
         RestTemplate restTemplate = new RestTemplate();
-        log.info("userId : : " + memberId);
         // 서버로 요청할 Header
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "KakaoAK " + "cc5382cc45ef5108db524d112de5167c");

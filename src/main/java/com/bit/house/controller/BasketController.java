@@ -32,26 +32,10 @@ public class BasketController {
     @GetMapping("/goBasket")
     public String cart(String MemberId, Model model,AllMemberVO allMemberVO, BasketVO basketVO) {
         System.out.println("goBasket!");
-        //UserId 있으면 (html에서 세션 검증)
-        // basketVO = MemberService.getMemberBasket(MemberId);
         List<AllMemberVO> allMemberVOList = adminMapper.getMember();
-        //System.out.println(allMemberVO.getUserid());
         System.out.println(allMemberVOList);
         model.addAttribute("allMemberVOList", allMemberVOList);
         return "nonMemberBasket";
-    }
-
-
-    //test
-    @GetMapping("givePoint")
-    public String givePoint(){
-        return "th/admin/statAdmin/givePoint";
-    }
-
-    //productDetail
-    @GetMapping("/productDetailsLJH")
-    public String product(/*HttpSession session,String productName, String colorCode,int qty*/) {
-        return "th/main/productDetailsLJH";
     }
 
     @GetMapping("/basketPop")
@@ -129,70 +113,6 @@ public class BasketController {
 
     }
 
-   /* @RequestMapping(value = "/basketSession", method = RequestMethod.POST)
-    public @ResponseBody void basketSession(HttpSession session, String[] hoho) { // 상품 detail에서 장바구니 저장 누르면 ajax로 session arr에 있는 장바구니 리스트 받아옴 ->
-        System.out.println("ajax!");
-        for(String a : hoho){
-            System.out.println("호호 출력 ArrayList");
-            System.out.println(a);
-        }
-        // 비회원 장바구니 시작
-        //String[] ajax = request.getParameterValues("hoho");
-        String[] han;
-        String[] hoho2 = new String[100];
-        String[] split;
-        List<String> hoho3 = new ArrayList<>();
-        int count = 0;
-        int k=0;
-        int arrNum = 0;
-        System.out.println("호호 길이 :: "+ hoho.length);
-
-
-       // System.out.println("split : " + split);
-        for (String string2 : hoho) {
-            split = hoho[arrNum].split("[\"\\[\\]]");
-            for (String string : split) {
-                System.out.print("k : " + k);
-                System.out.print(" " + string);
-                System.out.println("");
-                //System.out.println("in Null? : " +string.isEmpty());
-                if (string.isEmpty() == false) {
-                    System.out.println("hoho" + k + " 저장합니다 : " + string);
-                    hoho2[count] = string;
-                    hoho3.add(string);
-                    System.out.println("저장된 값 ? :  "+ hoho2[k]);
-                    count++;
-                    System.out.println(count);
-                }
-                k++;
-            }
-            arrNum++;
-        }
-        System.out.println("hoho2 : " );
-        //hoho2는 배열 hoho에 기본 길이가 100으로 돼있어서 hoho2에 다시 저장
-        for(int i=0; i<count; i++){
-            System.out.println(hoho2[i]);
-
-        }
-        System.out.println(Arrays.toString(hoho2));
-        List<String> list2 = Arrays.asList(hoho2);
-        System.out.println("리스트 전체 출력 : " + hoho3.toString());
-        System.out.println("hoho3 출력");
-        //hoho3는 리스트
-        for(String item : hoho3){
-            System.out.print(item);
-        }
-        System.out.println("setAttribute");
-        session.setAttribute("hoho3", hoho3);
-        String hohoSession = "";
-        List<String> hohoSession2 = new ArrayList<>();
-        System.out.println("getAttribute");
-        hohoSession2 = (List<String>) session.getAttribute("hoho3");
-        System.out.println("호호세션 : "+hohoSession2);
-
-    }
-*/
-
     @GetMapping("/basket")
     public String gobasket(HttpSession session,ProductVO productVO,BasketVO basketVO,Model model){
 
@@ -240,20 +160,6 @@ public class BasketController {
             }
         }
     }
-
-
-
-    @GetMapping("/btest")
-    public String btest(){
-        return "th/member/basket/btest";
-    }
-
-    /*@RequestMapping(method = RequestMethod.POST, value = "/delCheckBox")
-    public @ResponseBody void delCheckBox(String[] delProductNoArray){
-       basketMapper.deletememberBasket(delProductNoArray);
-
-    }*/
-
 
     @RequestMapping(method = RequestMethod.POST, value = "/delNonmemberBasket")
     public @ResponseBody void delNonmemberBasket(String bool,HttpSession session){
