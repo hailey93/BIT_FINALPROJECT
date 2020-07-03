@@ -18,7 +18,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.lang.reflect.Member;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.UUID;
@@ -41,29 +40,6 @@ public class MyPageController {
     private MemberService memberService;
 
 
-
-/*    //프로필설정
-    @RequestMapping("/myProfile")
-    private String viewProfile(Model model, HttpSession session) throws Exception{
-
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
-
-        model.addAttribute("myprofile", myPageMapper.selectProfile(memberVO.getMemberId()));
-
-        System.out.println(myPageMapper.selectProfile(memberVO.getMemberId()));
-
-        return "th/member/mypage/profile/profileInfo";
-    }*/
-
-/*    @RequestMapping("/mainProfile")
-    private String mainProfile(HttpSession session) throws Exception{
-
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
-        return "th/member/mypage/profile/samPro";
-    }*/
-
     //프로필수정
     @RequestMapping("/modifyProfile")
     private String modifyProfile(MemberVO memberVO, HttpServletRequest request, MultipartHttpServletRequest mreq,
@@ -76,7 +52,7 @@ public class MyPageController {
 
         StringBuffer sb = new StringBuffer();
 
-        //String src = mreq.getParameter("src");
+
         MultipartFile mf = mreq.getFile("uploadFile");
 
         String oldName = mf.getOriginalFilename();
@@ -108,7 +84,7 @@ public class MyPageController {
 
         return "th/member/mypage/profile/viewFollow";
     }
-    //팔로우 팔로잉 전체보기 html 하나로 합쳐볼것.
+
     @RequestMapping("/allFollow/{memberId}")
     private String allFollow(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
@@ -202,7 +178,7 @@ public class MyPageController {
     @RequestMapping("/memberProfile/{memberId}")
     private String memberProfile(Model model, @PathVariable("memberId") String memberId, HttpSession session) throws Exception{
 
-        //service로 넘어가서 memberId값이 null이라면 memberVO.getmemberId()를 memberId에 넣어주고 넘기는걸로?
+
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
@@ -219,14 +195,14 @@ public class MyPageController {
         model.addAttribute("scrapCount", myPageMapper.scrapCount(memberId));
         model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
-        //System.out.println(myPageMapper.profileScrap(userId).get(0).getScrapNo());
+
 
         return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
     @RequestMapping("/allPhoto/{memberId}")
     private String allPhoto(Model model, @PathVariable String memberId) throws Exception{
-        //이거는 세션 받지 말고 프로필창에서 아이디 넘겨받아서 처리하는쪽으로
+
 
         System.out.println(memberId);
         model.addAttribute("photo", myPageMapper.allPhoto(memberId));
@@ -237,7 +213,7 @@ public class MyPageController {
     //스크랩 전체보기
     @RequestMapping("/allScrap/{memberId}")
     private String allScrap(Model model, @PathVariable String memberId) throws Exception{
-        //이것도 세션안받음
+
         System.out.println(memberId);
         model.addAttribute("scrap", myPageMapper.allScrap(memberId));
 
@@ -269,9 +245,6 @@ public class MyPageController {
     //쪽지보내기 폼
     @RequestMapping("/noteSending")
     private String noteSending(Model model, @RequestParam(required = false) String receiveId){
-
-
-
 
         System.out.println("id : "+receiveId);
         model.addAttribute("sending", receiveId);

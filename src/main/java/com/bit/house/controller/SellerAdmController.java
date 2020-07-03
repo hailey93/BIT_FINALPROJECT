@@ -39,8 +39,6 @@ public class SellerAdmController {
     @RequestMapping("/sellerDetail")
     public String sellerDetail(@RequestParam(required = false) String sellerName, Model model) throws Exception{
 
-        System.out.println("sellerName : "+sellerName);
-
         model.addAttribute("sellerDetail", sellerAdmMapper.sellerDetail(sellerName));
 
         return "th/admin/statAdmin/sellerDetail";
@@ -67,11 +65,7 @@ public class SellerAdmController {
     @RequestMapping("/applySellerDetail/{sellerName}")
     public String applySellerDetail(@PathVariable String sellerName, Model model) throws Exception{
 
-        System.out.println("sellerName : "+sellerName);
-
         model.addAttribute("sellerDetail", sellerAdmMapper.applySellerDetail(sellerName));
-
-        System.out.println("seller : "+sellerAdmMapper.applySellerDetail(sellerName));
 
         return "th/admin/statAdmin/applySellerDetail";
     }

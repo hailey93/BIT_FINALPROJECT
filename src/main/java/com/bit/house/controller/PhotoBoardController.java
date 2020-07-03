@@ -36,13 +36,13 @@ public class PhotoBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        /*model.addAttribute("member", memberVO.getMemberId());*/
+
         model.addAttribute("photoList", photoBoardMapper.selectPhotoList());
 
         return "th/photoBoard/photoBoardList";
     }
     //사진 등록
-    @RequestMapping("/photoInsert")//게시글 작성 폼 호출
+    @RequestMapping("/photoInsert")
     private String insertAsk(Model model, PhotoBoardVO photoBoardVO) throws Exception{
 
         model.addAttribute("areaCode", photoBoardMapper.area());
@@ -65,19 +65,12 @@ public class PhotoBoardController {
         for(MultipartFile mf : fileList){
 
             StringBuffer sb = new StringBuffer();
-            //이렇게 안에다 쓸거면 stringBuffer를 굳이 쓸 필요없이 string을 쓰면 된다.
-
-            System.out.println("파일리스트 : "+mf);
 
             String originFileName = mf.getOriginalFilename();
 
             String saveName =  sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
                                 .append(UUID.randomUUID().toString())
                                 .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
-
-            System.out.println("경로 : "+filePath);
-
-            System.out.println("저장명 : "+saveName);
 
 
             String saveFile = filePath + saveName;
@@ -87,7 +80,7 @@ public class PhotoBoardController {
             mf.transferTo(new File(saveFile));
 
         }
-        System.out.println("리스트 : "+photoImgArray);
+
 
         int filesSize=photoImgArray.size();
         if( filesSize !=0){
@@ -109,7 +102,7 @@ public class PhotoBoardController {
                     photoBoardVO.setPhotoImg1( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
             }
         }
-        System.out.println("end");
+
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
@@ -120,12 +113,6 @@ public class PhotoBoardController {
         photoBoardVO.setStyleCode(request.getParameter("styleCode"));
         photoBoardVO.setPlaceCode(request.getParameter("placeCode"));
 
-
-        System.out.println("areaCode : " + photoBoardVO.getAreaCode());
-        System.out.println("houseCode : " + photoBoardVO.getHouseCode());
-        System.out.println("styleCode : " + photoBoardVO.getStyleCode());
-        System.out.println("placeCode : " + photoBoardVO.getPlaceCode());
-
         photoBoardMapper.insertPhoto(photoBoardVO);
 
         System.out.println("OK");
@@ -134,7 +121,6 @@ public class PhotoBoardController {
     //사진 상세
     @RequestMapping("/photodetail/{photoBoardNo}")
     private String photoDetail(@PathVariable int photoBoardNo, Model model, HttpSession session) throws Exception{
-
 
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
@@ -149,7 +135,6 @@ public class PhotoBoardController {
         model.addAttribute("photoComment", photoBoardMapper.photoComment(photoBoardNo));
         model.addAttribute("commentCount", photoBoardMapper.commentCount(photoBoardNo));
 
-        System.out.println("아이디 : "+memberVO.getMemberId()+"글번호 : "+photoBoardNo+"likestat : "+photoBoardMapper.likeStat(memberVO.getMemberId(), photoBoardNo));
 
         return "th/photoBoard/photoBoardDetail";
     }
@@ -181,18 +166,11 @@ public class PhotoBoardController {
 
             StringBuffer sb = new StringBuffer();
 
-            System.out.println("파일리스트 : "+mf);
-
             String originFileName = mf.getOriginalFilename();
 
             String saveName =  sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
                     .append(UUID.randomUUID().toString())
                     .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
-
-            System.out.println("경로 : "+filePath);
-
-            System.out.println("저장명 : "+saveName);
-
 
             String saveFile = filePath + saveName;
 
@@ -201,7 +179,6 @@ public class PhotoBoardController {
             mf.transferTo(new File(saveFile));
 
         }
-        System.out.println("리스트 : "+photoImgArray);
 
         int filesSize=photoImgArray.size();
         if( filesSize !=0){
@@ -223,7 +200,7 @@ public class PhotoBoardController {
                     photoBoardVO.setPhotoImg1( "/board/photoboard/"+photoImgArray.get(filesSize-i)   );
             }
         }
-        System.out.println("end");
+
 
 
 
@@ -234,17 +211,7 @@ public class PhotoBoardController {
         photoBoardVO.setStyleCode(request.getParameter("styleCode"));
         photoBoardVO.setPlaceCode(request.getParameter("placeCode"));
 
-
-        System.out.println("areaCode : " + photoBoardVO.getAreaCode());
-        System.out.println("houseCode : " + photoBoardVO.getHouseCode());
-        System.out.println("styleCode : " + photoBoardVO.getStyleCode());
-        System.out.println("placeCode : " + photoBoardVO.getPlaceCode());
-
         photoBoardMapper.updatePhoto(photoBoardVO);
-
-        System.out.println("OK");
-
-
 
         return "redirect:/photoBoardList";
     }
@@ -326,9 +293,6 @@ public class PhotoBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        System.out.println("내용 : "+commentContent);
-        System.out.println("글번호 : "+photoBoardNo);
-
         commentVO.setMemberId(memberVO.getMemberId());
         commentVO.setCommentContent(commentContent);
         commentVO.setPhotoBoardNo(photoBoardNo);
@@ -340,6 +304,7 @@ public class PhotoBoardController {
     @GetMapping("/photoScrollDown")
     @ResponseBody
     public Map<String, List<PhotoBoardVO>> photoScrollDown(){
+
         Map<String, List<PhotoBoardVO>> scrollList=new HashMap<String, List<PhotoBoardVO>>();
         scrollList.put("photoList", photoBoardMapper.selectPhotoList());
 

@@ -37,7 +37,7 @@ public interface AskBoardMapper {
     public List<CommentVO> askComment(int askBoardNo) throws Exception;
 
     public void insertAskComment(CommentVO commentVO) throws Exception;
-    //검색
+
 
 
 }
