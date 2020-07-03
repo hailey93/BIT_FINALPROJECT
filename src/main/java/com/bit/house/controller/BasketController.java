@@ -138,7 +138,9 @@ public class BasketController {
             } else {
                 //if(userId == null){
                 System.out.println("값이 있다");
+                //System.out.println(hohoSession1+hohoSession2);
                 List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession1,hohoSession2);
+                System.out.println("사이즈 " + basketVOList.size());
                 for(int i=0; i<basketVOList.size(); i++) {
                     basketVOList.get(i).setQty(hohoSession3.get(i));
                     System.out.println("리스트 i 의 qty입니다"+basketVOList.get(i).getQty());
