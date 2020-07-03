@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Insert title here</title>
+    <title>니가사는그집</title>
 
 </head>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -17,11 +17,11 @@
     <!-- 차트 div -->
     <!-- 차트 1 -->
     <div>
-        <h1> 연도별 매출 순위 </h1>
+        <h1> 연도별 매출 </h1>
         <!--회사명 입력 <input type="text" value="" id="inputSellerName">-->
         <form action="/admin/searchCom" method="get">
-            회사명?<input name="sellerName" type="text">
-            <input type="submit">
+            회사명<input name="sellerName" type="text">
+            <input type="submit" value="검색">
         </form>
         <!--<button name="sellerBtn" onsubmit="true" onclick="sellerBtn()">제출</button>-->
         <!-- 차트 1 -->
