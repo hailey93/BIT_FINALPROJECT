@@ -58,4 +58,6 @@ public interface AdminMapper {
 
     public List<ProductVO> getProductManagement();
     public List<OrderListVO> getPopularity();
+
+    public void deleteInicis(String memberId);
 }
