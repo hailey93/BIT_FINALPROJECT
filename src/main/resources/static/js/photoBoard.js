@@ -102,17 +102,15 @@ $(function(){
         var style = $("#styleSelect").val();
         var place = $("#placeSelect").val();
 
-        console.log(area);
-        console.log(house);
-        console.log(style);
-        console.log(place);
 
         document.insertphoto.area.value=area;
         document.insertphoto.style.value=style;
         document.insertphoto.house.value=house;
         document.insertphoto.place.value=place;
 
+
         $("#insertphoto").submit();
+
     });
 });
 
@@ -133,34 +131,19 @@ $(function(){
         var style = $("#styleSelect").val();
         var place = $("#placeSelect").val();
 
-        console.log(area);
-        console.log(house);
-        console.log(style);
-        console.log(place);
-
-
                     document.updatephoto.area.value=area;
                     document.updatephoto.style.value=style;
                     document.updatephoto.house.value=house;
                     document.updatephoto.place.value=place;
 
                     $("#updatephoto").submit();
-
-
-
     });
 });
 
 $(function(){
     $("#pCommentInsert").click(function(){
-        /*var BoardNo = {
-            photoBoardNo : $("#user").val(),
-        };*/
 
         var Content = $("#comment").serialize();
-
-        //console.log(BoardNo);
-        console.log(Content);
 
         $.ajaxSettings.traditional = true;
         $.ajax({
@@ -169,7 +152,7 @@ $(function(){
             data: Content,
             success : function(data){
                 console.log(data);
-                alert("consol");
+
                 location.reload();
             },
         });
@@ -181,7 +164,6 @@ $(function(){
         var userId = $("#memberId").val();
 
         document.profile.userId.value=userId;
-        console.log(userId);
 
         $("#profile").submit();
     })

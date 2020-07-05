@@ -30,7 +30,6 @@
         </div>
         <br>
         <form action="/member/noteSending" method="post" id="sending" name="sending">
-
             <input type="button" id="send" name="send"
                    class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
                    value="쪽지보내기">
@@ -44,14 +43,13 @@
                     <th>쪽지내용</th>
                     <th>보낸사람</th>
                 </tr>
-
                 <th:block th:each="receive : ${receiveNote}">
                     <tr>
                         <td class="select_note">
                             <input type="checkbox" name="check" id="check" class="check" th:data-No="${receive.msgNo}"
                                    th:data-sendId="${receive.memberId}"/>
                         </td>
-                        <td th:onclick="'javascript: '" th:text="${receive.msgContent}"/><!-- onclick ajax로 연결 --></td>
+                        <td th:onclick="" th:text="${receive.msgContent}"/></td>
                         <td th:text="${receive.memberId}"/>
                     </tr>
                 </th:block>

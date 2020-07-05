@@ -28,7 +28,8 @@
                                              th:attr="srcset=|@{'/uploadImg'+${mprofile?.memberImg}} 1.5x,
                                                               @{'/uploadImg'+${mprofile?.memberImg}} 2x,
                                                               @{'/uploadImg'+${mprofile?.memberImg}} 3x|">
-                                        <img th:if="${mprofile?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                        <img th:if="${mprofile?.memberImg == null}" class="comment-feed__item__content__author__image" alt=""
+                                             th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                              th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                               @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                               @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
@@ -43,6 +44,7 @@
                                                 <span>팔로워
                                                     <span class="highlight" th:text="${followCount}"></span>
                                                 </span>
+                                                </a>
                                             </div>
                                             <div class="profile-info__follow-state__vertical-bar"></div>
                                             <div class="profile-info__follow-state__text">
@@ -50,6 +52,7 @@
                                                 <span>팔로잉
                                                     <span class="highlight" th:text="${followingCount}"></span>
                                                 </span>
+                                                </a>
                                             </div>
                                         </div>
 
@@ -73,7 +76,7 @@
                                 <th:block th:each="photo : ${myphoto}">
                                     <div class="col-4 col-md-3">
                                         <div class="post--cards__item">
-                                            <a th:herf="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
+                                            <a th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
                                                 <img class="post--cards__item__img" th:src="@{'/uploadImg'+${photo.photoImg1}}"
                                                      th:attr="srcset=|@{'/uploadImg'+${photo?.photoImg1}} 1.5x,
                                                               @{'/uploadImg'+${photo?.photoImg1}} 2x,
@@ -88,13 +91,13 @@
                             <h5 class="post__title">
                                 스크랩북
                                 <strong th:text="${scrapCount}"></strong>
-                                <a class="posts__title__show-all" th:href="@{/member/allScrap/{memberId}(memberId=${mprofile.memberId})}">전체보기</a><!-- id값 받아서 넘겨야되니까 allScrap/{memberId}로 바꾸던지 -->
+                                <a class="posts__title__show-all" th:href="@{/member/allScrap/{memberId}(memberId=${mprofile.memberId})}">전체보기</a>
                             </h5>
                             <div class="row post--cards__list">
                                 <th:block th:each="scrap : ${myscrap}">
-                                    <div class="col-4 col-md-3">
+                                    <div class="col-4 col-md-3 ">
                                         <div class="post--cards__item">
-                                            <a th:herf="@{/photodetail/{photoBoardNo}(photoBoardNo=${scrap.photoBoardNo})}">
+                                            <a th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${scrap.photoBoardNo})}">
                                                 <img class="post--cards__item__img" th:src="@{'/uploadImg'+${scrap.photoImg1}}"
                                                      th:attr="srcset=|@{'/uploadImg'+${scrap?.photoImg1}} 1.5x,
                                                                       @{'/uploadImg'+${scrap?.photoImg1}} 2x,

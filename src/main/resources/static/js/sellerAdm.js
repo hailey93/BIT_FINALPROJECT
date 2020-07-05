@@ -14,7 +14,6 @@ $(function(){
 
         document.detailSeller.sellerName.value=sellerName;
 
-        console.log(sellerName);
         $("#detailSeller").submit();
     });
 });
@@ -25,7 +24,6 @@ $(function(){
 
         document.allProduct.sellerProduct.value=sellerName;
 
-        console.log(sellerName);
         $("#allProduct").submit();
     });
 });
@@ -36,7 +34,6 @@ $(function(){
 
         document.proc.sellerName.value=sellerName;
 
-        console.log(sellerName);
         $("#proc").submit();
     });
 });

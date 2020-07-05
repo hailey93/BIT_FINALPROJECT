@@ -20,11 +20,13 @@
         <div id="body" class="users follower"  style="padding-bottom: 0px;">
             <header id="user-header" class="user-header">
                 <div class="user-header__cover" style="background-image: url('https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-default_images-default_user_cover4.jpg/2560/none')"></div>
-                <img th:if="${member?.memberImg != null}" class="user-header__profile" th:src="@{'/uploadImg'+${member?.memberImg}}"
+                <img th:if="${member?.memberImg != null}" class="user-header__profile"
+                     th:src="@{'/uploadImg'+${member?.memberImg}}"
                      th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
                                       @{'/uploadImg'+${member?.memberImg}} 2x,
                                       @{'/uploadImg'+${member?.memberImg}} 3x|">
-                <img th:if="${member?.memberImg == null}" class="user-header__profile" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                <img th:if="${member?.memberImg == null}" class="user-header__profile"
+                     th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                      th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                       @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                       @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
@@ -64,11 +66,13 @@
                         <div th:if="${followCount != 0}" class="user" th:id="${follow.followId}">
                             <a target="_blank" th:href="@{/member/memberProfile/{memberId}(memberId=${follow.memberId})}">
                                 <div class="comment-feed__item__content" >
-                                    <img th:if="${follow?.memberImg != null}" class="image" th:src="@{'/uploadImg'+${follow?.memberImg}}"
+                                    <img th:if="${follow?.memberImg != null}" class="image"
+                                         th:src="@{'/uploadImg'+${follow?.memberImg}}"
                                          th:attr="srcset=|@{'/uploadImg'+${follow?.memberImg}} 1.5x,
                                                           @{'/uploadImg'+${follow?.memberImg}} 2x,
                                                           @{'/uploadImg'+${follow?.memberImg}} 3x|">
-                                    <img th:if="${follow?.memberImg == null}" class="image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                    <img th:if="${follow?.memberImg == null}" class="image"
+                                         th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                          th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                           @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                           @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
