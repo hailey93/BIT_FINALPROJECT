@@ -2,23 +2,25 @@ package com.bit.house.controller;
 
 import com.bit.house.chattingProcess.ChatRepository;
 import com.bit.house.chattingProcess.RedisPublisher;
-import com.bit.house.domain.ChatRoomVO;
-import com.bit.house.domain.ChatVO;
-import com.bit.house.domain.MemberVO;
+import com.bit.house.domain.*;
+import com.bit.house.mapper.ChatMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -95,17 +97,16 @@ public class ChatController {
     }
 
     @GetMapping("/admin/chatHistory")
-    public String getChatHistory(Model model){
+    public String getChatHistory(@ModelAttribute("page") ChatMsgVO vo, Criteria criteria, HttpServletRequest request, Model model) {
         //회원 채팅이력
-        model.addAttribute("msgLists", chatRepository.getChatMsg());
+        String memberId=request.getParameter("memberId");
+        //id검색했을때
+        if(memberId!=null){
+            vo.setMemberId(memberId);
+        }
+        model.addAttribute("msgLists", chatRepository.getChatMsg(vo, criteria));
+
         return "th/admin/chat/chatHistory";
     }
 
-    @GetMapping("/admin/chatHistoryById")
-    public String getChatHistoryById(HttpServletRequest request, Model model){
-        //회원 채팅이력 아이디별 검색
-        String memberId=request.getParameter("memberId");
-        model.addAttribute("msgLists", chatRepository.getChatMsgById(memberId));
-        return "th/admin/chat/chatHistory";
-    }
 }

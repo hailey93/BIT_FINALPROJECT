@@ -32,15 +32,15 @@
         <table class="table table-hover">
             <thead>
             <tr class="list-group list-group-horizontal">
-                <th style="width:70%">회원아이디</th>
-                <th style="width:20%">입장시간</th>
+                <th style="width:60%">회원아이디</th>
+                <th style="width:30%">입장시간</th>
                 <th style="width:10%">상담시작</th>
             </tr>
             </thead>
             <tbody>
             <tr class="list-group list-group-horizontal" th:each="roomList: ${roomLists}">
                 <td th:text="${roomList.memberId}" style="width:60%"></td>
-                <td th:text="${roomList.time}" style="width:20%"></td>
+                <td th:text="${roomList.time}" style="width:30%"></td>
                 <td style="width:10%">
                     <input th:if="${roomList.count}==1" type="button" class="btn btn-primary" th:value="상담시작"
                            th:data-id="${roomList.chatId}" id="createRoom" onclick="enterRoom()"/>
