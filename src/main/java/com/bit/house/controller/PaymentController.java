@@ -149,7 +149,7 @@ public class PaymentController {
         String memberId = "";
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         if(memberVO != null) {
-            adminMapper.insertInicis(orderListVO);
+            adminMapper.insertMemberInicis(orderListVO);
         }else {
             adminMapper.insertInicis(orderListVO);
             adminMapper.insertNonMemTable(nonMemberVO);
