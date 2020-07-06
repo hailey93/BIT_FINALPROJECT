@@ -1,9 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="sidebarFragment" style="width: 20%">
-
-
     <style>
-
         .drawer {
             display: none;
         }
@@ -98,11 +95,6 @@
 
     <script>
         var drawer = function () {
-
-            /**
-             * Element.closest() polyfill
-             * https://developer.mozilla.org/en-US/docs/Web/API/Element/closest#Polyfill
-             */
             if (!Element.prototype.closest) {
                 if (!Element.prototype.matches) {
                     Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;

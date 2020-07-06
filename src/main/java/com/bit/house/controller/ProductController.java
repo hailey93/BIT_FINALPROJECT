@@ -51,6 +51,9 @@ public class ProductController {
 
         if (index != null && !index.isEmpty()) {
             productList = productMapper.selectProduct(index);
+            if(productList.isEmpty()){
+                return "th/errorPages/notFound";
+            }
         } else {
             productList = productMapper.selectAllProduct();
         }
@@ -58,6 +61,13 @@ public class ProductController {
         model.addAttribute("index", index);
         return "th/main/searchList";
     }
+
+//    @GetMapping(/notFound)
+//    public String notFound(){
+//
+//        return ""
+//    }
+
 
 
     @GetMapping("/searchBox")
@@ -71,17 +81,14 @@ public class ProductController {
             jsonText = mapper.writeValueAsString(productJsList);
            mapList.put("jsonText", jsonText);
         } catch (
-                JsonGenerationException e) {
-            e.printStackTrace();
-        } catch (
-                JsonMappingException e) {
-            e.printStackTrace();
-        } catch (
                 IOException e) {
             e.printStackTrace();
         }
         return mapList;
     }
+
+
+
 
     @GetMapping("/category")
     public String findByCategory(@RequestParam(value = "categoryCode", required = false, defaultValue = "") String category, Model model) {

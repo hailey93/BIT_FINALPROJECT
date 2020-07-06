@@ -21,12 +21,17 @@
         });
     </script>
 
+    <script>
+        $("#reviewContent-text").click(function() {
+            alert("test");
+        });
+    </script>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="container">
         <th:block th:replace="th/fragments/navBar_myPage"></th:block>
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <a class="nav-link active" id="orderList-tab" data-toggle="tab" href="#orderList" role="tab"
                    aria-controls="orderList" aria-selected="true">주문내역</a>
@@ -37,10 +42,10 @@
                    aria-selected="false">나의 리뷰</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content my-4" id="myTabContent">
             <div class="tab-pane fade show active" id="orderList" role="tabpanel" aria-labelledby="orderList-tab">
                 <table class="table table-bordered">
-                    <thead>
+                    <thead class="thead-light">
                     <tr>
                         <th scope="col">주문일자</th>
                         <th scope="col">주문 상품 정보</th>
@@ -59,19 +64,19 @@
                         <td th:text="${orderList.orderType}"></td>
                         <td>
                             <div th:if="${orderList.orderCode} eq '30' or ${orderList.orderCode} eq '40'">
-                                <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                <button class="btn btn-primary px-2" type="button" data-toggle="collapse"
                                         aria-expanded="false"
                                         aria-controls="collapseExample"
                                         th:attr="data-target='#conf' + ${iter.count}">구매확정
                                 </button>
                                 <div th:id="'conf' + ${iter.count}" class="collapse">
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    <button type="button" class="btn btn-primary px-2" data-toggle="modal"
                                             th:attr="data-target='#review' + ${iter.count}">
                                         리뷰작성
                                     </button>
                                     <!-- The Modal -->
                                     <div class="modal fade" th:id="'review' + ${iter.count}">
-                                        <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-dialog">
                                             <form th:action="addReview" th:method="post"
                                                   enctype="multipart/form-data">
                                                 <input th:type="hidden" th:name="orderNo"
@@ -155,25 +160,37 @@
                                                         </div>
 
                                                         <div class="form-group">
-                                                            <div class="btn btn-primary btn-file">
-                                                                Image<input type="file" th:name="file" id="customFile">
-                                                            </div>
-                                                            <div class="btn btn-primary btn-file">
-                                                                Image<input type="file" th:name="file2" id="customFile2">
-                                                            </div>
-                                                            <div class="btn btn-primary btn-file">
-                                                                Image<input type="file" th:name="file3" id="customFile3">
+                                                            <div class="d-flex flex-row bd-highlight mb-1">
+                                                                <div class="btn btn-file">
+                                                                    <img th:src="@{/uploadImg/errorImg/addPhoto.png}"
+                                                                         class="d-block w-25"><input type="file"
+                                                                                                     th:name="file"
+                                                                                                     id="customFile">
+                                                                </div>
+                                                                <div class="btn btn-file">
+                                                                    <img th:src="@{/uploadImg/errorImg/addPhoto.png}"
+                                                                         class="d-block w-25"><input type="file"
+                                                                                                     th:name="file2"
+                                                                                                     id="customFile2">
+                                                                </div>
+                                                                <div class="btn btn-file">
+                                                                    <img th:src="@{/uploadImg/errorImg/addPhoto.png}"
+                                                                         class="d-block w-25"><input type="file"
+                                                                                                     th:name="file3"
+                                                                                                     id="customFile3">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
+                                                        <button type="button" class="btn btn-secondary py-1 px-3"
                                                                 data-dismiss="modal">
                                                             취소
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary">저장</button>
+                                                        <button type="submit" th:onclick="myFunction()" class="btn btn-primary py-1 px-3">저장
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -182,14 +199,13 @@
                                 </div>
 
                                 <div>
-                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                            th:attr="data-target='#return' + ${iter.count}">
-                                        반품
+                                    <button type="button" class="btn btn-primary px-3" data-toggle="modal"
+                                            th:attr="data-target='#return' + ${iter.count}">반품
                                     </button>
 
                                     <!-- The Modal -->
                                     <div class="modal fade" th:id="'return' + ${iter.count}">
-                                        <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-dialog">
 
                                             <form th:action="returnReason" th:method="post">
                                                 <input th:type="hidden" th:name="orderNo"
@@ -213,29 +229,30 @@
                                                     </div>
                                                     <!-- Modal footer -->
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
+                                                        <button type="button" class="btn btn-secondary py-1 px-3"
                                                                 data-dismiss="modal">
                                                             취소
                                                         </button>
-                                                        <button type="submit" class="btn btn-primary">저장</button>
+                                                        <button type="submit" class="btn btn-primary py-1 px-3">저장
+                                                        </button>
                                                     </div>
                                                 </div>
+
                                             </form>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
-
-
                             <div th:if="${orderList.orderCode} eq '10'">
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
+                                <button type="button" class="btn btn-primary py-1 px-3" data-toggle="modal"
                                         th:attr="data-target='#cancel' + ${iter.count}">
                                     취소
                                 </button>
 
                                 <!-- The Modal -->
                                 <div class="modal fade" th:id="'cancel' + ${iter.count}">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog">
                                         <form th:action="cancelReason" th:method="post">
                                             <input th:type="hidden" th:name="orderNo"
                                                    th:value="${orderList.orderNo}"></input>
@@ -258,11 +275,11 @@
                                                 </div>
                                                 <!-- Modal footer -->
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary"
+                                                    <button type="button" class="btn btn-secondary py-1 px-3"
                                                             data-dismiss="modal">
                                                         취소
                                                     </button>
-                                                    <button type="submit" class="btn btn-primary">저장</button>
+                                                    <button type="submit" class="btn btn-primary py-1 px-3">저장</button>
                                                 </div>
                                             </div>
                                         </form>
@@ -310,7 +327,7 @@
                         </tr>
                         </tbody>
                     </table>
-                    <button type="submit" class="btn btn-primary">삭제</button>
+                    <button type="submit" class="btn btn-primary px-4">삭제</button>
                 </form>
             </div>
         </div>
