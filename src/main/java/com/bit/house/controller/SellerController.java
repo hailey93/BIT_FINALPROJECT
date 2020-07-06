@@ -44,7 +44,7 @@ public class SellerController {
         sellerService.insertSeller(sellerVO);
 
 
-        return "th/login/signupSeller";
+        return "redirect:/customLogin";
     }
 
     @GetMapping("/testSeller")
