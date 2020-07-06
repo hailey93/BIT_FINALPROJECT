@@ -209,7 +209,11 @@ if(productNo != null) {
         // 원래 있던거 model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, pg_token));
         
         //수정 return "redirect:/myPage";
-        return "th/member/payment/kakaoPaySuccess";
+        if(memberVO != null){
+        return  "redirect:/member/order_list";
+        }else{
+            return "redirect:/";
+        }
     }
     
 }

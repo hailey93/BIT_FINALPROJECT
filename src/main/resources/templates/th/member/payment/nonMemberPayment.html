@@ -91,7 +91,6 @@
                                     <div class="information">
                                         <img th:src="@{'/uploadImg/'+${productVO.getProductMainImg()}}" alt="320">
                                         <div>
-                                            <input type="text" value="이건 바로가기"> 아하하하하하하ㅏ
                                             <div class="name" id="productNameTest"
                                                  th:text="${productVO.productName}"></div>
                                             <div class="option" th:text="${productVO.colorVO.colorType}"></div>
@@ -407,7 +406,7 @@
                     pg: "inicis",
                     pay_method: "card",
                     merchant_uid: 'merchant_' + new Date().getTime(),
-                    name: $('#productNameTest').text() + " 외",
+                    name: $('#productName').val(),
                     amount: 100,
                     buyer_email: $('#order_payer_email').val(),
                     buyer_name: $('#order_payer_name').val(),

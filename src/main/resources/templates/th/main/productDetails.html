@@ -8,14 +8,37 @@
     <th:block layout:fragment="css">
         <link rel="stylesheet" th:href="@{/css/mainContent.css}">
     </th:block>
-    <th:block layout:fragment="js">
-        <link rel="stylesheet" th:href="@{/js/basket.js}">
-    </th:block>
     <link th:href="@{/css/productPage.css}" rel="stylesheet"/>
     <link rel="stylesheet" th:href="@{https://www.w3schools.com/w3css/4/w3.css}">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
+    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/assets/v3/layout/application_react-c68374e516e05258989e1c408ec53ff0ffa468ef1755a945c31caf2e365af3d0.css">
+    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/9-e75c67c6.chunk.css">
+    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/20-dfb1ddc9.chunk.css">
+    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/App-18d780d3.css">
+    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/15-82708389.chunk.css">
+    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-2ea5daa5.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/7-254b0bc7.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/12-69bdf3b3.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Home-HomePage-23b340c6.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/2-a868d236.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/6-c0386d07.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/13-0f9754c8.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/29-45fb8d35.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Content-CardFeed-CardCollectionFeed-b4eb851d.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-RankingFeed-312e334b.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/14-ce81812a.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Content-ProjectFeed-978244ed.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Advice-AdviceFeed-8da7faa1.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/32-f41a52da.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-StoreIndex-StoreIndex-85ea7969.chunk.css">
+    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Selling-d79c1417.chunk.css">
+
+
 
 
 </head>
@@ -157,6 +180,23 @@
                     <button type="submit" class="btn-basket" onclick="saveSessionStorage(); return false;">
                         장바구니
                     </button>
+                    <div id="modal-root" style="display: none;">
+                    <div>
+                        <div class="react-modal react-modal--center open open-active">
+                            <div class="react-modal__content-wrap">
+                                <div class="react-modal__content production-selling-cart-complete-modal"><h1
+                                        class="production-selling-cart-complete-modal__title">장바구니에 상품을 담았습니다</h1><a
+                                        class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
+                                        href="/basket">장바구니 보러가기</a>
+                                    <button class="button button--color-gray-7 button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
+                                            id="modalBtn" type="button" onclick="window.location.reload()">확인
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!--<p><a onclick="goModal();" id="getModal">모달창띄우기</a></p>-->
                     <!--<a href="/basketPop" value="저장" onClick="saveSessionStorage(); return false;">저장</a>
                     <a href="/basketPop" rel="modal:open" onclick="saveSessionStorage();">모달창띄우기</a>-->
                     <button type="submit" class="btn-buy-now">바로구매</button>
@@ -352,6 +392,12 @@
         </div>
     </form>
     <script>
+        function goModal(){
+            var a = document.getElementById('modal-root');
+            a.style.display = "block";
+        }
+
+
         $(document).ready(function () {
             $("#inputGroupSelect01").focus(function () {
                 var x = document.getElementById("inputGroupSelect01").options[0].disabled = true;
@@ -500,7 +546,8 @@
                         ,
                         success: function (e) {
                             console.log("basketMem 완료")
-                            window.open('/basketPop', '_blank', 'width=auto,height=auto,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
+                            goModal();
+                            //window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
                         },
                         error: function () {
                             console.log("test err");
@@ -533,7 +580,8 @@
                 }
                 ,
                 success: function (e) {
-                    window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
+                    goModal();
+                    //window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
                 }, error: function () {
                     console.log("test err");
                 }

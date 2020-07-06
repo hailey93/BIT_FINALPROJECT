@@ -106,8 +106,8 @@ function requestPay() {
                         orderCode: "10"
                     },
                     success: function () {
-                        alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                        location.href = "/";
+                        alert("결제가 완료되었습니다.");
+                        location.href = "/member/order_list";
                     },
                     error: function () {
                         alert('ajax 실패')
