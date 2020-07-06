@@ -24,14 +24,16 @@
                 <address class="qna-detail-author qna-detail__content__header-author-section">
                     <a class="qna-detail-author__profile-link" th:href="@{/member/memberProfile/{memberId}(memberId=${detail.memberId})}">
                         <div class="qna-detail-author__profile-link__image">
-                            <img th:if="${detail?.memberImg != null}" class="card-detail-writer__image" th:src="@{'/uploadImg'+${detail?.memberImg}}" style="width: 50px; height: 50px;"
+                            <img th:if="${detail?.memberImg != null}" class="card-detail-writer__image"
+                                 th:src="@{'/uploadImg'+${detail?.memberImg}}" style="width: 50px; height: 50px;"
                                  th:attr="srcset=|@{'/uploadImg'+${detail?.memberImg}} 1.5x,
-                                                                        @{'/uploadImg'+${detail?.memberImg}} 2x,
-                                                                        @{'/uploadImg'+${detail?.memberImg}} 3x|">
-                            <img th:if="${detail?.memberImg == null}" class="card-detail-writer__image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
+                                                  @{'/uploadImg'+${detail?.memberImg}} 2x,
+                                                  @{'/uploadImg'+${detail?.memberImg}} 3x|">
+                            <img th:if="${detail?.memberImg == null}" class="card-detail-writer__image"
+                                 th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
                                  th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
-                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
-                                                                        @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
+                                                  @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
+                                                  @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
                         </div>
                         <div class="qna-detail-author__profile-link__summary">
                             <div class="qna-detail-author__profile-link__summary-section">
@@ -63,7 +65,8 @@
                                  th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
                                                   @{'/uploadImg'+${member?.memberImg}} 2x,
                                                   @{'/uploadImg'+${member?.memberImg}} 3x|">
-                            <img th:if="${member?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                            <img th:if="${member?.memberImg == null}" class="comment-feed__item__content__author__image" alt=""
+                                 th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                  th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                   @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                   @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
@@ -87,11 +90,13 @@
                             <article class="comment-feed__item">
                                 <p class="comment-feed__item__content">
                                     <a th:href="@{/member/memberProfile/{memberId}(memberId=${aComment.memberId})}" class="comment-feed__item__content__author">
-                                        <img th:if="${aComment?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${aComment?.memberImg}}"
+                                        <img th:if="${aComment?.memberImg != null}" class="comment-feed__item__content__author__image" alt=""
+                                             th:src="@{'/uploadImg'+${aComment?.memberImg}}"
                                              th:attr="srcset=|@{'/uploadImg'+${aComment?.memberImg}} 1.5x,
                                                               @{'/uploadImg'+${aComment?.memberImg}} 2x,
                                                               @{'/uploadImg'+${aComment?.memberImg}} 3x|">
-                                        <img th:if="${aComment?.memberImg == null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                        <img th:if="${aComment?.memberImg == null}" class="comment-feed__item__content__author__image" alt=""
+                                             th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
                                              th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                               @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                               @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
@@ -111,14 +116,15 @@
                 <div class="sticky-child" style="position: relative">
                     <div class="qna-detail__container__sidebar__content">
                         <address class="qna-detail-author qna-detail__container__sidebar__author">
-                            <a class="qna-detail-author__profile-link" th:href="@{/member/memberProfile/{memberId}(memberId=${detail.memberId})}"><!--작성자 프로필이동 -->
+                            <a class="qna-detail-author__profile-link" th:href="@{/member/memberProfile/{memberId}(memberId=${detail.memberId})}">
                                 <div class="qna-detail-author__profile-link__image">
-                                    <!--<img src="#" th:attr="srcset">--><!-- 작성자 프로필이미지-->
-                                    <img th:if="${detail?.memberImg != null}" class="card-detail-writer__image" th:src="@{'/uploadImg'+${detail?.memberImg}}" style="width: 50px; height: 50px;"
+                                    <img th:if="${detail?.memberImg != null}" class="card-detail-writer__image"
+                                         th:src="@{'/uploadImg'+${detail?.memberImg}}" style="width: 50px; height: 50px;"
                                          th:attr="srcset=|@{'/uploadImg'+${detail?.memberImg}} 1.5x,
                                                           @{'/uploadImg'+${detail?.memberImg}} 2x,
                                                           @{'/uploadImg'+${detail?.memberImg}} 3x|">
-                                    <img th:if="${detail?.memberImg == null}" class="card-detail-writer__image" th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
+                                    <img th:if="${detail?.memberImg == null}" class="card-detail-writer__image"
+                                         th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}" style="width: 50px; height: 50px;"
                                          th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                           @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                           @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">

@@ -32,12 +32,3 @@ $(window).scroll(function () {
         })
     }
 });
-
-/*
-function enterChat(formName) {
-    window.open("", "new_popup", "scrollbars=no, width=400, height=450, menubar=false, location=false");
-    formName.target = "new_popup";
-    formName.action = "/chat";
-    formName.method = "post";
-    formName.submit();
-}*/

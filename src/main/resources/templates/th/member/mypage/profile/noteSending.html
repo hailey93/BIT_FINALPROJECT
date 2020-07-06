@@ -5,7 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>쪽지 보내기</title>
-
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/askBoard.css}">
+    </th:block>
     <script type="text/javascript">
         $(function(){
             $("#sending").click(function(){
@@ -16,24 +18,24 @@
     </script>
 </head>
 <body>
-
 <h2>쪽지 보내기</h2>
 <div layout:fragment="content">
-    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
-    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
     <div class="container">
+        <th:block th:replace="th/fragments/navBar_myPage"></th:block>
+        <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
         <form action="/member/noteSendingProc" method="post" id="send" name="send">
-        <div class="form-group">
-        <input type="text" id="receiveId" name="receiveId" th:value="${sending}" readonly/>
+            <div class="mt-4 mb-3">
+                <label for="receiveId">받는사람<span class="text-muted"/></label>
+                <input type="text" id="receiveId" name="receiveId" th:value="${sending}" readonly/>
         </div>
-        <div class="form-group">
-            <textarea id="msgContent" name="msgContent" style="width: 700px"></textarea>
+            <div class="mt-4 mb-3">
+                <label for="msgContent">내용<span class="text-muted"/></label>
+                <textarea id="msgContent" name="msgContent" style="width: 700px"></textarea>
         </div>
-
-        <input type="button" id="sending" name="sending" value="보내기"/>
+            <button class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
+                    id="sending" name="sending" >보내기</button>
         </form>
     </div>
 </div>
-
 </body>
 </html>

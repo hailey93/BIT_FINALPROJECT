@@ -22,6 +22,7 @@
                         </p>
                     </div>
                     <form id="questions-header__form" class="sticky-top" action="/askSearchList" accept-charset="UTF-8" method="get">
+                        <!--<input name="utf8" type="hidden" value="">-->
                         <div class="sticky-content">
                             <div class="questions-header__form__wrap row">
                                 <div class="questions-header__form__search col">
@@ -70,14 +71,14 @@
                     <ul class="pagination pagination-sm no-margin pull-right">
                         <li th:if="${pageMaker.prev} == true" rel="prev" role="button">
                             <a class="icon icon-pointer-button-square-left" aria-hidden="true"
-                               th:href="@{/askBoardList(page=${pageMaker.startPage}-1, perPageNum=${pageMaker.cri.perPageNum})}" >&laquo;</a>
+                               th:href="@{/askSearchList(page=${pageMaker.startPage}-1, perPageNum=${pageMaker.cri.perPageNum})}" >&laquo;</a>
                         </li>
                         <li th:each="idx,iterStat : ${#numbers.sequence(pageMaker.startPage,pageMaker.endPage)}"  th:classappend="${pageMaker.cri.page} == ${idx} ? active : null">
-                            <a th:href="@{/askBoardList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
+                            <a th:href="@{/askSearchList(page=${idx},perPageNum=${pageMaker.cri.perPageNum})}" th:text="${idx}"></a>
                         </li>
                         <li th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}" rel="next" role="button">
                             <a class="icon icon-pointer-button-square-right" aria-hidden="true"
-                               th:href="@{/askBoardList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
+                               th:href="@{/askSearchList(page=${pageMaker.endPage}+1,perPageNum=${pageMaker.cri.perPageNum})}">&raquo;</a>
                         </li>
                     </ul>
                 </nav>

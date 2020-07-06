@@ -16,11 +16,29 @@
         SELECT count(*) FROM askboard WHERE askBoardNo > 0
     </select>
 
+    <select id="searchList" resultType="com.bit.house.domain.AskBoardVO">
+        SELECT askBoardNo, askContent, memberId, CONCAT(REPEAT("　", askIndent), askTitle) as askTitle, askDate,
+        askGroupNo, askIndent, askStep
+        FROM askboard
+        WHERE askTitle like #{keyword}
+        order by askGroupNo desc, askStep asc, askIndent asc
+        LIMIT #{pageStart}, #{perPageNum}
+
+    </select>
+
+    <select id="searchListCountCriteria" resultType="int">
+        SELECT count(*) FROM askboard WHERE askTitle like #{keyword}
+    </select>
+
     <select id="askDetail" parameterType="int" resultType="AskBoardVO">
         SELECT a.askBoardNo, a.memberId, a.askTitle, a.askContent, a.askDate, a.askGroupNo, a.askIndent, a.askStep, m.memberImg
         FROM askboard a  INNER JOIN member m
         ON a.memberId = m.memberId
         WHERE askBoardNo = #{askBoardNo}
+    </select>
+
+    <select id="askCommentCount" resultType="int">
+        SELECT count(*) FROM comment WHERE askBoardNo = #{askBoardNo}
     </select>
 
     <insert id="insertAsk" parameterType="com.bit.house.domain.AskBoardVO">
@@ -36,6 +54,10 @@
         WHERE askBoardNo = #{askBoardNo}
     </update>
 
+    <delete id="askDelete" parameterType="int">
+        DELETE FROM askboard WHERE askBoardno = #{askBoardno}
+    </delete>
+
     <update id="askReplyUp" parameterType="AskBoardVO">
         update askboard SET askStep = askStep+1 WHERE askGroupNo = #{askGroupNo} AND askStep > #{askStep};
     </update>
@@ -46,14 +68,6 @@
         values(#{askTitle}, #{askContent}, #{memberId}, curdate(), #{askGroupNo},
         #{askIndent}+1, #{askStep}+1)
     </insert>
-
-    <delete id="askDelete" parameterType="int">
-        DELETE FROM askboard WHERE askBoardno = #{askBoardno}
-    </delete>
-
-    <select id="askCommentCount" resultType="int">
-        SELECT count(*) FROM comment WHERE askBoardNo = #{askBoardNo}
-    </select>
 
     <select id="askComment" resultType="CommentVO">
         SELECT * FROM comment WHERE askBoardNo = #{askBoardNo}

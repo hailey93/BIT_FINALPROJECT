@@ -64,27 +64,15 @@ public class MyPageController {
         File dest = new File(filePath+saveName);
         mf.transferTo(dest);
 
-        String img = dest.toString();
 
         memberVO.setMemberImg("/profileImg/"+saveName);
-        System.out.println(img);
+
 
         myPageMapper.modifyProfile(memberVO);
 
         return "redirect:/member/settings";
     }
-    //팔로워메뉴
-    @RequestMapping("/viewFollow")
-    private String viewFollow(Model model, HttpSession session) throws Exception{
-
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
-        model.addAttribute("follower", myPageMapper.follower(memberVO.getMemberId()));
-        model.addAttribute("following", myPageMapper.following(memberVO.getMemberId()));
-
-        return "th/member/mypage/profile/viewFollow";
-    }
-
+   //팔로워목록
     @RequestMapping("/allFollow/{memberId}")
     private String allFollow(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
@@ -99,7 +87,7 @@ public class MyPageController {
 
         return "th/member/mypage/profile/allFollow";
     }
-    //팔로잉 전체보기
+    //팔로잉 목록
     @RequestMapping("allFollowing/{memberId}")
     private String allFollowing(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 
@@ -122,14 +110,9 @@ public class MyPageController {
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
         followNo = memberVO.getMemberId()+followId;
 
-
         followVO.setMemberId(memberVO.getMemberId());
         followVO.setFollowId(followId);
         followVO.setFollowNo(followNo);
-
-
-        System.out.println("followNo : "+followNo);
-        System.out.println("followId : "+followId);
 
         myPageMapper.follow(followVO);
 
@@ -142,7 +125,6 @@ public class MyPageController {
     private void cancelFollow(@RequestParam("followId") String followId, HttpSession session, FollowVO followVO) throws Exception{
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
 
         followVO.setMemberId(memberVO.getMemberId());
         followVO.setFollowId(followId);
@@ -159,8 +141,6 @@ public class MyPageController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-
-
         model.addAttribute("myphoto", myPageMapper.profilePhoto(memberVO.getMemberId()));
         model.addAttribute("mprofile", myPageMapper.myProfile(memberVO.getMemberId()));
         model.addAttribute("myscrap", myPageMapper.profileScrap(memberVO.getMemberId()));
@@ -169,8 +149,6 @@ public class MyPageController {
         model.addAttribute("photoCount", myPageMapper.photoCount(memberVO.getMemberId()));
         model.addAttribute("scrapCount", myPageMapper.scrapCount(memberVO.getMemberId()));
 
-
-
         return "th/member/mypage/profile/myBoard";
     }
 
@@ -178,14 +156,9 @@ public class MyPageController {
     @RequestMapping("/memberProfile/{memberId}")
     private String memberProfile(Model model, @PathVariable("memberId") String memberId, HttpSession session) throws Exception{
 
-
-
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-        System.out.println("userId : "+ memberId);
-
-
-
+        model.addAttribute("member", memberVO.getMemberId());
         model.addAttribute("memprofile", myPageMapper.myProfile(memberId));
         model.addAttribute("memphoto", myPageMapper.profilePhoto(memberId));
         model.addAttribute("memberscrap", myPageMapper.profileScrap(memberId));
@@ -195,16 +168,12 @@ public class MyPageController {
         model.addAttribute("scrapCount", myPageMapper.scrapCount(memberId));
         model.addAttribute("fcount", myPageMapper.followerCount(memberVO.getMemberId(), memberId));
 
-
-
         return "th/member/mypage/profile/memberProfile";
     }
     //사진 게시글 전체보기
     @RequestMapping("/allPhoto/{memberId}")
     private String allPhoto(Model model, @PathVariable String memberId) throws Exception{
 
-
-        System.out.println(memberId);
         model.addAttribute("photo", myPageMapper.allPhoto(memberId));
 
         return "th/member/mypage/profile/allPhoto";
@@ -214,7 +183,6 @@ public class MyPageController {
     @RequestMapping("/allScrap/{memberId}")
     private String allScrap(Model model, @PathVariable String memberId) throws Exception{
 
-        System.out.println(memberId);
         model.addAttribute("scrap", myPageMapper.allScrap(memberId));
 
         return "th/member/mypage/profile/allScrap";
@@ -246,10 +214,7 @@ public class MyPageController {
     @RequestMapping("/noteSending")
     private String noteSending(Model model, @RequestParam(required = false) String receiveId){
 
-        System.out.println("id : "+receiveId);
         model.addAttribute("sending", receiveId);
-        System.out.println("model end");
-        System.out.println(model);
 
         return "th/member/mypage/profile/noteSending";
     }
@@ -275,8 +240,6 @@ public class MyPageController {
     @ResponseBody
     private String deleteNote(@RequestParam(required = false) List<String> msgNum) throws Exception{
 
-        System.out.println(msgNum);
-
         myPageService.deleteNote(msgNum);
 
         return "redirect:/member/sendNote";
@@ -296,6 +259,7 @@ public class MyPageController {
 
     @PostMapping("updateInfo")
     public String updateProfileInfo(HttpSession session, MemberVO memberVO) {
+
         memberInfoMapper.updateInfoMemberById(memberVO);
         session.setAttribute("memberVO", memberVO);
         return "redirect:/member/settings";

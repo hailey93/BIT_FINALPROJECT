@@ -44,6 +44,25 @@ public class AskBoardController {
 
         return "th/askBoard/askBoardList";
     }
+    //검색 리스트
+    @RequestMapping("/askSearchList")
+    private String askSearchList(@ModelAttribute("cri") Criteria cri, Model model, HttpServletRequest request) throws Exception{
+
+
+
+        String keyword = "%"+request.getParameter("keyword")+"%";
+
+        model.addAttribute("keyword", keyword);
+        model.addAttribute("list", askBoardMapper.searchList(keyword, cri.getPageStart(), cri.getPerPageNum()));
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(cri);
+        pageMaker.setTotalCount(askBoardMapper.searchListCountCriteria(cri, keyword));
+
+        model.addAttribute("pageMaker", pageMaker);
+
+        return "th/askBoard/askBoardSearchList";
+    }
+
     //글 상세페이지
     @RequestMapping("/askdetail/{askBoardNo}")
     private String askDetail(@PathVariable int askBoardNo, Model model, HttpSession session) throws Exception {
@@ -66,6 +85,7 @@ public class AskBoardController {
     private String insertAsk() {
         return "th/askBoard/askBoardInsert";
     }
+
     //게시글 작성
     @RequestMapping("/askinsertProc")
     private String insertAskProc(HttpServletRequest request, HttpSession session) throws Exception {
@@ -90,7 +110,7 @@ public class AskBoardController {
 
         return "th/askBoard/askBoardReplyInsert";
     }
-
+    //답글 작성
     @RequestMapping("/askreplyProc")
     private String askReplyProc(HttpServletRequest request, HttpSession session) throws Exception {
 
@@ -122,7 +142,7 @@ public class AskBoardController {
 
         return "th/askBoard/askBoardUpdate";
     }
-
+    //게시글 수정
     @RequestMapping("/askupdateProc")
     private String askUpdateProc(HttpServletRequest request) throws Exception {
 
@@ -136,7 +156,7 @@ public class AskBoardController {
 
         return "redirect:/askdetail/" + request.getParameter("askBoardNo");
     }
-
+    //게시글 삭제
     @RequestMapping("/askdelete/{askBoardNo}")
     private String askDelete(@PathVariable int askBoardNo) throws Exception {
 
@@ -147,7 +167,7 @@ public class AskBoardController {
     }
 
 
-    // 다중파일업로드
+    // 다중파일업로드 에디터
     @RequestMapping(value = "/file_uploader_html5.do", method = RequestMethod.POST)
     @ResponseBody
     public String multiplePhotoUpload(HttpServletRequest request) {
@@ -184,7 +204,7 @@ public class AskBoardController {
         }
         return sb.toString();
     }
-
+    //댓글 작성
     @RequestMapping("/insertAskComment")
     @ResponseBody
     private void insertAskComment(@RequestParam("commentContent") String commentContent, CommentVO commentVO, HttpSession session, @RequestParam("askBoardNo") int askBoardNo) throws Exception{

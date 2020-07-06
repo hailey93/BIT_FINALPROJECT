@@ -59,31 +59,60 @@
                      aria-labelledby="nav-myProfile-tab">
                     <div class="container">
                         <form action="/member/modifyProfile" method="post" enctype="multipart/form-data" class="frm">
-                            <div class="form-group">
-                                닉네임<input type="text" id="nickName" name="nickName" th:value="${myprofile?.nickName}"
-                                          placeholder="입력하지 않을 시 아이디로 출력됩니다."/>
+                            <div class="edit-user-info__form-item">
+                                <div class="edit-user-info__form-item__title">닉네임</div>
+                                <div class="expert-form-group edit-user-info__form-item__group">
+                                    <div class="expert-form-group__content">
+                                        <div class="expert-form-group__input">
+                                            <div class="edit-user-info__form-item__field">
+                                                <div class="edit-user-info__input">
+                                                    <input type="text" id="nickName" name="nickName" th:value="${myprofile?.nickName}"
+                                                           placeholder="입력하지 않을 시 아이디로 출력됩니다."/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="file_input_div">
-                                프로필사진
-                                <div id="preview">
-                                    <img th:if="${myprofile?.memberImg != null}"
-                                         th:src="@{'/uploadImg'+${myprofile.memberImg}}" class="file_input_button"
-                                         alt="open" style="width:200px; height: 200px;"/>
-                                    <img th:if="${myprofile?.memberImg == null}"
-                                         th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
-                                         style="width:200px; height: 200px;"/></div>
-                                <input type="file" id="uploadFile" name="uploadFile" class="file_input_hidden"/>
+                            <div class="edit-user-info__form-item">
+                                <div class="edit-user-info__form-item__title">프로필 이미지</div>
+                                <div class="expert-form-group edit-user-info__form-item__group">
+                                    <div class="expert-form-group__content">
+                                        <div class="expert-form-group__input">
+                                            <div class="edit-user-info__form-item__field edit-user-info__form-item__field--profile">
+                                                <div class="image-single-input-wrap">
+                                                    <ul class="image-single-input">
+                                                        <li class="image-single-input__entry">
+                                                            <div id="preview">
+                                                                <img th:if="${myprofile?.memberImg != null}"
+                                                                     th:src="@{'/uploadImg'+${myprofile.memberImg}}" class="file_input_button"
+                                                                     alt="open" style="width:200px; height: 200px;"/>
+                                                                <img th:if="${myprofile?.memberImg == null}"
+                                                                     th:src="@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'}"
+                                                                     style="width:200px; height: 200px;"/></div>
+                                                            <input type="file" id="uploadFile" name="uploadFile" class="file_input_hidden"/>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <div class="form-group">
-                                한줄소개
-                                <input type="text" id="memberIntro" name="memberIntro"
-                                       th:value="${myprofile?.memberIntro}"/></p>
-                                <br>
+                            <div class="edit-user-info__form-item">
+                                <div class="edit-user-info__form-item__title">한줄소개</div>
+                                <div class="expert-form-group edit-user-info__form-item__group">
+                                    <div class="expert-form-group__content">
+                                        <div class="expert-form-group__input">
+                                            <div class="edit-user-info__form-item__field">
+                                                <input maxlength="41" class="form-control" type="text" id="memberIntro" name="memberIntro"
+                                                       th:value="${myprofile?.memberIntro}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <input type="submit" value="등록"/>
-                            </div>
+                            <button class="button button--color-blue button--size-50 button--shape-4 edit-user-info__submit" type="submit">프로필 등록</button>
                         </form>
                     </div>
                 </div>

@@ -11,8 +11,7 @@ $(function () {
             data: Content,
             success: function (data) {
                 console.log(data);
-
-                alert("consol");
+                
                 location.reload();
             },
         });
@@ -40,7 +39,7 @@ function del(idx) {
     }
 };
 
-
+//에디터
 $(function () {
     var obj = [];
 
