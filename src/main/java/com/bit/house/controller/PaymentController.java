@@ -100,16 +100,6 @@ public class PaymentController {
     @GetMapping("/nonMemberPayment")
     public String nonMemberPayment(){
 
-        /*
-
-        List<String> hohoSession2 = new ArrayList<>();
-        System.out.println("getAttribute");
-        hohoSession2 = (List<String>) session.getAttribute("hoho3");
-        System.out.println("호호세션 : "+hohoSession2);
-        basketMapper.getNonMemberBasketList(hohoSession2);
-        List<BasketVO> basketVOList = basketMapper.getNonMemberBasketList(hohoSession2); // 아무튼 상품정보 가져옴
-        model~
- */
 
         return "th/member/payment/nonMemberPayment";
     }

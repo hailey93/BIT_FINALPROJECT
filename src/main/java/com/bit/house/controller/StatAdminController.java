@@ -40,9 +40,6 @@ public class StatAdminController {
         List<OrderListVO> yearlySellerSalesVolume = adminMapper.getYearlySellerSalesVolume(sellerName);
 
         log.info("yearlySellerSalesVolume :: " +yearlySellerSalesVolume);
-        //List<ProductVO> houseProductList = adminMapper.getProduct();
-        //List<ProductVO> salesVol = adminMapper.getSalesVolume();
-        //log.info("salesVol = "+salesVol);
         List<OrderListVO> spendingPattern = adminMapper.getSpendingPattern();
         List<String> yearList = adminMapper.getYear();
         List<OrderListVO> totalPrice = adminMapper.getTotalPrice();
@@ -81,15 +78,9 @@ public class StatAdminController {
 
     @RequestMapping(value = "/yearGraphAjax", method = RequestMethod.POST)
     public @ResponseBody Object yearAjaxGraph(String product, String year,String sellerName) {
-        //List<OrderListVO> spendingPattern = adminMapper.getMonthData(year, product);
 
-        //ObjectMapper mapper = new ObjectMapper();
-        //String jsonText;
-        //jsonText = mapper.writeValueAsString(house통계 );
-        // return jsonText  Map으로 보낼지 어떻게 보낼지
-        //ArrayList<String> graph2ArrList = new ArrayList<String>();
         System.out.println("ajax ===> productNo : "+ product + " year ====> " + year + "sellerName" + sellerName);
-        //Service.getSelectedYear(year);
+
         List<OrderListVO> monthlySellerSalesVolume = adminMapper.getMonthlySellerSalesVolume(sellerName, year);
         log.info("mothly Sale sadmkldmslkdnsanqlTqdwqwd : "+monthlySellerSalesVolume);
 
@@ -135,12 +126,6 @@ public class StatAdminController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //회사 이름으로 찾기
-        //adminMapper.getSellerStat(sellerName);
-
-        //전체 판매량 순으로 정렬
-        //adminMapper.getSpendingPattern();
         return  inputSellerName;
     }
 
@@ -167,11 +152,6 @@ public class StatAdminController {
             e.printStackTrace();
         }
 
-        //회사 이름으로 찾기
-        //adminMapper.getSellerStat(sellerName);
-
-        //전체 판매량 순으로 정렬
-        //adminMapper.getSpendingPattern();
         return "th/admin/statAdmin/productSalesVolume";
     }
     
@@ -195,20 +175,8 @@ public class StatAdminController {
         System.out.println(year + "/" + month + "/" + day );
 
 
-        //List<ProductVO> houseProductList = adminMapper.getProduct();
-        //List<ProductVO> salesVol = adminMapper.getSalesVolume();
-        //log.info("salesVol = "+salesVol);
-        
-        //log.info("spendingPattern : "+spendingPattern.toString());
-
         List<OrderListVO> userPurchaseVolume = adminMapper.getUserPurchaseVolume();
         log.info("userPurchaseVolume : "+userPurchaseVolume.toString());
-
-        //List<String> yearList = adminMapper.getYear();
-        //List<OrderListVO> totalPrice = adminMapper.getTotalPrice();
-        //log.info("totalPrice : "+ totalPrice.toString());
-        //log.info("productOptionVOList : " +spendingPattern.toString());
-        //log.info("안녕하세요 yearList입니다" + yearList);
 
         ObjectMapper mapper = new ObjectMapper();
         String jsonText;

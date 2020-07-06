@@ -105,10 +105,7 @@
         from orderlist
         group by productNo, orderDate order by orderDate;
     </select>
-    <!-- where productNo = ''
-    /*year = #{year} , productNo = #{productNo},
-                                   month = #{month}, colorName 만약 색상까지 세분화 안한다면 주석처리 */
-                                   -->
+
     <select id="getSpendingPattern" resultType="orderListVO"> <!-- 그냥 판매량 순으로 정렬해서 USERSPENDINGPATTERN이나 매출순위 뽑음 -->
         select sum(totalPrice) as totalPrice, productNo, sum(orderQty) as orderQty, orderDate,
         EXTRACT(YEAR FROM orderDate ) as year, EXTRACT(MONTH FROM orderDate ) as month, EXTRACT(DAY FROM orderDate ) as
@@ -118,14 +115,6 @@
     </select>
 
 
-    <!--#월단위 구매 많이한 유저
-select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, month, year
-from dailysalestats2
-group by memberId, month,year, month order by orderQty desc;
-    -->
-
-
-    <!-- memberInfo Page -->
     <select id="getUserInfo" resultMap="memberInfo">
 		select m.memberName, m.memberId, m.memberAddr, m.memberEmail, sum(u.orderQty)as orderQty,
 sum(u.totalPrice)as totalPrice from member m, dailysalestats u where u.memberId = m.memberId
@@ -247,31 +236,7 @@ group by memberId;
     <select id="getProductManagement" resultType="productVO">
         select productNo,sellerName,productName,modelName,customerPrice,sellPrice,purchasePrice,productCreateDate from product;
     </select>
-    <!--#연단위 구매 많이한 유저
-    select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, year
-    from dailysalestats2
-    group by memberId, year order by orderQty desc;-->
 
-    <!--#일단위 구매 많이한 유저
-    select memberId,sum(totalPrice) as totalPrice, sum(orderQty) as orderQty, day, month, year
-    from dailysalestats2
-    group by memberId, day order by orderQty desc;-->
-
-    <!--EXTRACT(YEAR FROM orderDate ) = #{year}-->
-
-
-    <!-- 주소를 등록
-    첫 시도 (Update 해야되는데 insert 하려 해서 에러남)
-    <select id="insertAddr" r>
-select *,if(memberAddr is null,'하리보',if(deliveryAddr1 is null,'하리보둘',
-if(deliveryAddr2 is null,'하리보셋',deliveryAddr2))) as news from member1;
-
-
-    멤버 주소 업데이트
-update member1 set memberAddr=if(memberAddr is null,'asd',memberAddr), deliveryAddr1 = if(memberAddr is not null, null, 'Addr1에들어감'),
- deliveryAddr2 = if(memberAddr is not null, null, if(deliveryAddr1 is not null,null,'Addr2에 들어감' ))
- where memberId='test';
-    -->
     <update id="updateMemberAddr">
        update member set  deliveryAddr2 = if(memberAddr is not null,if(deliveryAddr1 is not null,#{fullAddr},null ),  null)
 , deliveryAddr1 = if(memberAddr is not null, if(deliveryAddr1 is not null, deliveryAddr1,#{fullAddr} ), null) ,
