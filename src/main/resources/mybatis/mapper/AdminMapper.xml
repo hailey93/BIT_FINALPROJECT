@@ -136,6 +136,25 @@ group by memberId;
 	</select>
 
 
+    <insert id="insertMemberInicis" >
+        INSERT INTO orderlist(
+        orderNo,
+        productNo,
+        memberId,
+        colorName,
+        orderQty,
+        totalPrice,
+        recipient,
+        orderAddr,
+        orderDate,
+        payCode,
+        orderCode)
+        VALUES
+        (#{orderNo},#{productNo},#{memberId},#{colorName},#{orderQty},#{totalPrice},#{recipient},#{orderAddr},#{orderDate}
+        ,#{payCode},#{orderCode}
+        )
+    </insert>
+
     <insert id="insertNonMemberOrderList" parameterType="java.util.List">
         INSERT INTO orderlist(
         orderNo,
@@ -166,6 +185,7 @@ group by memberId;
             )
         </foreach>
     </insert>
+
 
 
     <insert id="insertMemberOrderList" parameterType="java.util.List">
