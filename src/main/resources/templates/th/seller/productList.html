@@ -89,7 +89,7 @@
                                             <tbody>
                                             <tr th:each="productListInfo : ${productListInfo}">
                                                 <td th:onclick="'location.href=\''+@{/seller/{productNo}(productNo=${productListInfo.productNo})}+'\''"
-                                                        th:value="${productListInfo.productNo}"
+                                                    th:value="${productListInfo.productNo}"
                                                     th:text="${productListInfo.productNo}"></td>
                                                 <td th:value="${productListInfo.sellerName}"
                                                     th:text="${productListInfo.sellerName}"></td>

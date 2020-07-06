@@ -35,7 +35,7 @@
 }
 
 .production-selling-header__price__original{
-text-decoration: line-through;
+    text-decoration: line-through;
 }
 
 .production-selling-header__price__customer{

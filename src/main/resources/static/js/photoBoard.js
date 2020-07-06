@@ -131,12 +131,12 @@ $(function(){
         var style = $("#styleSelect").val();
         var place = $("#placeSelect").val();
 
-                    document.updatephoto.area.value=area;
-                    document.updatephoto.style.value=style;
-                    document.updatephoto.house.value=house;
-                    document.updatephoto.place.value=place;
+        document.updatephoto.area.value=area;
+        document.updatephoto.style.value=style;
+        document.updatephoto.house.value=house;
+        document.updatephoto.place.value=place;
 
-                    $("#updatephoto").submit();
+        $("#updatephoto").submit();
     });
 });
 

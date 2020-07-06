@@ -4,7 +4,7 @@
 
 
 
-    <select id="searchCategory" resultType="com.bit.house.domain.CategoryVO">
+	<select id="searchCategory" resultType="com.bit.house.domain.CategoryVO">
 		select categoryCode, categoryType from category
 	</select>
 

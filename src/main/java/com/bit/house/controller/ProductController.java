@@ -79,7 +79,7 @@ public class ProductController {
         String jsonText;
         try {
             jsonText = mapper.writeValueAsString(productJsList);
-           mapList.put("jsonText", jsonText);
+            mapList.put("jsonText", jsonText);
         } catch (
                 IOException e) {
             e.printStackTrace();

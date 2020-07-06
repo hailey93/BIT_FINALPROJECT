@@ -4,9 +4,9 @@ const handleOnChange = e =>{
 }
 var selectVal = new Array();
 var i=1;
-    //var test = document.getElementById('selectColorOption1');
-    //console.log("test : " + test);
-    document.querySelector('#selectColorOption'+i).addEventListener("change",handleOnChange);
+//var test = document.getElementById('selectColorOption1');
+//console.log("test : " + test);
+document.querySelector('#selectColorOption'+i).addEventListener("change",handleOnChange);
 var t;
 for(var a=0;a<10;a++){
     t = document.getElementById('selectColorOption'+i);
@@ -17,8 +17,8 @@ for(var a=0;a<10;a++){
     }
     selectVal[i] = document.querySelector("#selectColorOption"+i).addEventListener("change",handleOnChange)
 
-i++
-    }
+    i++
+}
 //selVal으로 여러개 select에서 select 하면 값이 추출되게 할 수 있음.
 console.log("selVal : "+selectVal);
 

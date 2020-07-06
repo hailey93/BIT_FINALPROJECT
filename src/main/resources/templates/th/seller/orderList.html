@@ -71,60 +71,60 @@
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <form th:action="@{/seller/orderListChange}" method="post">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                        <thead>
-                                        <tr>
-                                            <th>주문번호</th>
-                                            <th>상품이름</th>
-                                            <th>판매자</th>
-                                            <th>구매자아이디</th>
-                                            <th>상품색상</th>
-                                            <th>상품수량</th>
-                                            <th>상품총액</th>
-                                            <th>수령인</th>
-                                            <th>주소</th>
-                                            <th>결제상태</th>
-                                            <th>결제타입</th>
-                                        </tr>
-                                        </thead>
+                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                            <tr>
+                                                <th>주문번호</th>
+                                                <th>상품이름</th>
+                                                <th>판매자</th>
+                                                <th>구매자아이디</th>
+                                                <th>상품색상</th>
+                                                <th>상품수량</th>
+                                                <th>상품총액</th>
+                                                <th>수령인</th>
+                                                <th>주소</th>
+                                                <th>결제상태</th>
+                                                <th>결제타입</th>
+                                            </tr>
+                                            </thead>
 
-                                        <tbody>
-                                        <tr th:each="orderListPro : ${orderListPro}">
-                                            <td><input type="hidden" th:value="${orderListPro.orderNo}"
-                                                       th:text="${orderListPro.orderNo}"
-                                                       name="orderNo"></td>
+                                            <tbody>
+                                            <tr th:each="orderListPro : ${orderListPro}">
+                                                <td><input type="hidden" th:value="${orderListPro.orderNo}"
+                                                           th:text="${orderListPro.orderNo}"
+                                                           name="orderNo"></td>
 
-                                            <td th:value="${orderListPro.productName}"
-                                                th:text="${orderListPro.productName}"></td>
-                                            <td th:value="${orderListPro.sellerName}"
-                                                th:text="${orderListPro.sellerName}"></td>
-                                            <td th:value="${orderListPro.memberId}"
-                                                th:text="${orderListPro.memberId}"></td>
-                                            <td th:value="${orderListPro.colorName}"
-                                                th:text="${orderListPro.colorName}"></td>
-                                            <td th:value="${orderListPro.orderQty}"
-                                                th:text="${orderListPro.orderQty}"></td>
-                                            <td th:value="${orderListPro.totalPrice}"
-                                                th:text="${orderListPro.totalPrice}"></td>
-                                            <td th:value="${orderListPro.recipient}"
-                                                th:text="${orderListPro.recipient}"></td>
-                                            <td th:value="${orderListPro.orderAddr}"
-                                                th:text="${orderListPro.orderAddr}"></td>
-                                            <td>
-                                                <select class="orderType" name="orderCode">
-                                                    <option th:value="${orderListPro.orderCode}"
-                                                            th:text="${orderListPro.orderType}" selected disabled></option>
-                                                </select>
-                                            </td>
-                                            <td th:text="${orderListPro.payType}"></td>
-                                        </tr>
-                                        </tbody>
-                                        <div>
-                                            <button type="submit" class="btn btn-info" style="float:right;">
-                                                수정
-                                            </button>
-                                        </div>
-                                    </table>
+                                                <td th:value="${orderListPro.productName}"
+                                                    th:text="${orderListPro.productName}"></td>
+                                                <td th:value="${orderListPro.sellerName}"
+                                                    th:text="${orderListPro.sellerName}"></td>
+                                                <td th:value="${orderListPro.memberId}"
+                                                    th:text="${orderListPro.memberId}"></td>
+                                                <td th:value="${orderListPro.colorName}"
+                                                    th:text="${orderListPro.colorName}"></td>
+                                                <td th:value="${orderListPro.orderQty}"
+                                                    th:text="${orderListPro.orderQty}"></td>
+                                                <td th:value="${orderListPro.totalPrice}"
+                                                    th:text="${orderListPro.totalPrice}"></td>
+                                                <td th:value="${orderListPro.recipient}"
+                                                    th:text="${orderListPro.recipient}"></td>
+                                                <td th:value="${orderListPro.orderAddr}"
+                                                    th:text="${orderListPro.orderAddr}"></td>
+                                                <td>
+                                                    <select class="orderType" name="orderCode">
+                                                        <option th:value="${orderListPro.orderCode}"
+                                                                th:text="${orderListPro.orderType}" selected disabled></option>
+                                                    </select>
+                                                </td>
+                                                <td th:text="${orderListPro.payType}"></td>
+                                            </tr>
+                                            </tbody>
+                                            <div>
+                                                <button type="submit" class="btn btn-info" style="float:right;">
+                                                    수정
+                                                </button>
+                                            </div>
+                                        </table>
 
                                     </form>
                                 </div>

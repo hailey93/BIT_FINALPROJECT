@@ -48,11 +48,11 @@
                 </tr>
                 </thead>
                 <tbody id="tableList">
-                    <tr class="list-group list-group-horizontal" th:each="msgList: ${msgLists}">
-                        <td th:text="${msgList.memberId}" style="width:10%"></td>
-                        <td th:utext="${msgList.msg}" style="width:70%"></td>
-                        <td th:text="${msgList.time}" style="width:20%"></td>
-                    </tr>
+                <tr class="list-group list-group-horizontal" th:each="msgList: ${msgLists}">
+                    <td th:text="${msgList.memberId}" style="width:10%"></td>
+                    <td th:utext="${msgList.msg}" style="width:70%"></td>
+                    <td th:text="${msgList.time}" style="width:20%"></td>
+                </tr>
                 </tbody>
             </table>
 

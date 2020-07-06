@@ -73,9 +73,9 @@ public class CategoryController {
 
     @PostMapping("/addProduct")
     public String addProduct(MultipartFile productMainImgUrl, MultipartFile[] productSubImgUrl, MultipartFile productExpImgUrl,
-                           HttpServletRequest request, String productName, String modelName, String sellerName, String customerPrice,
-                           String sellPrice, String purchasePrice, String categoryCode, String[] optionColor, String[] productQty,
-                           ProductVO productVO, ProductOptionVO productOptionVO) throws IOException {
+                             HttpServletRequest request, String productName, String modelName, String sellerName, String customerPrice,
+                             String sellPrice, String purchasePrice, String categoryCode, String[] optionColor, String[] productQty,
+                             ProductVO productVO, ProductOptionVO productOptionVO) throws IOException {
 
         String uploadFolderSeller = request.getSession().getServletContext().getRealPath("image/product");
         String productMainImg = productMainImgUrl.getOriginalFilename();
@@ -181,9 +181,9 @@ public class CategoryController {
 
     @PostMapping("/productChangeInfo")
     private String productChangeInfo(String categoryCode, String productName, String modelName, String customerPrice, String sellPrice, String purchasePrice,
-    String[] optionColor, String[] productQty, MultipartFile productMainImgUrl, MultipartFile[] productSubImgUrl, MultipartFile productExpImgUrl,
-                                   HttpServletRequest request, String productNo2, String[] productOptionNo2, String categoryCode2,
-                                    String productMainImgBefore, String productSubImgBefore1, String productSubImgBefore2, String productSubImgBefore3, String productExpImgBefore) throws IOException {
+                                     String[] optionColor, String[] productQty, MultipartFile productMainImgUrl, MultipartFile[] productSubImgUrl, MultipartFile productExpImgUrl,
+                                     HttpServletRequest request, String productNo2, String[] productOptionNo2, String categoryCode2,
+                                     String productMainImgBefore, String productSubImgBefore1, String productSubImgBefore2, String productSubImgBefore3, String productExpImgBefore) throws IOException {
 
 
         String uploadFolder = request.getSession().getServletContext().getRealPath("image/product");
@@ -192,7 +192,7 @@ public class CategoryController {
         String productSubImg2 = productSubImgBefore2;
         String productSubImg3 = productSubImgBefore3;
 
-       if(!productSubImgUrl[0].isEmpty()) {
+        if(!productSubImgUrl[0].isEmpty()) {
             for (int i = 0; i < productSubImgUrl.length; i++) {
 
                 File saveFile = new File(uploadFolder, productSubImgUrl[i].getOriginalFilename());
@@ -210,42 +210,42 @@ public class CategoryController {
             }
         }
 
-            String categoryCode3 = categoryCode;
-            if (categoryCode == null) {
-                categoryCode3 = categoryCode2;
-                log.info(categoryCode3);
-            }
+        String categoryCode3 = categoryCode;
+        if (categoryCode == null) {
+            categoryCode3 = categoryCode2;
+            log.info(categoryCode3);
+        }
 
-            String productNo3 = modelName + "-" + categoryCode3;
+        String productNo3 = modelName + "-" + categoryCode3;
 
-            int customerPrice2 = Integer.parseInt(customerPrice);
-            int sellPrice2 = Integer.parseInt(sellPrice);
-            int purchasePrice2 = Integer.parseInt(purchasePrice);
+        int customerPrice2 = Integer.parseInt(customerPrice);
+        int sellPrice2 = Integer.parseInt(sellPrice);
+        int purchasePrice2 = Integer.parseInt(purchasePrice);
 
-            String productMainImg2 = productMainImgBefore;
-            if (!productMainImgUrl.isEmpty()) {
-                productMainImg2 = "product/" + productMainImgUrl.getOriginalFilename();
-                File saveFileMain = new File(uploadFolder, productMainImgUrl.getOriginalFilename());
-                productMainImgUrl.transferTo(saveFileMain);
-            }
+        String productMainImg2 = productMainImgBefore;
+        if (!productMainImgUrl.isEmpty()) {
+            productMainImg2 = "product/" + productMainImgUrl.getOriginalFilename();
+            File saveFileMain = new File(uploadFolder, productMainImgUrl.getOriginalFilename());
+            productMainImgUrl.transferTo(saveFileMain);
+        }
 
-            String productExpImg2 = productExpImgBefore;
-            if (!productExpImgUrl.isEmpty()) {
-                productExpImg2 = "product/" + productExpImgUrl.getOriginalFilename();
-                File saveFileExp = new File(uploadFolder, productExpImgUrl.getOriginalFilename());
-                productExpImgUrl.transferTo(saveFileExp);
+        String productExpImg2 = productExpImgBefore;
+        if (!productExpImgUrl.isEmpty()) {
+            productExpImg2 = "product/" + productExpImgUrl.getOriginalFilename();
+            File saveFileExp = new File(uploadFolder, productExpImgUrl.getOriginalFilename());
+            productExpImgUrl.transferTo(saveFileExp);
 
-            }
+        }
 
-            productService.updateProductInfo(productNo3, productName, modelName, customerPrice2, sellPrice2, purchasePrice2, categoryCode3, productMainImg2,
-                    productSubImg1, productSubImg2, productSubImg3, productExpImg2, productNo2);
+        productService.updateProductInfo(productNo3, productName, modelName, customerPrice2, sellPrice2, purchasePrice2, categoryCode3, productMainImg2,
+                productSubImg1, productSubImg2, productSubImg3, productExpImg2, productNo2);
 
 
-            for (int j = 0; j < optionColor.length; j++) {
-                String productOptionNo = modelName + "-" + categoryCode + "-" + optionColor[j];
+        for (int j = 0; j < optionColor.length; j++) {
+            String productOptionNo = modelName + "-" + categoryCode + "-" + optionColor[j];
 
-                productService.updateProductOption(productOptionNo, productNo3, optionColor[j], Integer.parseInt(productQty[j]), productOptionNo2[j]);
-            }
+            productService.updateProductOption(productOptionNo, productNo3, optionColor[j], Integer.parseInt(productQty[j]), productOptionNo2[j]);
+        }
 
         return "redirect:/seller/productList";
     }

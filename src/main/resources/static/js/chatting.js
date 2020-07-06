@@ -20,14 +20,14 @@ $(document).ready(function () {
 
 function sendMsg() {
     if($('#message').val()!=""){
-    ws.send("/pub/message", {}, JSON.stringify({
-        type: 'TALK',
-        chatId: chatId,
-        sender: sender,
-        msg: $('#message').val(),
-        count: count
-    }));
-    $('#message').val("");
+        ws.send("/pub/message", {}, JSON.stringify({
+            type: 'TALK',
+            chatId: chatId,
+            sender: sender,
+            msg: $('#message').val(),
+            count: count
+        }));
+        $('#message').val("");
     }
 }
 

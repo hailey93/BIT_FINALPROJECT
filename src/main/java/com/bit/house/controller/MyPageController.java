@@ -57,8 +57,8 @@ public class MyPageController {
 
         String oldName = mf.getOriginalFilename();
         String saveName = sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
-                            .append(UUID.randomUUID().toString())
-                            .append(oldName.substring(oldName.lastIndexOf("."))).toString();
+                .append(UUID.randomUUID().toString())
+                .append(oldName.substring(oldName.lastIndexOf("."))).toString();
 
         String filePath = request.getSession().getServletContext().getRealPath("image/profileImg/");
         File dest = new File(filePath+saveName);
@@ -72,7 +72,7 @@ public class MyPageController {
 
         return "redirect:/member/settings";
     }
-   //팔로워목록
+    //팔로워목록
     @RequestMapping("/allFollow/{memberId}")
     private String allFollow(Model model, @PathVariable String memberId, HttpSession session) throws Exception{
 

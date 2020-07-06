@@ -5,8 +5,8 @@
   */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('jquery'), require('popper.js')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
-  (global = global || self, factory(global.bootstrap = {}, global.jQuery, global.Popper));
+      typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
+          (global = global || self, factory(global.bootstrap = {}, global.jQuery, global.Popper));
 }(this, (function (exports, $, Popper) { 'use strict';
 
   $ = $ && Object.prototype.hasOwnProperty.call($, 'default') ? $['default'] : $;
@@ -2346,11 +2346,11 @@
       var _this5 = this;
 
       $(document).off(EVENT_FOCUSIN) // Guard against infinite focus loop
-      .on(EVENT_FOCUSIN, function (event) {
-        if (document !== event.target && _this5._element !== event.target && $(_this5._element).has(event.target).length === 0) {
-          _this5._element.focus();
-        }
-      });
+          .on(EVENT_FOCUSIN, function (event) {
+            if (document !== event.target && _this5._element !== event.target && $(_this5._element).has(event.target).length === 0) {
+              _this5._element.focus();
+            }
+          });
     };
 
     _proto._setEscapeEvent = function _setEscapeEvent() {

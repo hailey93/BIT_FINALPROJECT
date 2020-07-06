@@ -46,7 +46,7 @@ public class BasketController {
     @RequestMapping(value = "/basketMember", method = RequestMethod.POST)
     public @ResponseBody void basketMem(BasketVO basketVO, String memberId,String productNo, String productColor, String qty){
         System.out.println("id : " + memberId + "pNo : "+productNo + "productColor : " + productColor
-        + "Qty : " + qty);
+                + "Qty : " + qty);
         System.out.println("parse" +
                 Integer.parseInt(qty)
         );
