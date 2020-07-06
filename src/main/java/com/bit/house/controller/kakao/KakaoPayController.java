@@ -31,8 +31,8 @@ import lombok.extern.java.Log;
 public class KakaoPayController {
     @Autowired(required = false)
     AdminMapper adminMapper;
-    
-	@Autowired(required = false)
+
+    @Autowired(required = false)
     KakaoPayApprovalVO kakaoInfo;
 	
 	/*@Autowired
@@ -40,15 +40,15 @@ public class KakaoPayController {
 
 	@Autowired
 	UserDAO userDAO;*/
-	
+
     @Setter(onMethod_ = @Autowired)
     private KakaoPay kakaopay;
 
 
     @GetMapping("/kakaoPay")
     public void kakaoPayGet(Model model) {
-    	log.info("KakaoPayGet 호출............................................");
-    	log.info("PayGet에서 호출되는지 ? : ");
+        log.info("KakaoPayGet 호출............................................");
+        log.info("PayGet에서 호출되는지 ? : ");
     	/*model.addAttribute("housePayment", userDAO.getPayment());
 		model.addAttribute("houseProduct", userDAO.getProduct());
 		log.info("model payment : "+ userDAO.getPayment());*/
@@ -71,9 +71,9 @@ public class KakaoPayController {
         int orderQ = 0;
         List<OrderListVO> orderListVOList;
         if(productNo != null){
-        orderListVOList = new ArrayList<>(productNo.length);
+            orderListVOList = new ArrayList<>(productNo.length);
         }else {
-           orderListVOList = new ArrayList<>(1);
+            orderListVOList = new ArrayList<>(1);
         }
         java.sql.Date sqlToday = new java.sql.Date(System.currentTimeMillis());
         System.out.println("오늘 : ? "+sqlToday);
@@ -100,11 +100,11 @@ public class KakaoPayController {
 
 
 
-if(orderQty != null){
-        for(int i=0; i<orderQty.length;i++){
-            orderQ += orderQty[i];
+        if(orderQty != null){
+            for(int i=0; i<orderQty.length;i++){
+                orderQ += orderQty[i];
+            }
         }
-}
 
 
 
@@ -113,54 +113,54 @@ if(orderQty != null){
         }else{
             memberId="unknown";
         }
-if(productNo != null) {
-    for (int i = 0; i < productNo.length; i++) {
+        if(productNo != null) {
+            for (int i = 0; i < productNo.length; i++) {
 
-        if (0 <= result2 && result2 < 10) {
-            No = "000" + Integer.toString(result2 + i + 1);
-        } else if (10 <= result2 && result2 < 100) {
-            No = "00" + Integer.toString(result2 + i + 1);
-        } else if (100 <= result2 && result2 < 1000) {
-            No = "0" + Integer.toString(result2 + i + 1);
-        } else if (1000 <= result2 && result2 < 10000) {
-            No = "" + Integer.toString(result2 + i + 1);
+                if (0 <= result2 && result2 < 10) {
+                    No = "000" + Integer.toString(result2 + i + 1);
+                } else if (10 <= result2 && result2 < 100) {
+                    No = "00" + Integer.toString(result2 + i + 1);
+                } else if (100 <= result2 && result2 < 1000) {
+                    No = "0" + Integer.toString(result2 + i + 1);
+                } else if (1000 <= result2 && result2 < 10000) {
+                    No = "" + Integer.toString(result2 + i + 1);
+                }
+
+                System.out.println(memberId + "" + colorName[i]);
+
+                OrderListVO orderListVO = new OrderListVO();
+
+                if(productNo.length == 1){
+                    orderListVO.setOrderQty(1);
+                    orderListVO.setTotalPrice(1);
+                }
+                System.out.println(orderListVO.getOrderQty() + "토프 : " + orderListVO.getTotalPrice());
+
+                orderListVO.setOrderNo(today + "-" + No);
+                orderListVO.setMemberId(memberId);
+                orderListVO.setColorName(colorName[i]);
+                //orderListVO.setModelName(productName[i]);
+                orderListVO.setProductNo(productNo[i]);
+                orderListVO.setProductName(productName[i]);
+                orderListVO.setOrderQty(orderQty[i]);
+                orderListVO.setTotalPrice(totalPrice[i]);
+                orderListVO.setRecipient(recipient);
+                orderListVO.setOrderAddr(receivedAt + receivedAtDetail);
+                orderListVO.setOrderDate(sqlToday);
+                orderListVO.setPayCode(1);
+                orderListVO.setOrderCode(10);
+                System.out.println("set전에" + orderListVO + orderListVOList);
+                orderListVOList.add(i, orderListVO);
+                System.out.println("after orderListVOList : " + orderListVOList);
+                totalP += totalPrice[i];
+                System.out.println(i + "번쨰 : " + productNo[i]);
+            }
         }
-
-        System.out.println(memberId + "" + colorName[i]);
-
-        OrderListVO orderListVO = new OrderListVO();
-
-        if(productNo.length == 1){
-            orderListVO.setOrderQty(1);
-            orderListVO.setTotalPrice(1);
-        }
-        System.out.println(orderListVO.getOrderQty() + "토프 : " + orderListVO.getTotalPrice());
-
-        orderListVO.setOrderNo(today + "-" + No);
-        orderListVO.setMemberId(memberId);
-        orderListVO.setColorName(colorName[i]);
-        //orderListVO.setModelName(productName[i]);
-        orderListVO.setProductNo(productNo[i]);
-        orderListVO.setProductName(productName[i]);
-        orderListVO.setOrderQty(orderQty[i]);
-        orderListVO.setTotalPrice(totalPrice[i]);
-        orderListVO.setRecipient(recipient);
-        orderListVO.setOrderAddr(receivedAt + receivedAtDetail);
-        orderListVO.setOrderDate(sqlToday);
-        orderListVO.setPayCode(1);
-        orderListVO.setOrderCode(10);
-        System.out.println("set전에" + orderListVO + orderListVOList);
-        orderListVOList.add(i, orderListVO);
-        System.out.println("after orderListVOList : " + orderListVOList);
-        totalP += totalPrice[i];
-        System.out.println(i + "번쨰 : " + productNo[i]);
-    }
-}
 
         session.setAttribute("orderListVOList",orderListVOList);
 
         return "redirect:" + kakaopay.kakaoPayReady(orderListVOList,memberId);
- 
+
     }
     //List<OrderListVO> orderListVO = new ArrayList<OrderListVO>();
 
@@ -207,13 +207,13 @@ if(productNo != null) {
         //session.getAttribute(pg_token);
 
         // 원래 있던거 model.addAttribute("info", kakaopay.kakaoPayInfo(pg_token, pg_token));
-        
+
         //수정 return "redirect:/myPage";
         if(memberVO != null){
-        return  "redirect:/member/order_list";
+            return  "redirect:/member/order_list";
         }else{
             return "redirect:/";
         }
     }
-    
+
 }

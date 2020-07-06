@@ -16,8 +16,8 @@
 <body>
 <div layout:fragment="content">
     <div class="container">
-    <th:block th:replace="th/fragments/navBar_myPage"></th:block>
-    <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
+        <th:block th:replace="th/fragments/navBar_myPage"></th:block>
+        <th:block th:replace="th/fragments/navBar_myPage_profile"></th:block>
         <div id="body" class="users follower"  style="padding-bottom: 0px;">
             <header id="user-header" class="user-header">
                 <div class="user-header__cover" style="background-image: url('https://image.ohou.se/image/resize/bucketplace-v2-development/uploads-default_images-default_user_cover4.jpg/2560/none')"></div>
@@ -40,11 +40,11 @@
                         팔로우<span class="user-header__follow__follower" th:text="${followCount}"/>|팔로잉<span class="user-header__follow__follower" th:text="${followingCount}"/>
                     </p>
                     <div th:if="${mem} != ${member.memberId}">
-                    <button th:if="${fcount == 0}" class="btn user-header__btn user-header__btn--follow"
-                            id="follow" name="follow">팔로우</button>
-                    <button th:if="${fcount == 1}" class="btn user-header__btn user-header__btn--follow"
-                            id="followcancel" name="followcancel">팔로우취소</button>
-                    <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}"/>
+                        <button th:if="${fcount == 0}" class="btn user-header__btn user-header__btn--follow"
+                                id="follow" name="follow">팔로우</button>
+                        <button th:if="${fcount == 1}" class="btn user-header__btn user-header__btn--follow"
+                                id="followcancel" name="followcancel">팔로우취소</button>
+                        <input type="hidden" id="memberId" name="memberId" th:value="${member.memberId}"/>
                     </div>
                 </div>
             </header>

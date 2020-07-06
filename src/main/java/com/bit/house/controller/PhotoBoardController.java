@@ -66,8 +66,8 @@ public class PhotoBoardController {
             String originFileName = mf.getOriginalFilename();
 
             String saveName =  sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
-                                .append(UUID.randomUUID().toString())
-                                .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
+                    .append(UUID.randomUUID().toString())
+                    .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
 
 
             String saveFile = filePath + saveName;

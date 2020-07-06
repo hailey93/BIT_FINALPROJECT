@@ -9,22 +9,22 @@
 <body>
 <div layout:fragment="content">
     <div class="container">
-    <h2>거래처 목록</h2>
-    <table class="table table-hover">
-        <tr>
-            <th>업체명</th>
-            <th>전화번호</th>
-            <th>승인날짜</th>
-        </tr>
-        <th:block th:each="sellerManagement : ${sellerMng}">
-            <tr th:onclick="'location.href=\''+@{sellerStat/{sellerName}(sellerName=${sellerManagement.sellerName})}+'\''">
-                <td th:text="${sellerManagement.sellerName}"></td>
-                <td th:text="${sellerManagement.managerTel}"></td>
-                <td th:text="${sellerManagement.permitDate}"></td>
+        <h2>거래처 목록</h2>
+        <table class="table table-hover">
+            <tr>
+                <th>업체명</th>
+                <th>전화번호</th>
+                <th>승인날짜</th>
             </tr>
-        </th:block>
-    </table>
-</div>
+            <th:block th:each="sellerManagement : ${sellerMng}">
+                <tr th:onclick="'location.href=\''+@{sellerStat/{sellerName}(sellerName=${sellerManagement.sellerName})}+'\''">
+                    <td th:text="${sellerManagement.sellerName}"></td>
+                    <td th:text="${sellerManagement.managerTel}"></td>
+                    <td th:text="${sellerManagement.permitDate}"></td>
+                </tr>
+            </th:block>
+        </table>
+    </div>
 </div>
 </body>
 </html>

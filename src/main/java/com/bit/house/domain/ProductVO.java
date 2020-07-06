@@ -33,9 +33,9 @@ public class ProductVO {
     private String productExpImg;
     private int clickTotalCount;
 
-   private String memberId;
-   private String colorName;
-   private String reviewContent;
+    private String memberId;
+    private String colorName;
+    private String reviewContent;
     private String reviewImg1;
     private String reviewImg2;
     private String reviewImg3;

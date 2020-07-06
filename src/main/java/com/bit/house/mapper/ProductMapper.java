@@ -39,7 +39,7 @@ public interface ProductMapper {
     List<ProductVO> searchProductListInfo(String sellerId);
     List<ProductVO> searchProductTarget(String productNo, String sellerId);
     public void updateProductInfo(String productNo, String productName, String modelName, int customerPrice, int sellPrice, int purchasePrice, String categoryCode
-                                  , String productMainImg, String productSubImg1, String productSubImg2, String productSubImg3, String productExpImg, String productNo2);
+            , String productMainImg, String productSubImg1, String productSubImg2, String productSubImg3, String productExpImg, String productNo2);
 }
 
 

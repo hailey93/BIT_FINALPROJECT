@@ -90,7 +90,7 @@
                                     <div class="comment-feed__form__content">
                                         <div class="comment-content-input">
                                             <input class="comment-content-input__text comment-feed__form__content__text"
-                                                id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true"/>
+                                                   id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true"/>
                                         </div>
                                     </div>
                                     <div class="comment-feed__form__actions">
@@ -182,17 +182,17 @@
                                     <div class="card-detail-pc-related-card-list">
                                         <ul class="card-detail-pc-related-card-list__list" >
                                             <th:block th:each="photo : ${userphoto}">
-                                            <li class="card-detail-pc-related-card-list__item">
-                                                <a class="card-detail-pc-related-card-list__item__link" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
-                                                    <img class="card-detail-pc-related-card-list__item__image" alt th:src="@{'/uploadImg'+${photo.photoImg1}}"
-                                                        th:attr="srcset=|@{'/uploadImg'+${photo.photoImg1}} 1.5x,
+                                                <li class="card-detail-pc-related-card-list__item">
+                                                    <a class="card-detail-pc-related-card-list__item__link" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
+                                                        <img class="card-detail-pc-related-card-list__item__image" alt th:src="@{'/uploadImg'+${photo.photoImg1}}"
+                                                             th:attr="srcset=|@{'/uploadImg'+${photo.photoImg1}} 1.5x,
                                                                         @{'/uploadImg'+${photo.photoImg1}} 2x,
                                                                         @{'/uploadImg'+${photo.photoImg1}} 3x|">
-                                                </a>
-                                            </li>
+                                                    </a>
+                                                </li>
                                             </th:block>
                                         </ul>
-                                           <a class="card-detail-pc-related-card-list__more" th:href="@{/member/allPhoto/{memberId}(memberId=${photodetail.memberId})}">더보기</a>
+                                        <a class="card-detail-pc-related-card-list__more" th:href="@{/member/allPhoto/{memberId}(memberId=${photodetail.memberId})}">더보기</a>
                                     </div>
                                 </div>
                             </div>

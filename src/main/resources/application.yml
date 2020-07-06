@@ -4,7 +4,7 @@ spring:
     active: local
   redis:
     host: localhost
-    port: 8080
+    port: 6379
   #mybatis
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy

@@ -24,6 +24,6 @@ public interface SellerAdmMapper {
     public List<SellerVO> applySeller() throws Exception;
     //업체 신청 승인
     public void applyProc(String sellerName) throws Exception;
-
+    public void applyAllmemberProc(String sellerName) throws Exception;
 
 }

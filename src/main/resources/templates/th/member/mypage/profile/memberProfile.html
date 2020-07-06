@@ -66,8 +66,8 @@
                                         </div><br>
                                         <div class="profile-info__actions" th:if="${member} != ${memprofile.memberId}">
                                             <form action="/member/noteSending" method="post" id="sending" name="sending">
-                                            <button class="profile-info__btn profile-info__btn--secondary"
-                                                    id="notesend" name="notesend" type="button">쪽지보내기</button>
+                                                <button class="profile-info__btn profile-info__btn--secondary"
+                                                        id="notesend" name="notesend" type="button">쪽지보내기</button>
                                                 <input type="hidden" id="memberId" name="memberId" th:value="${memprofile.memberId}"/>
                                                 <input type="hidden" id="receiveId" name="receiveId" value=""/>
                                             </form>

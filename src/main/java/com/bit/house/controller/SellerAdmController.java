@@ -76,6 +76,7 @@ public class SellerAdmController {
         sellerVO.setSellerName(sellerName);
 
         sellerAdmMapper.applyProc(sellerName);
+        sellerAdmMapper.applyAllmemberProc(sellerName);
 
         return "redirect:/admin/applySeller";
     }

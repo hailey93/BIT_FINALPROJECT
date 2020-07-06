@@ -55,12 +55,12 @@ public class OrderListController {
             List<OrderListProVO> orderListProVO = orderListProService.searchOrderList(id);
             model.addAttribute("orderListPro", orderListProVO);
         }else if(Integer.parseInt(orderCode)==0){
-                List<OrderListProVO> orderListProVO = orderListProService.searchOrderList(id);
-                model.addAttribute("orderListPro", orderListProVO);
+            List<OrderListProVO> orderListProVO = orderListProService.searchOrderList(id);
+            model.addAttribute("orderListPro", orderListProVO);
         }else {
-                List<OrderListProVO> orderListProVO = orderListProService.searchOrderStatus(orderCode, id);
-                model.addAttribute("orderListPro", orderListProVO);
-                log.info(String.valueOf(orderListProVO));
+            List<OrderListProVO> orderListProVO = orderListProService.searchOrderStatus(orderCode, id);
+            model.addAttribute("orderListPro", orderListProVO);
+            log.info(String.valueOf(orderListProVO));
 
         }
 
