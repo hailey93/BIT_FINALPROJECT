@@ -43,4 +43,9 @@
         WHERE sellerName = #{sellerName}
     </update>
 
+    <update id="applyAllmemberProc" parameterType="AllMemberVO">
+        UPDATE allmember SET enabled = 1
+        WHERE userId = #{sellerName}
+    </update>
+
 </mapper>
