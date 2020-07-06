@@ -98,9 +98,6 @@ public class AskBoardController {
 
         MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
 
-
-
-
         askBoardVO.setAskTitle(request.getParameter("askTitle"));
         askBoardVO.setMemberId(memberVO.getMemberId());
         askBoardVO.setAskContent(request.getParameter("askContent"));
