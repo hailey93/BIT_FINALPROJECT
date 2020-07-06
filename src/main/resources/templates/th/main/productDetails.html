@@ -38,7 +38,8 @@
                     </div>
 
                     <div th:if="${product.productSubImg1}">
-                        <img class="mySlides" th:src="@{'/uploadImg/'+${product.productSubImg1}}" style="width:100%">
+                        <img class="mySlides" th:src="@{'/uploadImg/'+${product.productSubImg1}}"
+                             style="width:100%;display:none">
                     </div>
 
                     <div th:if="${product.productSubImg2}">
