@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
 </head>
 <body>
- 
+
 카카오페이 결제가 정상적으로 완료되었습니다.<br/>
 haha
 
@@ -18,8 +18,8 @@ haha
 <!-- 결제금액: <span th:text = "${kakaoInfo.amount.total}"></span> -->
 <!-- 결제방법: <sapn th:text = "${kakaoInfo.payment_method_type}"></sapn> -->
 <script>
-        console.log("로컨세션 삭제합니다");
-        localStorage.removeItem("saveL");
+    console.log("로컨세션 삭제합니다");
+    localStorage.removeItem("saveL");
 </script>
 </body>
 </html>

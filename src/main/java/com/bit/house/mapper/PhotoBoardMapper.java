@@ -72,8 +72,9 @@ public interface PhotoBoardMapper {
 
     int commentCount(int photoBoardNo) throws Exception;
 
-    //myProfileImg
+    //로그인한 사용자 프로필이미지
     public MemberVO myProfileImg(String memberId) throws Exception;
 
+    //사진 게시글 리스트(무한스크롤)
     List<PhotoBoardVO> selectPhotoList();
 }

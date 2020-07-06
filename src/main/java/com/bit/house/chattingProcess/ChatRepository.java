@@ -1,7 +1,6 @@
 package com.bit.house.chattingProcess;
 
-import com.bit.house.domain.ChatRoomVO;
-import com.bit.house.domain.ChatVO;
+import com.bit.house.domain.*;
 import com.bit.house.mapper.ChatMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +13,7 @@ import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -111,22 +111,19 @@ public class ChatRepository {
         msgList.rightPush(vo.getChatId(), vo.getTime()+"<br>");
     }
 
-    public List<ChatVO> getChatMsg(){
-        //데이터 전처리
-        List<ChatVO> vos=chatMapper.selectChatMsg();
-        for(ChatVO vo:vos){
-            String msg=vo.getMsg().replace(",", "");
-            vo.setMsg(msg);
-        }
-        return vos;
-    }
+    public List<ChatMsgVO> getChatMsg(ChatMsgVO vo, Criteria criteria){
 
-    public List<ChatVO> getChatMsgById(String memberId){
+        List<ChatMsgVO> vos=chatMapper.selectChatMsg(vo);
+        //페이징
+        PageMaker pageMaker = new PageMaker();
+        pageMaker.setCri(criteria);
+        pageMaker.setTotalCount(chatMapper.countList(vo));
+        vo.setPageMaker(pageMaker);
+
         //데이터 전처리
-        List<ChatVO> vos=chatMapper.selectChatMsgById(memberId);
-        for(ChatVO vo:vos){
-            String msg=vo.getMsg().replace(",", "");
-            vo.setMsg(msg);
+        for(ChatMsgVO chatMsgVO:vos){
+            String msg=chatMsgVO.getMsg().replace(",", "");
+            chatMsgVO.setMsg(msg);
         }
         return vos;
     }

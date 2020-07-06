@@ -24,7 +24,7 @@ public class PhotoBoardController {
 
     //사진 메인
     @RequestMapping("/communityMain")
-    private String communityMain(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+    private String communityMain(Model model) throws Exception{
 
         model.addAttribute("likerank", photoBoardMapper.communityMain());
 
@@ -32,10 +32,7 @@ public class PhotoBoardController {
     }
     //사진 목록
     @RequestMapping("/photoBoardList")
-    private String photoBoardList(Model model, HttpSession session) throws Exception{
-
-        MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-
+    private String photoBoardList(Model model) throws Exception{
 
         model.addAttribute("photoList", photoBoardMapper.selectPhotoList());
 
@@ -43,7 +40,7 @@ public class PhotoBoardController {
     }
     //사진 등록
     @RequestMapping("/photoInsert")
-    private String insertAsk(Model model, PhotoBoardVO photoBoardVO) throws Exception{
+    private String insertAsk(Model model) throws Exception{
 
         model.addAttribute("areaCode", photoBoardMapper.area());
         model.addAttribute("houseCode", photoBoardMapper.house());
@@ -69,8 +66,8 @@ public class PhotoBoardController {
             String originFileName = mf.getOriginalFilename();
 
             String saveName =  sb.append(new SimpleDateFormat("yyyyMMddHHmmss").format(System.currentTimeMillis()))
-                                .append(UUID.randomUUID().toString())
-                                .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
+                    .append(UUID.randomUUID().toString())
+                    .append(originFileName.substring(originFileName.lastIndexOf("."))).toString();
 
 
             String saveFile = filePath + saveName;
@@ -115,7 +112,7 @@ public class PhotoBoardController {
 
         photoBoardMapper.insertPhoto(photoBoardVO);
 
-        System.out.println("OK");
+
         return "redirect:/photoBoardList";
     }
     //사진 상세
@@ -240,7 +237,6 @@ public class PhotoBoardController {
 
         photoBoardMapper.likeCount(photoBoardNo);
 
-
     }
     //좋아요 취소
     @RequestMapping("/nonlike")
@@ -255,6 +251,7 @@ public class PhotoBoardController {
         photoBoardMapper.cancelLike(likeVO);
 
         photoBoardMapper.likeCountSub(photoBoardNo);
+
     }
     //스크랩
     @RequestMapping("/scrap")

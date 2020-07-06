@@ -26,7 +26,7 @@ public interface MyPageMapper {
     //팔로우 취소
     public void cancelFollow(FollowVO followVO) throws Exception;
 
-    //내 프로필
+    //내 게시물
     public MemberVO myProfile(String memberId) throws Exception;
 
     public List<PhotoBoardVO> profilePhoto(String memberId) throws Exception;

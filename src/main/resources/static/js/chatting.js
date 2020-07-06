@@ -6,12 +6,10 @@ var chatId;
 var sender;
 var enterTime;
 var count;
-
 var msg = $('#message').val();
-console.log(msg);
-var messages = new Array();
 
 $(document).ready(function () {
+
     $('#message').keydown(function (key) {
         if (key.keyCode == 13) {
             sendMsg();
@@ -21,14 +19,16 @@ $(document).ready(function () {
 });
 
 function sendMsg() {
-    ws.send("/pub/message", {}, JSON.stringify({
-        type: 'TALK',
-        chatId: chatId,
-        sender: sender,
-        msg: $('#message').val(),
-        count: count
-    }));
-    $('#message').val("");
+    if($('#message').val()!=""){
+        ws.send("/pub/message", {}, JSON.stringify({
+            type: 'TALK',
+            chatId: chatId,
+            sender: sender,
+            msg: $('#message').val(),
+            count: count
+        }));
+        $('#message').val("");
+    }
 }
 
 function connect() {

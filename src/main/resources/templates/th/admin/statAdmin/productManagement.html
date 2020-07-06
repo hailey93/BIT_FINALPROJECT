@@ -9,34 +9,32 @@
 <body>
 <div id="wrapper">
     <div layout:fragment="content">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <!-- DataTales Example -->
                     <div class="card card-info">
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive" style="font-size: x-small">
                                 제품관리
-                                <table class="table table-hover">
+                                <table class="table table-hover" style="font-size: x-small">
                                     <thead>
                                     <tr>
-                                        <th>count</th>
+
                                         <th>상품번호</th>
                                         <th>업체</th>
                                         <th>상품</th>
                                         <th>모델명</th>
-                                        <th>customerPrice</th>
-                                        <th>sellPrice</th>
-                                        <th>purchasePrice</th>
-                                        <th>만든날짜</th><!--
-        <th>payCode</th>
-        <th>orderCode</th>-->
+                                        <th>업체가</th>
+                                        <th>판매가</th>
+                                        <th>구매가</th>
+                                        <th>만든날짜</th>
 
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="list, stat : ${productVOList}">
-                                        <td th:text="${stat.count}">1</td>
+
                                         <td th:text="${list.productNo}">마</td>
                                         <td th:text="${list.sellerName}">마</td>
                                         <td th:text="${list.productName}">마</td>

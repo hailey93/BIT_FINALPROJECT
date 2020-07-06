@@ -12,7 +12,7 @@ import java.util.List;
 @Mapper
 public interface MyOrderListMapper {
 
-    @Select("select ol.orderNo, ol.orderDate, p.productName, p.modelName, ol.orderQty, p.sellerName, ol.totalPrice, os.orderType, ol.colorName from orderlist ol join product p on ol.productNo=p.productNo join orderstatus os on ol.ordercode=os.orderCode where memberId=#{memberId}")
+    @Select("select ol.orderNo, ol.orderDate, p.productName, p.modelName, ol.orderQty, p.sellerName, ol.totalPrice, os.orderType, ol.orderCode, ol.colorName from orderlist ol join product p on ol.productNo=p.productNo join orderstatus os on ol.ordercode=os.orderCode where memberId=#{memberId}")
     List<OrderListVO> getMyOrderListById(String memberId);
 
     @Update("update orderlist set orderCode='60', cancelReason=#{orderConfirmReason} where orderNo=#{orderNo}")
@@ -28,7 +28,7 @@ public interface MyOrderListMapper {
     @Update("update orderList set orderCode='40', orderConfirmDate=sysdate() where orderNo=#{orderNo}")
     void addConfirmOrderType(OrderListVO orderListVO);
 
-    @Select("select r.orderNo, r.reviewContent, ol.colorName, p.productName, p.modelName from review r join orderList ol on r.orderNo=ol.orderNo join product p on ol.productNo=p.productNo where r.memberId=#{memberId}")
+    @Select("select r.orderNo, r.reviewContent, ol.colorName, p.productName, p.modelName, r.reviewImg1, r.reviewImg2, r.reviewImg3 from review r join orderList ol on r.orderNo=ol.orderNo join product p on ol.productNo=p.productNo where r.memberId=#{memberId}")
     List<ReviewVO> showUserReview(String memberId);
 
     @Delete("delete from review where orderNo=#{orderNo}")

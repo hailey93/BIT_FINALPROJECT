@@ -27,7 +27,7 @@ public class StatAdminController {
     @Autowired
     AdminMapper adminMapper;
 
-       //statAdmintPage
+    //statAdmintPage
     @GetMapping("/statAdmin")
     public String statAdmin() {
         return "th/admin/statAdmin/statAdmin";
@@ -77,10 +77,6 @@ public class StatAdminController {
 
 
 
-    @GetMapping("/mem")
-    public String memManageMent() {
-        return "th/admin/statAdmin/memberManagement";
-    }
 
 
     @RequestMapping(value = "/yearGraphAjax", method = RequestMethod.POST)
@@ -111,11 +107,11 @@ public class StatAdminController {
     }
 
 
-    
-    
-    
+
+
+
     //-----------------------------------------statAdmin Page
-    
+
     //회사명 받아오기 resp
     @RequestMapping(value = "/sellerGraphAjax", method = RequestMethod.POST)
     public @ResponseBody Object sellerGraphAjax(String inputSellerName,Model model){
@@ -178,7 +174,7 @@ public class StatAdminController {
         //adminMapper.getSpendingPattern();
         return "th/admin/statAdmin/productSalesVolume";
     }
-    
+
     //회원 소비패턴
     @GetMapping("/spendingPattern")
     public String spendingPattern(Model model){
@@ -202,7 +198,7 @@ public class StatAdminController {
         //List<ProductVO> houseProductList = adminMapper.getProduct();
         //List<ProductVO> salesVol = adminMapper.getSalesVolume();
         //log.info("salesVol = "+salesVol);
-        
+
         //log.info("spendingPattern : "+spendingPattern.toString());
 
         List<OrderListVO> userPurchaseVolume = adminMapper.getUserPurchaseVolume();
@@ -233,7 +229,7 @@ public class StatAdminController {
 
         return "th/admin/statAdmin/spendingPattern";
     }
-    
+
     //회원정보
     @GetMapping("/memberInfo")
     public String memberInfo(Model model , MemberVO memberVO){
@@ -249,7 +245,7 @@ public class StatAdminController {
 
         return "th/admin/statAdmin/memberInfo";
     }
-    
+
     //회원 주문내역
     @GetMapping("/memberOrderList")
     public String memberOrderList(Model model, OrderListVO orderListVO){
@@ -263,10 +259,6 @@ public class StatAdminController {
     //------------------------------ 제품 관리
 
 
-    @GetMapping("/productRegistration")
-    public String productRegistration(){
-        return "th/admin/statAdmin/productRegistration";
-    }
 
     @RequestMapping(value = "/userDateStat", method = RequestMethod.POST)
     public @ResponseBody Object userDateStat(Model model, String date1, String date2) {

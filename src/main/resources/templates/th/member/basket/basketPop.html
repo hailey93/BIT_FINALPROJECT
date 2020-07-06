@@ -1,38 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style type="text/css">
+        a:link {text-decoration: none; color: #333333;}
+        a:visited {text-decoration: none; color: #333333;}
+        a:active {text-decoration: none; color: #333333;}
+        a:hover {text-decoration: underline; color: red;}
+    </style>
 </head>
-<link rel="stylesheet" media="screen"
-      href="https://d1nyaccf3kuclt.cloudfront.net/assets/v3/layout/application_react-c68374e516e05258989e1c408ec53ff0ffa468ef1755a945c31caf2e365af3d0.css">
-<link rel="stylesheet" type="text/css"
-      href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Selling-9d8e7acd.chunk.css">
-<link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/19-dfb1ddc9.chunk.css">
-<link rel="stylesheet" media="screen"
-      href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-CategoryFeed-c29fa8ce.chunk.css">
+
 <body>
 <div>
-    <div class="react-modal react-modal--center open open-active">
-        <div class="react-modal__content-wrap">
-            <div class="react-modal__content production-selling-cart-complete-modal"><h1
-                    class="production-selling-cart-complete-modal__title">장바구니에 상품을 담았습니다</h1>
-                <a class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
-                   onclick="selfCloseSubmit()">장바구니 보러가기</a>
-                <form method="get" action="" onsubmit="false">
-                    <button class="button button--color-gray-7 button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
-                            type="button" onclick="selfClose()">쇼핑 계속하기
-                    </button>
-                </form>
-                버튼 클릭 ->
 
-                controller id에 해당하는 basket 내용 저장
-                or
-                session에 key value 저장
-            </div>
-        </div>
-    </div>
+    <h1
+            class="production-selling-cart-complete-modal__title">장바구니에 상품을 담았습니다</h1>
+    <a class="button button--color-blue button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
+       style="color:deepskyblue;" onclick="selfCloseSubmit()">장바구니 보러가기</a>
+    <button class="button button--color-gray-7 button--size-60 button--shape-4 production-selling-cart-complete-modal__button"
+            type="button" style="color:papayawhip; background-color: #1bb1de; border: #1bb1de" onclick="selfClose()">쇼핑 계속하기
+    </button>
+
 </div>
+
 <script type="text/javascript">
     function selfCloseSubmit() {
         opener.location.href = '/basket';

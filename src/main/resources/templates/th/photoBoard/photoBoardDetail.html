@@ -9,7 +9,6 @@
         <link rel="stylesheet" th:href="@{/css/photoBoard.css}">
     </th:block>
     <script type="text/javascript" th:src="@{/js/photoBoard.js}"></script>
-
 </head>
 <body>
 <div layout:fragment="content">
@@ -70,7 +69,6 @@
                         </div>
                         <p class="card-detail-card__description" th:text="${photodetail.photoContent}"></p>
                     </article>
-
                     <div class="card-detail-comment-section">
                         <section class="comment-feed">
                             <h1 class="comment-feed__header">
@@ -79,7 +77,6 @@
                             </h1>
                             <form class="comment-feed__form"  id="comment">
                                 <div class="comment-feed__form__user">
-                                    <!-- th:if로 로그인 사용자의 프로필 이미지가 없으면 아래 사진으로 아니면 그 밑에 사진으로.-->
                                     <img th:if="${member?.memberImg != null}" class="comment-feed__item__content__author__image" alt="" th:src="@{'/uploadImg'+${member?.memberImg}}"
                                          th:attr="srcset=|@{'/uploadImg'+${member?.memberImg}} 1.5x,
                                                           @{'/uploadImg'+${member?.memberImg}} 2x,
@@ -88,13 +85,12 @@
                                          th:attr="srcset=|@{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 1.5x,
                                                           @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 2x,
                                                           @{'/uploadImg/profileImg/2020062511233324595ed8-2c5c-4fb0-9167-30b9fe6751fc.jpg'} 3x|">
-                                    <!-- 로그인한 사용자 프로필 이미지 -->
                                 </div>
                                 <div class="comment-feed__form__input">
                                     <div class="comment-feed__form__content">
                                         <div class="comment-content-input">
                                             <input class="comment-content-input__text comment-feed__form__content__text"
-                                                id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true"/>
+                                                   id="commentContent" name="commentContent" data-ph="댓글을 작성해주세요" contenteditable="true"/>
                                         </div>
                                     </div>
                                     <div class="comment-feed__form__actions">
@@ -138,35 +134,31 @@
                                         <svg class="icon icon--stroke" aria-label="좋아요" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                             <path d="M23.22 7.95c.4 4.94-2.92 9.71-10.92 13.85a.47.47 0 0 1-.42 0C3.88 17.66.56 12.9.96 7.93 1.54 2.48 8.28.3 12.1 4.7c3.8-4.4 10.55-2.22 11.13 3.25z"></path>
                                         </svg>
-                                        <!-- 좋아요 개수 -->
                                         <span class="count" th:text="${photodetail?.likeCount}"></span>
                                     </button>
                                     <button th:if="${likestat == 1}" class="button button--color-gray-4 button--size-50 button--shape-8 card-detail-sidebar__action-item card-item card-detail-sidebar__action-item--active" id="cancellike" type="button">
                                         <svg class="icon icon--stroke" aria-label="좋아요 취소" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                             <path d="M23.22 7.95c.4 4.94-2.92 9.71-10.92 13.85a.47.47 0 0 1-.42 0C3.88 17.66.56 12.9.96 7.93 1.54 2.48 8.28.3 12.1 4.7c3.8-4.4 10.55-2.22 11.13 3.25z"></path>
                                         </svg>
-                                        <!-- 좋아요 개수 -->
                                         <span class="count" th:text="${photodetail?.likeCount}"></span>
                                     </button>
                                     <button th:if="${scrapstat == 0}" class="button button--color-gray-4 button--size-50 button--shape-8 card-detail-sidebar__action-item" id="scrap" type="button">
                                         <svg class="icon icon--stroke" aria-label="스크랩" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                             <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
                                         </svg>
-                                        <!-- 스크랩 개수-->
                                         <span class="count" th:text="${photodetail?.scrapCount}"></span>
                                     </button>
                                     <button th:if="${scrapstat == 1}" class="button button--color-gray-4 button--size-50 button--shape-8 card-detail-sidebar__action-item card-detail-sidebar__action-item--active" id="cancelscrap" type="button">
                                         <svg class="icon icon--stroke" aria-label="스크랩 취소" width="24" height="24" fill="currentColor" viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
                                             <path d="M11.53 18.54l-8.06 4.31A1 1 0 0 1 2 21.97V3.5A1.5 1.5 0 0 1 3.5 2h17A1.5 1.5 0 0 1 22 3.5v18.47a1 1 0 0 1-1.47.88l-8.06-4.31a1 1 0 0 0-.94 0z"></path>
                                         </svg>
-                                        <!-- 스크랩 개수-->
                                         <span class="count" th:text="${photodetail?.scrapCount}"></span>
                                     </button>
                                 </div>
                                 <div class="card-detail-sidebar__content">
                                     <div class="card-detail-writer">
                                         <div class="card-detail-writer__user">
-                                            <a class="card-detail-writer__link" th:href="@{/member/memberProfile/{memberId}(memberId=${photodetail.memberId})}"><!--프로필창으로 이동 -->
+                                            <a class="card-detail-writer__link" th:href="@{/member/memberProfile/{memberId}(memberId=${photodetail.memberId})}">
                                                 <img th:if="${photodetail?.memberImg != null}" class="card-detail-writer__image" th:src="@{'/uploadImg'+${photodetail?.memberImg}}" style="width: 50px; height: 50px;"
                                                      th:attr="srcset=|@{'/uploadImg'+${photodetail?.memberImg}} 1.5x,
                                                                         @{'/uploadImg'+${photodetail?.memberImg}} 2x,
@@ -182,7 +174,6 @@
                                             <button type="button" th:if="${member.memberId} != ${photodetail.memberId}"
                                                     class="button button--color-gray-4 button--size-30 button--shape-4 card-detail-writer__follow"
                                                     id="notesend" name="notesend" >쪽지보내기</button>
-
                                             <input type="hidden" id="memberId" name="memberId" th:value="${photodetail.memberId}">
                                             <input type="hidden" id="receiveId" name="receiveId" value=""/>
                                         </form>
@@ -191,17 +182,17 @@
                                     <div class="card-detail-pc-related-card-list">
                                         <ul class="card-detail-pc-related-card-list__list" >
                                             <th:block th:each="photo : ${userphoto}">
-                                            <li class="card-detail-pc-related-card-list__item">
-                                                <a class="card-detail-pc-related-card-list__item__link" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
-                                                    <img class="card-detail-pc-related-card-list__item__image" alt th:src="@{'/uploadImg'+${photo.photoImg1}}"
-                                                        th:attr="srcset=|@{'/uploadImg'+${photo.photoImg1}} 1.5x,
+                                                <li class="card-detail-pc-related-card-list__item">
+                                                    <a class="card-detail-pc-related-card-list__item__link" th:href="@{/photodetail/{photoBoardNo}(photoBoardNo=${photo.photoBoardNo})}">
+                                                        <img class="card-detail-pc-related-card-list__item__image" alt th:src="@{'/uploadImg'+${photo.photoImg1}}"
+                                                             th:attr="srcset=|@{'/uploadImg'+${photo.photoImg1}} 1.5x,
                                                                         @{'/uploadImg'+${photo.photoImg1}} 2x,
                                                                         @{'/uploadImg'+${photo.photoImg1}} 3x|">
-                                                </a>
-                                            </li>
+                                                    </a>
+                                                </li>
                                             </th:block>
                                         </ul>
-                                           <a class="card-detail-pc-related-card-list__more" th:href="@{/member/allPhoto/{memberId}(memberId=${photodetail.memberId})}">더보기</a><!-- allphoto로 이동? 아니면 없애든지-->
+                                        <a class="card-detail-pc-related-card-list__more" th:href="@{/member/allPhoto/{memberId}(memberId=${photodetail.memberId})}">더보기</a>
                                     </div>
                                 </div>
                             </div>
@@ -211,76 +202,6 @@
             </div>
         </div>
     </div>
-    <!--<div class="form-group">
-        <input type="button" th:if="${likestat == 0}" id="like" name="like" th:value="${photodetail.likeCount}"/>
-        <input type="button" th:if="${likestat == 1}" id="cancellike" name="cancellike" value="좋아요취소"/>
-        <input type="button" th:if="${scrapstat == 0}" id="scrap" name="scrap" value="스크랩"/>
-        <input type="button" th:if="${scrapstat == 1}" id="cancelscrap" name="cancelscrap" value="스크랩취소"/>
-        <input type="hidden" id="user" name="user" th:value="${photodetail.photoBoardNo}"/>
-        <input type="button" th:if="${member} == ${photodetail.memberId}" id="photoup" name="photoup" value="수정"
-        th:onclick="'javascript:update('+${photodetail.photoBoardNo}+');'"/>
-        <input type="button" th:if="${member} == ${photodetail.memberId}" id="photodel" name="photodel" value="삭제"
-               th:onclick="'javascript:del('+${photodetail.photoBoardNo}+');'"/>
-
-    </div>
-
-
-
-    <div class="form-group">
-        <form action="/member/memberProfile" method="post" id="profile" name="profile">
-        <input type="button" th:value="${photodetail.memberId}" id="memberprofile" name="memberprofile" style="background-color: #ffffff; border: 0; outline: 0; width: 100px; height: 30px;"/>
-        <input type="hidden" id="userId" name="userId" value=""/>
-        </form>
-        <form action="/member/noteSending" method="post" id="sending" name="sending">
-        <input type="hidden" id="memberId" name="memberId" th:value="${photodetail.memberId}">
-
-            <input type="button" id="notesend" name="notesend" value="쪽지보내기">
-            <input type="hidden" id="receiveId" name="receiveId" value=""/>
-        </form>
-    </div>
-
-    <div class="form-group">
-        <tr th:each="photo : ${userphoto}">
-            <img th:src="'/uploadImg'+${photo?.photoImg1}" style="width:200px; height: 200px;"/>
-            </th:each>
-        </tr>
-    </div>
-
-    <div class="form-group">
-        <th:block th:text="${photodetail?.areaType}" />
-        <th:block th:text="${photodetail?.houseType}" />
-        <th:block th:text="${photodetail?.styleType}" />
-        <th:block th:text="${photodetail?.placeType}" />
-    </div>
-
-    <div class="form-group">
-        <img th:if="${photodetail.photoImg1 != null}" th:src="'/uploadImg'+${photodetail?.photoImg1}" style="width: 500px; height: 500px;"/>
-        <img th:if="${photodetail.photoImg2 != null}" th:src="'/uploadImg'+${photodetail?.photoImg2}" style="width: 500px; height: 500px;"/>
-        <img th:if="${photodetail.photoImg3 != null}" th:src="'/uploadImg'+${photodetail?.photoImg3}" style="width: 500px; height: 500px;"/>
-        <img th:if="${photodetail.photoImg4 != null}" th:src="'/uploadImg'+${photodetail?.photoImg4}" style="width: 500px; height: 500px;"/>
-        <img th:if="${photodetail.photoImg5 != null}" th:src="'/uploadImg'+${photodetail?.photoImg5}" style="width: 500px; height: 500px;"/>
-    </div>
-
-    <div class="form-group">
-        <th:block th:text="${photodetail.photoContent}"/>
-    </div>
-
-    <div class="form-group">
-        <form id="comment" method="post" name="comment">
-        <p>댓글&nbsp;&nbsp;<th:block th:text="${commentCount}"/></p>
-            <input type="text" id="commentContent" name="commentContent" placeholder="댓글을 입력하세요"/>
-        <input type="hidden" id="photoBoardNo" name="photoBoardNo" th:value="${photodetail.photoBoardNo}"/>
-        <input type="button" id="pCommentInsert" name="pCommentInsert" value="작성"/>
-        </form>
-        <br>
-        <table type="table table-hover">
-        <tr th:each="pComment : ${photoComment}">
-            <td th:text="${pComment.memberId}"></td>
-            <td th:text="${pComment.commentContent}"></td>
-        </th:each>
-        </tr>
-        </table>
-    </div>-->
 </div>
 </body>
 </html>

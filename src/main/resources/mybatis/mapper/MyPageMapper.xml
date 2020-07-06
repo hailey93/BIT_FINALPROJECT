@@ -40,16 +40,6 @@
         DELETE FROM follow WHERE followId = #{followId} AND memberId = #{memberId}
     </delete>
 
-    <!--팔로우 카운트-->
-    <select id="followCount" resultType="int">
-        SELECT count(*) FROM thehouse.follow WHERE memberId=#{memberId}
-    </select>
-
-    <!--팔로잉 카운트-->
-    <select id="followingCount" resultType="int">
-        SELECT count(*) FROM thehouse.follow WHERE followId=#{memberId}
-    </select>
-
     <select id="myProfile" resultType="MemberVO">
         SELECT nickName, memberImg, memberIntro, memberId
         FROM member
@@ -64,12 +54,6 @@
         LIMIT 4;
     </select>
 
-    <select id="photoCount" resultType="int">
-        SELECT count(*)
-        FROM photoboard
-        WHERE memberId = #{memberId}
-    </select>
-
     <select id="profileScrap" resultType="ScrapVO">
         SELECT s.scrapNo, p.memberId, p.photoBoardNo, p.photoImg1
         FROM scrap s INNER JOIN photoboard p
@@ -77,12 +61,6 @@
         WHERE s.memberId = #{memberId}
         ORDER BY s.scrapNo desc
         LIMIT 4;
-    </select>
-
-    <select id="scrapCount" resultType="int">
-        SELECT count(*)
-        FROM scrap
-        WHERE memberId=#{memberId}
     </select>
 
     <select id="allPhoto" resultType="PhotoBoardVO">
@@ -119,6 +97,28 @@
     <delete id="deleteNote" parameterType="int">
         DELETE FROM msg WHERE msgNo = #{msgNo}
     </delete>
+
+    <!--팔로우 카운트-->
+    <select id="followCount" resultType="int">
+        SELECT count(*) FROM thehouse.follow WHERE memberId=#{memberId}
+    </select>
+
+    <!--팔로잉 카운트-->
+    <select id="followingCount" resultType="int">
+        SELECT count(*) FROM thehouse.follow WHERE followId=#{memberId}
+    </select>
+
+    <select id="photoCount" resultType="int">
+        SELECT count(*)
+        FROM photoboard
+        WHERE memberId = #{memberId}
+    </select>
+
+    <select id="scrapCount" resultType="int">
+        SELECT count(*)
+        FROM scrap
+        WHERE memberId=#{memberId}
+    </select>
 
     <select id="followerCount" resultType="int">
         SELECT count(*)

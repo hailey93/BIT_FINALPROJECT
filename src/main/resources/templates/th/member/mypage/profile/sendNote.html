@@ -11,7 +11,6 @@
     </th:block>
     <script type="text/javascript" th:src="@{/js/profile.js}"></script>
 </head>
-
 <body>
 <div layout:fragment="content">
     <div class="container">
@@ -45,29 +44,19 @@
                     <th>쪽지내용</th>
                     <th>받은사람</th>
                 </tr>
-
                 <th:block th:each="send : ${sendnote}">
                     <tr>
-
                         <td class="select_note">
                             <input type="checkbox" name="check" id="check" th:data-No="${send.msgNo}"
                                    th:data-sendId="${send.receiveId}"/>
                         </td>
                         <td th:onclick="" th:text="${send.msgContent}">
-                            <!--<span class="sub" th:text="${send.msgContents}" />--><!-- onclick에 ajax 연결 경로-->
                             <textarea id="sub" name="sub" th:text="${send.msgContent}"
                                       style="width:500px; height:150px; /*display: none*/" readonly></textarea>
                         </td>
-
                         <td th:text="${send.receiveId}"/>
                     </tr>
                 </th:block>
-                <!--<tr>
-                    <td></td>
-                    <td><textarea id="sub" name="sub" th:text="${send.msgContents}" style="width:500px; height:150px; display: none" readonly></textarea></td>
-                </tr>-->
-
-
             </table>
             <input type="hidden" id="receiveId" name="receiveId" value=""/>
         </form>

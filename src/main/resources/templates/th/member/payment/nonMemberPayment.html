@@ -79,6 +79,15 @@
                                     </div>
                                 </th:block>
                                 <th:block th:unless="${nonMemberBasketList != null}">
+                                    <input type="hidden" name="orderQty"  th:value=1><br>
+                                    <input type="hidden" name="productNo" id="productNo"
+                                           th:value="${productVO.productNo}"><br>
+                                    <input type="hidden" name="colorName" id="colorName"
+                                           th:value="${productVO.colorVO.colorType}"><br>
+                                    <input type="hidden" name="totalPrice" id="totalPrice"
+                                           th:value="${productVO.purchasePrice}"><br>
+                                    <input type="hidden" name="productName" id="productName"
+                                           th:value="${productVO.productName}">
                                     <div class="information">
                                         <img th:src="@{'/uploadImg/'+${productVO.getProductMainImg()}}" alt="320">
                                         <div>
@@ -391,12 +400,14 @@
                 //IMP.request_pay(param, callback) 호출
                 console.log("실험 : " + $('#order_payer_email').val() + $('#order_payer_name').val() + $('#order_payer_phone_number').val()
                     + $('#order_received_at').val());
+                console.log("프로덕트No" + $('#productNo').val()+"colorName : " +$('#colorName').val()+"totalPrice : "+ $('#totalPrice').val()
+                    + "큐티와"+$('#orderQty').val());
                 IMP.request_pay({ // param
                     pg: "inicis",
                     pay_method: "card",
                     merchant_uid: 'merchant_' + new Date().getTime(),
-                    name: $('#productNameTest').text() + " 외",
-                    amount: 1,
+                    name: $('#productName').val(),
+                    amount: 100,
                     buyer_email: $('#order_payer_email').val(),
                     buyer_name: $('#order_payer_name').val(),
                     buyer_tel: $('#order_payer_phone_number').val(),
@@ -411,6 +422,8 @@
                         nowTime += '-' + (now.getMonth() + 1);
                         nowTime += '-' + now.getDate();
                         console.log(now + " nowTime" + nowTime);
+
+
                         /*var source = {
                         orderNo : nowTime+"-2599",
                         productNo : $('#productNo').val(),
@@ -449,7 +462,7 @@
                             },
                             success: function () {
                                 alert("결제가 완료되었습니다.홈으로 이동합니다.");
-                                //location.href = "/";
+                                location.href = "/";
                                 console.log("세션을 삭제합니다");
                                 localStorage.removeItem("saveL");
                             },

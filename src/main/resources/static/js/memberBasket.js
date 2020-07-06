@@ -1,17 +1,17 @@
 
-    /*$(document).ready(function(){
+/*$(document).ready(function(){
 
-        $(셀렉트박스 option).each(function(){
+    $(셀렉트박스 option).each(function(){
 
-            if($(this).val()=="${DB값}"){
+        if($(this).val()=="${DB값}"){
 
-                $(this).attr("selected","selected"); // attr적용안될경우 prop으로
+            $(this).attr("selected","selected"); // attr적용안될경우 prop으로
 
-            }
+        }
 
-        });
+    });
 
-    });*/
+});*/
 
 
 
