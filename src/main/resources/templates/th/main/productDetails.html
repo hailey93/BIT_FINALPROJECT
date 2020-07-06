@@ -14,28 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
     <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/assets/v3/layout/application_react-c68374e516e05258989e1c408ec53ff0ffa468ef1755a945c31caf2e365af3d0.css">
     <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/9-e75c67c6.chunk.css">
     <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/20-dfb1ddc9.chunk.css">
-    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/App-18d780d3.css">
-    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/15-82708389.chunk.css">
-    <link rel="stylesheet" media="screen" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Cart-2ea5daa5.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/7-254b0bc7.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/12-69bdf3b3.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Home-HomePage-23b340c6.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/2-a868d236.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/6-c0386d07.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/13-0f9754c8.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/29-45fb8d35.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Content-CardFeed-CardCollectionFeed-b4eb851d.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-RankingFeed-312e334b.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/14-ce81812a.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Content-ProjectFeed-978244ed.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Advice-AdviceFeed-8da7faa1.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/32-f41a52da.chunk.css">
-    <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-StoreIndex-StoreIndex-85ea7969.chunk.css">
     <link rel="stylesheet" type="text/css" href="https://d1nyaccf3kuclt.cloudfront.net/dist/css/templates-Commerce-Selling-d79c1417.chunk.css">
 
 
@@ -322,7 +304,6 @@
         var memId2 = [[${jsonText}]];
         var memId = JSON.parse(memId2);
 
-        console.log("memId : " + memId);
         var first;
         var i = 0;
         var goSession;
@@ -342,16 +323,9 @@
 
         if (localCheck != null) {
             localStored = JSON.parse(localCheck);
-            console.log("로칼 stroed : " + localStored);
             b = localStored.length;
-            console.log("로칼 len : " + b);
-            for (var i = 0; i < b; i++) {
-                console.log(localStored[i]);
-            }
         } else {
-            console.log("localSession업음");
             b = 0;
-            console.log("stored없음");
         }
 
         if (sessionCheck != null) {
@@ -366,7 +340,6 @@
 
         function saveSessionStorage() {
             if (memId == null) {
-                console.log("saveSessionStorage 실행");
 
                 var value = document.getElementById("productNo").value;
                 var colorValue = $('#inputGroupSelect01').val();
@@ -379,28 +352,19 @@
                     window.location.href = '/';
                 } else {
                     if (localSessionItem == null) {
-                        console.log("localSessionItem is Null입니다")
                         b = 0;
-                        console.log("before arr : " + arr);
                         localStored[0] = arr;
-                        console.log(localStored[0]);
-                        console.log("생 arr : " + localStored);
                         first = "첫번째";
                         localStorage.setItem("saveL", JSON.stringify(localStored));
                     } else {
                         first = "두번째";
                         b = 0;
-                        console.log("localSession is not Null : ");
                         for (var i = 0; i < localStored.length; i++) {
-                            console.log("localStored : " + localStored);
                             if (localStored[b][0] == value && localStored[b][1] == colorValue) {
-                                console.log("로컬 이미 저장돼있습니다");
                                 break;
                             }
                             if (localStored[b + 1] == undefined) {
-                                console.log(b);
                                 localStored[b + 1] = arr;
-                                console.log("b+1은? " + localStored[b + 1] + " & localStored : " + localStored);
                                 localStorage.setItem("saveL", JSON.stringify(localStored));
                                 break;
                             }
@@ -415,13 +379,11 @@
                 var selectOption = $('#inputGroupSelect01').val();
                 var qty = document.getElementById("hohoBox").value;
                 var pNo = document.getElementById("productNo").value;
-                console.log("pNo" + pNo);
                 if (selectOption == "") {
                     alert("다시 골라요");
                     window.location.href = '/';
                 } else {
                     $.ajax({ // 세션 보내기 ajax
-                        //console.log("hi");
                         url: "/basketMember",
                         type: "POST",
                         data: {
@@ -432,12 +394,10 @@
                         }
                         ,
                         success: function (e) {
-                            console.log("basketMem 완료")
                             goModal();
                             //window.open('/basketPop', '_blank', 'width=300px,height=300px,resizable=no,scrollbars=no,status=no,left=0px,top=0px');
                         },
                         error: function () {
-                            console.log("test err");
                         }
                     });
                 }
@@ -446,18 +406,10 @@
 
         function ajaxSessionStorage() {
 
-            console.log("ajaxSessionStorage 실행");
             hoho = [localStorage.getItem("saveL")];
-            console.log("real" + hoho + "len" + hoho.length);
             hoSession = JSON.parse(localStorage.getItem("saveL"));
-            console.log("ex" + hoSession.length + hoSession);
-            /* JSON.stringify(hoSession);
-             console.log("af"+JSON.stringify(hoSession).length+JSON.stringify(hoSession));
-             JSON.parse(hoSession);
-             console.log("prse :" + JSON.parse(hoSession).length+JSON.parse(hoSession));*/
             var go = 'ho';
             $.ajax({ // 세션 보내기 ajax
-                //console.log("hi");
                 url: "/basketLocal",
                 type: "POST",
                 traditional: true,
@@ -474,86 +426,6 @@
                 }
             });
         }
-
-        // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ 로컬끝
-        /*if (sessionCheck == null) {
-            console.log("sessionCheck is null");
-            while (true) {
-                console.log(a + "번째");
-                if (valList[a] == null) {
-                    valList[a] = value;
-                    break;
-                }
-                a++;
-            }
-            sessionStorage.setItem("ProductNameSession", JSON.stringify(valList));
-        } else {
-            a = 0;
-            console.log("sessionCheck is  not null");
-            while (true) {
-                if (stored[a] == value) {
-                    alert("세션 이미 저장돼있습니다");
-                    break;
-                }
-                if (stored[a] == null) {
-                    stored[a] = value;
-                    break;
-                } else {
-                }
-                a++;
-            }
-            sessionStorage.setItem("ProductNameSession", JSON.stringify(stored));
-        }
-
-
-        // setItem( ) 메서드를 이용하여 key를 지정하고, value값을 세션에 저장한다.
-        // sessionStorage.setItem(key, value);
-        //console.log("@@@@@@@@@@@@@@@ valList : "+valList);
-
-        }
-        else
-        {
-        console.log("memId : ~ajax " + memId);
-
-        var selectOption = document.getElementById("inputGroupSelect01");
-        console.log(selectOption);
-        selectOption = selectOption.options[selectOption.selectedIndex].value;
-        console.log("옵션 : " + selectOption);
-        var qty = document.getElementById("qty").value;
-        console.log("qty : " + qty | 0);
-        //var pName = document.getElementById("pName").value;
-        //console.log("pName" + pName);
-        var pNo = document.getElementById("productNo").value;
-        console.log("pNo" + pNo);
-
-        if (qty == "") {
-            alert("숫자 입력하세요");
-
-        } else {
-            $.ajax({ // 세션 보내기 ajax
-                //console.log("hi");
-                url: "/basketMember",
-                type: "POST",
-                data: {
-                    memberId: memId,
-                    productNo: pNo,
-                    productColor: selectOption,
-                    qty: qty
-                }
-                ,
-                success: function (e) {
-                    alert("basketMem 완료")
-
-                },
-                error: function () {
-                    alert("test err");
-                }
-            });
-        }
-
-        }
-        }
-        */
 
 
     </script>
