@@ -28,3 +28,8 @@
 - Open Api : 카카오페이 API, 이니시스 API, Naver Smart Editor
 
 - Tool : IntelliJ, GitHub, eXerd, starUML
+
+
+주의사항
+-추천트레이닝파일에 없는 상품 클릭후 메인페이지로 나올시 500에러 ex)신규상품, 상품모델명 수정, 상품삭제시
+-->상품 등록후 clickproduct 테이블에 비슷한 상품이랑 함께 넣어 데이터 만든후 관리자-회원관리-추천트레이닝 접속후 트레이닝하기 클릭하면 해결됨.
