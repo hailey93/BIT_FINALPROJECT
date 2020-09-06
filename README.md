@@ -8,10 +8,15 @@
 #담당파트
 
 1.딥러닝을 이용한 상품추천(DL4J, word2vec)
+
 -구현 코드(recommenderProcess)
+
 2.stomp.js와 레디스를 이용한 채팅프로그램
+
 -구현 코드(chattingProcess)
+
 3.메인 상품 랜덤 무한스크롤, 스토어베스트페이지
+
 -구현 코드(MainController)
 
 #사용기술
